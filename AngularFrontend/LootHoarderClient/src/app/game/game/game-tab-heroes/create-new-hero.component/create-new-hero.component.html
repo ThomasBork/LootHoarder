@@ -1,0 +1,18 @@
+<div class="hero-type-selector">
+  <span 
+    class="hero-type-selector-arrow-button"
+    (click)="choosePreviousHeroType()"
+  >&lt;</span>
+  <span class="hero-information">
+    <div>{{ selectedHeroType.name }}</div>
+    <div>{{ selectedHeroType.description }}</div>
+    <div>Image</div>
+    <div>Ability types</div>
+  </span>
+  <span 
+    class="hero-type-selector-arrow-button"
+    (click)="chooseNextHeroType()"
+  >&gt;</span>
+</div>
+<input type="text" [(ngModel)]="heroName" />
+<button (click)="createNewHero()">Create hero</button>

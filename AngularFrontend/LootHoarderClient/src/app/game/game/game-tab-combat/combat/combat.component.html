@@ -1,0 +1,16 @@
+<div>
+  <ul class="team1-characters">
+    <li *ngFor="let character of combat.team1">
+      <app-combat-character
+        [character]="character"
+      ></app-combat-character>
+    </li>
+  </ul>
+  <ul class="team2-characters">
+    <li *ngFor="let character of combat.team2">
+      <app-combat-character
+        [character]="character"
+      ></app-combat-character>
+    </li>
+  </ul>
+</div>

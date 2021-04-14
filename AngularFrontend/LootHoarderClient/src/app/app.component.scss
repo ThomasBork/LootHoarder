@@ -1,0 +1,24 @@
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    flex: 0 0 auto;
+
+    .right-side {
+      &>a {
+        margin-left: 10px;
+      }
+    }
+  }
+  
+  .content {
+    flex: 1 1 0;
+    padding: 10px;
+  }
+}

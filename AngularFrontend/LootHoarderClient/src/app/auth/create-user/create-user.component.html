@@ -1,0 +1,10 @@
+<div class="form-container">
+  <div class="form">
+    <p>Enter user name, password, and email</p>
+    <input type="text" placeholder="User name" [(ngModel)]="userName" />
+    <input type="password" placeholder="Password" [(ngModel)]="password"  />
+    <input type="password" placeholder="Retype password" [(ngModel)]="password2"  />
+    <input type="text" placeholder="Email" [(ngModel)]="email" />
+    <button (click)="createUser()">Create user</button>
+  </div>
+</div>

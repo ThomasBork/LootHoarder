@@ -1,0 +1,16 @@
+<ul class="game-list">
+  <li 
+    *ngFor="let game of games"
+    class="game"
+    (click)="goToGame(game.id)"
+  >
+    <div>Game created at {{ game.createdAt | date: 'yyyy-MM-dd, HH:mm' }}</div>
+    <div>Click to continue</div>
+  </li>
+  <li 
+    class="new-game-button"
+    (click)="createGame()"
+  >
+    <span>Start new game</span>
+  </li>
+</ul>

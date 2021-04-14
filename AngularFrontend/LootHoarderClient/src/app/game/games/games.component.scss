@@ -1,0 +1,21 @@
+.game-list {
+  width: 500px;
+
+  .game, .new-game-button {
+    height: 100px;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .game {
+    margin-bottom: 10px;
+    background-color: lightgrey;
+  }
+
+  .new-game-button {
+    background-color: lightblue;
+  }
+}

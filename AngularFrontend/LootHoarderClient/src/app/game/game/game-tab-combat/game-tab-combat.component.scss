@@ -1,0 +1,22 @@
+.content {
+  display: flex;
+  height: 100%;
+
+  .left-side {
+    background-color: lightgrey;
+    flex: 0 0 200px;
+    padding: 5px;
+
+    .area {
+      background-color: #EEEEEE;
+      margin-bottom: 5px;
+      padding: 5px;
+      user-select: none;
+      cursor: pointer;
+
+      &.selected {
+        background-color: lightblue;
+      }
+    }
+  }
+}

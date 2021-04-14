@@ -1,0 +1,21 @@
+<ul class="hero-list">
+  <li
+    *ngFor="let hero of heroes"
+    class="hero-container"
+  >
+    <app-label-with-value
+      [label]="'Name'"
+      [value]="hero.name"
+    ></app-label-with-value>
+    <app-label-with-value
+      [label]="'Level'"
+      [value]="hero.level"
+    ></app-label-with-value>
+  </li>
+  <li 
+    class="new-hero-button"
+    (click)="newHero()"
+  >
+    Create new hero
+  </li>
+</ul>

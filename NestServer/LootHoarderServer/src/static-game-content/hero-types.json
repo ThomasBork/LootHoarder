@@ -1,0 +1,14 @@
+[
+  {
+    "key": "berserker",
+    "name": "Berserker",
+    "description": "Uses brute force to defeat the enemies.",
+    "abilityTypes": ["basic-attack"]
+  },
+  {
+    "key": "wizard",
+    "name": "Wizard",
+    "description": "Uses magic to defeat the enemies.",
+    "abilityTypes": ["basic-attack", "lightning-bolt"]
+  }
+]

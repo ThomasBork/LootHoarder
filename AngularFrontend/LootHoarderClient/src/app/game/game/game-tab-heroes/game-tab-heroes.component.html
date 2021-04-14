@@ -1,0 +1,11 @@
+<app-hero-list 
+  *ngIf="!isCreatingNewHero"
+  [heroes]="game.heroes"
+  (newHeroClick)="openCreateNewHero()"
+>
+</app-hero-list>
+
+<app-create-new-hero 
+  *ngIf="isCreatingNewHero"
+  (createHero)="closeCreateNewHero()"
+></app-create-new-hero>

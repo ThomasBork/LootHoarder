@@ -1,0 +1,13 @@
+<div 
+  *ngFor="let areaType of areaTypes"
+  class="area-type-container"
+  (click)="enterAreaType(areaType)"
+>
+  <div>{{areaType.name}}</div>
+  <div>{{areaType.description}}</div>
+  <div>{{areaType.level}}</div>
+  <div>Instances</div>
+  <div *ngFor="let area of getAreasWithType(areaType)">
+    Heroes: {{area.heroes.length}}
+  </div>
+</div>

@@ -1,0 +1,27 @@
+<div 
+  class="content"
+>
+  <div *ngIf="areas.length === 0">Start a combat by entering an area on the world tab.</div>
+  <ng-container *ngIf="areas.length > 0 && selectedArea">
+    <div class="left-side">
+      <ul class="area-list">
+        <li 
+          *ngFor="let area of areas"
+          class="area"
+          [class.selected]="selectedArea === area"
+          (click)="selectArea(area)"
+        >
+          <div class="header">
+            <div>{{ area.type.name }} - {{ area.type.level }}</div>
+          </div>
+          <div class="body">
+            <div *ngFor="let hero of area.heroes">Hero: {{hero.combatCharacter.name}}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="area-container">
+      <app-combat [combat]="selectedArea.currentCombat"></app-combat>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,51 @@
+<div class="tabs-container">
+  <ul class="tab-buttons">
+    <li 
+      class="tab-button"
+      [class.selected]="selectedTab === 'world'"
+      (click)="changeTab('world')"
+    >
+      World
+    </li>
+    <li 
+      class="tab-button"
+      [class.selected]="selectedTab === 'heroes'"
+      (click)="changeTab('heroes')"
+    >
+      Heroes
+    </li>
+    <li 
+      class="tab-button"
+      [class.selected]="selectedTab === 'combat'"
+      (click)="changeTab('combat')"
+    >
+      Combat
+    </li>
+    <li 
+      class="tab-button"
+      [class.selected]="selectedTab === 'settings'"
+      (click)="changeTab('settings')"
+    >
+      Settings
+    </li>
+  </ul>
+  
+  <div class="tab-content">
+    <app-game-tab-world
+      *ngIf="selectedTab === 'world'"
+      [game]="game"
+    ></app-game-tab-world>
+
+    <app-game-tab-heroes
+      *ngIf="selectedTab === 'heroes'"
+      [game]="game"
+    ></app-game-tab-heroes>
+
+    <app-game-tab-combat
+      *ngIf="selectedTab === 'combat'"
+      [game]="game"
+    ></app-game-tab-combat>
+    
+    <div *ngIf="selectedTab === 'combats'">Combats content</div>
+  </div>
+</div>
