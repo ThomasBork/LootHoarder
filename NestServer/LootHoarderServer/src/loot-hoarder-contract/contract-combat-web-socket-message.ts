@@ -1,5 +1,5 @@
-import { ContractMessageType } from "./contract-message-type";
-import { ContractWebSocketMessage } from "./contract-web-socket-message";
+import { ContractServerMessageType } from "./contract-server-message-type";
+import { ContractServerWebSocketMessage } from "./contract-server-web-socket-message";
 import { ContractCombatWebSocketInnerMessage } from "./contract-combat-web-socket-inner-message";
 
 export interface ContractCombatWebSocketMessageContent<T = any> {
@@ -7,11 +7,11 @@ export interface ContractCombatWebSocketMessageContent<T = any> {
   innerMessage: ContractCombatWebSocketInnerMessage<T>;
 }
 
-export class ContractCombatWebSocketMessage<T = any> implements ContractWebSocketMessage {
-  public typeKey: string;
+export class ContractCombatWebSocketMessage<T = any> implements ContractServerWebSocketMessage {
+  public typeKey: ContractServerMessageType;
   public data: ContractCombatWebSocketMessageContent<T>;
   public constructor(combatId: number, innerMessage: ContractCombatWebSocketInnerMessage<T>) {
-    this.typeKey = ContractMessageType.combat;
+    this.typeKey = ContractServerMessageType.combat;
     this.data = {
       combatId,
       innerMessage

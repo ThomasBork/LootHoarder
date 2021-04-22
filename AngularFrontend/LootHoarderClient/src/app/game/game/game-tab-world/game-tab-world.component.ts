@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EnterAreaMessage } from '../../web-socket/enter-area-message';
 import { WebSocketService } from '../../web-socket/web-socket.service';
 import { Area } from '../client-representation/area';
 import { Game } from '../client-representation/game';
 import { AreaType } from '../client-representation/area-type';
+import { ContractEnterAreaMessage } from 'src/loot-hoarder-contract/client-actions/contract-enter-area-message';
 
 @Component({
   selector: 'app-game-tab-world',
@@ -23,7 +23,7 @@ export class GameTabWorldComponent {
   }
 
   public enterAreaType(areaType: AreaType): void {
-    const message = new EnterAreaMessage(areaType.key, [this.game.heroes[0].id]);
+    const message = new ContractEnterAreaMessage(areaType.key, [this.game.heroes[0].id]);
     this.webSocketService.send(message);
   }
 

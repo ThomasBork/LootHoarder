@@ -4,7 +4,7 @@ import { Game } from 'src/computed-game-state/game';
 import { Connection } from './connection';
 import { GameCommunicationsWrapper } from './game-communications-wrapper';
 import { Hero } from 'src/computed-game-state/hero';
-import { ContractWebSocketMessage } from 'src/loot-hoarder-contract/contract-web-socket-message';
+import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/contract-server-web-socket-message';
 
 @Injectable()
 export class GamesManager {
@@ -50,7 +50,7 @@ export class GamesManager {
     wrapper.setConnection(connection);
   }
   
-  public sendMessage(game: Game, message: ContractWebSocketMessage): void {
+  public sendMessage(game: Game, message: ContractServerWebSocketMessage): void {
     const wrapper = this.gameCommunicationsWrappers.find(w => w.game === game);
     if (!wrapper) {
       return undefined;

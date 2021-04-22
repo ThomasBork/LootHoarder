@@ -1,6 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EnterAreaMessage } from '../../web-socket/enter-area-message';
-import { WebSocketService } from '../../web-socket/web-socket.service';
 import { Area } from '../client-representation/area';
 import { Game } from '../client-representation/game';
 

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CreateHeroMessage } from 'src/app/game/web-socket/create-hero-message';
 import { WebSocketService } from 'src/app/game/web-socket/web-socket.service';
 import { AssetManagerService } from '../../client-representation/asset-manager.service';
 import { HeroType } from '../../client-representation/hero-type';
+import { ContractCreateHeroMessage } from 'src/loot-hoarder-contract/client-actions/contract-create-hero-message'
 
 @Component({
   selector: 'app-create-new-hero',
@@ -48,7 +48,7 @@ export class CreateNewHeroComponent implements OnInit {
   }
 
   public createNewHero(): void {
-    const message = new CreateHeroMessage(this.selectedHeroType.key, this.heroName);
+    const message = new ContractCreateHeroMessage(this.selectedHeroType.key, this.heroName);
     this.webSocketService.send(message);
     this.createHero.emit();
   }

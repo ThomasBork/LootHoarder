@@ -94,6 +94,7 @@ export class GameStateMapper {
   public mapToCombatCharacter(serverCombatCharacter: ContractCombatCharacter): CombatCharacter {
     return new CombatCharacter(
       serverCombatCharacter.id,
+      serverCombatCharacter.typeKey,
       serverCombatCharacter.controllingUserId,
       serverCombatCharacter.name,
       serverCombatCharacter.currentHealth

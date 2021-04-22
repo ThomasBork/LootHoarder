@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
+import { ContractCombatCharacter } from 'src/loot-hoarder-contract/contract-combat-character';
 import { DbCombatCharacter } from 'src/raw-game-state/db-combat-character';
-import { UICombatCharacter } from 'src/ui-game-state/ui-combat-character';
 import { AttributeSet } from '../attribute-set';
 import { Ability } from './ability';
 
@@ -55,7 +55,7 @@ export class CombatCharacter {
     this._targetOfAbilityBeingUsed = target;
   }
 
-  public getUIState(): UICombatCharacter {
+  public getUIState(): ContractCombatCharacter {
     return {
       id: this.dbModel.id,
       typeKey: this.dbModel.typeKey,

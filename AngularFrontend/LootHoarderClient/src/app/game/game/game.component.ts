@@ -2,12 +2,15 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ContractArea } from 'src/loot-hoarder-contract/contract-area';
 import { ContractHero } from 'src/loot-hoarder-contract/contract-hero';
-import { WebSocketMessage } from '../web-socket/web-socket-message';
 import { WebSocketService } from '../web-socket/web-socket.service';
 import { Game } from './client-representation/game';
 import { CombatMessageHandler } from './combat-message-handler';
 import { GameStateMapper } from './game-state-mapper';
 import { AssetManagerService } from './client-representation/asset-manager.service';
+import { ContractClientMessageType } from 'src/loot-hoarder-contract/contract-client-message-type';
+import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/contract-server-web-socket-message';
+import { ContractServerMessageType } from 'src/loot-hoarder-contract/contract-server-message-type';
+import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/contract-combat-web-socket-inner-message';
 
 @Component({
   selector: 'app-game',
@@ -49,14 +52,14 @@ export class GameComponent implements OnInit, OnDestroy {
       .then(() => {
         this.isConnected = true;
         this.webSocketService.onMessage.subscribe((message) => this.handleMessage(message));
-        this.webSocketService.send({ typeKey: 'load-game', data: { gameId: this.gameId } });
+        this.webSocketService.send({ typeKey: ContractClientMessageType.loadGame, data: { gameId: this.gameId } });
       })
       .finally(() => this.isConnecting = false);
   }
 
-  private handleMessage(message: WebSocketMessage): void {
+  private handleMessage(message: ContractServerWebSocketMessage): void {
     console.log("Game message received: ", message);
-    if (message.typeKey === 'full-game-state'){
+    if (message.typeKey === ContractServerMessageType.fullGameState){
       this.game = this.gameStateMapper.mapToGame(message.data.game);
       return;
     }
@@ -66,21 +69,21 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     switch (message.typeKey) {
-      case 'hero-added': {
+      case ContractServerMessageType.heroAdded: {
         const serverHero = message.data.hero as ContractHero;
         const hero = this.gameStateMapper.mapToHero(serverHero);
         this.game.heroes.push(hero);
       }
       break;
-      case 'area-created': {
+      case ContractServerMessageType.areaAdded: {
         const serverArea = message.data.area as ContractArea;
         const area = this.gameStateMapper.mapToArea(serverArea);
         this.game.areas.push(area);
       }
       break;
-      case 'combat': {
+      case ContractServerMessageType.combat: {
         const combatId = message.data.combatId as number;
-        const innerMessage = message.data.innerMessage as WebSocketMessage;
+        const innerMessage = message.data.innerMessage as ContractCombatWebSocketInnerMessage;
         this.combatMessageHandler.handleMessage(this.game, combatId, innerMessage);
       }
       break;

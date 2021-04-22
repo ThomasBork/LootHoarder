@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs';
 import { ContractAreaCreatedMessage } from 'src/loot-hoarder-contract/contract-area-created-message';
 import { ContractHeroAddedMessage } from 'src/loot-hoarder-contract/contract-hero-added-message';
-import { ContractWebSocketMessage } from 'src/loot-hoarder-contract/contract-web-socket-message';
+import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/contract-server-web-socket-message';
 import { DbGame } from 'src/raw-game-state/db-game';
 import { StaticGameContentService } from 'src/services/static-game-content-service';
 import { UIGame } from 'src/ui-game-state/ui-game';
@@ -14,7 +14,7 @@ export class Game {
   public completedAreaTypes!: AreaType[];
   public availableAreaTypes!: AreaType[];
   public areas: Area[];
-  public onEvent: Subject<ContractWebSocketMessage>;
+  public onEvent: Subject<ContractServerWebSocketMessage>;
   
   private dbModel: DbGame;
 

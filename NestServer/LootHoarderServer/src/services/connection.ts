@@ -1,13 +1,15 @@
 import { Logger } from '@nestjs/common';
 import { Subject } from 'rxjs';
 import { User } from 'src/computed-game-state/user';
-import { ContractWebSocketMessage } from 'src/loot-hoarder-contract/contract-web-socket-message';
+import { ContractClientWebSocketMessage } from 'src/loot-hoarder-contract/contract-client-web-socket-message';
+import { ContractServerMessageType } from 'src/loot-hoarder-contract/contract-server-message-type';
+import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/contract-server-web-socket-message';
 import WebSocket from 'ws';
 
 export class Connection {
   public user?: User;
   public socket: WebSocket;
-  public onMessage: Subject<ContractWebSocketMessage>;
+  public onMessage: Subject<ContractClientWebSocketMessage>;
   
   private logger: Logger = new Logger('Connection');
   
@@ -32,11 +34,17 @@ export class Connection {
         const authToken = message;
         const player = await this.userAuthenticator(authToken);
         if (player === null) {
-          this.sendMessage({ typeKey: 'authentication-response', data: { success: false, error: `Could not authenticate with the token: "${authToken}"` }});
+          this.sendMessage({ 
+            typeKey: ContractServerMessageType.authenticationResponse, 
+            data: { success: false, error: `Could not authenticate with the token: "${authToken}"` }
+          });
           this.socket.close();
         } else {
           this.user = player;
-          this.sendMessage({ typeKey: 'authentication-response', data: { success: true }});
+          this.sendMessage({ 
+            typeKey: ContractServerMessageType.authenticationResponse, 
+            data: { success: true }
+          });
         }
       } else {
         let messageObject = null;
@@ -50,7 +58,7 @@ export class Connection {
     };
   }
 
-  public sendMessage(message: ContractWebSocketMessage): void {
+  public sendMessage(message: ContractServerWebSocketMessage): void {
     this.socket.send(JSON.stringify(message));
   }
 }

@@ -1,5 +1,5 @@
 import { Subject } from "rxjs";
-import { ContractWebSocketMessage } from "src/loot-hoarder-contract/contract-web-socket-message";
+import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/contract-server-web-socket-message";
 import { DbArea } from "src/raw-game-state/db-area";
 import { StaticGameContentService } from "src/services/static-game-content-service";
 import { UIArea } from "src/ui-game-state/ui-area";
@@ -12,7 +12,7 @@ export class Area {
   public type: AreaType;
   public heroes: AreaHero[];
   public currentCombat: Combat;
-  public onEvent: Subject<ContractWebSocketMessage>;
+  public onEvent: Subject<ContractServerWebSocketMessage>;
 
   private constructor(
     dbModel: DbArea, 

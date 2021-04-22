@@ -13,6 +13,8 @@ import { User } from './computed-game-state/user';
 import { DbLoginRepository } from './persistence/db-login-repository';
 import { GameService } from './services/game-service';
 import { GamesManager } from './services/games-manager';
+import { ContractClientMessageType } from './loot-hoarder-contract/contract-client-message-type';
+import { ContractServerMessageType } from './loot-hoarder-contract/contract-server-message-type';
 
 @WebSocketGateway()
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -55,21 +57,16 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
     const subscription = connection.onMessage.subscribe(async (message) => {
       this.logger.log('Received message: ' + JSON.stringify(message))
-      if (message.typeKey === 'load-game') {
+      if (message.typeKey === ContractClientMessageType.loadGame) {
         const gameId = message.data.gameId;
         const game = await this.gameService.loadGame(gameId);
         this.gamesManager.setConnection(game, connection);
 
         const uiGame = game.getUIState();
-        connection.sendMessage({typeKey: 'full-game-state', data: { game: uiGame }});
+        connection.sendMessage({typeKey: ContractServerMessageType.fullGameState, data: { game: uiGame }});
         
         subscription.unsubscribe();
       }
-    });
-
-    connection.sendMessage({
-      typeKey: 'welcome',
-      data: 'Hello, you clever developer!'
     });
   }
 

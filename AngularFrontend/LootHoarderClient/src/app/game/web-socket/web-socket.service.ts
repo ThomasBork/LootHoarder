@@ -2,11 +2,12 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { AppConfigService } from "src/app/app-config.service";
 import { AuthService } from "src/app/auth/service/auth.service";
-import { WebSocketMessage } from "./web-socket-message";
+import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/contract-server-web-socket-message";
+import { ContractClientWebSocketMessage } from "src/loot-hoarder-contract/contract-client-web-socket-message";
 
 @Injectable() 
 export class WebSocketService {
-  public onMessage: Subject<WebSocketMessage>;
+  public onMessage: Subject<ContractServerWebSocketMessage>;
   public isAuthenticated: boolean = false;
 
   private ws?: WebSocket; 
@@ -66,7 +67,7 @@ export class WebSocketService {
     this.onMessage = new Subject();
   }
 
-  public send(message: WebSocketMessage): void {
+  public send(message: ContractClientWebSocketMessage): void {
     if (!this.ws) {
       throw Error ('Cannot send a message when the web socket is not connected.');
     }
