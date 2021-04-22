@@ -1,13 +1,13 @@
 import { Logger } from '@nestjs/common';
 import { Subject } from 'rxjs';
 import { User } from 'src/computed-game-state/user';
+import { ContractWebSocketMessage } from 'src/loot-hoarder-contract/contract-web-socket-message';
 import WebSocket from 'ws';
-import { WebSocketMessage } from '../web-socket-messages/web-socket-message';
 
 export class Connection {
   public user?: User;
   public socket: WebSocket;
-  public onMessage: Subject<WebSocketMessage>;
+  public onMessage: Subject<ContractWebSocketMessage>;
   
   private logger: Logger = new Logger('Connection');
   
@@ -50,7 +50,7 @@ export class Connection {
     };
   }
 
-  public sendMessage(message: WebSocketMessage): void {
+  public sendMessage(message: ContractWebSocketMessage): void {
     this.socket.send(JSON.stringify(message));
   }
 }

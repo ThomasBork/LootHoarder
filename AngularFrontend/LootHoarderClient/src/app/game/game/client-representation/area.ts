@@ -1,4 +1,4 @@
-import { AreaType } from "../static-game-content/area-type";
+import { AreaType } from "./area-type";
 import { AreaHero } from "./area-hero";
 import { Combat } from "./combat";
 

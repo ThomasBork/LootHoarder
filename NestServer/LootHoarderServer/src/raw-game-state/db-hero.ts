@@ -4,4 +4,5 @@ export interface DbHero {
   name: string;
   level: number;
   experience: number;
+  abilityTypeKeys: string[];
 }

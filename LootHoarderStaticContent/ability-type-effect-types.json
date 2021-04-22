@@ -1,0 +1,14 @@
+[
+  {
+    "key": "deal-damage",
+    "parameters": ["baseAmount", "damageType"]
+  },
+  {
+    "key": "restore-health",
+    "parameters": ["baseAmount"]
+  },
+  {
+    "key": "life-steal",
+    "parameters": ["factor"]
+  }
+]

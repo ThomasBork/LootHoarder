@@ -3,7 +3,7 @@ import { EnterAreaMessage } from '../../web-socket/enter-area-message';
 import { WebSocketService } from '../../web-socket/web-socket.service';
 import { Area } from '../client-representation/area';
 import { Game } from '../client-representation/game';
-import { AreaType } from '../static-game-content/area-type';
+import { AreaType } from '../client-representation/area-type';
 
 @Component({
   selector: 'app-game-tab-world',

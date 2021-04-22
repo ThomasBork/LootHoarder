@@ -1,0 +1,42 @@
+[
+  {
+    "key": "maximum-health",
+    "name": "Maximum Health"
+  },
+  {
+    "key": "maximum-mana",
+    "name": "Maximum Mana"
+  },
+  {
+    "key": "attack-power",
+    "name": "Attack Power"
+  },
+  {
+    "key": "spell-power",
+    "name": "Spell Power"
+  },
+  {
+    "key": "attack-speed",
+    "name": "Attack Speed"
+  },
+  {
+    "key": "cast-speed",
+    "name": "Cast Speed"
+  },
+  {
+    "key": "attack-cooldown-speed",
+    "name": "Attack Cooldown Speed"
+  },
+  {
+    "key": "spell-cooldown-speed",
+    "name": "Spell Cooldown Speed"
+  },
+  {
+    "key": "armor",
+    "name": "Armor"
+  },
+  {
+    "key": "magic-resistance",
+    "name": "Magic Resistance"
+  }
+]

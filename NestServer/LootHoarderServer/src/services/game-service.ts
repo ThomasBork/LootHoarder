@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Game } from 'src/computed-game-state/game';
 import { DbGameRepository } from 'src/persistence/db-game-repository';
 import { DbGameState } from 'src/raw-game-state/db-game-state';
-import { StaticGameContentService } from 'src/static-game-content/static-game-content-service';
+import { StaticGameContentService } from 'src/services/static-game-content-service';
 import { GamesManager } from './games-manager';
 
 @Injectable()
@@ -20,7 +20,8 @@ export class GameService {
       completedAreaTypes: [],
       nextAreaId: 1,
       nextCombatId: 1,
-      nextHeroId: 1
+      nextHeroId: 1,
+      nextAbilityId: 1
     };
 
     const gameId = await this.dbGameRepository.insertGame(userId, initialGameState);

@@ -13,17 +13,14 @@ import { ConnectionsManager } from './services/connections-manager';
 import { GameService } from './services/game-service';
 import { GamesManager } from './services/games-manager';
 import { UserService } from './services/user-service';
-import { StaticGameContentService } from './static-game-content/static-game-content-service';
+import { StaticGameContentService } from './services/static-game-content-service';
 import { CqrsModule } from '@nestjs/cqrs';
 import { CreateHeroHandler } from './game-message-handlers/from-client/create-hero-handler';
-import { HeroAddedHandler } from './game-message-handlers/from-server/hero-added-handler';
-import { AreaCreatedHandler } from './game-message-handlers/from-server/area-created-handler';
 import { EnterAreaTypeHandler } from './game-message-handlers/from-client/enter-area-type-handler';
 import { CombatUpdaterService } from './services/combat-updater-service';
-import { CombatCharacterCurrentHealthChangedHandler } from './game-message-handlers/from-server/combat-character-current-health-changed-handler';
+import { RandomService } from './services/random-service';
 
 export const CommandHandlers = [EnterAreaTypeHandler, CreateHeroHandler];
-export const EventHandlers =  [AreaCreatedHandler, HeroAddedHandler, CombatCharacterCurrentHealthChangedHandler];
 
 @Module({
   imports: [CqrsModule],
@@ -44,10 +41,10 @@ export const EventHandlers =  [AreaCreatedHandler, HeroAddedHandler, CombatChara
     DbUserRepository,
     GameService,
     GamesManager,
+    RandomService,
     StaticGameContentService,
     UserService,
-    ...CommandHandlers,
-    ...EventHandlers
+    ...CommandHandlers
   ],
 })
 export class AppModule {}

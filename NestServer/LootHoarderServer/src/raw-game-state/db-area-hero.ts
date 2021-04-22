@@ -1,4 +1,3 @@
-import { DbCombatCharacter } from "./db-combat-character";
 import { DbLoot } from "./db-loot";
 
 export interface DbAreaHero {

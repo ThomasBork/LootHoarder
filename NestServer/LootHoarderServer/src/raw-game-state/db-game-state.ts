@@ -8,4 +8,5 @@ export interface DbGameState {
   nextHeroId: number;
   nextAreaId: number;
   nextCombatId: number;
+  nextAbilityId: number;
 }

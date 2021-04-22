@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ContractArea } from 'src/loot-hoarder-contract/contract-area';
+import { ContractHero } from 'src/loot-hoarder-contract/contract-hero';
 import { WebSocketMessage } from '../web-socket/web-socket-message';
 import { WebSocketService } from '../web-socket/web-socket.service';
 import { Game } from './client-representation/game';
 import { CombatMessageHandler } from './combat-message-handler';
 import { GameStateMapper } from './game-state-mapper';
-import { ServerArea } from './server-representation/server-area';
-import { ServerHero } from './server-representation/server-hero';
-import { AssetManagerService } from './static-game-content/asset-manager.service';
+import { AssetManagerService } from './client-representation/asset-manager.service';
 
 @Component({
   selector: 'app-game',
@@ -64,18 +64,16 @@ export class GameComponent implements OnInit, OnDestroy {
     if (!this.game) {
       throw Error (`Expected to receive a 'full-game-state' message before receiving a '${message.typeKey}' message.`);
     }
-    
+
     switch (message.typeKey) {
-      case 'full-game-state': 
-      break;
       case 'hero-added': {
-        const serverHero = message.data.hero as ServerHero;
+        const serverHero = message.data.hero as ContractHero;
         const hero = this.gameStateMapper.mapToHero(serverHero);
         this.game.heroes.push(hero);
       }
       break;
       case 'area-created': {
-        const serverArea = message.data.area as ServerArea;
+        const serverArea = message.data.area as ContractArea;
         const area = this.gameStateMapper.mapToArea(serverArea);
         this.game.areas.push(area);
       }
@@ -86,6 +84,9 @@ export class GameComponent implements OnInit, OnDestroy {
         this.combatMessageHandler.handleMessage(this.game, combatId, innerMessage);
       }
       break;
+      default: {
+        console.log(`Unhandled message: ${message.typeKey}`);
+      }
     }
   }
 }

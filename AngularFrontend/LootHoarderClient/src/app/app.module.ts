@@ -16,7 +16,7 @@ import { GameService } from './game/service/game.service';
 import { WebSocketService } from './game/web-socket/web-socket.service';
 import { HeroListComponent } from './game/game/game-tab-heroes/hero-list/hero-list.component';
 import { LabelWithValueComponent } from './shared/label-with-value/label-with-value.component';
-import { AssetManagerService } from './game/game/static-game-content/asset-manager.service';
+import { AssetManagerService } from './game/game/client-representation/asset-manager.service';
 import { GameTabMenuComponent } from './game/game/game-tab-menu/game-tab-menu.component';
 import { GameTabHeroesComponent } from './game/game/game-tab-heroes/game-tab-heroes.component';
 import { CreateNewHeroComponent } from './game/game/game-tab-heroes/create-new-hero.component/create-new-hero.component';

@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CreateHeroMessage } from 'src/app/game/web-socket/create-hero-message';
 import { WebSocketService } from 'src/app/game/web-socket/web-socket.service';
-import { AssetManagerService } from '../../static-game-content/asset-manager.service';
-import { HeroType } from '../../static-game-content/hero-type';
-import { NewHero } from './new-hero';
+import { AssetManagerService } from '../../client-representation/asset-manager.service';
+import { HeroType } from '../../client-representation/hero-type';
 
 @Component({
   selector: 'app-create-new-hero',

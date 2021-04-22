@@ -1,18 +1,16 @@
-import { CommandHandler, EventBus, ICommandHandler } from "@nestjs/cqrs";
+import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { Area } from "src/computed-game-state/area/area";
+import { DbAbility } from "src/raw-game-state/db-ability";
 import { DbArea } from "src/raw-game-state/db-area";
 import { DbAreaHero } from "src/raw-game-state/db-area-hero";
 import { DbCombat } from "src/raw-game-state/db-combat";
-import { GamesManager } from "src/services/games-manager";
-import { StaticGameContentService } from "src/static-game-content/static-game-content-service";
-import { AreaCreated } from "../from-server/area-created";
+import { DbCombatCharacter } from "src/raw-game-state/db-combat-character";
+import { StaticGameContentService } from "src/services/static-game-content-service";
 import { EnterAreaType } from "./enter-area-type";
 
 @CommandHandler(EnterAreaType)
 export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
   public constructor(
-    private readonly eventBus: EventBus,
-    private readonly gamesManager: GamesManager,
     private readonly staticGameContentService: StaticGameContentService,
   ) {
 
@@ -38,18 +36,56 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
         if (!hero) {
           throw Error (`Hero with id: '${heroId}' does not exist.`);
         }
-        return {
+        const dbAbilities: DbAbility[] = hero.abilityTypes.map(abilityType => {
+          return {
+            id: command.game.getNextAbilityId(),
+            typeKey: abilityType.key,
+            remainingCooldown: 0
+          };
+        });
+        const dbCombatCharacter: DbCombatCharacter = {
           id: index + 1,
-          currentHealth: 100,
+          typeKey: hero.type.key,
+          currentHealth: hero.attributes.maximumHealthVC.value,
           name: hero.name,
-          controllingUserId: command.game.userId
+          controllingUserId: command.game.userId,
+          attributeSet: hero.attributes
+            .getValues()
+            .toDbModel(),
+          abilities: dbAbilities,
+          idOfAbilityBeingUsed: undefined,
+          remainingTimeToUseAbility: 0
         };
+        return dbCombatCharacter;
       }),
+      // TODO: Get enemies types from area
       team2: [{
         id: command.heroIds.length + 1,
-        currentHealth: 100,
+        typeKey: 'dangerous-fish',
+        currentHealth: 10000,
         name: 'Dangerous Fish',
-        controllingUserId: undefined
+        controllingUserId: undefined,
+        attributeSet: {
+          maximumHealth: 10000,
+          maximumMana: 0,
+          attackPower: 10,
+          spellPower: 10,
+          attackSpeed: 0.5,
+          castSpeed: 0.5,
+          attackCooldownSpeed: 1,
+          spellCooldownSpeed: 1,
+          armor: 30,
+          magicResistance: 10,
+        },
+        abilities: [
+          {
+            id: command.game.getNextAbilityId(),
+            typeKey: 'basic-attack',
+            remainingCooldown: 0
+          }
+        ],
+        idOfAbilityBeingUsed: undefined,
+        remainingTimeToUseAbility: 0
       }]
     };
 
@@ -65,7 +101,5 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
     const area = Area.load(dbArea, this.staticGameContentService);
 
     command.game.addArea(area);
-
-    this.eventBus.publish(new AreaCreated(command.game, area));
   }
 }

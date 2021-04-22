@@ -1,10 +1,10 @@
 import { Logger } from "@nestjs/common";
 import { Game } from "../computed-game-state/game";
 import { Connection } from "./connection";
-import { WebSocketMessage } from "../web-socket-messages/web-socket-message";
 import { CommandBus } from "@nestjs/cqrs";
 import { EnterAreaType } from "src/game-message-handlers/from-client/enter-area-type";
 import { CreateHero } from "src/game-message-handlers/from-client/create-hero";
+import { ContractWebSocketMessage } from "src/loot-hoarder-contract/contract-web-socket-message";
 
 export class GameCommunicationsWrapper {
   public game: Game;
@@ -18,6 +18,8 @@ export class GameCommunicationsWrapper {
   ) {
     this.game = game;
     this.commandBus = commandBus;
+
+    this.setUpEventListeners();
   }
 
   public setConnection(connection: Connection): void {
@@ -25,7 +27,12 @@ export class GameCommunicationsWrapper {
     connection.onMessage.subscribe((message) => this.handleGameMessage(message));
   }
 
-  private handleGameMessage(message: WebSocketMessage): void {
+  private setUpEventListeners(): void {
+    // TODO: Look into sending messages in bulk if this is too heavy.
+    this.game.onEvent.subscribe(event => this.sendMessage(event));
+  }
+
+  private handleGameMessage(message: ContractWebSocketMessage): void {
     this.logger.log('Received message: ' + JSON.stringify(message));
 
     switch(message.typeKey) {
@@ -56,7 +63,7 @@ export class GameCommunicationsWrapper {
     return dataObject[propertyKey];
   }
 
-  public sendMessage(message: WebSocketMessage): void {
+  public sendMessage(message: ContractWebSocketMessage): void {
     if (!this.connection) {
       return;
     }

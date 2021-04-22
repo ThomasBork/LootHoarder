@@ -1,4 +1,4 @@
-import { HeroType } from "../static-game-content/hero-type";
+import { HeroType } from "./hero-type";
 
 export class Hero {
   public id: number;

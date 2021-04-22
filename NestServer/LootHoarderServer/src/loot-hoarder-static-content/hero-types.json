@@ -1,0 +1,62 @@
+[
+  {
+    "key": "berserker",
+    "name": "Berserker",
+    "description": "Uses brute force to defeat the enemies.",
+    "abilityTypes": ["basic-attack"],
+    "baseAttributes": {
+      "maximumHealth": 10000,
+      "maximumMana": 50,
+      "attackPower": 10,
+      "spellPower": 0,
+      "attackSpeed": 1,
+      "castSpeed": 1,
+      "attackCooldownSpeed": 1,
+      "spellCooldownSpeed": 1,
+      "armor": 0,
+      "magicResistance": 0
+    },
+    "attributesPerLevel": {
+      "maximumHealth": 10,
+      "maximumMana": 5,
+      "attackPower": 1,
+      "spellPower": 0,
+      "attackSpeed": 0,
+      "castSpeed": 0,
+      "attackCooldownSpeed": 0,
+      "spellCooldownSpeed": 0,
+      "armor": 0,
+      "magicResistance": 0
+    }
+  },
+  {
+    "key": "wizard",
+    "name": "Wizard",
+    "description": "Uses magic to defeat the enemies.",
+    "abilityTypes": ["basic-attack", "lightning-bolt"],
+    "baseAttributes": {
+      "maximumHealth": 8000,
+      "maximumMana": 100,
+      "attackPower": 5,
+      "spellPower": 5,
+      "attackSpeed": 1,
+      "castSpeed": 1,
+      "attackCooldownSpeed": 1,
+      "spellCooldownSpeed": 1,
+      "armor": 0,
+      "magicResistance": 0
+    },
+    "attributesPerLevel": {
+      "maximumHealth": 0.8,
+      "maximumMana": 10,
+      "attackPower": 0.5,
+      "spellPower": 0.5,
+      "attackSpeed": 0,
+      "castSpeed": 0,
+      "attackCooldownSpeed": 0,
+      "spellCooldownSpeed": 0,
+      "armor": 0,
+      "magicResistance": 0
+    }
+  }
+]

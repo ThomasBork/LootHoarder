@@ -1,4 +1,11 @@
 import { Injectable } from "@angular/core";
+import { ContractArea } from "src/loot-hoarder-contract/contract-area";
+import { ContractAreaHero } from "src/loot-hoarder-contract/contract-area-hero";
+import { ContractCombat } from "src/loot-hoarder-contract/contract-combat";
+import { ContractCombatCharacter } from "src/loot-hoarder-contract/contract-combat-character";
+import { ContractGame } from "src/loot-hoarder-contract/contract-game";
+import { ContractHero } from "src/loot-hoarder-contract/contract-hero";
+import { ContractLoot } from "src/loot-hoarder-contract/contract-loot";
 import { Area } from "./client-representation/area";
 import { AreaHero } from "./client-representation/area-hero";
 import { Combat } from "./client-representation/combat";
@@ -6,14 +13,7 @@ import { CombatCharacter } from "./client-representation/combat-character";
 import { Game } from "./client-representation/game";
 import { Hero } from "./client-representation/hero";
 import { Loot } from "./client-representation/loot";
-import { ServerArea } from "./server-representation/server-area";
-import { ServerAreaHero } from "./server-representation/server-area-hero";
-import { ServerCombat } from "./server-representation/server-combat";
-import { ServerCombatCharacter } from "./server-representation/server-combat-character";
-import { ServerGame } from "./server-representation/server-game";
-import { ServerHero } from "./server-representation/server-hero";
-import { ServerLoot } from "./server-representation/server-loot";
-import { AssetManagerService } from "./static-game-content/asset-manager.service";
+import { AssetManagerService } from "./client-representation/asset-manager.service";
 
 @Injectable()
 export class GameStateMapper {
@@ -21,7 +21,7 @@ export class GameStateMapper {
     private readonly assetManagerService: AssetManagerService
   ) {}
 
-  public mapToGame(serverGame: ServerGame): Game {
+  public mapToGame(serverGame: ContractGame): Game {
     const heroes = serverGame.heroes.map(hero => this.mapToHero(hero));
     const areas = serverGame.areas.map(area => this.mapToArea(area));
     const completedAreaTypes = serverGame.completedAreaTypeKeys.map(key => this.assetManagerService.getAreaType(key));
@@ -37,7 +37,7 @@ export class GameStateMapper {
     );
   }
 
-  public mapToHero(serverHero: ServerHero): Hero {
+  public mapToHero(serverHero: ContractHero): Hero {
     const heroType = this.assetManagerService.getHeroType(serverHero.typeKey);
     return new Hero (
       serverHero.id,
@@ -48,7 +48,7 @@ export class GameStateMapper {
     );
   }
 
-  public mapToArea(serverArea: ServerArea): Area {
+  public mapToArea(serverArea: ContractArea): Area {
     const areaType = this.assetManagerService.getAreaType(serverArea.typeKey);
     const currentCombat = this.mapToCombat(serverArea.currentCombat);
     const areaHeroes = serverArea.heroes.map(areaHero => { 
@@ -71,7 +71,7 @@ export class GameStateMapper {
     );
   }
 
-  public mapToCombat(serverCombat: ServerCombat): Combat {
+  public mapToCombat(serverCombat: ContractCombat): Combat {
     const team1 = serverCombat.team1.map(cc => this.mapToCombatCharacter(cc));
     const team2 = serverCombat.team2.map(cc => this.mapToCombatCharacter(cc));
     return new Combat(
@@ -81,7 +81,7 @@ export class GameStateMapper {
     );
   }
 
-  public mapToAreaHero(serverAreaHero: ServerAreaHero, combatCharacter: CombatCharacter): AreaHero {
+  public mapToAreaHero(serverAreaHero: ContractAreaHero, combatCharacter: CombatCharacter): AreaHero {
     const loot = this.mapToLoot(serverAreaHero.loot);
     return new AreaHero(
       serverAreaHero.gameId,
@@ -91,7 +91,7 @@ export class GameStateMapper {
     );
   }
 
-  public mapToCombatCharacter(serverCombatCharacter: ServerCombatCharacter): CombatCharacter {
+  public mapToCombatCharacter(serverCombatCharacter: ContractCombatCharacter): CombatCharacter {
     return new CombatCharacter(
       serverCombatCharacter.id,
       serverCombatCharacter.controllingUserId,
@@ -100,7 +100,7 @@ export class GameStateMapper {
     );
   }
 
-  public mapToLoot(serverLoot: ServerLoot): Loot {
+  public mapToLoot(serverLoot: ContractLoot): Loot {
     return new Loot(
       serverLoot.items,
       serverLoot.gold

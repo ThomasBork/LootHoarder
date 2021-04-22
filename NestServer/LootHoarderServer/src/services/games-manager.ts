@@ -3,18 +3,26 @@ import { CommandBus } from '@nestjs/cqrs';
 import { Game } from 'src/computed-game-state/game';
 import { Connection } from './connection';
 import { GameCommunicationsWrapper } from './game-communications-wrapper';
-import { WebSocketMessage } from '../web-socket-messages/web-socket-message';
 import { Hero } from 'src/computed-game-state/hero';
+import { ContractWebSocketMessage } from 'src/loot-hoarder-contract/contract-web-socket-message';
 
 @Injectable()
 export class GamesManager {
   private logger: Logger = new Logger('GamesManager');
   private gameCommunicationsWrappers: GameCommunicationsWrapper[] = [];
 
-  private static instance: GamesManager;
+  private static _instance: GamesManager;
 
   public constructor(private readonly commandBus: CommandBus) {
-    GamesManager.instance = this;
+    GamesManager._instance = this;
+  }
+
+  public static get instance(): GamesManager {
+    if (!GamesManager._instance) {
+      throw Error ('GamesManager has not been instantiated.');
+    }
+
+    return GamesManager._instance;
   }
 
   public addGame(game: Game): void {
@@ -42,7 +50,7 @@ export class GamesManager {
     wrapper.setConnection(connection);
   }
   
-  public sendMessage(game: Game, message: WebSocketMessage): void {
+  public sendMessage(game: Game, message: ContractWebSocketMessage): void {
     const wrapper = this.gameCommunicationsWrappers.find(w => w.game === game);
     if (!wrapper) {
       return undefined;
@@ -55,13 +63,5 @@ export class GamesManager {
     const game = this.getGame(gameId);
     const hero = game!.findHero(heroId);
     return hero;
-  }
-
-  public static getInstance(): GamesManager {
-    if (!GamesManager.instance) {
-      throw Error ('GamesManager has not been instantiated.');
-    }
-
-    return GamesManager.instance;
   }
 }
