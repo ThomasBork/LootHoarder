@@ -1,7 +1,19 @@
-.area-type-container {  
-  background-color: lightgrey;
-  margin-bottom: 10px;
-  padding: 5px;
-  cursor: pointer;
-  user-select: none;
+.world-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  
+  .world-container-content {
+
+  }
+  
+  .area-type-container {  
+    background-color: lightgrey;
+    margin-bottom: 10px;
+    padding: 5px;
+    cursor: pointer;
+    user-select: none;
+    position: absolute;
+  }
+  
 }

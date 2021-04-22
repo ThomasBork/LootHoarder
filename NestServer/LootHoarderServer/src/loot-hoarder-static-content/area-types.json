@@ -3,12 +3,16 @@
     "key": "basic-forest",
     "name": "Basic Forest",
     "description": "Contains various stupid beasts.",
-    "level": 1
+    "level": 1,
+    "x": 0,
+    "y": 0
   },
   {
     "key": "basic-plains",
     "name": "Basic Plains",
     "description": "Contains scary bandits.",
-    "level": 3
+    "level": 3,
+    "x": 1,
+    "y": 3
   }
 ]

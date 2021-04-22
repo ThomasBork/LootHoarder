@@ -98,7 +98,7 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
       totalAmountOfCombats: 3 // TODO: Get from area type
     };
 
-    const area = Area.load(dbArea, this.staticGameContentService);
+    const area = Area.load(dbArea);
 
     command.game.addArea(area);
   }

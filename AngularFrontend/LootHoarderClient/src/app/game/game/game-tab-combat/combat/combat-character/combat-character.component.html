@@ -1,4 +1,14 @@
 <div class="character">
   <div>{{character.name}}</div>
-  <div>Health: {{character.currentHealth}}</div>
+
+  <app-progress-bar
+    [minimumValue]="0"
+    [maximumValue]="10000"
+    [value]="character.currentHealth"
+    [text]="character.typeKey"
+  ></app-progress-bar>
+
+  <div>Health: {{character.currentHealth | prettyNumber}}</div>
+
+  <img [src]="getImagePath()">
 </div>

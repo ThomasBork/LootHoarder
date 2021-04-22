@@ -1,10 +1,10 @@
 import { Subject } from 'rxjs';
 import { ContractAreaCreatedMessage } from 'src/loot-hoarder-contract/contract-area-created-message';
+import { ContractGame } from 'src/loot-hoarder-contract/contract-game';
 import { ContractHeroAddedMessage } from 'src/loot-hoarder-contract/contract-hero-added-message';
 import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/contract-server-web-socket-message';
 import { DbGame } from 'src/raw-game-state/db-game';
 import { StaticGameContentService } from 'src/services/static-game-content-service';
-import { UIGame } from 'src/ui-game-state/ui-game';
 import { Area } from './area/area';
 import { AreaType } from './area/area-type';
 import { Hero } from './hero';
@@ -74,7 +74,7 @@ export class Game {
     return this.heroes.find(h => h.id === heroId);
   }
 
-  public getUIState(): UIGame {
+  public getUIState(): ContractGame {
     return {
       id: this.id,
       createdAt: this.createdAt,
@@ -95,18 +95,18 @@ export class Game {
     area.onEvent.subscribe(event => this.onEvent.next(event));
   }
 
-  public static load(dbModel: DbGame, staticContent: StaticGameContentService): Game {
-    const heroes = dbModel.state.heroes.map(dbHero => Hero.load(dbHero, staticContent));
-    const completedAreaTypes = dbModel.state.completedAreaTypes.map(cat => staticContent.getAreaType(cat));
+  public static load(dbModel: DbGame): Game {
+    const heroes = dbModel.state.heroes.map(dbHero => Hero.load(dbHero));
+    const completedAreaTypes = dbModel.state.completedAreaTypes.map(cat => StaticGameContentService.instance.getAreaType(cat));
 
-    const firstAreaType = staticContent.getAreaType('basic-forest');
+    const firstAreaType = StaticGameContentService.instance.getAreaType('basic-forest');
     const availableAreaTypes = completedAreaTypes
       .map(a => a.adjacentAreaTypes)
       .reduce((acc, x) => acc.concat(x), [])
       .concat(firstAreaType);
     const uniqueAvailableAreaTypes = [...new Set(availableAreaTypes)];
 
-    const areas = dbModel.state.areas.map(dbArea => Area.load(dbArea, staticContent));
+    const areas = dbModel.state.areas.map(dbArea => Area.load(dbArea));
 
     const game = new Game(
       dbModel,

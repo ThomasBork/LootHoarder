@@ -33,7 +33,7 @@ export class CreateHeroHandler implements ICommandHandler<CreateHero> {
       abilityTypeKeys: heroType.abilityTypes.map(abilityType => abilityType.key)
     };
 
-    const hero = Hero.load(dbHero, this.staticGameContentService);
+    const hero = Hero.load(dbHero);
 
     command.game.addHero(hero);
   }

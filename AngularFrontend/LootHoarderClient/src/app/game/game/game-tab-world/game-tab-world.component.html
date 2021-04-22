@@ -1,13 +1,34 @@
 <div 
-  *ngFor="let areaType of areaTypes"
-  class="area-type-container"
-  (click)="enterAreaType(areaType)"
+  class="world-container"
+  tabindex="1"
+  (keydown)="handleWorldKeyDown($event)"
 >
-  <div>{{areaType.name}}</div>
-  <div>{{areaType.description}}</div>
-  <div>{{areaType.level}}</div>
-  <div>Instances</div>
-  <div *ngFor="let area of getAreasWithType(areaType)">
-    Heroes: {{area.heroes.length}}
+  <div 
+    class="world-container-content"
+    [style.transform]="'translate(' + x + 'px, ' + y +'px)'"
+    [style.zoom]="zoom"
+    (wheel)="handleWorldMouseScroll($event)"
+  >
+    <img
+      src='/assets/images/world.png'
+      class="background-image"
+    />
+  </div>
+</div>
+
+<div class="content" style="display: none;">
+  <div 
+    *ngFor="let areaType of areaTypes"
+    class="area-type-container"
+    (click)="enterAreaType(areaType)"
+  >
+    <div>{{areaType.name}}</div>
+    <div>{{areaType.description}}</div>
+    <div>{{areaType.level}}</div>
+    <div>Instances</div>
+    <div *ngFor="let area of getAreasWithType(areaType)">
+      Heroes: {{area.heroes.length}}
+    </div>
+  
   </div>
 </div>

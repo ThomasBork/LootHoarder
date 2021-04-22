@@ -1,7 +1,7 @@
+import { ContractAreaHero } from "src/loot-hoarder-contract/contract-area-hero";
 import { DbAreaHero } from "src/raw-game-state/db-area-hero";
 import { GamesManager } from "src/services/games-manager";
 import { StaticGameContentService } from "src/services/static-game-content-service";
-import { UIAreaHero } from "src/ui-game-state/ui-area-hero";
 import { Hero } from "../hero";
 
 export class AreaHero {
@@ -17,7 +17,7 @@ export class AreaHero {
   public get heroId(): number { return this.dbModel.heroId; }
   public get combatCharacterId(): number { return this.dbModel.combatCharacterId; }
 
-  public getUIState(): UIAreaHero {
+  public getUIState(): ContractAreaHero {
     return {
       gameId: this.dbModel.gameId,
       heroId: this.dbModel.heroId,
@@ -29,7 +29,7 @@ export class AreaHero {
     };
   }
 
-  public static load(dbModel: DbAreaHero, staticContent: StaticGameContentService): AreaHero {
+  public static load(dbModel: DbAreaHero): AreaHero {
     const gamesManager = GamesManager.instance;
     const hero = gamesManager.getHero(dbModel.gameId, dbModel.heroId);
     if (!hero) {

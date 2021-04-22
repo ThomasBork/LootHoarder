@@ -1,7 +1,7 @@
 import { Subject } from "rxjs";
+import { ContractHero } from "src/loot-hoarder-contract/contract-hero";
 import { DbHero } from "src/raw-game-state/db-hero";
 import { StaticGameContentService } from "src/services/static-game-content-service";
-import { UIHero } from "src/ui-game-state/ui-hero";
 import { AbilityType } from "./ability-type";
 import { AttributeSet } from "./attribute-set";
 import { HeroType } from "./hero-type";
@@ -41,7 +41,7 @@ export class Hero {
   public get level(): number { return this.dbModel.level; }
   public get experience(): number { return this.dbModel.experience; }
 
-  public getUIState(): UIHero {
+  public getUIState(): ContractHero {
     return {
       id: this.id,
       typeKey: this.type.key,
@@ -51,8 +51,8 @@ export class Hero {
     };
   }
 
-  public static load(dbModel: DbHero, staticGameContentService: StaticGameContentService): Hero {
-    const heroType = staticGameContentService.getHeroType(dbModel.typeKey);
+  public static load(dbModel: DbHero): Hero {
+    const heroType = StaticGameContentService.instance.getHeroType(dbModel.typeKey);
     const attributes = new AttributeSet();
     const hero = new Hero(dbModel, heroType, attributes);
     return hero;

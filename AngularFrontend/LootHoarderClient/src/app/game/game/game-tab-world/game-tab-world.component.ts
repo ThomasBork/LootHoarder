@@ -14,6 +14,10 @@ export class GameTabWorldComponent {
   @Input()
   public game!: Game;
 
+  public zoom: number = 1.0;
+  public x: number = 0;
+  public y: number = 0;
+
   public constructor(
     private readonly webSocketService: WebSocketService
   ) {}
@@ -29,5 +33,42 @@ export class GameTabWorldComponent {
 
   public getAreasWithType(areaType: AreaType): Area[] {
     return this.game.areas.filter(area => area.type === areaType);
+  }
+
+
+  public handleWorldKeyDown(keyEvent: KeyboardEvent): void {
+    switch(keyEvent.key) {
+      case 'ArrowLeft': {
+        this.x--;
+      }
+      break;
+      case 'ArrowRight': {
+        this.x++;
+      }
+      break;
+      case 'ArrowUp': {
+        this.y--;
+      }
+      break;
+      case 'ArrowDown': {
+        this.y++;
+      }
+      break;
+    }
+  }
+
+  public handleWorldMouseDown(mouseEvent: MouseEvent): void {
+    const worldX = mouseEvent.x;
+    const worldY = mouseEvent.y;
+    
+  }
+
+  public handleWorldMouseScroll(mouseEvent: WheelEvent): void {
+    const scrollSpeed = mouseEvent.deltaY;
+    const exponent = -scrollSpeed / 100;
+    const base = 1.1;
+    const changeFactor = Math.pow(base, exponent);
+    this.zoom *= changeFactor;
+    mouseEvent.preventDefault();
   }
 }

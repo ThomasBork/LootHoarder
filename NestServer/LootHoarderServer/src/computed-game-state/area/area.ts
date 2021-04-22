@@ -1,8 +1,8 @@
 import { Subject } from "rxjs";
+import { ContractArea } from "src/loot-hoarder-contract/contract-area";
 import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/contract-server-web-socket-message";
 import { DbArea } from "src/raw-game-state/db-area";
 import { StaticGameContentService } from "src/services/static-game-content-service";
-import { UIArea } from "src/ui-game-state/ui-area";
 import { AreaHero } from "./area-hero";
 import { AreaType } from "./area-type";
 import { Combat } from "./combat";
@@ -31,7 +31,7 @@ export class Area {
 
   public get id(): number { return this.dbModel.id; }
 
-  public getUIState(): UIArea {
+  public getUIState(): ContractArea {
     return {
       id: this.dbModel.id,
       heroes: this.heroes.map(hero => hero.getUIState()),
@@ -51,9 +51,9 @@ export class Area {
       this.onEvent.next(event));
   }
 
-  public static load(dbModel: DbArea, staticContent: StaticGameContentService): Area {
-    const areaType = staticContent.getAreaType(dbModel.typeKey);
-    const areaHeroes = dbModel.heroes.map(dbHero => AreaHero.load(dbHero, staticContent));
+  public static load(dbModel: DbArea): Area {
+    const areaType = StaticGameContentService.instance.getAreaType(dbModel.typeKey);
+    const areaHeroes = dbModel.heroes.map(dbHero => AreaHero.load(dbHero));
     const currentCombat = Combat.load(dbModel.currentCombat);
     const area = new Area(dbModel, areaType, areaHeroes, currentCombat);
     return area;

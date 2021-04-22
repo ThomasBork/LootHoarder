@@ -26,6 +26,8 @@ import { GameTabCombatComponent } from './game/game/game-tab-combat/game-tab-com
 import { CombatComponent } from './game/game/game-tab-combat/combat/combat.component';
 import { CombatCharacterComponent } from './game/game/game-tab-combat/combat/combat-character/combat-character.component';
 import { CombatMessageHandler } from './game/game/combat-message-handler';
+import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
+import { PrettyNumberPipe } from './shared/pretty-number-pipe/pretty-number.pipe';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { CombatMessageHandler } from './game/game/combat-message-handler';
     CombatCharacterComponent,
     GameTabHeroesComponent,
     GameTabMenuComponent,
-    GameTabWorldComponent
+    GameTabWorldComponent,
+    PrettyNumberPipe,
+    ProgressBarComponent,
   ],
   imports: [
     BrowserModule,

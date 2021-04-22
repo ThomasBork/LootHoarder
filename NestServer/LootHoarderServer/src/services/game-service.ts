@@ -36,7 +36,7 @@ export class GameService {
       if (!dbGame) {
         throw Error (`Unable to fetch game with id: '${gameId}'`);
       }
-      game = Game.load(dbGame, this.staticGameContentService);
+      game = Game.load(dbGame);
       this.gamesManager.addGame(game);
     }
     return game;

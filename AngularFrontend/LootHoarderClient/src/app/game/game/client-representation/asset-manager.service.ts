@@ -80,7 +80,9 @@ export class AssetManagerService {
       a.key,
       a.name,
       a.description,
-      a.level
+      a.level,
+      a.x,
+      a.y
     ));
 
     for(let transition of AreaTypeTransitions) {

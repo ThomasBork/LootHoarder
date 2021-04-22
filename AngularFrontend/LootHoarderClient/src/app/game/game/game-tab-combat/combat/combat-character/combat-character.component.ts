@@ -9,4 +9,8 @@ import { CombatCharacter } from '../../../client-representation/combat-character
 export class CombatCharacterComponent {
   @Input()
   public character!: CombatCharacter;
+
+  public getImagePath(): string {
+    return `assets/images/${this.character.typeKey}.png`;
+  }
 }

@@ -1,9 +1,9 @@
 import { Subject } from 'rxjs';
 import { ContractCombatCharacterCurrentHealthChangedMessage } from 'src/loot-hoarder-contract/combat-messages/contract-combat-character-current-health-changed-message';
+import { ContractCombat } from 'src/loot-hoarder-contract/contract-combat';
 import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/contract-combat-web-socket-inner-message';
 import { ContractCombatWebSocketMessage } from 'src/loot-hoarder-contract/contract-combat-web-socket-message';
 import { DbCombat } from 'src/raw-game-state/db-combat';
-import { UICombat } from 'src/ui-game-state/ui-combat';
 import { Ability } from './ability';
 import { CombatCharacter } from './combat-character';
 
@@ -29,7 +29,7 @@ export class Combat {
 
   public get id(): number { return this.dbModel.id; }
 
-  public getUIState(): UICombat {
+  public getUIState(): ContractCombat {
     return {
       id: this.dbModel.id,
       team1: this.team1.map(c => c.getUIState()),

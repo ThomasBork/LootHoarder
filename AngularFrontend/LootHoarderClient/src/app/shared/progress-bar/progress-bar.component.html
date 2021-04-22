@@ -1,0 +1,17 @@
+<span 
+    class="container"
+    [style.background-color]="backgroundColor"
+    [style.justify-content]="rightToLeft ? 'flex-end' : ''"
+>
+    <span 
+        class="bar"
+        [style.background-color]="barColor"
+        [style.justify-content]="rightToLeft ? 'flex-end' : ''"
+        [style.width]="barWidth"
+    >
+        <span 
+            class="text"
+            [style.color]="textColor"
+        >{{text}}</span>
+    </span>
+</span>
