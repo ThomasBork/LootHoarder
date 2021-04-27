@@ -53,6 +53,10 @@ export class AssetManagerService {
     return areaType;
   }
 
+  public getAllAreaTypes(): AreaType[] {
+    return [...this.areaTypes];
+  }
+
   private loadAbilityTypes(): void {
     this.abilityTypes = AbilityTypes.map(abilityType => 
       new AbilityType(

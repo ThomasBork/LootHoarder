@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs';
 import { ContractCombatCharacterCurrentHealthChangedMessage } from 'src/loot-hoarder-contract/combat-messages/contract-combat-character-current-health-changed-message';
+import { ContractCombatEndedMessage } from 'src/loot-hoarder-contract/combat-messages/contract-combat-ended-message';
 import { ContractCombat } from 'src/loot-hoarder-contract/contract-combat';
 import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/contract-combat-web-socket-inner-message';
 import { ContractCombatWebSocketMessage } from 'src/loot-hoarder-contract/contract-combat-web-socket-message';
@@ -28,12 +29,16 @@ export class Combat {
   }
 
   public get id(): number { return this.dbModel.id; }
+  public get hasEnded(): boolean { return this.dbModel.hasEnded; }
+  public get didTeam1Win(): boolean | undefined { return this.dbModel.didTeam1Win; }
 
   public getUIState(): ContractCombat {
     return {
       id: this.dbModel.id,
+      hasEnded: this.dbModel.hasEnded,
+      didTeam1Win: this.dbModel.didTeam1Win,
       team1: this.team1.map(c => c.getUIState()),
-      team2: this.team2.map(c => c.getUIState())
+      team2: this.team2.map(c => c.getUIState()),
     };
   }
 
@@ -103,12 +108,26 @@ export class Combat {
     return [...this.team1];
   }
 
+  private updateHasEnded(): void {
+    if (this.hasEnded) {
+      return;
+    }
+    const team1Alive = this.team1.some(c => c.isAlive);
+    const team2Alive = this.team2.some(c => c.isAlive);
+    const hasEnded = !team1Alive || !team2Alive;
+    if (hasEnded) {
+      this.dbModel.hasEnded = hasEnded;
+      this.sendEventMessage(new ContractCombatEndedMessage());
+    }
+  }
+
   private setUpEventListeners(): void {
     const allCharacters = this.team1.concat(this.team2);
     for(const character of allCharacters) {
-      character.onCurrentHealthChanged.subscribe(newCurrentHealth => 
-        this.sendEventMessage(new ContractCombatCharacterCurrentHealthChangedMessage(character.id, newCurrentHealth))
-      );
+      character.onCurrentHealthChanged.subscribe(newCurrentHealth => {
+        this.sendEventMessage(new ContractCombatCharacterCurrentHealthChangedMessage(character.id, newCurrentHealth));
+        this.updateHasEnded();
+      });
     }
   }
 

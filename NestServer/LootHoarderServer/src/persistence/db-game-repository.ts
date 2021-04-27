@@ -29,6 +29,8 @@ export class DbGameRepository {
 
     const result = await con.query(queryWithParameterValues);
 
+    con.end();
+
     const gameId = result['insertId'];
 
     return gameId;
@@ -50,6 +52,8 @@ export class DbGameRepository {
     const queryWithParameterValues = this.dbQueryHelper.buildQuery(query, parameters);
 
     const result = await con.query(queryWithParameterValues);
+
+    con.end();
 
     const games: GameForOverview[] = [];
 
@@ -80,6 +84,8 @@ export class DbGameRepository {
     const queryWithParameterValues = this.dbQueryHelper.buildQuery(query, parameters);
 
     const results = await con.query(queryWithParameterValues);
+
+    con.end();
 
     if (results.length === 0) {
       return undefined;

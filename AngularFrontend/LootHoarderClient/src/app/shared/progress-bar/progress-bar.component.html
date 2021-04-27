@@ -6,12 +6,14 @@
     <span 
         class="bar"
         [style.background-color]="barColor"
-        [style.justify-content]="rightToLeft ? 'flex-end' : ''"
+        [style.left]="rightToLeft ? '' : '0'"
+        [style.right]="rightToLeft ? '0' : ''"
         [style.width]="barWidth"
     >
-        <span 
-            class="text"
-            [style.color]="textColor"
-        >{{text}}</span>
     </span>
+
+    <span 
+        class="text"
+        [style.color]="textColor"
+    >{{text}}</span>
 </span>

@@ -1,0 +1,20 @@
+.content {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .team1-characters {
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+
+  .team2-characters {
+    margin-right: 20px;
+    margin-top: 20px;
+  }
+
+  .character-container {
+    margin-bottom: 20px;
+  }
+}

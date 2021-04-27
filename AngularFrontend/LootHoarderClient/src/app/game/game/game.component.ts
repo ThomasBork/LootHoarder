@@ -11,6 +11,9 @@ import { ContractClientMessageType } from 'src/loot-hoarder-contract/contract-cl
 import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/contract-server-web-socket-message';
 import { ContractServerMessageType } from 'src/loot-hoarder-contract/contract-server-message-type';
 import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/contract-combat-web-socket-inner-message';
+import { UIState } from './client-representation/ui-state';
+import { UIStateMapper } from './ui-state-mapper';
+import { UIStateAdvancer } from './ui-state-advancer';
 
 @Component({
   selector: 'app-game',
@@ -20,7 +23,7 @@ import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/c
 export class GameComponent implements OnInit, OnDestroy {
   public isConnected: boolean = false;
   public isConnecting: boolean = true;
-  public game?: Game;
+  public uiState?: UIState;
   private gameId?: number;
 
   public constructor(
@@ -28,7 +31,9 @@ export class GameComponent implements OnInit, OnDestroy {
     private readonly webSocketService: WebSocketService,
     private readonly assetManagerService: AssetManagerService,
     private readonly gameStateMapper: GameStateMapper,
+    private readonly uiStateMapper: UIStateMapper,
     private readonly combatMessageHandler: CombatMessageHandler,
+    private readonly uiStateAdvancer: UIStateAdvancer
   ) { }
 
   public ngOnInit(): void {
@@ -41,6 +46,7 @@ export class GameComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.webSocketService.disconnect();
+    this.uiStateAdvancer.stopUpdating();
   }
 
   private connect(): void {
@@ -60,11 +66,14 @@ export class GameComponent implements OnInit, OnDestroy {
   private handleMessage(message: ContractServerWebSocketMessage): void {
     console.log("Game message received: ", message);
     if (message.typeKey === ContractServerMessageType.fullGameState){
-      this.game = this.gameStateMapper.mapToGame(message.data.game);
+      const uiState = this.uiStateMapper.mapFromGame(message.data.game);
+      this.uiState = uiState;
+
+      this.uiStateAdvancer.beginUpdating(uiState);
       return;
     }
 
-    if (!this.game) {
+    if (!this.uiState) {
       throw Error (`Expected to receive a 'full-game-state' message before receiving a '${message.typeKey}' message.`);
     }
 
@@ -72,19 +81,19 @@ export class GameComponent implements OnInit, OnDestroy {
       case ContractServerMessageType.heroAdded: {
         const serverHero = message.data.hero as ContractHero;
         const hero = this.gameStateMapper.mapToHero(serverHero);
-        this.game.heroes.push(hero);
+        this.uiState.addHero(hero);
       }
       break;
       case ContractServerMessageType.areaAdded: {
         const serverArea = message.data.area as ContractArea;
         const area = this.gameStateMapper.mapToArea(serverArea);
-        this.game.areas.push(area);
+        this.uiState.addArea(area);
       }
       break;
       case ContractServerMessageType.combat: {
         const combatId = message.data.combatId as number;
         const innerMessage = message.data.innerMessage as ContractCombatWebSocketInnerMessage;
-        this.combatMessageHandler.handleMessage(this.game, combatId, innerMessage);
+        this.combatMessageHandler.handleMessage(this.uiState.game, combatId, innerMessage);
       }
       break;
       default: {

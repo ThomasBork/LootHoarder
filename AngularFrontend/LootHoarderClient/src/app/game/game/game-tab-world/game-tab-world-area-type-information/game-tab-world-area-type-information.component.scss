@@ -1,0 +1,67 @@
+.information-group {
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #EEEEEE;
+}
+
+.area-type-name {
+  font-size: 30px;
+}
+
+.area-type-level {
+  font-size: 12px;
+}
+
+.new-instance-container {
+  .heroes {
+    display: flex;
+
+    .hero-container {
+      position: relative;
+
+      .hero-image {
+        width: 80px;
+        height: 80px;
+      }
+
+      &.available {
+        cursor: pointer;
+        user-select: none;
+
+        .hero-not-available-image {
+          display: none;
+        }
+      }
+
+      &:not(.availabe) {
+        .hero-not-available-image {
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          bottom: 0;
+          right: 0;
+        }
+      }
+
+      &:not(.selected) {
+        .selected-check-mark {
+          display: none;
+        }
+      }
+
+      &.selected {
+        .selected-check-mark {
+          position: absolute;
+          width: 50px;
+          height: 50px;
+          bottom: 0;
+          right: 0;
+        }
+      }
+    }
+  }
+}

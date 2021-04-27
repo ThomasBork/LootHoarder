@@ -30,6 +30,8 @@ export class DbLoginRepository {
 
     await con.query(queryWithParameterValues);
 
+    con.end();
+
     this.logger.log('Saved new login for user: ' + userName);
   }
 
@@ -51,6 +53,8 @@ export class DbLoginRepository {
     const queryWithParameterValues = this.dbQueryHelper.buildQuery(query, parameters);
 
     const result = await con.query(queryWithParameterValues);
+
+    con.end();
 
     if (result.length === 0) {
       throw Error('Auth token has expired or does not exist.');

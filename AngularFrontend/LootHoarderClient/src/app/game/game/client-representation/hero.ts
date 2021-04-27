@@ -1,3 +1,4 @@
+import { AreaHero } from "./area-hero";
 import { HeroType } from "./hero-type";
 
 export class Hero {
@@ -6,13 +7,14 @@ export class Hero {
   public name: string;
   public level: number;
   public experience: number;
+  public areaHero?: AreaHero;
 
   public constructor(
     id: number,
     type: HeroType,
     name: string,
     level: number,
-    experience: number,
+    experience: number
   ) {
     this.id = id;
     this.type = type;

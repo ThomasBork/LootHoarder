@@ -1,19 +1,78 @@
-.world-container {
+.content {
+  display: flex;
   height: 100%;
-  width: 100%;
-  overflow: hidden;
-  
-  .world-container-content {
 
-  }
+  .world-container {
+    height: 100%;
+    overflow: hidden;
+    
+    .world-container-content {
+      display: inline-block;
+      position: relative;
   
-  .area-type-container {  
+      .area-type-container {
+        position: absolute;
+
+        &.available.completed {
+          .area-type-marker {
+            background-color: goldenrod;
+            cursor: pointer;
+
+            &:hover {
+              background-color: gold;
+            }
+          }
+        }
+
+        &.available {
+          .area-type-marker {
+            background-color: red;
+            cursor: pointer;
+
+            &:hover {
+              background-color: orangered;
+            }
+          }
+        }
+
+        &.undiscovered {
+          .area-type-marker {
+            background-color: grey;
+          }
+        }
+  
+        .area-type-marker {
+          height: 60px;
+          width: 60px;
+          transform: rotate(45deg) skew(15deg, 15deg);
+          user-select: none;
+          border: 5px solid black;
+        }
+      }
+    }
+  }
+
+  .area-type-information-container {
+    flex: 1 0 400px;
     background-color: lightgrey;
-    margin-bottom: 10px;
-    padding: 5px;
-    cursor: pointer;
-    user-select: none;
-    position: absolute;
+    padding: 10px;
+
+    .information-group {
+      border-radius: 5px;
+      margin-bottom: 10px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      padding-left: 15px;
+      padding-right: 15px;
+      background-color: #EEEEEE;
+    }
+
+    .area-type-name {
+      font-size: 30px;
+    }
+
+    .area-type-level {
+      font-size: 12px;
+    }
   }
-  
 }

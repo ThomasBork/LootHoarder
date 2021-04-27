@@ -1,21 +1,48 @@
+import { AttributeSetValues } from "./attribute-set-values";
+import { CombatCharacterAbility } from "./combat-character-ability";
+
 export class CombatCharacter {
   public id: number;
   public typeKey: string;
   public controllingUserId?: number;
   public name: string;
   public currentHealth: number;
+  public attributes: AttributeSetValues;
+  public abilities: CombatCharacterAbility[];
+  public remainingTimeToUseAbility: number;
+  public totalTimeToUseAbility?: number;
+  public abilityBeingUsed?: CombatCharacterAbility;
+  public targetOfAbilityBeingUsed?: CombatCharacter;
 
   public constructor(
     id: number,
     typeKey: string,
     controllingUserId: number | undefined,
     name: string,
-    currentHealth: number
+    currentHealth: number,
+    attributes: AttributeSetValues,
+    abilities: CombatCharacterAbility[],
+    remainingTimeToUseAbility: number,
+    totalTimeToUseAbility: number | undefined,
+    abilityBeingUsed: CombatCharacterAbility | undefined
   ) {
     this.id = id;
     this.typeKey = typeKey;
     this.controllingUserId = controllingUserId;
     this.name = name;
     this.currentHealth = currentHealth;
+    this.attributes = attributes;
+    this.abilities = abilities;
+    this.remainingTimeToUseAbility = remainingTimeToUseAbility;
+    this.totalTimeToUseAbility = totalTimeToUseAbility;
+    this.abilityBeingUsed = abilityBeingUsed;
+  }
+
+  public getAbility(id: number): CombatCharacterAbility {
+    const ability = this.abilities.find(a => a.id === id);
+    if (!ability) {
+      throw Error (`Could not find ability with id: ${id}`);
+    }
+    return ability;
   }
 }

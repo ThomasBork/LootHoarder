@@ -3,7 +3,7 @@
 
   <app-progress-bar
     [minimumValue]="0"
-    [maximumValue]="10000"
+    [maximumValue]="character.attributes.maximumHealth"
     [value]="character.currentHealth"
     [text]="character.typeKey"
   ></app-progress-bar>
@@ -11,4 +11,16 @@
   <div>Health: {{character.currentHealth | prettyNumber}}</div>
 
   <img [src]="getImagePath()">
+
+  <div
+    *ngIf="character.abilityBeingUsed && character.totalTimeToUseAbility"
+  >
+    <app-progress-bar
+      [minimumValue]="0"
+      [maximumValue]="character.totalTimeToUseAbility"
+      [value]="character.totalTimeToUseAbility - character.remainingTimeToUseAbility"
+      [text]="character.abilityBeingUsed.type.name"
+      [barColor]="getAbilityUsageBarColor()"
+    ></app-progress-bar>
+  </div>
 </div>

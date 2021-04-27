@@ -47,6 +47,8 @@ export class CombatCharacter {
   public get isDead(): boolean { return !this.isAlive; }
   public get remainingTimeToUseAbility(): number { return this.dbModel.remainingTimeToUseAbility; }
   public set remainingTimeToUseAbility(newValue: number) { this.dbModel.remainingTimeToUseAbility = newValue; }
+  public get totalTimeToUseAbility(): number | undefined { return this.dbModel.totalTimeToUseAbility; }
+  public set totalTimeToUseAbility(newValue: number | undefined) { this.dbModel.totalTimeToUseAbility = newValue; }
   public get isUsingAbility(): boolean { return !!this.abilityBeingUsed; }
 
   public get targetOfAbilityBeingUsed(): CombatCharacter | undefined { return this._targetOfAbilityBeingUsed; }
@@ -61,7 +63,13 @@ export class CombatCharacter {
       typeKey: this.dbModel.typeKey,
       currentHealth: this.dbModel.currentHealth,
       name: this.dbModel.name,
-      controllingUserId: this.dbModel.controllingUserId
+      controllingUserId: this.dbModel.controllingUserId,
+      attributes: this.attributes.getValues(),
+      abilities: this.abilities.map(ability => ability.getUIState()),
+      remainingTimeToUseAbility: this.remainingTimeToUseAbility,
+      totalTimeToUseAbility: this.totalTimeToUseAbility,
+      idOfAbilityBeingUsed: this.dbModel.idOfAbilityBeingUsed,
+      idOfTargetOfAbilityBeingUsed: this.dbModel.idOfTargetOfAbilityBeingUsed
     };
   }
 

@@ -1,3 +1,4 @@
+import { ContractCombatCharacterAbility } from "src/loot-hoarder-contract/contract-combat-character-ability";
 import { DbAbility } from "src/raw-game-state/db-ability";
 import { StaticGameContentService } from "src/services/static-game-content-service";
 import { AbilityType } from "../ability-type";
@@ -39,6 +40,14 @@ export class Ability {
 
   public startCooldown(): void {
     this.dbModel.remainingCooldown = this.cooldownVC.value;
+  }
+
+  public getUIState(): ContractCombatCharacterAbility {
+    return {
+      id: this.dbModel.id,
+      typeKey: this.dbModel.typeKey,
+      remainingCooldown: this.dbModel.remainingCooldown
+    };
   }
 
   public static load(dbModel: DbAbility): Ability {

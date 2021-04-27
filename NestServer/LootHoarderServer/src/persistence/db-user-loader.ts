@@ -23,6 +23,8 @@ export class DbUserLoader {
 
     const result = await con.query(queryWithParameterValues);
 
+    con.end();
+
     if (result.length === 0) {
       return undefined;
     }

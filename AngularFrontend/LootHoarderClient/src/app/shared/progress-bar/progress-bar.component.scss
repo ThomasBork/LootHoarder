@@ -3,16 +3,19 @@
     flex: 1 1 0;
     height: 30px;
     display: flex;
+    align-items: center;
     border-radius: 5px;
+    position: relative;
+
+    .text {
+        margin-left: 8px;
+        margin-right: 8px;
+        position: relative;
+    }
 
     .bar {
-        display: flex;
-        align-items: center;
+        height: 100%;
         border-radius: 5px;
-
-        .text {
-            margin-left: 8px;
-            margin-right: 8px;
-        }
+        position: absolute;
     }
 }

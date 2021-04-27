@@ -27,6 +27,8 @@ export class DbUserRepository {
 
     const result = await con.query(queryWithParameterValues);
 
+    con.end();
+
     const userId = result['insertId'];
 
     this.logger.log('Created new user with id: ' + userId);
@@ -48,6 +50,8 @@ export class DbUserRepository {
     const queryWithParameterValues = this.dbQueryHelper.buildQuery(query, parameters);
 
     const result = await con.query(queryWithParameterValues);
+
+    con.end();
 
     if (result.length === 0) {
       throw Error('No user found with user name: ' + userName);

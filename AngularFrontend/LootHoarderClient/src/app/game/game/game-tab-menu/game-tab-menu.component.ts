@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Game } from '../client-representation/game';
+import { UIState } from '../client-representation/ui-state';
 
 @Component({
   selector: 'app-game-tab-menu',
@@ -8,7 +9,7 @@ import { Game } from '../client-representation/game';
 })
 export class GameTabMenuComponent implements OnInit {
   @Input()
-  public game!: Game;
+  public uiState!: UIState;
 
   public selectedTab!: string;
 
@@ -16,7 +17,7 @@ export class GameTabMenuComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    if (this.game.heroes.length === 0) {
+    if (this.uiState.game.heroes.length === 0) {
       this.selectedTab = 'heroes';
     } else {
       this.selectedTab = 'world';

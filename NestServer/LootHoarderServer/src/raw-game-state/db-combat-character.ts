@@ -12,4 +12,5 @@ export interface DbCombatCharacter {
   idOfAbilityBeingUsed?: number;
   idOfTargetOfAbilityBeingUsed?: number;
   remainingTimeToUseAbility: number;
+  totalTimeToUseAbility?: number;
 }

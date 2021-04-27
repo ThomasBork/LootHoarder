@@ -1,6 +1,7 @@
 import { AreaType } from "./area-type";
 import { Area } from "./area";
 import { Hero } from "./hero";
+import { GameAreaType } from "./game-area-type";
 
 export class Game {
   public id: number;
@@ -9,6 +10,7 @@ export class Game {
   public areas: Area[];
   public completedAreaType: AreaType[];
   public availableAreaType: AreaType[];
+  public allAreaTypes: GameAreaType[];
 
   public constructor(
     id: number,
@@ -17,6 +19,7 @@ export class Game {
     areas: Area[],
     completedAreaType: AreaType[],
     availableAreaType: AreaType[],
+    allAreaTypes: GameAreaType[],
   ) {
     this.id = id;
     this.createdAt = createdAt;
@@ -24,5 +27,6 @@ export class Game {
     this.areas = areas;
     this.completedAreaType = completedAreaType;
     this.availableAreaType = availableAreaType;
+    this.allAreaTypes = allAreaTypes;
   }
 }

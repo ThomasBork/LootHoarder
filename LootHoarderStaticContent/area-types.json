@@ -4,15 +4,15 @@
     "name": "Basic Forest",
     "description": "Contains various stupid beasts.",
     "level": 1,
-    "x": 0,
-    "y": 0
+    "x": 250,
+    "y": 200
   },
   {
     "key": "basic-plains",
     "name": "Basic Plains",
     "description": "Contains scary bandits.",
     "level": 3,
-    "x": 1,
-    "y": 3
+    "x": 500,
+    "y": 500
   }
 ]

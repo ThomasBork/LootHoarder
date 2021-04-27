@@ -5,7 +5,7 @@
     "description": "Deals physical damage to a single target.",
     "tags": ["physical", "attack"],
     "manaCost": 0,
-    "timeToUse": 200,
+    "timeToUse": 500,
     "cooldown": 2000,
     "criticalStrikeChance": 0.05,
     "effects": [
@@ -25,7 +25,7 @@
     "description": "Deals lightning damage to a single target.",
     "tags": ["lightning", "elemental", "spell"],
     "manaCost": 5,
-    "timeToUse": 100,
+    "timeToUse": 300,
     "cooldown": 5000,
     "criticalStrikeChance": 0.10,
     "effects": [
@@ -45,7 +45,7 @@
     "description": "Deals physical damage to a single target and restores health to the caster equal to a portion of the damage dealt.",
     "tags": ["physical", "healing", "spell"],
     "manaCost": 8,
-    "timeToUse": 300,
+    "timeToUse": 600,
     "cooldown": 10000,
     "criticalStrikeChance": 0,
     "effects": [

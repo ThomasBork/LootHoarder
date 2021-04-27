@@ -9,6 +9,7 @@ import { DamageType } from "src/computed-game-state/damage-type";
 import { Game } from "src/computed-game-state/game";
 import { ContractCombatWebSocketMessage } from "src/loot-hoarder-contract/contract-combat-web-socket-message";
 import { ContractAbilityUsedMessage } from "src/loot-hoarder-contract/combat-messages/contract-ability-used-message";
+import { ContractBegunUsingAbilityMessage } from "src/loot-hoarder-contract/combat-messages/contract-begun-using-ability-message";
 import { GamesManager } from "./games-manager";
 import { RandomService } from "./random-service";
 import { Area } from "src/computed-game-state/area/area";
@@ -75,6 +76,9 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
           );
 
         if (availableAbilities.length > 0) {
+          // Now all events in the combat will be put into this new bucket
+          combat.redirectAllEventsToNewBucket();
+
           const chosenAbility = this.randomService.randomElementInArray(availableAbilities);
           let target: CombatCharacter | undefined = undefined;
           if (chosenAbility.type.requiresTarget) {
@@ -83,10 +87,16 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
           }
 
           character.abilityBeingUsed = chosenAbility;
-          character.remainingTimeToUseAbility = chosenAbility.timeToUseVC.value;
+          const timeToUse = chosenAbility.timeToUseVC.value;
+          character.remainingTimeToUseAbility = timeToUse;
+          character.totalTimeToUseAbility = timeToUse;
           character.targetOfAbilityBeingUsed = target;
 
-          this.logger.log(`[${character.id}]: Begins using ${chosenAbility.type.name} in ${character.remainingTimeToUseAbility} milliseconds.`);
+          // Stop redirecting all events and send ability used message
+          const messageInnerEvents = combat.flushBucketAndStopRedirectingEvents();
+          const innerMessage = new ContractBegunUsingAbilityMessage(chosenAbility.id, character.id, target?.id, timeToUse, messageInnerEvents);
+          const message = new ContractCombatWebSocketMessage(combat.id, innerMessage);
+          combat.onCombatEvent.next(message);
         }
       }
 
@@ -106,8 +116,8 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
         }
 
         // Stop redirecting all events and send ability used message
-        const abilityInnerEvents = combat.flushBucketAndStopRedirectingEvents();
-        const innerMessage = new ContractAbilityUsedMessage(abilityToUse.id, character.id, character.targetOfAbilityBeingUsed, abilityInnerEvents);
+        const messageInnerEvents = combat.flushBucketAndStopRedirectingEvents();
+        const innerMessage = new ContractAbilityUsedMessage(abilityToUse.id, character.id, character.targetOfAbilityBeingUsed, messageInnerEvents);
         const message = new ContractCombatWebSocketMessage(combat.id, innerMessage);
         combat.onCombatEvent.next(message);
       }

@@ -33,17 +33,18 @@
   <div class="tab-content">
     <app-game-tab-world
       *ngIf="selectedTab === 'world'"
-      [game]="game"
+      [worldTab]="uiState.worldTab"
+      [game]="uiState.game"
     ></app-game-tab-world>
 
     <app-game-tab-heroes
       *ngIf="selectedTab === 'heroes'"
-      [game]="game"
+      [game]="uiState.game"
     ></app-game-tab-heroes>
 
     <app-game-tab-combat
       *ngIf="selectedTab === 'combat'"
-      [game]="game"
+      [game]="uiState.game"
     ></app-game-tab-combat>
     
     <div *ngIf="selectedTab === 'combats'">Combats content</div>

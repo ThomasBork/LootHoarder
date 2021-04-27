@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ContractAbilityUsedMessageContent } from "src/loot-hoarder-contract/combat-messages/contract-ability-used-message-content";
+import { ContractBegunUsingAbilityMessageContent } from "src/loot-hoarder-contract/combat-messages/contract-begun-using-ability-message-content";
 import { ContractCombatCharacterCurrentHealthChangedMessageContent } from "src/loot-hoarder-contract/combat-messages/contract-combat-character-current-health-changed-message-content";
 import { ContractCombatMessageType } from "src/loot-hoarder-contract/combat-messages/contract-combat-message-type";
 import { ContractCombatWebSocketInnerMessage } from "src/loot-hoarder-contract/contract-combat-web-socket-inner-message";
@@ -22,6 +23,10 @@ export class CombatMessageHandler {
         this.handleCharacterCurrentHealthChanged(combat, message.data);
       }
       break;
+      case ContractCombatMessageType.begunUsingAbility: {
+        this.handleBegunUsingAbility(game, combat, message.data);
+      }
+      break;
       case ContractCombatMessageType.abilityUsed: {
         this.handleAbilityUsed(game, combat, message.data);
       }
@@ -31,8 +36,29 @@ export class CombatMessageHandler {
     }
   }
 
+  private handleBegunUsingAbility(game: Game, combat: Combat, data: ContractBegunUsingAbilityMessageContent) {
+    const usingCharacter = combat.getCharacter(data.usingCombatCharacterId);
+    usingCharacter.remainingTimeToUseAbility = data.timeToUse;
+    usingCharacter.totalTimeToUseAbility = data.timeToUse;
+    usingCharacter.abilityBeingUsed = usingCharacter.getAbility(data.abilityId);
+    usingCharacter.targetOfAbilityBeingUsed = data.targetCombatCharacterId 
+      ? combat.getCharacter(data.targetCombatCharacterId)
+      : undefined;
+
+    for(const innerMessage of data.effects) {
+      this.handleMessage(game, combat.id, innerMessage);
+    }
+  }
+
   private handleAbilityUsed(game: Game, combat: Combat, data: ContractAbilityUsedMessageContent) {
-    // TODO: Handle the actual ability use
+    const usingCharacter = combat.getCharacter(data.usingCombatCharacterId);
+    if (usingCharacter.abilityBeingUsed && usingCharacter.abilityBeingUsed.id === data.abilityId) {
+      usingCharacter.abilityBeingUsed = undefined;
+      usingCharacter.totalTimeToUseAbility = undefined;
+      usingCharacter.remainingTimeToUseAbility = 0;
+      usingCharacter.targetOfAbilityBeingUsed = undefined;
+    }
+
     for(const innerMessage of data.effects) {
       this.handleMessage(game, combat.id, innerMessage);
     }

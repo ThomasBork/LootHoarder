@@ -31,6 +31,8 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
 
     const currentCombat: DbCombat = {
       id: command.game.getNextCombatId(),
+      hasEnded: false,
+      didTeam1Win: undefined,
       team1: command.heroIds.map((heroId, index) => {
         const hero = command.game.findHero(heroId);
         if (!hero) {
@@ -66,7 +68,7 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
         name: 'Dangerous Fish',
         controllingUserId: undefined,
         attributeSet: {
-          maximumHealth: 10000,
+          maximumHealth: 400,
           maximumMana: 0,
           attackPower: 10,
           spellPower: 10,

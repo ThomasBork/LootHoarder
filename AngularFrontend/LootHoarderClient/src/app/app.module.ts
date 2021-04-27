@@ -28,6 +28,9 @@ import { CombatCharacterComponent } from './game/game/game-tab-combat/combat/com
 import { CombatMessageHandler } from './game/game/combat-message-handler';
 import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
 import { PrettyNumberPipe } from './shared/pretty-number-pipe/pretty-number.pipe';
+import { GameTabWorldAreaTypeInformationComponent } from './game/game/game-tab-world/game-tab-world-area-type-information/game-tab-world-area-type-information.component';
+import { UIStateMapper } from './game/game/ui-state-mapper';
+import { UIStateAdvancer } from './game/game/ui-state-advancer';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,7 @@ import { PrettyNumberPipe } from './shared/pretty-number-pipe/pretty-number.pipe
     CombatCharacterComponent,
     GameTabHeroesComponent,
     GameTabMenuComponent,
+    GameTabWorldAreaTypeInformationComponent,
     GameTabWorldComponent,
     PrettyNumberPipe,
     ProgressBarComponent,
@@ -62,6 +66,8 @@ import { PrettyNumberPipe } from './shared/pretty-number-pipe/pretty-number.pipe
     CombatMessageHandler,
     GameService,
     GameStateMapper,
+    UIStateAdvancer,
+    UIStateMapper,
     WebSocketService
   ],
   bootstrap: [AppComponent]

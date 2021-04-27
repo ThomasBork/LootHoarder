@@ -1,0 +1,43 @@
+<div class="information-group">
+  <div class="area-type-name">{{gameAreaType.type.name}}</div>
+  <div class="area-type-level">Area level {{gameAreaType.type.level}}</div>
+</div>
+<div class="information-group">
+  <div class="area-type-description">{{gameAreaType.type.description}}</div>
+</div>
+<div class="information-group">
+  <div>{{gameAreaType.areas.length > 0 ? 'Instances' : 'No instances'}}</div>
+  <div *ngFor="let area of gameAreaType.areas">
+    Heroes: {{area.heroes.length}}
+  </div>
+</div>
+<div class="information-group new-instance-container">
+  <div>Select one or more heroes</div>
+  <ul class="heroes">
+    <li 
+      *ngFor="let hero of game.heroes"
+      class="hero-container"
+      [class.selected]="isHeroSelected(hero)"
+      [class.available]="isHeroAvailable(hero)"
+      (click)="toggleHeroSelected(hero)"
+    >
+      <div>{{hero.name}}</div>
+      <img 
+        class="hero-image"
+        [src]="'assets/images/' + hero.type.key + '.png'" 
+      />
+      <img 
+        class="selected-check-mark"
+        src="assets/images/check-mark.png"
+      />
+      <img 
+        class="hero-not-available-image"
+        src="assets/images/cancel.png"
+      />
+    </li>
+  </ul>
+  <button
+    [disabled]="selectedHeroes.length === 0"
+    (click)="startNewInstance()"
+  >Start new instance</button>
+</div>
