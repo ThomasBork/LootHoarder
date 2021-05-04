@@ -26,6 +26,7 @@ export class CombatCharacter {
       this.abilityBeingUsed = abilities.find(a => a.id === dbModel.idOfAbilityBeingUsed);
     }
     this.onCurrentHealthChanged = new Subject();
+    this.setUpEventHandlers();
   }
 
   public get id(): number { return this.dbModel.id; }
@@ -71,6 +72,13 @@ export class CombatCharacter {
       idOfAbilityBeingUsed: this.dbModel.idOfAbilityBeingUsed,
       idOfTargetOfAbilityBeingUsed: this.dbModel.idOfTargetOfAbilityBeingUsed
     };
+  }
+
+  private setUpEventHandlers(): void {
+    for(const ability of this.abilities) {
+      ability.timeToUseVC.setMultiplicativeValueContainer(this.attributes.attackSpeedVC, value =>  100 / value);
+      ability.cooldownVC.setMultiplicativeValueContainer(this.attributes.attackCooldownSpeedVC, value =>  100 / value);
+    }
   }
 
   public static load(dbModel: DbCombatCharacter): CombatCharacter {

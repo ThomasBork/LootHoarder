@@ -1,0 +1,60 @@
+[
+  {
+    "key": "snake",
+    "name": "Snake",
+    "abilityTypes": ["basic-attack"],
+    "baseAttributes": {
+      "maximumHealth": 200,
+      "maximumMana": 100,
+      "attackPower": 50,
+      "spellPower": 50,
+      "attackSpeed": 150,
+      "castSpeed": 100,
+      "attackCooldownSpeed": 150,
+      "spellCooldownSpeed": 100,
+      "armor": 0,
+      "magicResistance": 50
+    },
+    "attributesPerLevel": {
+      "maximumHealth": 20,
+      "maximumMana": 10,
+      "attackPower": 5,
+      "spellPower": 5,
+      "attackSpeed": 0,
+      "castSpeed": 0,
+      "attackCooldownSpeed": 0,
+      "spellCooldownSpeed": 0,
+      "armor": 0,
+      "magicResistance": 5
+    }
+  },
+  {
+    "key": "bear",
+    "name": "Bear",
+    "abilityTypes": ["basic-attack"],
+    "baseAttributes": {
+      "maximumHealth": 800,
+      "maximumMana": 50,
+      "attackPower": 150,
+      "spellPower": 50,
+      "attackSpeed": 80,
+      "castSpeed": 50,
+      "attackCooldownSpeed": 80,
+      "spellCooldownSpeed": 100,
+      "armor": 50,
+      "magicResistance":50
+    },
+    "attributesPerLevel": {
+      "maximumHealth": 100,
+      "maximumMana": 5,
+      "attackPower": 15,
+      "spellPower": 5,
+      "attackSpeed": 0,
+      "castSpeed": 0,
+      "attackCooldownSpeed": 0,
+      "spellCooldownSpeed": 0,
+      "armor": 5,
+      "magicResistance": 5
+    }
+  }
+]

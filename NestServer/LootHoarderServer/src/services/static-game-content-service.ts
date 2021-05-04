@@ -4,6 +4,7 @@ import AbilityTypes from "src/loot-hoarder-static-content/ability-types.json";
 import AreaTypes from "src/loot-hoarder-static-content/area-types.json";
 import AreaTypeTransitions from "src/loot-hoarder-static-content/area-type-transitions.json";
 import HeroTypes from "src/loot-hoarder-static-content/hero-types.json";
+import MonsterTypes from "src/loot-hoarder-static-content/monster-types.json";
 import { AreaType } from "src/computed-game-state/area/area-type";
 import { AbilityType } from "src/computed-game-state/ability-type";
 import { HeroType } from "src/computed-game-state/hero-type";
@@ -11,12 +12,18 @@ import { AttributeSet } from "src/computed-game-state/attribute-set";
 import { AbilityTypeEffectType } from "src/computed-game-state/ability-type-effect-type";
 import { AbilityTypeEffect } from "src/computed-game-state/ability-type-effect";
 import { AbilityTargetScheme } from "src/computed-game-state/ability-target-scheme";
+import { WeightedElement } from "src/computed-game-state/weighted-element";
+import { AreaTypeRepeatedEncounter } from "src/computed-game-state/area/area-type-repeated-encounter";
+import { AreaTypeEncounterMonsterType } from "src/computed-game-state/area/area-type-encounter-monster-type";
+import { MonsterType } from "src/computed-game-state/area/monster-type";
+import { AreaTypeEncounter } from "src/computed-game-state/area/area-type-encounter";
 
 @Injectable()
 export class StaticGameContentService {
   private abilityTypeEffectTypes!: AbilityTypeEffectType[];
   private abilityTypes!: AbilityType[];
   private heroTypes!: HeroType[];
+  private monsterTypes!: MonsterType[];
   private areaTypes!: AreaType[];
 
   private static _instance: StaticGameContentService;
@@ -67,10 +74,19 @@ export class StaticGameContentService {
     return result;
   }
 
+  public getMonsterType(key: string): MonsterType {
+    const result = this.monsterTypes.find(x => x.key === key);
+    if (!result) {
+      throw Error (`Monster type with key = '${key}' not found.`);
+    }
+    return result;
+  }
+
   private loadAssets(): void {
     this.loadAbilityTypeEffectTypes();
     this.loadAbilityTypes();
     this.loadHeroTypes();
+    this.loadMonsterTypes();
     this.loadAreaTypes();
   }
 
@@ -128,13 +144,46 @@ export class StaticGameContentService {
     )
   }
 
+  private loadMonsterTypes(): void {
+    this.monsterTypes = MonsterTypes.map(monsterType => 
+      {
+        const baseAttributes = new AttributeSet(monsterType.baseAttributes);
+        const attributesPerLevel = new AttributeSet(monsterType.attributesPerLevel);
+        return new MonsterType(
+          monsterType.key,
+          monsterType.name,
+          monsterType.abilityTypes.map(abilityTypeKey => this.getAbilityType(abilityTypeKey)),
+          baseAttributes,
+          attributesPerLevel
+        );
+      }
+    )
+  }
+
   private loadAreaTypes(): void {
-    this.areaTypes = AreaTypes.map(a => new AreaType(
-      a.key,
-      a.name,
-      a.description,
-      a.level
-    ));
+    this.areaTypes = AreaTypes.map(a => {
+      const areaTypeRepeatedEncounters: AreaTypeRepeatedEncounter[] = [];
+      for(const repeatedEncounter of a.repeatedEncounters) {
+        const weightedEncounters = repeatedEncounter.encounters.map(e => 
+          new WeightedElement<AreaTypeEncounter>(
+            e.weight, 
+            new AreaTypeEncounter(e.monsters.map(monster => {
+              const monsterType = this.getMonsterType(monster.typeKey);
+              return new AreaTypeEncounterMonsterType(monsterType);
+            }))
+          )
+        );
+
+        areaTypeRepeatedEncounters.push(new AreaTypeRepeatedEncounter(repeatedEncounter.repetitionAmount, weightedEncounters));
+      }
+      return new AreaType(
+        a.key,
+        a.name,
+        a.description,
+        a.level,
+        areaTypeRepeatedEncounters
+      );
+    });
 
     for(let transition of AreaTypeTransitions) {
       const areaType1 = this.getAreaType(transition[0]);

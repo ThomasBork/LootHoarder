@@ -1,4 +1,5 @@
 import { AreaHero } from "./area-hero";
+import { AttributeSetValues } from "./attribute-set-values";
 import { HeroType } from "./hero-type";
 
 export class Hero {
@@ -8,18 +9,21 @@ export class Hero {
   public level: number;
   public experience: number;
   public areaHero?: AreaHero;
+  public attributes: AttributeSetValues;
 
   public constructor(
     id: number,
     type: HeroType,
     name: string,
     level: number,
-    experience: number
+    experience: number,
+    attributes: AttributeSetValues,
   ) {
     this.id = id;
     this.type = type;
     this.name = name;
     this.level = level;
     this.experience = experience;
+    this.attributes = attributes;
   }
 }

@@ -1,5 +1,6 @@
 import { ContractArea } from "./contract-area";
 import { ContractHero } from "./contract-hero";
+import { ContractGameSettings } from "./contract-game-settings"
 
 export interface ContractGame {
   id: number;
@@ -8,4 +9,5 @@ export interface ContractGame {
   areas: ContractArea[];
   completedAreaTypeKeys: string[];
   availableAreaTypeKeys: string[];
+  settings: ContractGameSettings;
 }

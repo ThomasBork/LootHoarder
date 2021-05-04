@@ -1,3 +1,4 @@
+import { ContractAttributeSet } from "src/loot-hoarder-contract/contract-attribute-set";
 import { DbAttributeSet } from "src/raw-game-state/db-attribute-set";
 
 export class AttributeSetValues {
@@ -34,6 +35,21 @@ export class AttributeSetValues {
     this.spellCooldownSpeed = settings?.spellCooldownSpeed ?? 0;
     this.armor = settings?.armor ?? 0;
     this.magicResistance = settings?.magicResistance ?? 0;
+  }
+
+  public getUIState(): ContractAttributeSet {
+    return {
+      maximumHealth: this.maximumHealth,
+      maximumMana: this.maximumMana,
+      attackPower: this.attackPower,
+      spellPower: this.spellPower,
+      attackSpeed: this.attackSpeed,
+      castSpeed: this.castSpeed,
+      attackCooldownSpeed: this.attackCooldownSpeed,
+      spellCooldownSpeed: this.spellCooldownSpeed,
+      armor: this.armor,
+      magicResistance: this.magicResistance,
+    };
   }
 
   public toDbModel(): DbAttributeSet {

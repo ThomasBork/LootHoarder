@@ -1,9 +1,9 @@
 import { Logger } from '@nestjs/common';
 import { Subject } from 'rxjs';
 import { User } from 'src/computed-game-state/user';
-import { ContractClientWebSocketMessage } from 'src/loot-hoarder-contract/contract-client-web-socket-message';
-import { ContractServerMessageType } from 'src/loot-hoarder-contract/contract-server-message-type';
-import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/contract-server-web-socket-message';
+import { ContractClientWebSocketMessage } from 'src/loot-hoarder-contract/client-actions/contract-client-web-socket-message';
+import { ContractServerMessageType } from 'src/loot-hoarder-contract/server-actions/contract-server-message-type';
+import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-message';
 import WebSocket from 'ws';
 
 export class Connection {

@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ValueChangeEvent } from './value-change-event';
 
 interface ValueModifier {
@@ -7,7 +7,7 @@ interface ValueModifier {
 }
 
 export class ValueContainer {
-  public onValueChange: Observable<ValueChangeEvent<number>> = new Observable();
+  public onValueChange: Subject<ValueChangeEvent<number>> = new Subject();
   
   private _value: number;
   private _baseValue: number;
@@ -49,10 +49,8 @@ export class ValueContainer {
     if (!exists) {
       this.additiveValueContainers.push(valueContainer);
       this.setAdditiveModifier(valueContainer, valueContainer._value);
-      this.recalculateValue();
       valueContainer.onValueChange.subscribe(valueChange => {
         this.setAdditiveModifier(valueContainer, valueChange.newValue);
-        this.recalculateValue();
       });
     }
   }
@@ -67,15 +65,21 @@ export class ValueContainer {
     this.recalculateValue();
   }
 
-  public setMultiplicativeValueContainer (valueContainer: ValueContainer) {
+  public setMultiplicativeValueContainer (valueContainer: ValueContainer, modificationExpression?: (value: number) => number) {
     const exists = this.multiplicativeValueContainers.includes(valueContainer);
     if (!exists) {
       this.multiplicativeValueContainers.push(valueContainer);
-      this.setMultiplicativeModifier(valueContainer, valueContainer._value);
-      this.recalculateValue();
+      let value = valueContainer.value;
+      if (modificationExpression) {
+        value = modificationExpression(value);
+      }
+      this.setMultiplicativeModifier(valueContainer, value);
       valueContainer.onValueChange.subscribe(valueChange => {
-        this.setMultiplicativeModifier(valueContainer, valueChange.newValue);
-        this.recalculateValue();
+        let value = valueChange.newValue;
+        if (modificationExpression) {
+          value = modificationExpression(value);
+        }
+        this.setMultiplicativeModifier(valueContainer, value);
       });
     }
   }
@@ -98,6 +102,11 @@ export class ValueContainer {
     for (const modifier of this.multiplicativeModifiers) {
       newValue *= modifier.amount;
     }
-    this._value = newValue;
+    const previousValue = this._value;
+    const didValueChange = previousValue !== newValue;
+    if (didValueChange) {
+      this._value = newValue;
+      this.onValueChange.next({ previousValue, newValue });
+    }
   }
 }

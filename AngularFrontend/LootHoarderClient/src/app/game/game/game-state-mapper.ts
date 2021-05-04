@@ -51,6 +51,7 @@ export class GameStateMapper {
     return new Game(
       serverGame.id,
       serverGame.createdAt,
+      serverGame.settings,
       heroes,
       areas,
       completedAreaTypes,
@@ -61,12 +62,14 @@ export class GameStateMapper {
 
   public mapToHero(serverHero: ContractHero): Hero {
     const heroType = this.assetManagerService.getHeroType(serverHero.typeKey);
+    const attributes = this.mapToAttributeSetValues(serverHero.attributes);
     return new Hero (
       serverHero.id,
       heroType,
       serverHero.name,
       serverHero.level,
-      serverHero.experience
+      serverHero.experience,
+      attributes
     );
   }
 
@@ -112,7 +115,9 @@ export class GameStateMapper {
     return new Combat(
       serverCombat.id,
       team1,
-      team2
+      team2,
+      serverCombat.hasEnded,
+      serverCombat.didTeam1Win
     );
   }
 

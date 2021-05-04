@@ -16,6 +16,9 @@ export class GameService {
   public async createNewGame(userId: number): Promise<number> {
     const initialGameState: DbGameState = {
       heroes: [],
+      settings: {
+        automaticallyGoToNextCombat: false,
+      },
       areas: [],
       completedAreaTypes: [],
       nextAreaId: 1,

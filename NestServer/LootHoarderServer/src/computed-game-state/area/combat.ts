@@ -1,20 +1,19 @@
 import { Subject } from 'rxjs';
-import { ContractCombatCharacterCurrentHealthChangedMessage } from 'src/loot-hoarder-contract/combat-messages/contract-combat-character-current-health-changed-message';
-import { ContractCombatEndedMessage } from 'src/loot-hoarder-contract/combat-messages/contract-combat-ended-message';
+import { ContractCombatCharacterCurrentHealthChangedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-health-changed-message';
+import { ContractCombatEndedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-ended-message';
 import { ContractCombat } from 'src/loot-hoarder-contract/contract-combat';
-import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/contract-combat-web-socket-inner-message';
-import { ContractCombatWebSocketMessage } from 'src/loot-hoarder-contract/contract-combat-web-socket-message';
+import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/server-actions/contract-combat-web-socket-inner-message';
 import { DbCombat } from 'src/raw-game-state/db-combat';
+import { EventStream } from '../message-bucket';
 import { Ability } from './ability';
 import { CombatCharacter } from './combat-character';
 
 export class Combat {
   public team1: CombatCharacter[];
   public team2: CombatCharacter[];
-  public onCombatEvent: Subject<ContractCombatWebSocketMessage>;
-  
-  private dbModel: DbCombat;
-  private currentCombatEventBucket: ContractCombatWebSocketInnerMessage[] | undefined;
+  public onCombatEvent: EventStream<ContractCombatWebSocketInnerMessage>;
+  public onCombatEnded: Subject<void>;
+  public dbModel: DbCombat;
 
   private constructor(
     dbModel: DbCombat,
@@ -24,7 +23,8 @@ export class Combat {
     this.dbModel = dbModel;
     this.team1 = team1;
     this.team2 = team2;
-    this.onCombatEvent = new Subject();
+    this.onCombatEvent = new EventStream();
+    this.onCombatEnded = new Subject();
     this.setUpEventListeners();
   }
 
@@ -40,19 +40,6 @@ export class Combat {
       team1: this.team1.map(c => c.getUIState()),
       team2: this.team2.map(c => c.getUIState()),
     };
-  }
-
-  public redirectAllEventsToNewBucket(): void {
-    this.currentCombatEventBucket = [];
-  }
-
-  public flushBucketAndStopRedirectingEvents(): ContractCombatWebSocketInnerMessage[] {
-    if (!this.currentCombatEventBucket) {
-      throw Error (`Can't flush undefined.`);
-    }
-    const events = this.currentCombatEventBucket;
-    this.currentCombatEventBucket = undefined;
-    return events;
   }
 
   public getLegalTargets(character: CombatCharacter, ability: Ability, includeDeadTargets: boolean): CombatCharacter[] {
@@ -116,8 +103,11 @@ export class Combat {
     const team2Alive = this.team2.some(c => c.isAlive);
     const hasEnded = !team1Alive || !team2Alive;
     if (hasEnded) {
+      const didTeam1Win = team1Alive;
       this.dbModel.hasEnded = hasEnded;
-      this.sendEventMessage(new ContractCombatEndedMessage());
+      this.dbModel.didTeam1Win = didTeam1Win;
+      this.onCombatEvent.next(new ContractCombatEndedMessage(didTeam1Win));
+      this.onCombatEnded.next();
     }
   }
 
@@ -125,19 +115,9 @@ export class Combat {
     const allCharacters = this.team1.concat(this.team2);
     for(const character of allCharacters) {
       character.onCurrentHealthChanged.subscribe(newCurrentHealth => {
-        this.sendEventMessage(new ContractCombatCharacterCurrentHealthChangedMessage(character.id, newCurrentHealth));
+        this.onCombatEvent.next(new ContractCombatCharacterCurrentHealthChangedMessage(character.id, newCurrentHealth));
         this.updateHasEnded();
       });
-    }
-  }
-
-  private sendEventMessage(message: ContractCombatWebSocketInnerMessage): void {
-    if (this.currentCombatEventBucket) {
-      this.currentCombatEventBucket.push(message);
-    } else {
-      this.onCombatEvent.next(
-        new ContractCombatWebSocketMessage(this.id, message)
-      );
     }
   }
 

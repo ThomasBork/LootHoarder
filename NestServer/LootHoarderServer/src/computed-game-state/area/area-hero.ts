@@ -1,21 +1,26 @@
 import { ContractAreaHero } from "src/loot-hoarder-contract/contract-area-hero";
 import { DbAreaHero } from "src/raw-game-state/db-area-hero";
 import { GamesManager } from "src/services/games-manager";
-import { StaticGameContentService } from "src/services/static-game-content-service";
 import { Hero } from "../hero";
+import { CombatCharacter } from "./combat-character";
 
 export class AreaHero {
   public dbModel: DbAreaHero;
   public hero: Hero;
+  public combatCharacter: CombatCharacter;
 
-  private constructor(dbModel: DbAreaHero, hero: Hero) {
+  private constructor(
+    dbModel: DbAreaHero, 
+    hero: Hero,
+    combatCharacter: CombatCharacter
+  ) {
     this.dbModel = dbModel;
     this.hero = hero;
+    this.combatCharacter = combatCharacter;
   }
   
   public get gameId(): number { return this.dbModel.gameId; }
   public get heroId(): number { return this.dbModel.heroId; }
-  public get combatCharacterId(): number { return this.dbModel.combatCharacterId; }
 
   public getUIState(): ContractAreaHero {
     return {
@@ -29,13 +34,13 @@ export class AreaHero {
     };
   }
 
-  public static load(dbModel: DbAreaHero): AreaHero {
+  public static load(dbModel: DbAreaHero, combatCharacter: CombatCharacter): AreaHero {
     const gamesManager = GamesManager.instance;
     const hero = gamesManager.getHero(dbModel.gameId, dbModel.heroId);
     if (!hero) {
       throw Error (`Hero not found. GameId: ${dbModel.gameId}, HeroId: ${dbModel.heroId}`);
     }
-    const areaHero = new AreaHero(dbModel, hero);
+    const areaHero = new AreaHero(dbModel, hero, combatCharacter);
     return areaHero;
   }
 }

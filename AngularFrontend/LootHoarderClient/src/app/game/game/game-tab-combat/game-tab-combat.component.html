@@ -22,6 +22,16 @@
     </div>
     <div class="area-container">
       <app-combat [combat]="selectedArea.currentCombat"></app-combat>
+      <div
+        *ngIf="hasCombatEnded"
+        class="end-of-combat-buttons"
+      >
+        <button
+          *ngIf="canGoToNextCombat"
+          (click)="goToNextCombat(selectedArea)"
+        >Go to next combat</button>
+        <button (click)="leaveArea(selectedArea)">Leave area</button>
+      </div>
     </div>
   </ng-container>
 </div>

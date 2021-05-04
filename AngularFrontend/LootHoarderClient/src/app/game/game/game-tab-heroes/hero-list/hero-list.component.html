@@ -2,6 +2,7 @@
   <li
     *ngFor="let hero of heroes"
     class="hero-container"
+    (click)="onHeroClick(hero)"
   >
     <app-label-with-value
       [label]="'Name'"

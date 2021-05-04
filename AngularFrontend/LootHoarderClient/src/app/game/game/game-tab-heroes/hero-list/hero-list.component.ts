@@ -12,8 +12,14 @@ export class HeroListComponent {
 
   @Output()
   public newHeroClick: EventEmitter<void> = new EventEmitter();
+  @Output()
+  public heroClick: EventEmitter<Hero> = new EventEmitter();
 
   public newHero(): void {
     this.newHeroClick.emit();
+  }
+
+  public onHeroClick(hero: Hero): void {
+    this.heroClick.emit(hero);
   }
 }

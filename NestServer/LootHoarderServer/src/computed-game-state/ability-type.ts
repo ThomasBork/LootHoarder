@@ -51,4 +51,12 @@ export class AbilityType {
       || effect.canTargetEnemies
     );
   }
+
+  public get isAttack(): boolean {
+    return this.tags.includes('attack');
+  }
+
+  public get isSpell(): boolean {
+    return this.tags.includes('spell');
+  }
 }

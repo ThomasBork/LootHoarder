@@ -1,9 +1,16 @@
-<app-hero-list 
-  *ngIf="!isCreatingNewHero"
-  [heroes]="game.heroes"
-  (newHeroClick)="openCreateNewHero()"
->
-</app-hero-list>
+<div>
+  <app-hero-list 
+    *ngIf="!isCreatingNewHero"
+    [heroes]="game.heroes"
+    (newHeroClick)="openCreateNewHero()"
+    (heroClick)="selectHero($event)"
+  >
+  </app-hero-list>
+  <app-hero-information
+    *ngIf="selectedHero"
+    [hero]="selectedHero"
+  ></app-hero-information>
+</div>
 
 <app-create-new-hero 
   *ngIf="isCreatingNewHero"

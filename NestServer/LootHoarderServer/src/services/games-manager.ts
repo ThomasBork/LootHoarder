@@ -4,7 +4,7 @@ import { Game } from 'src/computed-game-state/game';
 import { Connection } from './connection';
 import { GameCommunicationsWrapper } from './game-communications-wrapper';
 import { Hero } from 'src/computed-game-state/hero';
-import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/contract-server-web-socket-message';
+import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-message';
 
 @Injectable()
 export class GamesManager {

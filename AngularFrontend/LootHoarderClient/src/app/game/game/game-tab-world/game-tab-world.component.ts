@@ -26,7 +26,7 @@ export class GameTabWorldComponent {
   private readonly worldMapHeight = 4000;
 
   public get areaTypes(): AreaType[] {
-    return this.game.availableAreaType;
+    return this.game.availableAreaTypes;
   }
 
   public get x(): number { return this.worldTab.worldMapX; }

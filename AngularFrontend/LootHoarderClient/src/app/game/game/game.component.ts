@@ -3,17 +3,22 @@ import { ActivatedRoute } from '@angular/router';
 import { ContractArea } from 'src/loot-hoarder-contract/contract-area';
 import { ContractHero } from 'src/loot-hoarder-contract/contract-hero';
 import { WebSocketService } from '../web-socket/web-socket.service';
-import { Game } from './client-representation/game';
 import { CombatMessageHandler } from './combat-message-handler';
 import { GameStateMapper } from './game-state-mapper';
 import { AssetManagerService } from './client-representation/asset-manager.service';
-import { ContractClientMessageType } from 'src/loot-hoarder-contract/contract-client-message-type';
-import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/contract-server-web-socket-message';
-import { ContractServerMessageType } from 'src/loot-hoarder-contract/contract-server-message-type';
-import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/contract-combat-web-socket-inner-message';
+import { ContractClientMessageType } from 'src/loot-hoarder-contract/client-actions/contract-client-message-type';
+import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-message';
+import { ContractServerMessageType } from 'src/loot-hoarder-contract/server-actions/contract-server-message-type';
+import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/server-actions/contract-combat-web-socket-inner-message';
 import { UIState } from './client-representation/ui-state';
 import { UIStateMapper } from './ui-state-mapper';
 import { UIStateAdvancer } from './ui-state-advancer';
+import { ContractServerWebSocketMultimessageContent } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-multimessage-content';
+import { ContractHeroGainedExperienceMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-gained-experience-message-content';
+import { ContractHeroAttributeChangedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-attribute-changed-message-content';
+import { ContractAreaAbandonedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-area-abandoned-message-content';
+import { ContractCombatStartedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-combat-started-message-content';
+import { ContractAreaTypeCompletedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-area-type-completed-message-content';
 
 @Component({
   selector: 'app-game',
@@ -78,6 +83,19 @@ export class GameComponent implements OnInit, OnDestroy {
     }
 
     switch (message.typeKey) {
+      case ContractServerMessageType.multimessage: {
+        const data = message.data as ContractServerWebSocketMultimessageContent;
+        for(const innerMessage of data.messages) {
+          this.handleMessage(innerMessage);
+        }
+      }
+      break;
+      case ContractServerMessageType.combat: {
+        const combatId = message.data.combatId as number;
+        const innerMessage = message.data.innerMessage as ContractCombatWebSocketInnerMessage;
+        this.combatMessageHandler.handleMessage(this.uiState.game, combatId, innerMessage);
+      }
+      break;
       case ContractServerMessageType.heroAdded: {
         const serverHero = message.data.hero as ContractHero;
         const hero = this.gameStateMapper.mapToHero(serverHero);
@@ -90,10 +108,37 @@ export class GameComponent implements OnInit, OnDestroy {
         this.uiState.addArea(area);
       }
       break;
-      case ContractServerMessageType.combat: {
-        const combatId = message.data.combatId as number;
-        const innerMessage = message.data.innerMessage as ContractCombatWebSocketInnerMessage;
-        this.combatMessageHandler.handleMessage(this.uiState.game, combatId, innerMessage);
+      case ContractServerMessageType.areaAbandoned: {
+        const data = message.data as ContractAreaAbandonedMessageContent;
+        this.uiState.removeArea(data.areaId);
+      }
+      break;
+      case ContractServerMessageType.combatStarted: {
+        const data = message.data as ContractCombatStartedMessageContent;
+        const area = this.uiState.game.getArea(data.areaId);
+        const combat = this.gameStateMapper.mapToCombat(data.combat);
+        this.uiState.startCombat(area, combat, data.combatNumber);
+      }
+      break;
+      case ContractServerMessageType.areaTypeCompleted: {
+        const data = message.data as ContractAreaTypeCompletedMessageContent;
+        const completedAreaType = this.assetManagerService.getAreaType(data.areaTypeKey);
+        const newAvailableAreaTypes = data.newAvailableAreaTypeKeys.map(key => this.assetManagerService.getAreaType(key));
+        this.uiState.addCompletedAreaType(completedAreaType);
+        this.uiState.addAvailableAreaTypes(newAvailableAreaTypes);
+      }
+      break;
+      case ContractServerMessageType.heroGainedExperience: {
+        const data = message.data as ContractHeroGainedExperienceMessageContent;
+        const hero = this.uiState.game.getHero(data.heroId);
+        hero.level = data.newLevel;
+        hero.experience = data.newExperience;
+      }
+      break;
+      case ContractServerMessageType.heroAttributeChanged: {
+        const data = message.data as ContractHeroAttributeChangedMessageContent;
+        const hero = this.uiState.game.getHero(data.heroId);
+        hero.attributes.setAttribute(data.attributeType, data.newValue);
       }
       break;
       default: {

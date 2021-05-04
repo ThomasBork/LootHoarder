@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Game } from '../client-representation/game';
+import { Hero } from '../client-representation/hero';
 
 @Component({
   selector: 'app-game-tab-heroes',
@@ -11,6 +12,7 @@ export class GameTabHeroesComponent {
   public game!: Game;
 
   public isCreatingNewHero: boolean = false;
+  public selectedHero?: Hero;
 
   public openCreateNewHero(): void {
     this.isCreatingNewHero = true;
@@ -18,5 +20,9 @@ export class GameTabHeroesComponent {
 
   public closeCreateNewHero(): void {
     this.isCreatingNewHero = false;
+  }
+
+  public selectHero(hero: Hero): void {
+    this.selectedHero = hero;
   }
 }

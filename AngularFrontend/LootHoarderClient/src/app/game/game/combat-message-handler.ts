@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { ContractAbilityUsedMessageContent } from "src/loot-hoarder-contract/combat-messages/contract-ability-used-message-content";
-import { ContractBegunUsingAbilityMessageContent } from "src/loot-hoarder-contract/combat-messages/contract-begun-using-ability-message-content";
-import { ContractCombatCharacterCurrentHealthChangedMessageContent } from "src/loot-hoarder-contract/combat-messages/contract-combat-character-current-health-changed-message-content";
-import { ContractCombatMessageType } from "src/loot-hoarder-contract/combat-messages/contract-combat-message-type";
-import { ContractCombatWebSocketInnerMessage } from "src/loot-hoarder-contract/contract-combat-web-socket-inner-message";
+import { ContractCombatWebSocketInnerMessage } from "src/loot-hoarder-contract/server-actions/contract-combat-web-socket-inner-message";
+import { ContractCombatMessageType } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-message-type";
+import { ContractAbilityUsedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-ability-used-message-content";
+import { ContractBegunUsingAbilityMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-begun-using-ability-message-content";
+import { ContractCombatCharacterCurrentHealthChangedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-health-changed-message-content";
+import { ContractCombatEndedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-ended-message-content";
 import { Combat } from "./client-representation/combat";
 import { Game } from "./client-representation/game";
 
@@ -31,12 +32,16 @@ export class CombatMessageHandler {
         this.handleAbilityUsed(game, combat, message.data);
       }
       break;
+      case ContractCombatMessageType.combatEnded: {
+        this.handleCombatEnded(combat, message.data);
+      }
+      break;
       default:
         throw Error (`Unhandled combat message: ${message.typeKey}`);
     }
   }
 
-  private handleBegunUsingAbility(game: Game, combat: Combat, data: ContractBegunUsingAbilityMessageContent) {
+  private handleBegunUsingAbility(game: Game, combat: Combat, data: ContractBegunUsingAbilityMessageContent): void {
     const usingCharacter = combat.getCharacter(data.usingCombatCharacterId);
     usingCharacter.remainingTimeToUseAbility = data.timeToUse;
     usingCharacter.totalTimeToUseAbility = data.timeToUse;
@@ -50,7 +55,7 @@ export class CombatMessageHandler {
     }
   }
 
-  private handleAbilityUsed(game: Game, combat: Combat, data: ContractAbilityUsedMessageContent) {
+  private handleAbilityUsed(game: Game, combat: Combat, data: ContractAbilityUsedMessageContent): void {
     const usingCharacter = combat.getCharacter(data.usingCombatCharacterId);
     if (usingCharacter.abilityBeingUsed && usingCharacter.abilityBeingUsed.id === data.abilityId) {
       usingCharacter.abilityBeingUsed = undefined;
@@ -64,7 +69,7 @@ export class CombatMessageHandler {
     }
   }
 
-  private handleCharacterCurrentHealthChanged(combat: Combat, data: ContractCombatCharacterCurrentHealthChangedMessageContent) {
+  private handleCharacterCurrentHealthChanged(combat: Combat, data: ContractCombatCharacterCurrentHealthChangedMessageContent): void {
     const characterId = data.characterId;
     const newCurrentHealth = data.newCurrentHealth;
     const character = combat.team1.concat(combat.team2).find(c => c.id === characterId);
@@ -72,5 +77,10 @@ export class CombatMessageHandler {
       throw Error (`Character with id: ${characterId} was not found in combat with id: ${combat.id}`);
     }
     character.currentHealth = newCurrentHealth;
+  }
+
+  private handleCombatEnded(combat: Combat, data: ContractCombatEndedMessageContent): void {
+    combat.hasEnded = true;
+    combat.didTeam1Win = data.didTeam1Win;
   }
 }

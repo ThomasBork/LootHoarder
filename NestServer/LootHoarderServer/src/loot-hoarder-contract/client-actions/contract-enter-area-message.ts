@@ -1,5 +1,5 @@
-import { ContractClientMessageType } from '../contract-client-message-type';
-import { ContractClientWebSocketMessage } from '../contract-client-web-socket-message';
+import { ContractClientMessageType } from './contract-client-message-type';
+import { ContractClientWebSocketMessage } from './contract-client-web-socket-message';
 import { ContractEnterAreaMessageContent } from './contract-enter-area-message-content';
 
 export class ContractEnterAreaMessage implements ContractClientWebSocketMessage {

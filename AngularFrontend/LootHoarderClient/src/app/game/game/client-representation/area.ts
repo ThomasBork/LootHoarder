@@ -25,4 +25,17 @@ export class Area {
     this.totalAmountOfCombats = totalAmountOfCombats;
     this.currentCombatNumber = currentCombatNumber;
   }
+
+  public changeCombat(combat: Combat, combatNumber: number): void {
+    this.currentCombat = combat;
+    this.currentCombatNumber = combatNumber;
+    const allCharacters = combat.getAllCharacters();
+    for(const hero of this.heroes) {
+      const character = allCharacters.find(c => c.id === hero.combatCharacter.id);
+      if (!character) {
+        throw Error (`Combat character with id ${hero.combatCharacter.id} was not found.`);
+      }
+      hero.combatCharacter = character;
+    }
+  }
 }

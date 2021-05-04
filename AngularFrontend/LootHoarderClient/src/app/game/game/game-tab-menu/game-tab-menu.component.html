@@ -47,6 +47,9 @@
       [game]="uiState.game"
     ></app-game-tab-combat>
     
-    <div *ngIf="selectedTab === 'combats'">Combats content</div>
+    <app-game-tab-settings
+      *ngIf="selectedTab === 'settings'"
+      [game]="uiState.game"
+    ></app-game-tab-settings>
   </div>
 </div>

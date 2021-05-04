@@ -1,4 +1,5 @@
 import { DbArea } from './db-area';
+import { DbGameSettings } from './db-game-settings';
 import { DbHero } from './db-hero';
 
 export interface DbGameState {
@@ -9,4 +10,5 @@ export interface DbGameState {
   nextAreaId: number;
   nextCombatId: number;
   nextAbilityId: number;
+  settings: DbGameSettings;
 }

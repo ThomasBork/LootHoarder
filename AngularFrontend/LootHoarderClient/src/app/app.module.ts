@@ -31,6 +31,8 @@ import { PrettyNumberPipe } from './shared/pretty-number-pipe/pretty-number.pipe
 import { GameTabWorldAreaTypeInformationComponent } from './game/game/game-tab-world/game-tab-world-area-type-information/game-tab-world-area-type-information.component';
 import { UIStateMapper } from './game/game/ui-state-mapper';
 import { UIStateAdvancer } from './game/game/ui-state-advancer';
+import { HeroInformationComponent } from './game/game/game-tab-heroes/hero-information/hero-information.component';
+import { GameTabSettingsComponent } from './game/game/game-tab-settings/game-tab-settings.component';
 
 @NgModule({
   declarations: [
@@ -46,9 +48,11 @@ import { UIStateAdvancer } from './game/game/ui-state-advancer';
     CombatComponent,
     CombatCharacterComponent,
     GameTabHeroesComponent,
+    HeroInformationComponent,
     GameTabMenuComponent,
     GameTabWorldAreaTypeInformationComponent,
     GameTabWorldComponent,
+    GameTabSettingsComponent,
     PrettyNumberPipe,
     ProgressBarComponent,
   ],

@@ -13,8 +13,8 @@ import { User } from './computed-game-state/user';
 import { DbLoginRepository } from './persistence/db-login-repository';
 import { GameService } from './services/game-service';
 import { GamesManager } from './services/games-manager';
-import { ContractClientMessageType } from './loot-hoarder-contract/contract-client-message-type';
-import { ContractServerMessageType } from './loot-hoarder-contract/contract-server-message-type';
+import { ContractClientMessageType } from './loot-hoarder-contract/client-actions/contract-client-message-type';
+import { ContractServerMessageType } from './loot-hoarder-contract/server-actions/contract-server-message-type';
 
 @WebSocketGateway()
 export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {

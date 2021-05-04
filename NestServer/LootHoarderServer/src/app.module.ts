@@ -19,8 +19,18 @@ import { CreateHeroHandler } from './game-message-handlers/from-client/create-he
 import { EnterAreaTypeHandler } from './game-message-handlers/from-client/enter-area-type-handler';
 import { CombatUpdaterService } from './services/combat-updater-service';
 import { RandomService } from './services/random-service';
+import { MonsterSpawnerService } from './services/monster-spawner-service';
+import { LeaveAreaCombatHandler } from './game-message-handlers/from-client/leave-area-handler';
+import { GoToNextCombatHandler } from './game-message-handlers/from-client/go-to-next-combat-handler';
+import { SetSettingHandler } from './game-message-handlers/from-client/set-setting-handler';
 
-export const CommandHandlers = [EnterAreaTypeHandler, CreateHeroHandler];
+export const CommandHandlers = [
+  CreateHeroHandler,
+  EnterAreaTypeHandler, 
+  LeaveAreaCombatHandler,
+  GoToNextCombatHandler,
+  SetSettingHandler
+];
 
 @Module({
   imports: [CqrsModule],
@@ -41,6 +51,7 @@ export const CommandHandlers = [EnterAreaTypeHandler, CreateHeroHandler];
     DbUserRepository,
     GameService,
     GamesManager,
+    MonsterSpawnerService,
     RandomService,
     StaticGameContentService,
     UserService,

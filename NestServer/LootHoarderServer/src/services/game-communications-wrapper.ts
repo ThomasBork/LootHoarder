@@ -4,9 +4,15 @@ import { Connection } from "./connection";
 import { CommandBus } from "@nestjs/cqrs";
 import { EnterAreaType } from "src/game-message-handlers/from-client/enter-area-type";
 import { CreateHero } from "src/game-message-handlers/from-client/create-hero";
-import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/contract-server-web-socket-message";
-import { ContractClientWebSocketMessage } from "src/loot-hoarder-contract/contract-client-web-socket-message";
-import { ContractClientMessageType } from "src/loot-hoarder-contract/contract-client-message-type";
+import { ContractLeaveAreaMessageContent } from "src/loot-hoarder-contract/client-actions/contract-leave-area-message-content";
+import { ContractGoToNextCombatMessageContent } from "src/loot-hoarder-contract/client-actions/contract-go-to-next-combat-message-content";
+import { ContractSetSettingMessageContent } from "src/loot-hoarder-contract/client-actions/contract-set-setting-message-content";
+import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/server-actions/contract-server-web-socket-message";
+import { ContractClientWebSocketMessage } from "src/loot-hoarder-contract/client-actions/contract-client-web-socket-message";
+import { ContractClientMessageType } from "src/loot-hoarder-contract/client-actions/contract-client-message-type";
+import { LeaveArea } from "src/game-message-handlers/from-client/leave-area";
+import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next-combat";
+import { SetSetting } from "src/game-message-handlers/from-client/set-setting";
 
 export class GameCommunicationsWrapper {
   public game: Game;
@@ -30,7 +36,6 @@ export class GameCommunicationsWrapper {
   }
 
   private setUpEventListeners(): void {
-    // TODO: Look into sending messages in bulk if this is too heavy.
     this.game.onEvent.subscribe(event => this.sendMessage(event));
   }
 
@@ -47,13 +52,41 @@ export class GameCommunicationsWrapper {
         ));
       }
       break;
-      case ContractClientMessageType.enterArea:
+      case ContractClientMessageType.enterArea: {
         this.commandBus.execute(new EnterAreaType (
           this.game,
           this.expectProperty(message.data, 'typeKey'),
           this.expectProperty(message.data, 'heroIds')
         ));
-        break;
+      }
+      break;
+      case ContractClientMessageType.leaveArea: {
+        const data: ContractLeaveAreaMessageContent = message.data;
+        const area = this.game.getArea(data.areaId);
+        this.commandBus.execute(new LeaveArea (
+          this.game,
+          area,
+        ));
+      }
+      break;
+      case ContractClientMessageType.goToNextCombat: {
+        const data: ContractGoToNextCombatMessageContent = message.data;
+        const area = this.game.getArea(data.areaId);
+        this.commandBus.execute(new GoToNextCombat (
+          this.game,
+          area,
+        ));
+      }
+      break;
+      case ContractClientMessageType.setSetting: {
+        const data: ContractSetSettingMessageContent = message.data;
+        this.commandBus.execute(new SetSetting (
+          this.game,
+          data.settingType,
+          data.value
+        ));
+      }
+      break;
       default:
         throw Error (`Unknown message type from client: '${message.typeKey}'`);
     }

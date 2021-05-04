@@ -2,8 +2,8 @@ import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { AppConfigService } from "src/app/app-config.service";
 import { AuthService } from "src/app/auth/service/auth.service";
-import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/contract-server-web-socket-message";
-import { ContractClientWebSocketMessage } from "src/loot-hoarder-contract/contract-client-web-socket-message";
+import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/server-actions/contract-server-web-socket-message";
+import { ContractClientWebSocketMessage } from "src/loot-hoarder-contract/client-actions/contract-client-web-socket-message";
 
 @Injectable() 
 export class WebSocketService {

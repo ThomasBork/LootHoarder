@@ -1,5 +1,9 @@
+import { Subject } from "rxjs";
+import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { DbAttributeSet } from "src/raw-game-state/db-attribute-set";
 import { AttributeSetValues } from "./attribute-set-values";
+import { AttributeValueChangeEvent } from "./attribute-value-change-event";
+import { EventStream } from "./message-bucket";
 import { ValueContainer } from "./value-container";
 
 export class AttributeSet {
@@ -13,6 +17,8 @@ export class AttributeSet {
   public spellCooldownSpeedVC: ValueContainer;
   public armorVC: ValueContainer;
   public magicResistanceVC: ValueContainer;
+
+  public onChange: Subject<AttributeValueChangeEvent>;
 
   public constructor(settings?: {
     maximumHealth?: number,
@@ -36,6 +42,19 @@ export class AttributeSet {
     this.spellCooldownSpeedVC = new ValueContainer(settings?.spellCooldownSpeed ?? 0);
     this.armorVC = new ValueContainer(settings?.armor ?? 0);
     this.magicResistanceVC = new ValueContainer(settings?.magicResistance ?? 0);
+
+    this.onChange = new Subject();
+
+    this.maximumHealthVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.maximumHealth, newValue: change.newValue }));
+    this.maximumManaVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.maximumMana, newValue: change.newValue }));
+    this.attackPowerVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.attackPower, newValue: change.newValue }));
+    this.spellPowerVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.spellPower, newValue: change.newValue }));
+    this.attackSpeedVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.attackSpeed, newValue: change.newValue }));
+    this.castSpeedVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.castSpeed, newValue: change.newValue }));
+    this.attackCooldownSpeedVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.attackCooldownSpeed, newValue: change.newValue }));
+    this.spellCooldownSpeedVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.spellCooldownSpeed, newValue: change.newValue }));
+    this.armorVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.armor, newValue: change.newValue }));
+    this.magicResistanceVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.magicResistance, newValue: change.newValue }));
   }
 
   public getValues(): AttributeSetValues {

@@ -1,5 +1,5 @@
 import { Injectable, Logger, OnApplicationBootstrap } from "@nestjs/common";
-import { EventBus } from "@nestjs/cqrs";
+import { CommandBus, EventBus } from "@nestjs/cqrs";
 import { AbilityTargetScheme } from "src/computed-game-state/ability-target-scheme";
 import { AbilityTypeEffect } from "src/computed-game-state/ability-type-effect";
 import { Ability } from "src/computed-game-state/area/ability";
@@ -7,12 +7,12 @@ import { Combat } from "src/computed-game-state/area/combat";
 import { CombatCharacter } from "src/computed-game-state/area/combat-character";
 import { DamageType } from "src/computed-game-state/damage-type";
 import { Game } from "src/computed-game-state/game";
-import { ContractCombatWebSocketMessage } from "src/loot-hoarder-contract/contract-combat-web-socket-message";
-import { ContractAbilityUsedMessage } from "src/loot-hoarder-contract/combat-messages/contract-ability-used-message";
-import { ContractBegunUsingAbilityMessage } from "src/loot-hoarder-contract/combat-messages/contract-begun-using-ability-message";
+import { ContractAbilityUsedMessage } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-ability-used-message";
+import { ContractBegunUsingAbilityMessage } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-begun-using-ability-message";
 import { GamesManager } from "./games-manager";
 import { RandomService } from "./random-service";
 import { Area } from "src/computed-game-state/area/area";
+import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next-combat";
 
 @Injectable()
 export class CombatUpdaterService implements OnApplicationBootstrap {
@@ -22,8 +22,8 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
 
   public constructor(
     private readonly gamesManager: GamesManager,
-    private readonly eventBus: EventBus,
-    private readonly randomService: RandomService
+    private readonly randomService: RandomService,
+    private readonly commandBus: CommandBus
   ) {}
 
   public onApplicationBootstrap(): void {
@@ -34,7 +34,22 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
     const games = this.gamesManager.getGames();
     for(const game of games) {
       for(const area of game.areas) {
+        if (area.currentCombat.hasEnded) {
+          continue;
+        }
+        
         this.updateCombat(game, area, area.currentCombat);
+
+        if (
+          area.currentCombat.hasEnded 
+          && area.currentCombat.didTeam1Win 
+          && game.settings.automaticallyGoToNextCombat
+        ) {
+          this.commandBus.execute(new GoToNextCombat (
+            game,
+            area,
+          ));
+        }
       }
     }
   }
@@ -77,7 +92,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
 
         if (availableAbilities.length > 0) {
           // Now all events in the combat will be put into this new bucket
-          combat.redirectAllEventsToNewBucket();
+        combat.onCombatEvent.setUpNewEventBucket();
 
           const chosenAbility = this.randomService.randomElementInArray(availableAbilities);
           let target: CombatCharacter | undefined = undefined;
@@ -93,9 +108,8 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
           character.targetOfAbilityBeingUsed = target;
 
           // Stop redirecting all events and send ability used message
-          const messageInnerEvents = combat.flushBucketAndStopRedirectingEvents();
-          const innerMessage = new ContractBegunUsingAbilityMessage(chosenAbility.id, character.id, target?.id, timeToUse, messageInnerEvents);
-          const message = new ContractCombatWebSocketMessage(combat.id, innerMessage);
+          const messageInnerEvents = combat.onCombatEvent.flushEventBucket();
+          const message = new ContractBegunUsingAbilityMessage(chosenAbility.id, character.id, target?.id, timeToUse, messageInnerEvents);
           combat.onCombatEvent.next(message);
         }
       }
@@ -103,7 +117,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
       // Use ability
       if (character.abilityBeingUsed && character.remainingTimeToUseAbility <= 0) {
         // Now all events in the combat will be put into this new bucket
-        combat.redirectAllEventsToNewBucket();
+        combat.onCombatEvent.setUpNewEventBucket();
 
         const abilityToUse = character.abilityBeingUsed;
         this.resolveAbility(combat, character, abilityToUse, character.targetOfAbilityBeingUsed);
@@ -116,9 +130,8 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
         }
 
         // Stop redirecting all events and send ability used message
-        const messageInnerEvents = combat.flushBucketAndStopRedirectingEvents();
-        const innerMessage = new ContractAbilityUsedMessage(abilityToUse.id, character.id, character.targetOfAbilityBeingUsed, messageInnerEvents);
-        const message = new ContractCombatWebSocketMessage(combat.id, innerMessage);
+        const messageInnerEvents = combat.onCombatEvent.flushEventBucket();
+        const message = new ContractAbilityUsedMessage(abilityToUse.id, character.id, character.targetOfAbilityBeingUsed, messageInnerEvents);
         combat.onCombatEvent.next(message);
       }
     }
@@ -157,6 +170,12 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
             || damageType === DamageType.lightning;
 
           let damageGiven = baseAmount;
+          if (ability.type.isAttack) {
+            damageGiven *= usingCharacter.attributes.attackPowerVC.value / 100;
+          }
+          if (ability.type.isSpell) {
+            damageGiven *= usingCharacter.attributes.spellPowerVC.value / 100;
+          }
           if (isCriticalStrike) {
             const criticalStrikeDamageMultiplier = 1.5;
             damageGiven *= criticalStrikeDamageMultiplier;

@@ -15,15 +15,6 @@ export class CreateHeroHandler implements ICommandHandler<CreateHero> {
   public async execute(command: CreateHero): Promise<void> {
     const heroType = this.staticGameContentService.getHeroType(command.typeKey);
 
-    // const dbAbilities = heroType.abilityTypes.map(abilityType => {
-    //   const dbAbility: DbAbility = {
-    //     id: command.game.getNextAbilityId(),
-    //     typeKey: abilityType.key,
-    //     remainingCooldown: 0
-    //   };
-    //   return dbAbility;
-    // });
-
     const dbHero: DbHero = {
       id: command.game.getNextHeroId(),
       typeKey: command.typeKey,

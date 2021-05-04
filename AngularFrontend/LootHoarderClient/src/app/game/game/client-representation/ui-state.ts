@@ -1,4 +1,6 @@
 import { Area } from "./area";
+import { AreaType } from "./area-type";
+import { Combat } from "./combat";
 import { Game } from "./game";
 import { Hero } from "./hero";
 import { WorldTab } from "./world-tab";
@@ -32,6 +34,43 @@ export class UIState {
       if (areaHero) {
         hero.areaHero = areaHero;
       }
+    }
+  }
+
+  public removeArea(areaId: number): void {
+    const area = this.game.getArea(areaId);
+    for(const hero of this.game.heroes) {
+      if (hero.areaHero && area.heroes.includes(hero.areaHero)) {
+        hero.areaHero = undefined;
+      }
+    }
+
+    for(const areaType of this.game.allAreaTypes) {
+      const areaIndex = areaType.areas.indexOf(area);
+      if (areaIndex >= 0) {
+        areaType.areas.splice(areaIndex, 1);
+      }
+    }
+
+    const areaIndex = this.game.areas.indexOf(area);
+    if (areaIndex >= 0) {
+      this.game.areas.splice(areaIndex, 1);
+    }
+  }
+
+  public startCombat(area: Area, combat: Combat, combatNumber: number): void {
+    area.changeCombat(combat, combatNumber);
+  }
+
+  public addCompletedAreaType(areaType: AreaType): void {
+    this.game.completedAreaTypes.push(areaType);
+    this.game.getGameAreaType(areaType.key).isCompleted = true;
+  }
+
+  public addAvailableAreaTypes(areaTypes: AreaType[]): void {
+    this.game.availableAreaTypes.push(...areaTypes);
+    for(const areaType of areaTypes) {
+      this.game.getGameAreaType(areaType.key).isAvailable = true;
     }
   }
 }

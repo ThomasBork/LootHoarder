@@ -5,7 +5,46 @@
     "description": "Contains various stupid beasts.",
     "level": 1,
     "x": 250,
-    "y": 200
+    "y": 200,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 3,
+        "encounters": [
+          {
+            "weight": 1000,
+            "monsters": [
+              {
+                "typeKey": "snake"
+              }
+            ]
+          },
+          {
+            "weight": 200,
+            "monsters": [
+              {
+                "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
+              }
+            ]
+          }
+        ]
+      }, 
+      {
+        "repetitionAmount": 1,
+        "encounters": [
+          {
+            "weight": 1000,
+            "monsters": [
+              {
+                "typeKey": "bear"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
   {
     "key": "basic-plains",
@@ -13,6 +52,51 @@
     "description": "Contains scary bandits.",
     "level": 3,
     "x": 500,
-    "y": 500
+    "y": 500,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 4,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "snake"
+              }
+            ]
+          },
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "bear"
+              }
+            ]
+          },
+          {
+            "weight": 1000,
+            "monsters": [
+              {
+                "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
+              }
+            ]
+          },
+          {
+            "weight": 300,
+            "monsters": [
+              {
+                "typeKey": "bear"
+              },
+              {
+                "typeKey": "snake"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

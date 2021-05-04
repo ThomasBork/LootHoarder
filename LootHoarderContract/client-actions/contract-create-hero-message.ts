@@ -1,6 +1,6 @@
 import { ContractCreateHeroMessageContent } from './contract-create-hero-message-content';
-import { ContractClientMessageType } from '../contract-client-message-type';
-import { ContractClientWebSocketMessage } from '../contract-client-web-socket-message';
+import { ContractClientMessageType } from './contract-client-message-type';
+import { ContractClientWebSocketMessage } from './contract-client-web-socket-message';
 
 
 export class ContractCreateHeroMessage implements ContractClientWebSocketMessage {
