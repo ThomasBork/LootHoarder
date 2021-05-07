@@ -1,107 +1,129 @@
 import { Subject } from "rxjs";
+import { ContractAttribute } from "src/loot-hoarder-contract/contract-attribute";
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { DbAttributeSet } from "src/raw-game-state/db-attribute-set";
-import { AttributeSetValues } from "./attribute-set-values";
+import { CombinedAttributeValueContainer } from "./combined-attribute-value-container";
 import { AttributeValueChangeEvent } from "./attribute-value-change-event";
-import { EventStream } from "./message-bucket";
-import { ValueContainer } from "./value-container";
 
 export class AttributeSet {
-  public maximumHealthVC: ValueContainer;
-  public maximumManaVC: ValueContainer;
-  public attackPowerVC: ValueContainer;
-  public spellPowerVC: ValueContainer;
-  public attackSpeedVC: ValueContainer;
-  public castSpeedVC: ValueContainer;
-  public attackCooldownSpeedVC: ValueContainer;
-  public spellCooldownSpeedVC: ValueContainer;
-  public armorVC: ValueContainer;
-  public magicResistanceVC: ValueContainer;
-
   public onChange: Subject<AttributeValueChangeEvent>;
-
-  public constructor(settings?: {
-    maximumHealth?: number,
-    maximumMana?: number,
-    attackPower?: number,
-    spellPower?: number,
-    attackSpeed?: number,
-    castSpeed?: number,
-    attackCooldownSpeed?: number,
-    spellCooldownSpeed?: number,
-    armor?: number,
-    magicResistance?: number
-  }) {
-    this.maximumHealthVC = new ValueContainer(settings?.maximumHealth ?? 0);
-    this.maximumManaVC = new ValueContainer(settings?.maximumMana ?? 0);
-    this.attackPowerVC = new ValueContainer(settings?.attackPower ?? 0);
-    this.spellPowerVC = new ValueContainer(settings?.spellPower ?? 0);
-    this.attackSpeedVC = new ValueContainer(settings?.attackSpeed ?? 0);
-    this.castSpeedVC = new ValueContainer(settings?.castSpeed ?? 0);
-    this.attackCooldownSpeedVC = new ValueContainer(settings?.attackCooldownSpeed ?? 0);
-    this.spellCooldownSpeedVC = new ValueContainer(settings?.spellCooldownSpeed ?? 0);
-    this.armorVC = new ValueContainer(settings?.armor ?? 0);
-    this.magicResistanceVC = new ValueContainer(settings?.magicResistance ?? 0);
+  public onCombintedAttributeAdded: Subject<CombinedAttributeValueContainer>;
+  
+  private combinedAttributes: CombinedAttributeValueContainer[];
+  private multiplicativeModifiers: Map<any, number>;
+  
+  public constructor(attributes: CombinedAttributeValueContainer[] = []) {
+    this.combinedAttributes = [];
+    this.multiplicativeModifiers = new Map();
+    this.onCombintedAttributeAdded = new Subject();
 
     this.onChange = new Subject();
 
-    this.maximumHealthVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.maximumHealth, newValue: change.newValue }));
-    this.maximumManaVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.maximumMana, newValue: change.newValue }));
-    this.attackPowerVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.attackPower, newValue: change.newValue }));
-    this.spellPowerVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.spellPower, newValue: change.newValue }));
-    this.attackSpeedVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.attackSpeed, newValue: change.newValue }));
-    this.castSpeedVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.castSpeed, newValue: change.newValue }));
-    this.attackCooldownSpeedVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.attackCooldownSpeed, newValue: change.newValue }));
-    this.spellCooldownSpeedVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.spellCooldownSpeed, newValue: change.newValue }));
-    this.armorVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.armor, newValue: change.newValue }));
-    this.magicResistanceVC.onValueChange.subscribe(change => this.onChange.next({ type: ContractAttributeType.magicResistance, newValue: change.newValue }));
+    for(const attribute of attributes) {
+      this.addAttribute(attribute);
+    }
   }
 
-  public getValues(): AttributeSetValues {
-    const values = new AttributeSetValues({
-      maximumHealth: this.maximumHealthVC.value,
-      maximumMana: this.maximumManaVC.value,
-      attackPower: this.attackPowerVC.value,
-      spellPower: this.spellPowerVC.value,
-      attackSpeed: this.attackSpeedVC.value,
-      castSpeed: this.castSpeedVC.value,
-      attackCooldownSpeed: this.attackCooldownSpeedVC.value,
-      spellCooldownSpeed: this.spellCooldownSpeedVC.value,
-      armor: this.armorVC.value,
-      magicResistance: this.magicResistanceVC.value,
+  public getAttribute(attributeType: ContractAttributeType, tag: string | undefined): CombinedAttributeValueContainer {
+    let attribute = this.combinedAttributes.find(a => a.attributeType === attributeType && a.tag === tag);
+    if (!attribute) {
+      attribute = new CombinedAttributeValueContainer(attributeType, tag, 0, 1);
+      this.addAttribute(attribute);
+    }
+    return attribute;
+  }
+
+  public toContractModel(): ContractAttribute[] {
+    const additiveAttributes: ContractAttribute[] = this.combinedAttributes.map(attribute => {
+      return {
+        type: attribute.attributeType,
+        tag: attribute.tag,
+        additiveValue: attribute.additiveValueContainer.value,
+        multiplicativeValue: attribute.multiplicativeValueContainer.value,
+        value: attribute.valueContainer.value,
+      };
     });
 
-    return values;
+    return additiveAttributes;
   }
 
-  public setAdditiveValueContainers(attributesToAdd: AttributeSet): void {
-    this.maximumHealthVC.setAdditiveValueContainer(attributesToAdd.maximumHealthVC);
-    this.maximumManaVC.setAdditiveValueContainer(attributesToAdd.maximumManaVC);
-    this.attackPowerVC.setAdditiveValueContainer(attributesToAdd.attackPowerVC);
-    this.spellPowerVC.setAdditiveValueContainer(attributesToAdd.spellPowerVC);
-    this.attackSpeedVC.setAdditiveValueContainer(attributesToAdd.attackSpeedVC);
-    this.castSpeedVC.setAdditiveValueContainer(attributesToAdd.castSpeedVC);
-    this.attackCooldownSpeedVC.setAdditiveValueContainer(attributesToAdd.attackCooldownSpeedVC);
-    this.spellCooldownSpeedVC.setAdditiveValueContainer(attributesToAdd.spellCooldownSpeedVC);
-    this.armorVC.setAdditiveValueContainer(attributesToAdd.armorVC);
-    this.magicResistanceVC.setAdditiveValueContainer(attributesToAdd.magicResistanceVC);
+  public toDbModel(): DbAttributeSet {
+    return {
+      attributes: this.combinedAttributes.map(combinedAttribute => {
+        return {
+          type: combinedAttribute.attributeType,
+          tag: combinedAttribute.tag,
+          additiveValue: combinedAttribute.additiveValueContainer.value,
+          multiplicativeValue: combinedAttribute.multiplicativeValueContainer.value
+        };
+      })
+    };
+  }
+
+  public setAdditiveAttributeSet(attributeSet: AttributeSet): void {
+    for(const otherCombinedAttribute of attributeSet.combinedAttributes) {
+      const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.tag);
+      thisCombinedAttribute.additiveValueContainer.setAdditiveValueContainer(otherCombinedAttribute.additiveValueContainer);
+    }
+    attributeSet.onCombintedAttributeAdded.subscribe(otherCombinedAttribute => {
+      const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.tag);
+      thisCombinedAttribute.additiveValueContainer.setAdditiveValueContainer(otherCombinedAttribute.additiveValueContainer);
+    });
   }
 
   public setMultiplicativeModifier(key: any, modifier: number): void {
-    this.maximumHealthVC.setMultiplicativeModifier(key, modifier);
-    this.maximumManaVC.setMultiplicativeModifier(key, modifier);
-    this.attackPowerVC.setMultiplicativeModifier(key, modifier);
-    this.spellPowerVC.setMultiplicativeModifier(key, modifier);
-    this.attackSpeedVC.setMultiplicativeModifier(key, modifier);
-    this.castSpeedVC.setMultiplicativeModifier(key, modifier);
-    this.attackCooldownSpeedVC.setMultiplicativeModifier(key, modifier);
-    this.spellCooldownSpeedVC.setMultiplicativeModifier(key, modifier);
-    this.armorVC.setMultiplicativeModifier(key, modifier);
-    this.magicResistanceVC.setMultiplicativeModifier(key, modifier);
+    this.multiplicativeModifiers.set(key, modifier);
+    for(const combinedAttribute of this.combinedAttributes) {
+      combinedAttribute.multiplicativeValueContainer.setAdditiveModifier(key, modifier);
+    }
   }
-  
+
+  public flatCopy(): AttributeSet {
+    const copyAttributes = this.combinedAttributes.map(combined => combined.flatCopy());
+    return new AttributeSet(copyAttributes);
+  }
+
+  private addAttribute(attribute: CombinedAttributeValueContainer): void {
+    this.combinedAttributes.push(attribute);
+    this.subscribeToChangeEvent(attribute);
+    for(const [key, modifier] of this.multiplicativeModifiers) {
+      attribute.multiplicativeValueContainer.setMultiplicativeModifier(key, modifier);
+    }
+    this.onCombintedAttributeAdded.next(attribute);
+  }
+
+  private subscribeToChangeEvent(attribute: CombinedAttributeValueContainer): void {
+    attribute.additiveValueContainer.onValueChange.subscribe(change => 
+      this.onChange.next(this.buildChangeEvent(attribute))
+    );
+    attribute.multiplicativeValueContainer.onValueChange.subscribe(change => 
+      this.onChange.next(this.buildChangeEvent(attribute))
+    );
+    attribute.valueContainer.onValueChange.subscribe(change => 
+      this.onChange.next(this.buildChangeEvent(attribute))
+    );
+  }
+
+  private buildChangeEvent(attribute: CombinedAttributeValueContainer): AttributeValueChangeEvent {
+    return { 
+      type: attribute.attributeType, 
+      tag: attribute.tag,
+      newAdditiveValue: attribute.additiveValueContainer.value,
+      newMultiplicativeValue: attribute.multiplicativeValueContainer.value,
+      newValue: attribute.valueContainer.value
+    };
+  }
+
   public static load(dbModel: DbAttributeSet): AttributeSet {
-    const attributeSet: AttributeSet = new AttributeSet(dbModel);
+    const attributes: CombinedAttributeValueContainer[] = dbModel.attributes.map(dbAttribute => 
+      new CombinedAttributeValueContainer(
+        dbAttribute.type, 
+        dbAttribute.tag, 
+        dbAttribute.additiveValue,
+        dbAttribute.multiplicativeValue
+      )
+    );
+    const attributeSet: AttributeSet = new AttributeSet(attributes);
     return attributeSet;
   }
 }

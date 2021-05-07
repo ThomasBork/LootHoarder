@@ -1,0 +1,11 @@
+[
+  {
+    "key": "attribute",
+    "parameters": [
+      "isAdditive",
+      "attributeType",
+      "abilityTags",
+      "amount"
+    ]
+  }
+]

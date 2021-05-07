@@ -1,10 +1,10 @@
-<div>
+<div *ngFor="let attribute of hero.attributes.attributes">
   <app-label-with-value
-    [label]="'Maximum health'"
-    [value]="hero.attributes.maximumHealth"
+    [label]="getLabel(attribute, true)"
+    [value]="attribute.additiveValue | prettyNumber: 0"
   ></app-label-with-value>
   <app-label-with-value
-    [label]="'Maximum mana'"
-    [value]="hero.attributes.maximumMana"
+    [label]="getLabel(attribute, false)"
+    [value]="attribute.multiplicativeValue | prettyNumber: 2"
   ></app-label-with-value>
 </div>

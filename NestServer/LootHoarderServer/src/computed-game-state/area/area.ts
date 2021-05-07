@@ -1,13 +1,18 @@
 import { Subject, Subscription } from "rxjs";
 import { ContractArea } from "src/loot-hoarder-contract/contract-area";
 import { ContractCombatStartedMessage } from "src/loot-hoarder-contract/server-actions/contract-combat-started-message";
+import { ContractItemDroppedInAreaMessage } from "src/loot-hoarder-contract/server-actions/contract-item-dropped-in-area-message";
 import { ContractCombatWebSocketMessage } from "src/loot-hoarder-contract/server-actions/contract-combat-web-socket-message";
 import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/server-actions/contract-server-web-socket-message";
 import { DbArea } from "src/raw-game-state/db-area";
+import { ItemSpawnerService } from "src/services/item-spawner-service";
 import { StaticGameContentService } from "src/services/static-game-content-service";
+import { Item } from "../item";
 import { AreaHero } from "./area-hero";
 import { AreaType } from "./area-type";
 import { Combat } from "./combat";
+import { Loot } from "./loot";
+import { GamesManager } from "src/services/games-manager";
 
 export class Area {
   public dbModel: DbArea;
@@ -16,6 +21,7 @@ export class Area {
   public currentCombat: Combat;
   public onEvent: Subject<ContractServerWebSocketMessage>;
   public onAreaComplete: Subject<boolean>;
+  public loot: Loot;
 
   private combatEventListeners: Subscription[];
 
@@ -23,12 +29,15 @@ export class Area {
     dbModel: DbArea, 
     type: AreaType, 
     heroes: AreaHero[],
-    currentCombat: Combat
+    currentCombat: Combat,
+    loot: Loot,
   ) {
     this.dbModel = dbModel;
     this.type = type;
     this.heroes = heroes;
     this.currentCombat = currentCombat;
+    this.loot = loot;
+
     this.onEvent = new Subject();
     this.onAreaComplete = new Subject();
     this.combatEventListeners = [];
@@ -51,14 +60,15 @@ export class Area {
     this.onEvent.next(message);
   }
 
-  public getUIState(): ContractArea {
+  public toContractModel(): ContractArea {
     return {
       id: this.dbModel.id,
-      heroes: this.heroes.map(hero => hero.getUIState()),
+      heroes: this.heroes.map(hero => hero.toContractModel()),
       typeKey: this.type.key,
       currentCombat: this.currentCombat.getUIState(),
       currentCombatNumber: this.dbModel.currentCombatNumber,
-      totalAmountOfCombats: this.dbModel.totalAmountOfCombats
+      totalAmountOfCombats: this.dbModel.totalAmountOfCombats,
+      loot: this.loot.toContractModel()
     };
   }
 
@@ -90,11 +100,22 @@ export class Area {
         areaHero.hero.giveExperience(totalExperience);
       }
     }
+    if (combat.didTeam1Win) {
+      const game = GamesManager.instance.getGameFromArea(this);
+      const items = [ItemSpawnerService.instance.spawnItem(game, this.type.level)];
+      items.forEach(item => this.addItemToLoot(item));
+    }
     if (this.currentCombatNumber === this.totalAmountOfCombats) {
       if (this.currentCombat.didTeam1Win) {
         this.onAreaComplete.next();
       }
     }
+  }
+
+  private addItemToLoot(item: Item): void {
+    this.dbModel.loot.items.push(item.dbModel);
+    this.loot.items.push(item);
+    this.onEvent.next(new ContractItemDroppedInAreaMessage(this.id, item.toContractModel()));
   }
 
   public static load(dbModel: DbArea): Area {
@@ -108,7 +129,8 @@ export class Area {
       }
       return AreaHero.load(dbHero, combatCharacter);
     });
-    const area = new Area(dbModel, areaType, areaHeroes, currentCombat);
+    const loot = Loot.load(dbModel.loot);
+    const area = new Area(dbModel, areaType, areaHeroes, currentCombat, loot);
     return area;
   }
 }

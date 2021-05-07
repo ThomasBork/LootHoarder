@@ -23,6 +23,13 @@
     </li>
     <li 
       class="tab-button"
+      [class.selected]="selectedTab === 'items'"
+      (click)="changeTab('items')"
+    >
+      Items
+    </li>
+    <li 
+      class="tab-button"
       [class.selected]="selectedTab === 'settings'"
       (click)="changeTab('settings')"
     >
@@ -46,6 +53,11 @@
       *ngIf="selectedTab === 'combat'"
       [game]="uiState.game"
     ></app-game-tab-combat>
+    
+    <app-game-tab-items
+      *ngIf="selectedTab === 'items'"
+      [game]="uiState.game"
+    ></app-game-tab-items>
     
     <app-game-tab-settings
       *ngIf="selectedTab === 'settings'"

@@ -5,6 +5,7 @@ import { CommandBus } from "@nestjs/cqrs";
 import { EnterAreaType } from "src/game-message-handlers/from-client/enter-area-type";
 import { CreateHero } from "src/game-message-handlers/from-client/create-hero";
 import { ContractLeaveAreaMessageContent } from "src/loot-hoarder-contract/client-actions/contract-leave-area-message-content";
+import { ContractEquipItemMessageContent } from "src/loot-hoarder-contract/client-actions/contract-equip-item-message-content";
 import { ContractGoToNextCombatMessageContent } from "src/loot-hoarder-contract/client-actions/contract-go-to-next-combat-message-content";
 import { ContractSetSettingMessageContent } from "src/loot-hoarder-contract/client-actions/contract-set-setting-message-content";
 import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/server-actions/contract-server-web-socket-message";
@@ -13,6 +14,7 @@ import { ContractClientMessageType } from "src/loot-hoarder-contract/client-acti
 import { LeaveArea } from "src/game-message-handlers/from-client/leave-area";
 import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next-combat";
 import { SetSetting } from "src/game-message-handlers/from-client/set-setting";
+import { EquipItem } from "src/game-message-handlers/from-client/equip-item";
 
 export class GameCommunicationsWrapper {
   public game: Game;
@@ -66,6 +68,16 @@ export class GameCommunicationsWrapper {
         this.commandBus.execute(new LeaveArea (
           this.game,
           area,
+        ));
+      }
+      break;
+      case ContractClientMessageType.equipItem: {
+        const data: ContractEquipItemMessageContent = message.data;
+        this.commandBus.execute(new EquipItem (
+          this.game,
+          data.heroId,
+          data.itemId,
+          data.inventoryPosition
         ));
       }
       break;

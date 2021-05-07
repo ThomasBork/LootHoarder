@@ -10,6 +10,6 @@ export class LeaveAreaCombatHandler implements ICommandHandler<LeaveArea> {
     const game = command.game;
     const area = command.area;
 
-    game.removeArea(area);
+    game.takeLootAndLeaveArea(area);
   }
 }

@@ -1,15 +1,37 @@
-<div>
-  <app-hero-list 
-    *ngIf="!isCreatingNewHero"
-    [heroes]="game.heroes"
-    (newHeroClick)="openCreateNewHero()"
-    (heroClick)="selectHero($event)"
-  >
-  </app-hero-list>
-  <app-hero-information
-    *ngIf="selectedHero"
-    [hero]="selectedHero"
-  ></app-hero-information>
+<div
+  *ngIf="!isCreatingNewHero"
+  class="container"
+>
+  <div class="hero-list-container">
+    <app-hero-list 
+      [heroes]="game.heroes"
+      (newHeroClick)="openCreateNewHero()"
+      (heroClick)="selectHero($event)"
+    >
+    </app-hero-list>
+  </div>
+  <ng-container *ngIf="selectedHero">
+    <div class="hero-with-items-container">
+      <app-hero-with-items
+        [hero]="selectedHero"
+        [draggedItem]="draggedItem"
+      ></app-hero-with-items>
+      <ul class="item-list">
+        <li *ngFor="let item of game.items">
+          <app-item
+            [item]="item"
+            (dragstart)="setDraggedItem(item)"
+            (dragend)="setDraggedItem(undefined)"
+          ></app-item>
+        </li>
+      </ul>
+    </div>
+    <div class="hero-information-container">
+      <app-hero-information
+        [hero]="selectedHero"
+      ></app-hero-information>
+    </div>
+  </ng-container>
 </div>
 
 <app-create-new-hero 

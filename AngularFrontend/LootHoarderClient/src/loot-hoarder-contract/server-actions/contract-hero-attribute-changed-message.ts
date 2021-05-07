@@ -6,11 +6,21 @@ import { ContractAttributeType } from "../contract-attribute-type";
 export class ContractHeroAttributeChangedMessage implements ContractServerWebSocketMessage<ContractHeroAttributeChangedMessageContent> {
   public typeKey: ContractServerMessageType;
   public data: ContractHeroAttributeChangedMessageContent;
-  public constructor(heroId: number, attributeType: ContractAttributeType, newValue: number) {
+  public constructor(
+    heroId: number, 
+    attributeType: ContractAttributeType,
+    tag: string | undefined,
+    newAdditiveValue: number,
+    newMultiplicativeValue: number,
+    newValue: number
+  ) {
     this.typeKey = ContractServerMessageType.heroAttributeChanged;
     this.data = { 
       heroId,
       attributeType,
+      tag,
+      newAdditiveValue,
+      newMultiplicativeValue,
       newValue
     };
   }

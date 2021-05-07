@@ -1,4 +1,5 @@
-import { ContractAttributeSet } from "./contract-attribute-set";
+import { ContractAttribute } from "./contract-attribute";
+import { ContractInventory } from "./contract-inventory";
 
 export interface ContractHero {
   id: number;
@@ -6,5 +7,6 @@ export interface ContractHero {
   name: string;
   level: number;
   experience: number;
-  attributes: ContractAttributeSet;
+  attributes: ContractAttribute[];
+  inventory: ContractInventory;
 }

@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  height: 100%;
+
+  .hero-list-container {
+    flex: 0 0 300px;
+  }
+
+  .hero-with-items-container {
+    flex: 0 0 500px;
+
+    .item-list {
+      display: flex;
+    }
+  }
+
+  .hero-information-container {
+    flex: 0 0 300px;
+  }
+}

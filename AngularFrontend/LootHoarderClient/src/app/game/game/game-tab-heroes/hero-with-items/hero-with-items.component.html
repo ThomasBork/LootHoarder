@@ -1,0 +1,26 @@
+<div class="container-wrapper">
+  <div class="container-stretcher"></div>
+  <div class="container">
+    <img class="body" src="assets/images/hero/hero-body.png" />
+    <div
+      *ngFor="let itemVisualPosition of itemVisualPositions"
+      class="item-container"
+      [class.allow-drop]="itemVisualPosition.allowDrop"
+      [class.dragged-over]="itemVisualPosition.draggedOver"
+      [style.left]="itemVisualPosition.left + '%'"
+      [style.top]="itemVisualPosition.top + '%'"
+      [style.width]="itemVisualPosition.width + '%'"
+      [style.height]="itemVisualPosition.height + '%'"
+      (dragover)="handleDragOver($event, itemVisualPosition)"
+      (dragleave)="itemVisualPosition.draggedOver = false"
+      (drop)="handleItemDroppedOnInventoryPosition(itemVisualPosition.inventoryPosition)"
+    >
+      <app-hero-with-items-item
+        [item]="getItemFromPosition(itemVisualPosition.inventoryPosition)"
+        [inventoryPosition]="itemVisualPosition.inventoryPosition"
+        [fixtureLeft]="itemVisualPosition.fixtureLeft"
+        [fixtureTop]="itemVisualPosition.fixtureTop"
+      ></app-hero-with-items-item>
+    </div>
+  </div>
+</div>

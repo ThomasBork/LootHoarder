@@ -5,6 +5,7 @@ import { Connection } from './connection';
 import { GameCommunicationsWrapper } from './game-communications-wrapper';
 import { Hero } from 'src/computed-game-state/hero';
 import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-message';
+import { Area } from 'src/computed-game-state/area/area';
 
 @Injectable()
 export class GamesManager {
@@ -34,6 +35,14 @@ export class GamesManager {
     const wrapper = this.gameCommunicationsWrappers.find(w => w.game.id === gameId);
     if (!wrapper) {
       return undefined;
+    }
+    return wrapper.game;
+  }
+
+  public getGameFromArea(area: Area): Game {
+    const wrapper = this.gameCommunicationsWrappers.find(w => w.game.areas.includes(area));
+    if (!wrapper) {
+      throw Error (`Could not find game from area.`);
     }
     return wrapper.game;
   }

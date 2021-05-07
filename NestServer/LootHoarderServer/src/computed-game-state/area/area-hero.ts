@@ -3,6 +3,7 @@ import { DbAreaHero } from "src/raw-game-state/db-area-hero";
 import { GamesManager } from "src/services/games-manager";
 import { Hero } from "../hero";
 import { CombatCharacter } from "./combat-character";
+import { Loot } from "./loot";
 
 export class AreaHero {
   public dbModel: DbAreaHero;
@@ -22,15 +23,11 @@ export class AreaHero {
   public get gameId(): number { return this.dbModel.gameId; }
   public get heroId(): number { return this.dbModel.heroId; }
 
-  public getUIState(): ContractAreaHero {
+  public toContractModel(): ContractAreaHero {
     return {
       gameId: this.dbModel.gameId,
       heroId: this.dbModel.heroId,
-      combatCharacterId: this.dbModel.combatCharacterId,
-      loot: {
-        gold: 0,
-        items: []
-      }
+      combatCharacterId: this.dbModel.combatCharacterId
     };
   }
 

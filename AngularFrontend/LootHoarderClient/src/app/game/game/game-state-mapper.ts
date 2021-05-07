@@ -16,10 +16,17 @@ import { Loot } from "./client-representation/loot";
 import { AssetManagerService } from "./client-representation/asset-manager.service";
 import { GameAreaType } from "./client-representation/game-area-type";
 import { AreaType } from "./client-representation/area-type";
-import { AttributeSetValues } from "./client-representation/attribute-set-values";
-import { ContractAttributeSet } from "src/loot-hoarder-contract/contract-attribute-set";
+import { AttributeSet } from "./client-representation/attribute-set";
 import { ContractCombatCharacterAbility } from "src/loot-hoarder-contract/contract-combat-character-ability";
 import { CombatCharacterAbility } from "./client-representation/combat-character-ability";
+import { ContractAttribute } from "src/loot-hoarder-contract/contract-attribute";
+import { Attribute } from "./client-representation/attribute";
+import { Item } from "./client-representation/item";
+import { ItemAbility } from "./client-representation/item-ability";
+import { ContractItem } from "src/loot-hoarder-contract/contract-item";
+import { ContractInventory } from "src/loot-hoarder-contract/contract-inventory";
+import { Inventory } from "./client-representation/inventory";
+import { ContractItemAbility } from "src/loot-hoarder-contract/contract-item-ability";
 
 @Injectable()
 export class GameStateMapper {
@@ -48,6 +55,8 @@ export class GameStateMapper {
         )
       );
 
+    const items = serverGame.items.map(item => this.mapToItem(item));
+
     return new Game(
       serverGame.id,
       serverGame.createdAt,
@@ -56,21 +65,36 @@ export class GameStateMapper {
       areas,
       completedAreaTypes,
       availableAreaTypes,
-      allAreaTypes
+      allAreaTypes,
+      items
     );
   }
 
   public mapToHero(serverHero: ContractHero): Hero {
     const heroType = this.assetManagerService.getHeroType(serverHero.typeKey);
     const attributes = this.mapToAttributeSetValues(serverHero.attributes);
+    const inventory = this.mapToInventory(serverHero.inventory);
+
     return new Hero (
       serverHero.id,
       heroType,
       serverHero.name,
       serverHero.level,
       serverHero.experience,
-      attributes
+      attributes,
+      inventory
     );
+  }
+
+  public mapToInventory(serverInventory: ContractInventory): Inventory {
+    const head = serverInventory.head ? this.mapToItem(serverInventory.head) : undefined;
+    const leftHand = serverInventory.leftHand ? this.mapToItem(serverInventory.leftHand) : undefined;
+    const rightHand = serverInventory.rightHand ? this.mapToItem(serverInventory.rightHand) : undefined;
+    const chest = serverInventory.chest ? this.mapToItem(serverInventory.chest) : undefined;
+    const legs = serverInventory.legs ? this.mapToItem(serverInventory.legs) : undefined;
+    const leftFoot = serverInventory.leftFoot ? this.mapToItem(serverInventory.leftFoot) : undefined;
+    const rightFoot = serverInventory.rightFoot ? this.mapToItem(serverInventory.rightFoot) : undefined;
+    return new Inventory(head, leftHand, rightHand, chest, legs, leftFoot, rightFoot);
   }
 
   public mapToAreaType(areaType: AreaType, isCompleted: boolean, isAvailable: boolean, areas: Area[]): GameAreaType {
@@ -89,6 +113,7 @@ export class GameStateMapper {
       }
       return this.mapToAreaHero(areaHero, combatCharacter);
     });
+    const loot = this.mapToLoot(serverArea.loot)
 
     return new Area (
       serverArea.id,
@@ -96,7 +121,8 @@ export class GameStateMapper {
       areaHeroes,
       currentCombat,
       serverArea.totalAmountOfCombats,
-      serverArea.currentCombatNumber
+      serverArea.currentCombatNumber,
+      loot
     );
   }
 
@@ -122,11 +148,9 @@ export class GameStateMapper {
   }
 
   public mapToAreaHero(serverAreaHero: ContractAreaHero, combatCharacter: CombatCharacter): AreaHero {
-    const loot = this.mapToLoot(serverAreaHero.loot);
     return new AreaHero(
       serverAreaHero.gameId,
       serverAreaHero.heroId,
-      loot,
       combatCharacter
     );
   }
@@ -149,8 +173,15 @@ export class GameStateMapper {
     );
   }
 
-  public mapToAttributeSetValues(serverAttributeSet: ContractAttributeSet): AttributeSetValues {
-    return new AttributeSetValues(serverAttributeSet);
+  public mapToAttributeSetValues(serverAttributeSet: ContractAttribute[]): AttributeSet {
+    const clientAttributes = serverAttributeSet.map(serverAttribute => new Attribute(
+      serverAttribute.type,
+      serverAttribute.tag,
+      serverAttribute.additiveValue,
+      serverAttribute.multiplicativeValue,
+      serverAttribute.value
+    ));
+    return new AttributeSet(clientAttributes);
   }
 
   public mapToCombatCharacterAbility(serverAbility: ContractCombatCharacterAbility): CombatCharacterAbility {
@@ -164,8 +195,23 @@ export class GameStateMapper {
 
   public mapToLoot(serverLoot: ContractLoot): Loot {
     return new Loot(
-      serverLoot.items,
+      serverLoot.items.map(item => this.mapToItem(item)),
       serverLoot.gold
+    );
+  }
+
+  public mapToItem(serverItem: ContractItem): Item {
+    return new Item (
+      serverItem.id,
+      this.assetManagerService.getItemType(serverItem.typeKey),
+      serverItem.abilities.map(ability => this.mapToItemAbility(ability))
+    );
+  }
+
+  public mapToItemAbility(serverItemAbility: ContractItemAbility): ItemAbility {
+    return new ItemAbility(
+      this.assetManagerService.getItemAbilityType(serverItemAbility.typeKey),
+      serverItemAbility.parameters
     );
   }
 }

@@ -1,4 +1,6 @@
+import { ContractItem } from "./contract-item";
+
 export interface ContractLoot {
-  items: [];
+  items: ContractItem[];
   gold: number;
 }

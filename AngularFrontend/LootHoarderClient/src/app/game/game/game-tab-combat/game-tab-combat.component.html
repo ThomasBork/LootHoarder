@@ -31,6 +31,10 @@
           (click)="goToNextCombat(selectedArea)"
         >Go to next combat</button>
         <button (click)="leaveArea(selectedArea)">Leave area</button>
+        <br />
+        <div>
+          <div *ngFor="let item of selectedArea.loot.items">{{item.type.name}} - {{item.type.category}}</div>
+        </div>
       </div>
     </div>
   </ng-container>

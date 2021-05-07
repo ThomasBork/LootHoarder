@@ -23,10 +23,13 @@ import { MonsterSpawnerService } from './services/monster-spawner-service';
 import { LeaveAreaCombatHandler } from './game-message-handlers/from-client/leave-area-handler';
 import { GoToNextCombatHandler } from './game-message-handlers/from-client/go-to-next-combat-handler';
 import { SetSettingHandler } from './game-message-handlers/from-client/set-setting-handler';
+import { ItemSpawnerService } from './services/item-spawner-service';
+import { EquipItemHandler } from './game-message-handlers/from-client/equip-item-handler';
 
 export const CommandHandlers = [
   CreateHeroHandler,
   EnterAreaTypeHandler, 
+  EquipItemHandler,
   LeaveAreaCombatHandler,
   GoToNextCombatHandler,
   SetSettingHandler
@@ -51,6 +54,7 @@ export const CommandHandlers = [
     DbUserRepository,
     GameService,
     GamesManager,
+    ItemSpawnerService,
     MonsterSpawnerService,
     RandomService,
     StaticGameContentService,

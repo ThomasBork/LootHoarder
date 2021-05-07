@@ -62,7 +62,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         const game = await this.gameService.loadGame(gameId);
         this.gamesManager.setConnection(game, connection);
 
-        const uiGame = game.getUIState();
+        const uiGame = game.toContractModel();
         connection.sendMessage({typeKey: ContractServerMessageType.fullGameState, data: { game: uiGame }});
         
         subscription.unsubscribe();

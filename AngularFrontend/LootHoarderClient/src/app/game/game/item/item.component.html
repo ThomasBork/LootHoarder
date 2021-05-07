@@ -1,0 +1,18 @@
+<span 
+  class="container"
+  [class.is-dragged]="isDragging"
+  draggable="true"
+  (dragstart)="isDragging = true"
+  (dragend)="isDragging = false"
+>
+  <img 
+    class="image-border"
+    src="assets/images/items/item-border-gold.png" 
+    draggable="false"
+  />
+  <img 
+    class="image"
+    [src]="'assets/images/items/' + item.type.key + '.png'" 
+    draggable="false"
+  />
+</span>

@@ -20,11 +20,13 @@ export class GameService {
         automaticallyGoToNextCombat: false,
       },
       areas: [],
+      items: [],
       completedAreaTypes: [],
       nextAreaId: 1,
       nextCombatId: 1,
       nextHeroId: 1,
-      nextAbilityId: 1
+      nextAbilityId: 1,
+      nextItemId: 1,
     };
 
     const gameId = await this.dbGameRepository.insertGame(userId, initialGameState);

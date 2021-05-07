@@ -6,6 +6,9 @@ import { ValueContainer } from "../value-container";
 
 export class Ability {
   public type: AbilityType;
+  public powerVC: ValueContainer;
+  public useSpeedVC: ValueContainer;
+  public cooldownSpeedVC: ValueContainer;
   public cooldownVC: ValueContainer;
   public manaCostVC: ValueContainer;
   public criticalStrikeChanceVC: ValueContainer;
@@ -20,10 +23,19 @@ export class Ability {
     this.dbModel = dbModel;
     this.type = type;
 
+    this.powerVC = new ValueContainer(0);
+    this.useSpeedVC = new ValueContainer(0);
+    this.cooldownSpeedVC = new ValueContainer(0);
     this.manaCostVC = new ValueContainer(type.manaCost);
-    this.timeToUseVC = new ValueContainer(type.timeToUse);
-    this.cooldownVC = new ValueContainer(type.cooldown);
     this.criticalStrikeChanceVC = new ValueContainer(type.criticalStrikeChance);
+
+    this.timeToUseVC = new ValueContainer(type.timeToUse);
+    // Use speed should never reach 0 except during setup.
+    this.timeToUseVC.setMultiplicativeValueContainer(this.useSpeedVC, value => value ? 100 / value : 1);
+    
+    this.cooldownVC = new ValueContainer(type.cooldown);
+    // Cooldown speed should never reach 0 except during setup.
+    this.timeToUseVC.setMultiplicativeValueContainer(this.cooldownSpeedVC, value => value ? 100 / value : 1);
   }
 
   public get id(): number { return this.dbModel.id; }

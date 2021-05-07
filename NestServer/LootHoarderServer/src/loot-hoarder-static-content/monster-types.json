@@ -8,8 +8,8 @@
       "maximumMana": 100,
       "attackPower": 50,
       "spellPower": 50,
-      "attackSpeed": 150,
-      "castSpeed": 100,
+      "attackUseSpeed": 150,
+      "spellUseSpeed": 100,
       "attackCooldownSpeed": 150,
       "spellCooldownSpeed": 100,
       "armor": 0,
@@ -20,10 +20,6 @@
       "maximumMana": 10,
       "attackPower": 5,
       "spellPower": 5,
-      "attackSpeed": 0,
-      "castSpeed": 0,
-      "attackCooldownSpeed": 0,
-      "spellCooldownSpeed": 0,
       "armor": 0,
       "magicResistance": 5
     }
@@ -37,8 +33,8 @@
       "maximumMana": 50,
       "attackPower": 150,
       "spellPower": 50,
-      "attackSpeed": 80,
-      "castSpeed": 50,
+      "attackUseSpeed": 80,
+      "spellUseSpeed": 50,
       "attackCooldownSpeed": 80,
       "spellCooldownSpeed": 100,
       "armor": 50,
@@ -49,10 +45,6 @@
       "maximumMana": 5,
       "attackPower": 15,
       "spellPower": 5,
-      "attackSpeed": 0,
-      "castSpeed": 0,
-      "attackCooldownSpeed": 0,
-      "spellCooldownSpeed": 0,
       "armor": 5,
       "magicResistance": 5
     }

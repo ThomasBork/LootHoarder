@@ -5,6 +5,8 @@ import AreaTypes from "src/loot-hoarder-static-content/area-types.json";
 import AreaTypeTransitions from "src/loot-hoarder-static-content/area-type-transitions.json";
 import HeroTypes from "src/loot-hoarder-static-content/hero-types.json";
 import MonsterTypes from "src/loot-hoarder-static-content/monster-types.json";
+import ItemAbilityTypes from "src/loot-hoarder-static-content/item-ability-types.json";
+import ItemTypes from "src/loot-hoarder-static-content/item-types.json";
 import { AreaType } from "src/computed-game-state/area/area-type";
 import { AbilityType } from "src/computed-game-state/ability-type";
 import { HeroType } from "src/computed-game-state/hero-type";
@@ -17,6 +19,12 @@ import { AreaTypeRepeatedEncounter } from "src/computed-game-state/area/area-typ
 import { AreaTypeEncounterMonsterType } from "src/computed-game-state/area/area-type-encounter-monster-type";
 import { MonsterType } from "src/computed-game-state/area/monster-type";
 import { AreaTypeEncounter } from "src/computed-game-state/area/area-type-encounter";
+import { CombinedAttributeValueContainer } from "src/computed-game-state/combined-attribute-value-container";
+import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
+import { ItemAbilityType } from "src/computed-game-state/item-ability-type";
+import { ItemType } from "src/computed-game-state/item-type";
+import { ContractItemCategory } from "src/loot-hoarder-contract/contract-item-category";
+import { ItemAbilityRecipe } from "src/computed-game-state/item-ability-recipe";
 
 @Injectable()
 export class StaticGameContentService {
@@ -25,6 +33,8 @@ export class StaticGameContentService {
   private heroTypes!: HeroType[];
   private monsterTypes!: MonsterType[];
   private areaTypes!: AreaType[];
+  private itemAbilityTypes!: ItemAbilityType[];
+  private itemTypes!: ItemType[];
 
   private static _instance: StaticGameContentService;
 
@@ -58,6 +68,29 @@ export class StaticGameContentService {
     return result;
   }
 
+  public getItemAbilityType(key: string): ItemAbilityType {
+    const result = this.itemAbilityTypes.find(x => x.key === key);
+    if (!result) {
+      throw Error (`Item ability type with key = '${key}' not found.`);
+    }
+    return result;
+  }
+
+  public getItemType(key: string): ItemType {
+    const result = this.itemTypes.find(x => x.key === key);
+    if (!result) {
+      throw Error (`Item type with key = '${key}' not found.`);
+    }
+    return result;
+  }
+
+  public getAllItemTypes(filter?: (item: ItemType) => boolean): ItemType[] {
+    if (!filter) {
+      return [...this.itemTypes];
+    }
+    return this.itemTypes.filter(filter);
+  }
+
   public getAreaType(key: string): AreaType {
     const areaType = this.areaTypes.find(x => x.key === key);
     if (!areaType) {
@@ -88,6 +121,8 @@ export class StaticGameContentService {
     this.loadHeroTypes();
     this.loadMonsterTypes();
     this.loadAreaTypes();
+    this.loadItemAbilityTypes();
+    this.loadItemTypes();
   }
 
   private loadAbilityTypeEffectTypes(): void {
@@ -127,11 +162,58 @@ export class StaticGameContentService {
     );
   }
 
+  private loadAttributeSetFromCoreAttributes(coreAttributes: {
+    maximumHealth?: number;
+    maximumMana?: number;
+    attackPower?: number;
+    spellPower?: number;
+    attackUseSpeed?: number;
+    spellUseSpeed?: number;
+    attackCooldownSpeed?: number;
+    spellCooldownSpeed?: number;
+    armor?: number;
+    magicResistance?: number;
+  }): AttributeSet {
+    const combinedAttributes: CombinedAttributeValueContainer[] = [];
+    if (coreAttributes.maximumHealth) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.maximumHealth, undefined, coreAttributes.maximumHealth, 1));
+    }
+    if (coreAttributes.maximumMana) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.maximumMana, undefined, coreAttributes.maximumMana, 1));
+    }
+    if (coreAttributes.attackPower) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.power, "attack", coreAttributes.attackPower, 1));
+    }
+    if (coreAttributes.spellPower) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.power, "spell", coreAttributes.spellPower, 1));
+    }
+    if (coreAttributes.attackUseSpeed) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.useSpeed, "attack", coreAttributes.attackUseSpeed, 1));
+    }
+    if (coreAttributes.spellUseSpeed) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.useSpeed, "spell", coreAttributes.spellUseSpeed, 1));
+    }
+    if (coreAttributes.attackCooldownSpeed) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.cooldownSpeed, "attack", coreAttributes.attackCooldownSpeed, 1));
+    }
+    if (coreAttributes.spellCooldownSpeed) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.cooldownSpeed, "spell", coreAttributes.spellCooldownSpeed, 1));
+    }
+    if (coreAttributes.armor) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.armor, undefined, coreAttributes.armor, 1));
+    }
+    if (coreAttributes.magicResistance) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.magicResistance, undefined, coreAttributes.magicResistance, 1));
+    }
+    const attributeSet = new AttributeSet(combinedAttributes);
+    return attributeSet;
+  }
+
   private loadHeroTypes(): void {
     this.heroTypes = HeroTypes.map(heroType => 
       {
-        const baseAttributes = new AttributeSet(heroType.baseAttributes);
-        const attributesPerLevel = new AttributeSet(heroType.attributesPerLevel);
+        const baseAttributes = this.loadAttributeSetFromCoreAttributes(heroType.baseAttributes);
+        const attributesPerLevel = this.loadAttributeSetFromCoreAttributes(heroType.attributesPerLevel);
         return new HeroType(
           heroType.key,
           heroType.name,
@@ -147,8 +229,8 @@ export class StaticGameContentService {
   private loadMonsterTypes(): void {
     this.monsterTypes = MonsterTypes.map(monsterType => 
       {
-        const baseAttributes = new AttributeSet(monsterType.baseAttributes);
-        const attributesPerLevel = new AttributeSet(monsterType.attributesPerLevel);
+        const baseAttributes = this.loadAttributeSetFromCoreAttributes(monsterType.baseAttributes);
+        const attributesPerLevel = this.loadAttributeSetFromCoreAttributes(monsterType.attributesPerLevel);
         return new MonsterType(
           monsterType.key,
           monsterType.name,
@@ -191,5 +273,24 @@ export class StaticGameContentService {
       areaType1.adjacentAreaTypes.push(areaType2);
       areaType2.adjacentAreaTypes.push(areaType1);
     }
+  }
+
+  private loadItemAbilityTypes(): void {
+    this.itemAbilityTypes = ItemAbilityTypes.map(itemAbilityType => 
+      new ItemAbilityType(itemAbilityType.key, itemAbilityType.parameters));
+  }
+
+  private loadItemTypes(): void {
+    this.itemTypes = ItemTypes.map(itemType => 
+      new ItemType(
+        itemType.key, 
+        itemType.name,
+        itemType.category as ContractItemCategory,
+        itemType.innateAbilities.map(ability => {
+          const itemAbilityType = this.getItemAbilityType(ability.typeKey);
+          return new ItemAbilityRecipe(itemAbilityType, ability.parameters);
+        })
+      )
+    )
   }
 }

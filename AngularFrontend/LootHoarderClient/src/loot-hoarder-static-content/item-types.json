@@ -1,0 +1,260 @@
+[
+  {
+    "key": "longsword",
+    "name": "Longsword",
+    "category": "weapon",
+    "image": {
+      "fixtureLeft": 50,
+      "fixtureTop": 80,
+      "widthInPercent": 55
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "power",
+          "abilityTags": ["attack"],
+          "amount": 50
+        }
+      },
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "use-speed",
+          "abilityTags": ["attack"],
+          "amount": 0.8
+        }
+      }
+    ]
+  },
+  {
+    "key": "skinning-knife",
+    "name": "Skinning Knife",
+    "category": "weapon",
+    "image": {
+      "fixtureLeft": 50,
+      "fixtureTop": 10,
+      "widthInPercent": 55
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "power",
+          "abilityTags": ["attack"],
+          "amount": 20
+        }
+      },
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "use-speed",
+          "abilityTags": ["attack"],
+          "amount": 1.25
+        }
+      }
+    ]
+  },
+  {
+    "key": "chain-mail-pants",
+    "name": "Chain Mail Pants",
+    "category": "legs",
+    "image": {
+      "fixtureLeft": 50,
+      "fixtureTop": 20,
+      "widthInPercent": 90
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "armor",
+          "abilityTags": [],
+          "amount": 30
+        }
+      }
+    ]
+  },
+  {
+    "key": "leather-boot",
+    "name": "Leather Boot",
+    "category": "foot",
+    "image": {
+      "fixtureLeft": 75,
+      "fixtureTop": 80,
+      "widthInPercent": 90
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "armor",
+          "abilityTags": [],
+          "amount": 20
+        }
+      }
+    ]
+  },
+  {
+    "key": "leather-armor",
+    "name": "Leather Armor",
+    "category": "chest",
+    "image": {
+      "fixtureLeft": 50,
+      "fixtureTop": 10,
+      "widthInPercent": 90
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "armor",
+          "abilityTags": [],
+          "amount": 40
+        }
+      }
+    ]
+  },
+  {
+    "key": "leather-cap",
+    "name": "Leather Cap",
+    "category": "head",
+    "image": {
+      "fixtureLeft": 49,
+      "fixtureTop": 25,
+      "widthInPercent": 55
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "armor",
+          "abilityTags": [],
+          "amount": 25
+        }
+      }
+    ]
+  },
+  {
+    "key": "leather-pants",
+    "name": "Leather Pants",
+    "category": "legs",
+    "image": {
+      "fixtureLeft": 50,
+      "fixtureTop": 15,
+      "widthInPercent": 90
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "armor",
+          "abilityTags": [],
+          "amount": 25
+        }
+      }
+    ]
+  },
+  {
+    "key": "plate-helm",
+    "name": "Plate Helm",
+    "category": "head",
+    "image": {
+      "fixtureLeft": 50,
+      "fixtureTop": 35,
+      "widthInPercent": 55
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "armor",
+          "abilityTags": [],
+          "amount": 45
+        }
+      }
+    ]
+  },
+  {
+    "key": "plate-mail",
+    "name": "Plate Mail",
+    "category": "chest",
+    "image": {
+      "fixtureLeft": 50,
+      "fixtureTop": 15,
+      "widthInPercent": 90
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "armor",
+          "abilityTags": [],
+          "amount": 75
+        }
+      }
+    ]
+  },
+  {
+    "key": "spike-boot",
+    "name": "Spike Boot",
+    "category": "foot",
+    "image": {
+      "fixtureLeft": 75,
+      "fixtureTop": 80,
+      "widthInPercent": 40
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "armor",
+          "abilityTags": [],
+          "amount": 20
+        }
+      },
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "power",
+          "abilityTags": ["attack"],
+          "amount": 20
+        }
+      }
+    ]
+  },
+  {
+    "key": "wooden-shoe",
+    "name": "Wooden Shoe",
+    "category": "foot",
+    "image": {
+      "fixtureLeft": 80,
+      "fixtureTop": 40,
+      "widthInPercent": 40
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "magic-resistance",
+          "abilityTags": [],
+          "amount": 20
+        }
+      }
+    ]
+  }
+]

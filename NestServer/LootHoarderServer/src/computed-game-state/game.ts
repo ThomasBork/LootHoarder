@@ -4,6 +4,8 @@ import { ContractGame } from 'src/loot-hoarder-contract/contract-game';
 import { ContractHeroAddedMessage } from 'src/loot-hoarder-contract/server-actions/contract-hero-added-message';
 import { ContractAreaAbandonedMessage } from 'src/loot-hoarder-contract/server-actions/contract-area-abandoned-message';
 import { ContractAreaTypeCompletedMessage } from 'src/loot-hoarder-contract/server-actions/contract-area-type-completed-message';
+import { ContractItemAddedToGameMessage } from 'src/loot-hoarder-contract/server-actions/contract-item-added-to-game-message';
+import { ContractItemRemovedFromGameMessage } from 'src/loot-hoarder-contract/server-actions/contract-item-removed-from-game-message';
 import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-message';
 import { DbGame } from 'src/raw-game-state/db-game';
 import { StaticGameContentService } from 'src/services/static-game-content-service';
@@ -11,6 +13,7 @@ import { Area } from './area/area';
 import { AreaType } from './area/area-type';
 import { Hero } from './hero';
 import { GameSettings } from './game-settings';
+import { Item } from './item';
 
 export class Game {
   public heroes: Hero[];
@@ -19,6 +22,7 @@ export class Game {
   public areas: Area[];
   public onEvent: Subject<ContractServerWebSocketMessage>;
   public settings: GameSettings;
+  public items: Item[];
   
   private dbModel: DbGame;
   private areaSubscriptions: Map<Area, Subscription[]>;
@@ -29,12 +33,14 @@ export class Game {
     heroes: Hero[],
     completedAreaTypes: AreaType[],
     areas: Area[],
+    items: Item[],
   ) {
     this.dbModel = dbModel;
     this.settings = settings;
     this.heroes = heroes;
     this.completedAreaTypes = completedAreaTypes;
     this.areas = areas;
+    this.items = items;
     this.availableAreaTypes = this.calculateAvailableAreaTypes();
 
     this.onEvent = new Subject();
@@ -62,13 +68,17 @@ export class Game {
   public getNextAbilityId(): number {
     return this.dbModel.state.nextAbilityId++;
   }
+  
+  public getNextItemId(): number {
+    return this.dbModel.state.nextItemId++;
+  }
 
   public addHero(hero: Hero): void {
     this.dbModel.state.heroes.push(hero.dbModel);
     this.heroes.push(hero);
 
     this.setUpEventListenersForHero(hero);
-    this.onEvent.next(new ContractHeroAddedMessage(hero.getUIState()));
+    this.onEvent.next(new ContractHeroAddedMessage(hero.toContractModel()));
   }
 
   public getArea(id: number): Area {
@@ -84,10 +94,25 @@ export class Game {
     this.areas.push(area);
     
     this.setUpEventListenersForArea(area);
-    this.onEvent.next(new ContractAreaCreatedMessage(area.getUIState()));
+    this.onEvent.next(new ContractAreaCreatedMessage(area.toContractModel()));
   }
 
-  public removeArea(area: Area): void {
+  public addItem(item: Item): void {
+    this.dbModel.state.items.push(item.dbModel);
+    this.items.push(item);
+    this.onEvent.next(new ContractItemAddedToGameMessage(item.toContractModel()));
+  }
+
+  public removeItem(itemId: number): void {
+    const itemIndex = this.items.findIndex(i => i.id === itemId);
+    if (itemIndex >= 0) {
+      this.items.splice(itemIndex, 1);
+      this.onEvent.next(new ContractItemRemovedFromGameMessage(itemId));
+    }
+  }
+
+  public takeLootAndLeaveArea(area: Area): void {
+    area.loot.items.forEach(item => this.addItem(item));
     this.dbModel.state.areas = this.dbModel.state.areas.filter(dbA => dbA !== area.dbModel);
     this.areas = this.areas.filter(a => a !== area);
     this.removeEventListenersForArea(area);
@@ -99,15 +124,16 @@ export class Game {
     return this.heroes.find(h => h.id === heroId);
   }
 
-  public getUIState(): ContractGame {
+  public toContractModel(): ContractGame {
     return {
       id: this.id,
       createdAt: this.createdAt,
-      heroes: this.heroes.map(h => h.getUIState()),
-      areas: this.areas.map(a => a.getUIState()),
+      heroes: this.heroes.map(h => h.toContractModel()),
+      areas: this.areas.map(a => a.toContractModel()),
       availableAreaTypeKeys: this.availableAreaTypes.map(a => a.key),
       completedAreaTypeKeys: this.completedAreaTypes.map(a => a.key),
-      settings: this.settings.getUIState()
+      settings: this.settings.getUIState(),
+      items: this.items.map(item => item.toContractModel())
     };
   }
 
@@ -165,6 +191,8 @@ export class Game {
 
   private setUpEventListenersForHero(hero: Hero): void {
     hero.onEvent.subscribe(event => this.onEvent.next(event));
+
+    hero.onItemUnequipped.subscribe(event => this.addItem(event.item));
   }
 
   private unsubscribeToSubscriptions(subscriptions: Subscription[]): void {
@@ -179,13 +207,15 @@ export class Game {
     const completedAreaTypes = dbModel.state.completedAreaTypes.map(cat => StaticGameContentService.instance.getAreaType(cat));
 
     const areas = dbModel.state.areas.map(dbArea => Area.load(dbArea));
+    const items = dbModel.state.items.map(dbItem => Item.load(dbItem));
 
     const game = new Game(
       dbModel,
       settings,
       heroes,
       completedAreaTypes,
-      areas
+      areas,
+      items
     );
     return game;
   }

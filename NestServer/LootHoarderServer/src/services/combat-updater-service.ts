@@ -13,6 +13,7 @@ import { GamesManager } from "./games-manager";
 import { RandomService } from "./random-service";
 import { Area } from "src/computed-game-state/area/area";
 import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next-combat";
+import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 
 @Injectable()
 export class CombatUpdaterService implements OnApplicationBootstrap {
@@ -165,17 +166,15 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
           const damageType = effect.parameters['damageType'] as DamageType;
 
           const isPhysicalDamage = damageType === DamageType.physical;
-          const isElementalDamage = damageType === DamageType.cold
+          const isElementalDamage = 
+            damageType === DamageType.cold
             || damageType === DamageType.fire
             || damageType === DamageType.lightning;
 
           let damageGiven = baseAmount;
-          if (ability.type.isAttack) {
-            damageGiven *= usingCharacter.attributes.attackPowerVC.value / 100;
-          }
-          if (ability.type.isSpell) {
-            damageGiven *= usingCharacter.attributes.spellPowerVC.value / 100;
-          }
+
+          damageGiven *= ability.powerVC.value / 100;
+
           if (isCriticalStrike) {
             const criticalStrikeDamageMultiplier = 1.5;
             damageGiven *= criticalStrikeDamageMultiplier;
@@ -210,11 +209,13 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
           for(const characterTakingDamage of charactersTakingDamage) {
             let damageTaken = damageGiven;
             if (isPhysicalDamage) {
-              const armorDamageMultiplier = 100 / (100 + characterTakingDamage.attributes.armorVC.value);
+              const armor = characterTakingDamage.attributes.getAttribute(ContractAttributeType.armor, undefined).valueContainer.value;
+              const armorDamageMultiplier = 100 / (100 + armor);
               damageTaken *= armorDamageMultiplier;
             }
             if (isElementalDamage) {
-              const magicResistanceDamageMultiplier = 100 / (100 + characterTakingDamage.attributes.magicResistanceVC.value);
+              const magicResistance = characterTakingDamage.attributes.getAttribute(ContractAttributeType.magicResistance, undefined).valueContainer.value;
+              const magicResistanceDamageMultiplier = 100 / (100 + magicResistance);
               damageTaken *= magicResistanceDamageMultiplier;
             }
             characterTakingDamage.currentHealth -= damageTaken;

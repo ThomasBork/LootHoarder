@@ -1,7 +1,9 @@
 import { Subject } from 'rxjs';
+import { ContractAttributeType } from 'src/loot-hoarder-contract/contract-attribute-type';
 import { ContractCombatCharacter } from 'src/loot-hoarder-contract/contract-combat-character';
 import { DbCombatCharacter } from 'src/raw-game-state/db-combat-character';
 import { AttributeSet } from '../attribute-set';
+import { ValueContainer } from '../value-container';
 import { Ability } from './ability';
 
 export class CombatCharacter {
@@ -11,6 +13,7 @@ export class CombatCharacter {
   public abilities: Ability[];
   public abilityBeingUsed?: Ability;
   public onCurrentHealthChanged: Subject<number>;
+  public maximumHealthVC: ValueContainer;
   
   private _targetOfAbilityBeingUsed?: CombatCharacter;
 
@@ -26,7 +29,8 @@ export class CombatCharacter {
       this.abilityBeingUsed = abilities.find(a => a.id === dbModel.idOfAbilityBeingUsed);
     }
     this.onCurrentHealthChanged = new Subject();
-    this.setUpEventHandlers();
+    this.setUpAbilityValueContainers();
+    this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, undefined).valueContainer;
   }
 
   public get id(): number { return this.dbModel.id; }
@@ -36,8 +40,8 @@ export class CombatCharacter {
     if (value < 0) {
       value = 0;
     }
-    if (value > this.attributes.maximumHealthVC.value) {
-      value = this.attributes.maximumHealthVC.value;
+    if (value > this.maximumHealthVC.value) {
+      value = this.maximumHealthVC.value;
     }
     if (this.dbModel.currentHealth !== value) {
       this.dbModel.currentHealth = value;
@@ -65,7 +69,7 @@ export class CombatCharacter {
       currentHealth: this.dbModel.currentHealth,
       name: this.dbModel.name,
       controllingUserId: this.dbModel.controllingUserId,
-      attributes: this.attributes.getValues(),
+      attributes: this.attributes.toContractModel(),
       abilities: this.abilities.map(ability => ability.getUIState()),
       remainingTimeToUseAbility: this.remainingTimeToUseAbility,
       totalTimeToUseAbility: this.totalTimeToUseAbility,
@@ -74,10 +78,21 @@ export class CombatCharacter {
     };
   }
 
-  private setUpEventHandlers(): void {
+  private setUpAbilityValueContainers(): void {
     for(const ability of this.abilities) {
-      ability.timeToUseVC.setMultiplicativeValueContainer(this.attributes.attackSpeedVC, value =>  100 / value);
-      ability.cooldownVC.setMultiplicativeValueContainer(this.attributes.attackCooldownSpeedVC, value =>  100 / value);
+      this.setUpAbilityValueContainer(ability, ability.powerVC, ContractAttributeType.power);
+      this.setUpAbilityValueContainer(ability, ability.timeToUseVC, ContractAttributeType.useSpeed);
+    }
+  }
+
+  private setUpAbilityValueContainer(ability: Ability, abilityValueContainer: ValueContainer, attributeType: ContractAttributeType): void {
+    const genericAdditiveVC = this.attributes.getAttribute(attributeType, undefined);
+    abilityValueContainer.setAdditiveValueContainer(genericAdditiveVC.additiveValueContainer);
+    abilityValueContainer.setMultiplicativeValueContainer(genericAdditiveVC.multiplicativeValueContainer);
+    for(const abilityTag of ability.type.tags) {
+      const specificAdditiveVC = this.attributes.getAttribute(attributeType, abilityTag);
+      abilityValueContainer.setAdditiveValueContainer(specificAdditiveVC.additiveValueContainer);
+      abilityValueContainer.setMultiplicativeValueContainer(specificAdditiveVC.multiplicativeValueContainer);
     }
   }
 

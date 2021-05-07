@@ -5,19 +5,28 @@ import HeroTypes from 'src/loot-hoarder-static-content/hero-types.json';
 import AbilityTypes from 'src/loot-hoarder-static-content/ability-types.json';
 import AreaTypes from 'src/loot-hoarder-static-content/area-types.json';
 import AreaTypeTransitions from 'src/loot-hoarder-static-content/area-type-transitions.json';
+import ItemTypes from 'src/loot-hoarder-static-content/item-types.json';
+import ItemAbilityTypes from 'src/loot-hoarder-static-content/item-ability-types.json';
 import { AreaType } from "./area-type";
+import { ItemType } from "./item-type";
+import { ContractItemCategory } from "src/loot-hoarder-contract/contract-item-category";
+import { ItemAbilityType } from "./item-ability-type";
 
 @Injectable()
 export class AssetManagerService {
   private abilityTypes: AbilityType[] = [];
   private heroTypes: HeroType[] = [];
   private areaTypes: AreaType[] = [];
+  private itemTypes!: ItemType[];
+  private itemAbilityTypes!: ItemAbilityType[];
 
   public loadAssets(): void {
     console.log("Loading assets");
     this.loadAbilityTypes();
     this.loadHeroTypes();
     this.loadAreaTypes();
+    this.loadItemAbilityTypes();
+    this.loadItemTypes();
     console.log("Done loading assets");
   }
 
@@ -55,6 +64,22 @@ export class AssetManagerService {
 
   public getAllAreaTypes(): AreaType[] {
     return [...this.areaTypes];
+  }
+
+  public getItemAbilityType(key: string): ItemAbilityType {
+    const itemAbilityType = this.itemAbilityTypes.find(x => x.key === key);
+    if (!itemAbilityType) {
+      throw Error (`Item ability type '${key}' not found.`);
+    }
+    return itemAbilityType;
+  }
+
+  public getItemType(key: string): ItemType {
+    const itemType = this.itemTypes.find(x => x.key === key);
+    if (!itemType) {
+      throw Error (`Item type '${key}' not found.`);
+    }
+    return itemType;
   }
 
   private loadAbilityTypes(): void {
@@ -95,5 +120,23 @@ export class AssetManagerService {
       areaType1.adjacentAreaTypes.push(areaType2);
       areaType2.adjacentAreaTypes.push(areaType1);
     }
+  }
+
+  private loadItemTypes(): void {
+    this.itemTypes = ItemTypes.map(itemType => new ItemType(
+      itemType.key,
+      itemType.name,
+      itemType.category as ContractItemCategory,
+      itemType.image.fixtureLeft,
+      itemType.image.fixtureTop,
+      itemType.image.widthInPercent,
+    ));
+  }
+
+  private loadItemAbilityTypes(): void {
+    this.itemAbilityTypes = ItemAbilityTypes.map(itemAbilityType => new ItemAbilityType(
+      itemAbilityType.key,
+      itemAbilityType.parameters
+    ));
   }
 }

@@ -1,0 +1,11 @@
+<div class="container">
+  <img 
+    *ngIf="item"
+    class="image"
+    [src]="'assets/images/items/' + item.type.key + '.png'" 
+    [style.transform]="getImageTransform()"
+    [style.left]="fixtureLeft + '%'"
+    [style.top]="fixtureTop + '%'"
+    [style.width]="item.type.imageWidthInPercent + '%'"
+  />
+</div>

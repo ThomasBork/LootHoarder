@@ -1,6 +1,8 @@
 import { AreaType } from "./area-type";
 import { AreaHero } from "./area-hero";
 import { Combat } from "./combat";
+import { Loot } from "./loot";
+import { Item } from "./item";
 
 export class Area {
   public id: number;
@@ -9,6 +11,7 @@ export class Area {
   public currentCombat: Combat;
   public totalAmountOfCombats: number;
   public currentCombatNumber: number;
+  public loot: Loot;
 
   public constructor(
     id: number,
@@ -17,6 +20,7 @@ export class Area {
     currentCombat: Combat,
     totalAmountOfCombats: number,
     currentCombatNumber: number,
+    loot: Loot,
   ) {
     this.id = id;
     this.type = type;
@@ -24,6 +28,7 @@ export class Area {
     this.currentCombat = currentCombat;
     this.totalAmountOfCombats = totalAmountOfCombats;
     this.currentCombatNumber = currentCombatNumber;
+    this.loot = loot;
   }
 
   public changeCombat(combat: Combat, combatNumber: number): void {
@@ -37,5 +42,9 @@ export class Area {
       }
       hero.combatCharacter = character;
     }
+  }
+
+  public addItemToLoot(item: Item): void {
+    this.loot.items.push(item);
   }
 }

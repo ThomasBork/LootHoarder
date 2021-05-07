@@ -21,7 +21,8 @@ export class CreateHeroHandler implements ICommandHandler<CreateHero> {
       name: command.name,
       level: 1,
       experience: 0,
-      abilityTypeKeys: heroType.abilityTypes.map(abilityType => abilityType.key)
+      abilityTypeKeys: heroType.abilityTypes.map(abilityType => abilityType.key),
+      inventory: {}
     };
 
     const hero = Hero.load(dbHero);

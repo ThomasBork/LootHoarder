@@ -1,4 +1,4 @@
-import { ContractAttributeSet } from './contract-attribute-set';
+import { ContractAttribute } from './contract-attribute';
 import { ContractCombatCharacterAbility } from './contract-combat-character-ability'
 
 export interface ContractCombatCharacter {
@@ -7,7 +7,7 @@ export interface ContractCombatCharacter {
   controllingUserId?: number;
   name: string;
   currentHealth: number;
-  attributes: ContractAttributeSet;
+  attributes: ContractAttribute[];
   abilities: ContractCombatCharacterAbility[];
   remainingTimeToUseAbility: number;
   totalTimeToUseAbility?: number;

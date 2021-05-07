@@ -1,3 +1,5 @@
+import { DbInventory } from "./db-inventory";
+
 export interface DbHero {
   id: number;
   typeKey: string;
@@ -5,4 +7,5 @@ export interface DbHero {
   level: number;
   experience: number;
   abilityTypeKeys: string[];
+  inventory: DbInventory;
 }

@@ -1,9 +1,7 @@
 import { Injectable, Logger, OnApplicationBootstrap } from "@nestjs/common";
-import { EventBus } from "@nestjs/cqrs";
-import { Area } from "src/computed-game-state/area/area";
 import { AreaTypeEncounterMonsterType } from "src/computed-game-state/area/area-type-encounter-monster-type";
-import { AttributeSet } from "src/computed-game-state/attribute-set";
 import { Game } from "src/computed-game-state/game";
+import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { DbAbility } from "src/raw-game-state/db-ability";
 import { DbCombatCharacter } from "src/raw-game-state/db-combat-character";
 
@@ -31,20 +29,22 @@ export class MonsterSpawnerService {
       });
       const level = areaLevel;
 
-      const attributes = new AttributeSet(monsterType.baseAttributes.getValues());
-      const attributesPerLevel = new AttributeSet(monsterType.attributesPerLevel.getValues());
+      const attributes = monsterType.baseAttributes.flatCopy();
+      const attributesPerLevel = monsterType.attributesPerLevel.flatCopy();
       attributesPerLevel.setMultiplicativeModifier(this, level);
-      attributes.setAdditiveValueContainers(attributesPerLevel);
+      attributes.setAdditiveAttributeSet(attributesPerLevel);
+
+      const maximumHealth = attributes.getAttribute(ContractAttributeType.maximumHealth, undefined).valueContainer.value;
+
+      const dbAttributeSet = attributes.toDbModel();
 
       const dbCombatCharacter: DbCombatCharacter = {
         id: firstMonsterId + index,
         typeKey: monsterType.key,
-        currentHealth: attributes.maximumHealthVC.value,
+        currentHealth: maximumHealth,
         name: monsterType.name,
         controllingUserId: game.userId,
-        attributeSet: attributes
-          .getValues()
-          .toDbModel(),
+        attributeSet: dbAttributeSet,
         abilities: dbAbilities,
         idOfAbilityBeingUsed: undefined,
         remainingTimeToUseAbility: 0

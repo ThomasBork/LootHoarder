@@ -1,0 +1,35 @@
+.container-wrapper {
+  position: relative;
+  width: 100%;
+
+  .container-stretcher {
+    padding-bottom: 120%;
+  }
+
+  .container {
+    position: absolute;
+    top: 0;  bottom: 0;  left: 0;  right: 0;
+
+    .body {
+      position: absolute;
+      left: 18%;
+      top: 10%;
+      height: 80%;
+      width: 64%;
+    }
+
+    .item-container {
+      position: absolute;
+
+      &.allow-drop {
+        border: 1px dashed brown;
+        background-color: yellow;
+        opacity: 0.1;
+
+        &.dragged-over {
+          opacity: 0.3;
+        }
+      }
+    }
+  }
+}

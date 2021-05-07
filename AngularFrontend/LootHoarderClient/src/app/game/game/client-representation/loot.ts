@@ -1,9 +1,11 @@
+import { Item } from "./item";
+
 export class Loot {
-  public items: [];
+  public items: Item[];
   public gold: number;
 
   public constructor(
-    items: [],
+    items: Item[],
     gold: number
   ) {
     this.items = items;

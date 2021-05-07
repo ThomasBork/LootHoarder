@@ -19,6 +19,12 @@ import { ContractHeroAttributeChangedMessageContent } from 'src/loot-hoarder-con
 import { ContractAreaAbandonedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-area-abandoned-message-content';
 import { ContractCombatStartedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-combat-started-message-content';
 import { ContractAreaTypeCompletedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-area-type-completed-message-content';
+import { ContractItemAddedToGameMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-added-to-game-message-content';
+import { ContractItemDroppedInAreaMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-dropped-in-area-message-content';
+import { ContractItemEquippedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-equipped-message-content';
+import { ContractItemUnequippedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-unequipped-message-content';
+import { ContractItemRemovedFromGameMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-removed-from-game-message-content';
+
 
 @Component({
   selector: 'app-game',
@@ -138,7 +144,45 @@ export class GameComponent implements OnInit, OnDestroy {
       case ContractServerMessageType.heroAttributeChanged: {
         const data = message.data as ContractHeroAttributeChangedMessageContent;
         const hero = this.uiState.game.getHero(data.heroId);
-        hero.attributes.setAttribute(data.attributeType, data.newValue);
+        hero.attributes.setAttribute(
+          data.attributeType, 
+          data.tag,
+          data.newAdditiveValue,
+          data.newMultiplicativeValue,
+          data.newValue
+        );
+      }
+      break;
+      case ContractServerMessageType.itemAddedToGame: {
+        const data = message.data as ContractItemAddedToGameMessageContent;
+        const item = this.gameStateMapper.mapToItem(data.item);
+        this.uiState.game.addItem(item);
+      }
+      break;
+      case ContractServerMessageType.itemDroppedInArea: {
+        const data = message.data as ContractItemDroppedInAreaMessageContent;
+        const area = this.uiState.game.getArea(data.areaId);
+        const item = this.gameStateMapper.mapToItem(data.item);
+        area.addItemToLoot(item);
+      }
+      break;
+      case ContractServerMessageType.itemEquipped: {
+        const data = message.data as ContractItemEquippedMessageContent;
+        const item = this.gameStateMapper.mapToItem(data.item);
+        const hero = this.uiState.game.getHero(data.heroId);
+        hero.equipItem(item, data.position);
+      }
+      break;
+      case ContractServerMessageType.itemUnequipped: {
+        const data = message.data as ContractItemUnequippedMessageContent;
+        const hero = this.uiState.game.getHero(data.heroId);
+        hero.unequipItem(data.position);
+      }
+      break;
+      case ContractServerMessageType.itemRemovedFromGame: {
+        const data = message.data as ContractItemRemovedFromGameMessageContent;
+        const item = this.uiState.game.getItem(data.itemId);
+        this.uiState.game.removeItem(item);
       }
       break;
       default: {

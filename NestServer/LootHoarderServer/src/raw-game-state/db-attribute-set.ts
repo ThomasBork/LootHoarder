@@ -1,12 +1,5 @@
+import { DbAttribute } from "./db-attribute";
+
 export interface DbAttributeSet {
-  maximumHealth: number;
-  maximumMana: number;
-  attackPower: number;
-  spellPower: number;
-  attackSpeed: number;
-  castSpeed: number;
-  attackCooldownSpeed: number;
-  spellCooldownSpeed: number;
-  armor: number;
-  magicResistance: number;
+  attributes: DbAttribute[];
 }

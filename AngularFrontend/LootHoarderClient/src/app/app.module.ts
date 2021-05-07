@@ -33,6 +33,10 @@ import { UIStateMapper } from './game/game/ui-state-mapper';
 import { UIStateAdvancer } from './game/game/ui-state-advancer';
 import { HeroInformationComponent } from './game/game/game-tab-heroes/hero-information/hero-information.component';
 import { GameTabSettingsComponent } from './game/game/game-tab-settings/game-tab-settings.component';
+import { GameTabItemsComponent } from './game/game/game-tab-items/game-tab-items.component';
+import { HeroWithItemsComponent } from './game/game/game-tab-heroes/hero-with-items/hero-with-items.component';
+import { HeroWithItemsItemComponent } from './game/game/game-tab-heroes/hero-with-items/hero-with-items-item/hero-with-items-item.component';
+import { ItemComponent } from './game/game/item/item.component';
 
 @NgModule({
   declarations: [
@@ -49,10 +53,14 @@ import { GameTabSettingsComponent } from './game/game/game-tab-settings/game-tab
     CombatCharacterComponent,
     GameTabHeroesComponent,
     HeroInformationComponent,
+    HeroWithItemsComponent,
+    HeroWithItemsItemComponent,
+    ItemComponent,
     GameTabMenuComponent,
     GameTabWorldAreaTypeInformationComponent,
     GameTabWorldComponent,
     GameTabSettingsComponent,
+    GameTabItemsComponent,
     PrettyNumberPipe,
     ProgressBarComponent,
   ],

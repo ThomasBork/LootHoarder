@@ -9,5 +9,10 @@ export enum ContractServerMessageType {
   heroAdded = 'hero-added',
   heroAttributeChanged = 'hero-attribute-changed',
   heroGainedExperience = 'hero-gained-experience',
+  itemAddedToGame = 'item-added-to-game',
+  itemDroppedInArea = 'item-dropped-in-area',
+  itemEquipped = 'item-equipped',
+  itemRemovedFromGame = 'item-removed-from-game',
+  itemUnequipped = 'item-unequipped',
   multimessage = 'multimessage'
 }

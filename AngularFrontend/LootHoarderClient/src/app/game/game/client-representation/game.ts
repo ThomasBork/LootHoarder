@@ -3,6 +3,7 @@ import { Area } from "./area";
 import { Hero } from "./hero";
 import { GameAreaType } from "./game-area-type";
 import { ContractGameSettings } from "src/loot-hoarder-contract/contract-game-settings";
+import { Item } from "./item";
 
 export class Game {
   public id: number;
@@ -13,6 +14,7 @@ export class Game {
   public completedAreaTypes: AreaType[];
   public availableAreaTypes: AreaType[];
   public allAreaTypes: GameAreaType[];
+  public items: Item[];
 
   public constructor(
     id: number,
@@ -23,6 +25,7 @@ export class Game {
     completedAreaTypes: AreaType[],
     availableAreaTypes: AreaType[],
     allAreaTypes: GameAreaType[],
+    items: Item[]
   ) {
     this.id = id;
     this.createdAt = createdAt;
@@ -32,6 +35,7 @@ export class Game {
     this.completedAreaTypes = completedAreaTypes;
     this.availableAreaTypes = availableAreaTypes;
     this.allAreaTypes = allAreaTypes;
+    this.items = items;
   }
 
   public getHero(id: number): Hero {
@@ -50,11 +54,27 @@ export class Game {
     return area;
   }
 
+  public getItem(id: number): Item {
+    const item = this.items.find(h => h.id === id);
+    if (!item) {
+      throw Error (`Could not find item with id: ${id}`);
+    }
+    return item;
+  }
+
   public getGameAreaType(areaTypeKey: string): GameAreaType {
     const gameAreaType = this.allAreaTypes.find(a => a.type.key === areaTypeKey);
     if (!gameAreaType) {
       throw Error (`Area type with key: ${areaTypeKey} does not exist`);
     }
     return gameAreaType;
+  }
+
+  public addItem(item: Item): void {
+    this.items.push(item);
+  }
+
+  public removeItem(item: Item): void {
+    this.items = this.items.filter(i => i !== item);
   }
 }

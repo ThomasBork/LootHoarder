@@ -51,11 +51,10 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
       const dbCombatCharacter: DbCombatCharacter = {
         id: index + 1,
         typeKey: hero.type.key,
-        currentHealth: hero.attributes.maximumHealthVC.value,
+        currentHealth: hero.maximumHealthVC.value,
         name: hero.name,
         controllingUserId: command.game.userId,
         attributeSet: hero.attributes
-          .getValues()
           .toDbModel(),
         abilities: dbAbilities,
         idOfAbilityBeingUsed: undefined,
@@ -87,7 +86,11 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
       heroes: dbHeroes,
       currentCombat: currentCombat,
       currentCombatNumber: 1,
-      totalAmountOfCombats: totalAmountOfCombats
+      totalAmountOfCombats: totalAmountOfCombats,
+      loot: {
+        gold: 0,
+        items: []
+      }
     };
 
     const area = Area.load(dbArea);

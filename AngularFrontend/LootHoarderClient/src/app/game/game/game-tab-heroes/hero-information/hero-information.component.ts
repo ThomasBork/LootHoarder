@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Attribute } from '../../client-representation/attribute';
 import { Hero } from '../../client-representation/hero';
 
 @Component({
@@ -9,4 +10,10 @@ import { Hero } from '../../client-representation/hero';
 export class HeroInformationComponent {
   @Input()
   public hero!: Hero;
+
+  public getLabel(attribute: Attribute, isAdditive: boolean): string {
+    const additiveText = isAdditive ? 'Additive' : 'Multiplicative';
+    const tagText = attribute.tag ? attribute.tag + ' ' : '';
+    return `${additiveText} ${tagText}${attribute.type}`;
+  }
 }

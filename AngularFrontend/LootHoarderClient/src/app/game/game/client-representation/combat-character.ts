@@ -1,4 +1,5 @@
-import { AttributeSetValues } from "./attribute-set-values";
+import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
+import { AttributeSet } from "./attribute-set";
 import { CombatCharacterAbility } from "./combat-character-ability";
 
 export class CombatCharacter {
@@ -7,7 +8,7 @@ export class CombatCharacter {
   public controllingUserId?: number;
   public name: string;
   public currentHealth: number;
-  public attributes: AttributeSetValues;
+  public attributes: AttributeSet;
   public abilities: CombatCharacterAbility[];
   public remainingTimeToUseAbility: number;
   public totalTimeToUseAbility?: number;
@@ -20,7 +21,7 @@ export class CombatCharacter {
     controllingUserId: number | undefined,
     name: string,
     currentHealth: number,
-    attributes: AttributeSetValues,
+    attributes: AttributeSet,
     abilities: CombatCharacterAbility[],
     remainingTimeToUseAbility: number,
     totalTimeToUseAbility: number | undefined,
@@ -44,5 +45,9 @@ export class CombatCharacter {
       throw Error (`Could not find ability with id: ${id}`);
     }
     return ability;
+  }
+
+  public get maximumHealth(): number {
+    return this.attributes.getAttribute(ContractAttributeType.maximumHealth, undefined).value;
   }
 }
