@@ -15,7 +15,8 @@
       user-select: none;
 
       &:not(.selected) {
-        border-bottom: 2px solid white;
+        background-color: lightgrey;
+        //border-bottom: 2px solid white;
       }
     }
   }

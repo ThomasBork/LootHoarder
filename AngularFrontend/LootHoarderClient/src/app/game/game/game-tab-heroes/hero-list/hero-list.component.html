@@ -2,6 +2,7 @@
   <li
     *ngFor="let hero of heroes"
     class="hero-container"
+    [class.selected]
     (click)="onHeroClick(hero)"
   >
     <app-label-with-value
@@ -14,6 +15,7 @@
     ></app-label-with-value>
   </li>
   <li 
+    *ngFor="let i of [].constructor(numberOfAvailableHeroSlots)"
     class="new-hero-button"
     (click)="newHero()"
   >

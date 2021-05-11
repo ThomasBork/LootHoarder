@@ -3,12 +3,32 @@
   class="container"
 >
   <div class="hero-list-container">
-    <app-hero-list 
-      [heroes]="game.heroes"
-      (newHeroClick)="openCreateNewHero()"
-      (heroClick)="selectHero($event)"
-    >
-    </app-hero-list>
+    <ul class="hero-list">
+      <li
+        *ngFor="let hero of game.heroes"
+        class="hero-container"
+        [class.selected]="selectedHero === hero"
+        (click)="selectHero(hero)"
+      >
+        <span class="hero-thumbnail-container">
+          <app-hero-with-items [hero]="hero"></app-hero-with-items>
+        </span>
+        <span class="hero-information-container">
+          <div class="header">
+            <span class="name">{{hero.name}}</span>
+            <span class="level">Level {{hero.level}}</span>
+          </div>
+          <div class="hero-type">{{hero.type.name}}</div>
+        </span>
+      </li>
+      <li 
+        *ngFor="let i of [].constructor(numberOfAvailableHeroSlots)"
+        class="new-hero-button"
+        (click)="openCreateNewHero()"
+      >
+        Create new hero
+      </li>
+    </ul>
   </div>
   <ng-container *ngIf="selectedHero">
     <div class="hero-with-items-container">

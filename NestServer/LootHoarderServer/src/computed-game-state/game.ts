@@ -23,6 +23,7 @@ export class Game {
   public onEvent: Subject<ContractServerWebSocketMessage>;
   public settings: GameSettings;
   public items: Item[];
+  public maximumAmountOfHeroes: number;
   
   private dbModel: DbGame;
   private areaSubscriptions: Map<Area, Subscription[]>;
@@ -34,6 +35,7 @@ export class Game {
     completedAreaTypes: AreaType[],
     areas: Area[],
     items: Item[],
+    maximumAmountOfHeroes: number
   ) {
     this.dbModel = dbModel;
     this.settings = settings;
@@ -41,6 +43,7 @@ export class Game {
     this.completedAreaTypes = completedAreaTypes;
     this.areas = areas;
     this.items = items;
+    this.maximumAmountOfHeroes = maximumAmountOfHeroes;
     this.availableAreaTypes = this.calculateAvailableAreaTypes();
 
     this.onEvent = new Subject();
@@ -133,7 +136,8 @@ export class Game {
       availableAreaTypeKeys: this.availableAreaTypes.map(a => a.key),
       completedAreaTypeKeys: this.completedAreaTypes.map(a => a.key),
       settings: this.settings.getUIState(),
-      items: this.items.map(item => item.toContractModel())
+      items: this.items.map(item => item.toContractModel()),
+      maximumAmountOfHeroes: this.maximumAmountOfHeroes
     };
   }
 
@@ -209,13 +213,16 @@ export class Game {
     const areas = dbModel.state.areas.map(dbArea => Area.load(dbArea));
     const items = dbModel.state.items.map(dbItem => Item.load(dbItem));
 
+    const maximumAmountOfHeroes = 1;
+
     const game = new Game(
       dbModel,
       settings,
       heroes,
       completedAreaTypes,
       areas,
-      items
+      items,
+      maximumAmountOfHeroes
     );
     return game;
   }

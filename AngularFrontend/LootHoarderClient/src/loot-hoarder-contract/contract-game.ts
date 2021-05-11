@@ -12,4 +12,5 @@ export interface ContractGame {
   availableAreaTypeKeys: string[];
   settings: ContractGameSettings;
   items: ContractItem[];
+  maximumAmountOfHeroes: number;
 }

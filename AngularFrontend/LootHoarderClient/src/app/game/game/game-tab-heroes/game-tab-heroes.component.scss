@@ -4,6 +4,50 @@
 
   .hero-list-container {
     flex: 0 0 300px;
+
+    .hero-list {
+      max-width: 500px;
+
+      .hero-container {
+        background-color: lightgrey;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        border: 1px solid transparent;
+
+        &.selected {
+          border-color: grey;
+        }
+
+        .hero-thumbnail-container {
+          flex: 0 0 80px;
+          margin-right: 10px;
+          background-color: antiquewhite;
+        }
+
+        .hero-information-container {
+          flex: 1 1 0;
+
+          .header {
+            display: flex;
+            justify-content: space-between;
+
+            .name {
+              font-size: 20px;
+            }
+          }
+
+          .hero-type {
+            font-size: 14px;
+          }
+        }
+      }
+      .new-hero-button {
+        background-color: lightblue;
+        cursor: pointer;
+        padding: 5px;
+      }
+    }
   }
 
   .hero-with-items-container {

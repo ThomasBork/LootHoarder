@@ -9,6 +9,8 @@ import { Hero } from '../../client-representation/hero';
 export class HeroListComponent {
   @Input()
   public heroes!: Hero[];
+  @Input()
+  public numberOfAvailableHeroSlots!: number;
 
   @Output()
   public newHeroClick: EventEmitter<void> = new EventEmitter();

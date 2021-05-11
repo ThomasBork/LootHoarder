@@ -66,7 +66,8 @@ export class GameStateMapper {
       completedAreaTypes,
       availableAreaTypes,
       allAreaTypes,
-      items
+      items,
+      serverGame.maximumAmountOfHeroes
     );
   }
 

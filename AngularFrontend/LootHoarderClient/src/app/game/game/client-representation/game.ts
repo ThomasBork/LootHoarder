@@ -15,6 +15,7 @@ export class Game {
   public availableAreaTypes: AreaType[];
   public allAreaTypes: GameAreaType[];
   public items: Item[];
+  public maximumAmountOfHeroes: number;
 
   public constructor(
     id: number,
@@ -25,7 +26,8 @@ export class Game {
     completedAreaTypes: AreaType[],
     availableAreaTypes: AreaType[],
     allAreaTypes: GameAreaType[],
-    items: Item[]
+    items: Item[],
+    maximumAmountOfHeroes: number,
   ) {
     this.id = id;
     this.createdAt = createdAt;
@@ -36,6 +38,7 @@ export class Game {
     this.availableAreaTypes = availableAreaTypes;
     this.allAreaTypes = allAreaTypes;
     this.items = items;
+    this.maximumAmountOfHeroes = maximumAmountOfHeroes;
   }
 
   public getHero(id: number): Hero {
