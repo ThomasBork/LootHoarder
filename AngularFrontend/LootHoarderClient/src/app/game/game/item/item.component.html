@@ -1,18 +1,30 @@
-<span 
-  class="container"
-  [class.is-dragged]="isDragging"
-  draggable="true"
-  (dragstart)="isDragging = true"
-  (dragend)="isDragging = false"
->
-  <img 
-    class="image-border"
-    src="assets/images/items/item-border-gold.png" 
-    draggable="false"
-  />
-  <img 
-    class="image"
-    [src]="'assets/images/items/' + item.type.key + '.png'" 
-    draggable="false"
-  />
+<span class="container">
+  <span 
+    class="image-container"
+    [class.is-dragged]="isDragging"
+    draggable="true"
+    (dragstart)="startDragging()"
+    (dragend)="stopDragging()"
+    (mouseenter)="handleMouseEnter()"
+    (mouseleave)="handleMouseLeave()"
+  >
+    <img 
+      class="image-border"
+      src="assets/images/items/item-border-gold.png" 
+      draggable="false"
+    />
+    <img 
+      class="image"
+      [src]="'assets/images/items/' + item.type.key + '.png'" 
+      draggable="false"
+    />
+  </span>
+  <div
+    *ngIf="isHovering"
+    class="item-preview-container"
+  >
+    <app-item-preview
+      [item]="item"
+    ></app-item-preview>
+  </div>
 </span>

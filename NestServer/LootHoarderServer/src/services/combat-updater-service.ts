@@ -44,6 +44,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
         if (
           area.currentCombat.hasEnded 
           && area.currentCombat.didTeam1Win 
+          && area.hasMoreCombats
           && game.settings.automaticallyGoToNextCombat
         ) {
           this.commandBus.execute(new GoToNextCombat (
@@ -163,13 +164,6 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
       switch(effect.type.key) {
         case 'deal-damage': {
           const baseAmount = effect.parameters['baseAmount'] as number;
-          const damageType = effect.parameters['damageType'] as DamageType;
-
-          const isPhysicalDamage = damageType === DamageType.physical;
-          const isElementalDamage = 
-            damageType === DamageType.cold
-            || damageType === DamageType.fire
-            || damageType === DamageType.lightning;
 
           let damageGiven = baseAmount;
 
@@ -208,16 +202,9 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
 
           for(const characterTakingDamage of charactersTakingDamage) {
             let damageTaken = damageGiven;
-            if (isPhysicalDamage) {
-              const armor = characterTakingDamage.attributes.getAttribute(ContractAttributeType.armor, undefined).valueContainer.value;
-              const armorDamageMultiplier = 100 / (100 + armor);
-              damageTaken *= armorDamageMultiplier;
-            }
-            if (isElementalDamage) {
-              const magicResistance = characterTakingDamage.attributes.getAttribute(ContractAttributeType.magicResistance, undefined).valueContainer.value;
-              const magicResistanceDamageMultiplier = 100 / (100 + magicResistance);
-              damageTaken *= magicResistanceDamageMultiplier;
-            }
+            const resistance = characterTakingDamage.attributes.calculateAttributeValue(ContractAttributeType.resistance, ability.type.tags);
+            const resistanceMultiplier = 100 / (100 + resistance);
+            damageTaken *= resistanceMultiplier;
             characterTakingDamage.currentHealth -= damageTaken;
           }
         }

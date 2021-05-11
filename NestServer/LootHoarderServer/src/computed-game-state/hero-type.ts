@@ -1,5 +1,6 @@
 import { AbilityType } from "./ability-type";
 import { AttributeSet } from "./attribute-set";
+import { ItemType } from "./item-type";
 
 export class HeroType {
   public key: string;
@@ -8,6 +9,7 @@ export class HeroType {
   public abilityTypes: AbilityType[];
   public baseAttributes: AttributeSet;
   public attributesPerLevel: AttributeSet;
+  public startItemType: ItemType;
 
   public constructor(
     key: string,
@@ -15,7 +17,8 @@ export class HeroType {
     description: string,
     abilityTypes: AbilityType[],
     baseAttributes: AttributeSet,
-    attributesPerLevel: AttributeSet
+    attributesPerLevel: AttributeSet,
+    startItemType: ItemType,
   ) {
     this.key = key;
     this.name = name;
@@ -23,5 +26,6 @@ export class HeroType {
     this.abilityTypes = abilityTypes;
     this.baseAttributes = baseAttributes;
     this.attributesPerLevel = attributesPerLevel;
+    this.startItemType = startItemType;
   }
 }

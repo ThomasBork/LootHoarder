@@ -1,0 +1,13 @@
+<div class="container">
+  <span class="item-name">{{item.type.name}}</span>
+  <hr>
+  <ul>
+    <li *ngFor="let ability of item.innateAbilities">
+      {{getAbilityText(ability)}}
+    </li>
+    <hr>
+    <li *ngFor="let ability of item.additionalAbilities">
+      {{getAbilityText(ability)}}
+    </li>
+  </ul>
+</div>

@@ -15,6 +15,7 @@ import { LeaveArea } from "src/game-message-handlers/from-client/leave-area";
 import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next-combat";
 import { SetSetting } from "src/game-message-handlers/from-client/set-setting";
 import { EquipItem } from "src/game-message-handlers/from-client/equip-item";
+import { ContractCreateHeroMessageContent } from "src/loot-hoarder-contract/client-actions/contract-create-hero-message-content";
 
 export class GameCommunicationsWrapper {
   public game: Game;
@@ -46,11 +47,14 @@ export class GameCommunicationsWrapper {
 
     switch(message.typeKey) {
       case ContractClientMessageType.createHero: {
-        const hero = this.expectProperty(message.data, 'hero');
+        const data: ContractCreateHeroMessageContent = message.data;
         this.commandBus.execute(new CreateHero(
           this.game,
-          this.expectProperty(hero, 'typeKey'),
-          this.expectProperty(hero, 'name')
+          data.hero.typeKey,
+          data.hero.name,
+          data.hero.eyesId,
+          data.hero.noseId,
+          data.hero.mouthId
         ));
       }
       break;

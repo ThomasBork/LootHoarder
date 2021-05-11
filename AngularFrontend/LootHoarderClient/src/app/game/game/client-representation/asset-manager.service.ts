@@ -23,10 +23,10 @@ export class AssetManagerService {
   public loadAssets(): void {
     console.log("Loading assets");
     this.loadAbilityTypes();
-    this.loadHeroTypes();
-    this.loadAreaTypes();
     this.loadItemAbilityTypes();
     this.loadItemTypes();
+    this.loadHeroTypes();
+    this.loadAreaTypes();
     console.log("Done loading assets");
   }
 
@@ -99,7 +99,8 @@ export class AssetManagerService {
         heroType.key,
         heroType.name,
         heroType.description,
-        heroType.abilityTypes.map(abilityTypeKey => this.getAbilityType(abilityTypeKey))
+        heroType.abilityTypes.map(abilityTypeKey => this.getAbilityType(abilityTypeKey)),
+        this.getItemType(heroType.startingWeaponType)
       )
     )
   }

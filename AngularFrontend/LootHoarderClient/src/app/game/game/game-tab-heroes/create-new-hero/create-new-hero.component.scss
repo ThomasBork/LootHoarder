@@ -1,0 +1,85 @@
+.setting-list {
+  max-width: 600px;
+
+  &>li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+
+    .setting-value-selector {
+      flex: 0 1 70%;
+      display: flex;
+      align-items: center;
+      height: 100%;
+
+      .selector-arrow {
+        flex: 0 0 30px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        cursor: pointer;
+        background-color: aqua;
+      }
+
+      .selector-content {
+        flex: 1 1 0;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+.temporary-output {
+  display: flex;
+  margin-top: 20px;
+
+  .hero-container {
+    width: 500px;
+
+    .name {
+      font-size: 24px;
+    }
+    .type {
+      font-size: 16px;
+    }
+  }
+
+  .ability-types-container {
+    flex: 1 1 0;
+    max-width: 400px;
+
+    .header {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .ability-container {
+      display: flex;
+      margin-bottom: 5px;
+
+      .image {
+        flex: 0 0 100px;
+        width: 100px;
+        height: 100px;
+        border: 3px solid black;
+        border-radius: 10px;
+        margin-right: 5px;
+      }
+
+      .text-container {
+        flex: 1 1 0;
+
+        .name {
+          font-size: 20px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+  }
+}

@@ -33,4 +33,21 @@ export class RandomService {
 
     throw Error ('Something went wrong when determining a random weighted element.');
   }
+
+  public randomNWeightedElements<T>(array: WeightedElement<T>[], amount: number): T[] {
+    if (amount > array.length) {
+      throw Error(`Cannot choose ${amount} elements from an array with ${array.length} elements`);
+    }
+    if (amount === array.length) {
+      return array.map(a => a.element);
+    }
+    const newArray = [...array];
+    const returnArray: T[] = [];
+    for(let i = 0; i<amount; i++) {
+      const randomElement = this.randomWeightedElement(newArray);
+      newArray.splice(newArray.findIndex(e => e.element === randomElement), 1);
+      returnArray.push(randomElement);
+    }
+    return returnArray;
+  }
 }

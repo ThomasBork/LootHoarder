@@ -32,11 +32,7 @@
     "name": "Spell Cooldown Speed"
   },
   {
-    "key": "armor",
-    "name": "Armor"
-  },
-  {
-    "key": "magic-resistance",
-    "name": "Magic Resistance"
+    "key": "resistance",
+    "name": "Resistance"
   }
 ]

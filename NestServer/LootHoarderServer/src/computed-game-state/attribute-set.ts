@@ -33,6 +33,25 @@ export class AttributeSet {
     return attribute;
   }
 
+  public getAttributes(attributeType: ContractAttributeType, tags: (string | undefined)[]): CombinedAttributeValueContainer[] {
+    return [
+      this.getAttribute(attributeType, undefined),
+      ...tags.map(tag => this.getAttribute(attributeType, tag)), 
+    ];
+  }
+
+  public calculateAttributeValue(attributeType: ContractAttributeType, tags: string[]): number {
+    // TODO cache this value
+    const allCombinedAttributes = this.getAttributes(attributeType, tags);
+    const additiveModifiersSum = allCombinedAttributes
+      .map(attribute => attribute.additiveValueContainer.value)
+      .reduce((v1, v2) => v1 + v2, 0);
+    const multiplicativeModifiersProduct = allCombinedAttributes
+      .map(attribute => attribute.multiplicativeValueContainer.value)
+      .reduce((v1, v2) => v1 * v2, 0);
+    return additiveModifiersSum * multiplicativeModifiersProduct;
+  }
+
   public toContractModel(): ContractAttribute[] {
     const additiveAttributes: ContractAttribute[] = this.combinedAttributes.map(attribute => {
       return {

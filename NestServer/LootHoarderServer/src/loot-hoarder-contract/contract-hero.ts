@@ -1,5 +1,6 @@
 import { ContractAttribute } from "./contract-attribute";
 import { ContractInventory } from "./contract-inventory";
+import { ContractHeroCosmetics } from "./contract-hero-cosmetics";
 
 export interface ContractHero {
   id: number;
@@ -9,4 +10,5 @@ export interface ContractHero {
   experience: number;
   attributes: ContractAttribute[];
   inventory: ContractInventory;
+  cosmetics: ContractHeroCosmetics;
 }

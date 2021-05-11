@@ -1,6 +1,10 @@
 .container-wrapper {
   position: relative;
   width: 100%;
+  
+  &.disable-interaction {
+    pointer-events: none;
+  }
 
   .container-stretcher {
     padding-bottom: 120%;
@@ -30,6 +34,33 @@
           opacity: 0.3;
         }
       }
+    }
+
+    .eyes {
+      position: absolute;
+      left: 51.2%;
+      top: 17%;
+      transform: translateX(-50%);
+      width: 10%;
+      height: 3%;
+    }
+
+    .nose {
+      position: absolute;
+      left: 51.2%;
+      top: 20%;
+      transform: translateX(-50%);
+      width: 10%;
+      height: 3%;
+    }
+
+    .mouth {
+      position: absolute;
+      left: 51.2%;
+      top: 23%;
+      transform: translateX(-50%);
+      width: 10%;
+      height: 3%;
     }
   }
 }

@@ -17,18 +17,27 @@ export class HeroWithItemsComponent implements OnChanges {
   public hero!: Hero;
   @Input()
   public draggedItem?: Item;
+  @Input()
+  public canInteractWithItems: boolean = false;
 
   public itemVisualPositions: ItemVisualPosition[];
 
   public constructor(private readonly webSocketService: WebSocketService) {
+    const head = new ItemVisualPosition(ContractInventoryPosition.head, 30, 0, 40, 28, 52, 40);
+    const chest = new ItemVisualPosition(ContractInventoryPosition.chest, 30, 28, 40, 24, 52, 12);
+    const legs = new ItemVisualPosition(ContractInventoryPosition.legs, 30, 52, 40, 24, 50, 19);
+    const leftFoot = new ItemVisualPosition(ContractInventoryPosition.leftFoot, 0, 76, 50, 24, 72, 60);
+    const rightFoot = new ItemVisualPosition(ContractInventoryPosition.rightFoot, 50, 76, 50, 24, 30, 58);
+    const leftHand = new ItemVisualPosition(ContractInventoryPosition.leftHand, 0, 0, 30, 76, 62, 53);
+    const rightHand = new ItemVisualPosition(ContractInventoryPosition.rightHand, 70, 0, 30, 76, 36, 55);
     this.itemVisualPositions = [
-      new ItemVisualPosition(ContractInventoryPosition.legs, 30, 50, 40, 25, 50, 19),
-      new ItemVisualPosition(ContractInventoryPosition.chest, 30, 25, 40, 25, 52, 12),
-      new ItemVisualPosition(ContractInventoryPosition.head, 30, 0, 40, 25, 52, 40),
-      new ItemVisualPosition(ContractInventoryPosition.leftFoot, 0, 75, 50, 25, 72, 60),
-      new ItemVisualPosition(ContractInventoryPosition.rightFoot, 50, 75, 50, 25, 30, 58),
-      new ItemVisualPosition(ContractInventoryPosition.leftHand, 0, 0, 30, 75, 62, 52),
-      new ItemVisualPosition(ContractInventoryPosition.rightHand, 70, 0, 30, 75, 36, 54),
+      legs,
+      chest,
+      head,
+      leftFoot,
+      rightFoot,
+      leftHand,
+      rightHand,
     ];
   }
 
@@ -51,8 +60,10 @@ export class HeroWithItemsComponent implements OnChanges {
   }
 
   public handleItemDroppedOnInventoryPosition(inventoryPosition: ContractInventoryPosition): void {
-    console.log(this.draggedItem);
-    if (this.draggedItem) {
+    if (
+      this.draggedItem 
+      && this.canItemCategoryGoIntoInventoryPosition(this.draggedItem.type.category, inventoryPosition)
+    ) {
       this.webSocketService.send(new ContractEquipItemMessage(this.hero.id, this.draggedItem.id, inventoryPosition));
     }
   }

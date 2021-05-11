@@ -4,6 +4,5 @@ export enum ContractAttributeType {
   power= 'power',
   useSpeed= 'use-speed',
   cooldownSpeed= 'cooldown-speed',
-  armor= 'armor',
-  magicResistance= 'magic-resistance',
+  resistance= 'resistance',
 }

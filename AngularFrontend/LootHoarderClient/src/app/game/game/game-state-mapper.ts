@@ -82,7 +82,10 @@ export class GameStateMapper {
       serverHero.level,
       serverHero.experience,
       attributes,
-      inventory
+      inventory,
+      serverHero.cosmetics.eyesId,
+      serverHero.cosmetics.noseId,
+      serverHero.cosmetics.mouthId
     );
   }
 
@@ -204,7 +207,8 @@ export class GameStateMapper {
     return new Item (
       serverItem.id,
       this.assetManagerService.getItemType(serverItem.typeKey),
-      serverItem.abilities.map(ability => this.mapToItemAbility(ability))
+      serverItem.innateAbilities.map(ability => this.mapToItemAbility(ability)),
+      serverItem.additionalAbilities.map(ability => this.mapToItemAbility(ability))
     );
   }
 

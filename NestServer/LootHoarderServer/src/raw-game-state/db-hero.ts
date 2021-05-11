@@ -1,3 +1,4 @@
+import { DbHeroCosmetics } from "./db-hero-cosmetics";
 import { DbInventory } from "./db-inventory";
 
 export interface DbHero {
@@ -8,4 +9,5 @@ export interface DbHero {
   experience: number;
   abilityTypeKeys: string[];
   inventory: DbInventory;
+  cosmetics: DbHeroCosmetics;
 }

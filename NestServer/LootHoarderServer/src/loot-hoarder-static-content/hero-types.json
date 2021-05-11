@@ -19,7 +19,8 @@
       "maximumMana": 50,
       "attackPower": 12,
       "spellPower": 10
-    }
+    },
+    "startingWeaponType": "longsword"
   },
   {
     "key": "wizard",
@@ -41,6 +42,7 @@
       "maximumMana": 80,
       "attackPower": 10,
       "spellPower": 12
-    }
+    },
+    "startingWeaponType": "magic-wand"
   }
 ]

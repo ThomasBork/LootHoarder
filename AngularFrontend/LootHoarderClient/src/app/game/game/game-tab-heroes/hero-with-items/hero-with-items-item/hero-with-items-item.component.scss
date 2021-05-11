@@ -2,7 +2,18 @@
   height: 100%;
   position: relative;
 
+  .item-preview-container {
+    position: fixed;
+    width: max-content;
+    z-index: 1;
+  }
+
   .image {
     position: absolute;
+    border: 1px solid transparent;
+
+    &.is-hovered {
+      border: 1px dashed grey;
+    }
   }
 }

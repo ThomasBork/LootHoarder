@@ -19,7 +19,7 @@ import { LabelWithValueComponent } from './shared/label-with-value/label-with-va
 import { AssetManagerService } from './game/game/client-representation/asset-manager.service';
 import { GameTabMenuComponent } from './game/game/game-tab-menu/game-tab-menu.component';
 import { GameTabHeroesComponent } from './game/game/game-tab-heroes/game-tab-heroes.component';
-import { CreateNewHeroComponent } from './game/game/game-tab-heroes/create-new-hero.component/create-new-hero.component';
+import { CreateNewHeroComponent } from './game/game/game-tab-heroes/create-new-hero/create-new-hero.component';
 import { GameTabWorldComponent } from './game/game/game-tab-world/game-tab-world.component';
 import { GameStateMapper } from './game/game/game-state-mapper';
 import { GameTabCombatComponent } from './game/game/game-tab-combat/game-tab-combat.component';
@@ -37,6 +37,7 @@ import { GameTabItemsComponent } from './game/game/game-tab-items/game-tab-items
 import { HeroWithItemsComponent } from './game/game/game-tab-heroes/hero-with-items/hero-with-items.component';
 import { HeroWithItemsItemComponent } from './game/game/game-tab-heroes/hero-with-items/hero-with-items-item/hero-with-items-item.component';
 import { ItemComponent } from './game/game/item/item.component';
+import { ItemPreviewComponent } from './game/game/item-preview/item-preview.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ItemComponent } from './game/game/item/item.component';
     HeroWithItemsComponent,
     HeroWithItemsItemComponent,
     ItemComponent,
+    ItemPreviewComponent,
     GameTabMenuComponent,
     GameTabWorldAreaTypeInformationComponent,
     GameTabWorldComponent,

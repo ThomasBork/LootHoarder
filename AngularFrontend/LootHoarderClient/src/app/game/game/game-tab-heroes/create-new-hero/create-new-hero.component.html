@@ -1,0 +1,104 @@
+<h1>Creating New Hero</h1>
+<ul class="setting-list">
+  <li>
+    <span class="setting-label">Name</span>
+    <span class="setting-value-selector">
+      <input class="selector-content" type="text" [(ngModel)]="heroName" />
+    </span>
+  </li>
+  <li>
+    <span class="setting-label">Class</span>
+    <span class="setting-value-selector">
+      <span 
+        class="selector-arrow"
+        (click)="choosePreviousHeroType()"
+      >&lt;</span>
+      <span class="selector-content">{{ selectedHeroType.name }}</span>
+      <span 
+        class="selector-arrow"
+        (click)="chooseNextHeroType()"
+      >&gt;</span>
+    </span>
+  </li>
+  <li class="setting-label">
+    <span>Eyes</span>
+    <span class="setting-value-selector">
+      <span 
+        class="selector-arrow"
+        (click)="choosePreviousEyes()"
+      >&lt;</span>
+      <span class="selector-content">
+        <img [src]="'assets/images/hero/face/eyes-' + eyesId + '.png'" />
+      </span>
+      <span 
+        class="selector-arrow"
+        (click)="chooseNextEyes()"
+      >&gt;</span>
+    </span>
+  </li>
+  <li class="setting-label">
+    <span>Nose</span>
+    <span class="setting-value-selector">
+      <span 
+        class="selector-arrow"
+        (click)="choosePreviousNose()"
+      >&lt;</span>
+      <span class="selector-content">
+        <img [src]="'assets/images/hero/face/nose-' + noseId + '.png'" />
+      </span>
+      <span 
+        class="selector-arrow"
+        (click)="chooseNextNose()"
+      >&gt;</span>
+    </span>
+  </li>
+  <li class="setting-label">
+    <span>Mouth</span>
+    <span class="setting-value-selector">
+      <span 
+        class="selector-arrow"
+        (click)="choosePreviousMouth()"
+      >&lt;</span>
+      <span class="selector-content">
+        <img [src]="'assets/images/hero/face/mouth-' + mouthId + '.png'" />
+      </span>
+      <span 
+        class="selector-arrow"
+        (click)="chooseNextMouth()"
+      >&gt;</span>
+    </span>
+  </li>
+</ul>
+
+<div 
+  *ngIf="temporaryHero"
+  class="temporary-output"
+>
+  <div class="hero-container">
+    <div class="name">{{heroName}}</div>
+    <div class="type">{{selectedHeroType.name}}</div>
+    <app-hero-with-items
+      [hero]="temporaryHero"
+    ></app-hero-with-items>
+  </div>
+  <div class="ability-types-container">
+    <div class="header">Starting Abilities</div>
+    <ul>
+      <li
+        *ngFor="let abilityType of selectedHeroType.abilityTypes"
+        class="ability-container"
+      >
+        <img 
+          class="image"
+          [src]="'assets/images/abilities/' + abilityType.key + '-thumbnail.png'" 
+        />
+        <span class="text-container">
+          <div class="name">{{abilityType.name}}</div>
+          <div class="description">{{abilityType.description}}</div>
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<button (click)="createNewHero()">Create hero</button>

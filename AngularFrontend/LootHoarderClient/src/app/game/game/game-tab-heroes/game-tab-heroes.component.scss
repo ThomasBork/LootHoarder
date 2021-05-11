@@ -8,9 +8,14 @@
 
   .hero-with-items-container {
     flex: 0 0 500px;
+    display: flex;
+    flex-direction: column;
 
     .item-list {
       display: flex;
+      flex-wrap: wrap;
+      flex: 1 1 0;
+      align-content: flex-start;
     }
   }
 

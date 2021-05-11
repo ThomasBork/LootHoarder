@@ -14,8 +14,29 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "power",
-          "abilityTags": ["attack"],
+          "abilityTag": "attack",
           "amount": 50
+        }
+      }
+    ]
+  },
+  {
+    "key": "magic-wand",
+    "name": "Magic Wand",
+    "category": "weapon",
+    "image": {
+      "fixtureLeft": 90,
+      "fixtureTop": 92,
+      "widthInPercent": 55
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "power",
+          "abilityTag": "spell",
+          "amount": 40
         }
       },
       {
@@ -23,8 +44,8 @@
         "parameters": {
           "isAdditive": false,
           "attributeType": "use-speed",
-          "abilityTags": ["attack"],
-          "amount": 0.8
+          "abilityTag": "spell",
+          "amount": 1.5
         }
       }
     ]
@@ -44,7 +65,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "power",
-          "abilityTags": ["attack"],
+          "abilityTag": "attack",
           "amount": 20
         }
       },
@@ -53,7 +74,7 @@
         "parameters": {
           "isAdditive": false,
           "attributeType": "use-speed",
-          "abilityTags": ["attack"],
+          "abilityTag": "attack",
           "amount": 1.25
         }
       }
@@ -73,8 +94,8 @@
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "armor",
-          "abilityTags": [],
+          "attributeType": "resistance",
+          "abilityTag": "physical",
           "amount": 30
         }
       }
@@ -87,15 +108,15 @@
     "image": {
       "fixtureLeft": 75,
       "fixtureTop": 80,
-      "widthInPercent": 90
+      "widthInPercent": 40
     },
     "innateAbilities": [
       {
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "armor",
-          "abilityTags": [],
+          "attributeType": "resistance",
+          "abilityTag": "physical",
           "amount": 20
         }
       }
@@ -115,8 +136,8 @@
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "armor",
-          "abilityTags": [],
+          "attributeType": "resistance",
+          "abilityTag": "physical",
           "amount": 40
         }
       }
@@ -136,8 +157,8 @@
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "armor",
-          "abilityTags": [],
+          "attributeType": "resistance",
+          "abilityTag": "physical",
           "amount": 25
         }
       }
@@ -157,8 +178,8 @@
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "armor",
-          "abilityTags": [],
+          "attributeType": "resistance",
+          "abilityTag": "physical",
           "amount": 25
         }
       }
@@ -170,7 +191,7 @@
     "category": "head",
     "image": {
       "fixtureLeft": 50,
-      "fixtureTop": 35,
+      "fixtureTop": 30,
       "widthInPercent": 55
     },
     "innateAbilities": [
@@ -178,8 +199,8 @@
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "armor",
-          "abilityTags": [],
+          "attributeType": "resistance",
+          "abilityTag": "physical",
           "amount": 45
         }
       }
@@ -199,8 +220,8 @@
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "armor",
-          "abilityTags": [],
+          "attributeType": "resistance",
+          "abilityTag": "physical",
           "amount": 75
         }
       }
@@ -220,8 +241,8 @@
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "armor",
-          "abilityTags": [],
+          "attributeType": "resistance",
+          "abilityTag": "physical",
           "amount": 20
         }
       },
@@ -230,7 +251,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "power",
-          "abilityTags": ["attack"],
+          "abilityTag": "attack",
           "amount": 20
         }
       }
@@ -250,8 +271,8 @@
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "magic-resistance",
-          "abilityTags": [],
+          "attributeType": "resistance",
+          "abilityTag": "elemental",
           "amount": 20
         }
       }

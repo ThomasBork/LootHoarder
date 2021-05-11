@@ -6,12 +6,21 @@ import { ContractClientWebSocketMessage } from './contract-client-web-socket-mes
 export class ContractCreateHeroMessage implements ContractClientWebSocketMessage {
   public typeKey: ContractClientMessageType;
   public data: ContractCreateHeroMessageContent;
-  public constructor(typeKey: string, name: string) {
+  public constructor(
+    typeKey: string, 
+    name: string, 
+    eyesId: number,
+    noseId: number,
+    mouthId: number
+  ) {
     this.typeKey = ContractClientMessageType.createHero;
     this.data = { 
       hero: { 
         typeKey, 
-        name 
+        name,
+        eyesId,
+        noseId,
+        mouthId
       } 
     };
   }

@@ -27,7 +27,8 @@ export class Item {
     return {
       id: this.id,
       typeKey: this.type.key,
-      abilities: this.additionalAbilities.map(ability => ability.toContractModel())
+      innateAbilities: this.innateAbilities.map(ability => ability.toContractModel()),
+      additionalAbilities: this.additionalAbilities.map(ability => ability.toContractModel())
     };
   }
 

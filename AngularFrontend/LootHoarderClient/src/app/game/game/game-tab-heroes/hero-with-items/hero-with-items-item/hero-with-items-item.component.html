@@ -2,10 +2,22 @@
   <img 
     *ngIf="item"
     class="image"
+    [class.is-hovered]="isHovering"
     [src]="'assets/images/items/' + item.type.key + '.png'" 
     [style.transform]="getImageTransform()"
     [style.left]="fixtureLeft + '%'"
     [style.top]="fixtureTop + '%'"
     [style.width]="item.type.imageWidthInPercent + '%'"
+    (mouseenter)="handleMouseEnter($event)"
+    (mouseleave)="handleMouseLeave($event)"
+    (mousemove)="handleMouseMove($event)"
   />
+  <div 
+    *ngIf="item && isHovering"
+    class="item-preview-container"
+    [style.left]="previewLeft + 'px'"
+    [style.top]="previewTop + 'px'"
+  >
+    <app-item-preview [item]="item"></app-item-preview>
+  </div>
 </div>

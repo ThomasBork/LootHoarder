@@ -14,6 +14,9 @@ export class Hero {
   public areaHero?: AreaHero;
   public attributes: AttributeSet;
   public inventory: Inventory;
+  public eyesId: number;
+  public noseId: number;
+  public mouthId: number;
 
   public constructor(
     id: number,
@@ -23,6 +26,9 @@ export class Hero {
     experience: number,
     attributes: AttributeSet,
     inventory: Inventory,
+    eyesId: number,
+    noseId: number,
+    mouthId: number,
   ) {
     this.id = id;
     this.type = type;
@@ -31,6 +37,9 @@ export class Hero {
     this.experience = experience;
     this.attributes = attributes;
     this.inventory = inventory;
+    this.eyesId = eyesId;
+    this.noseId = noseId;
+    this.mouthId = mouthId;
   }
 
   public equipItem(item: Item, inventoryPosition: ContractInventoryPosition): void {

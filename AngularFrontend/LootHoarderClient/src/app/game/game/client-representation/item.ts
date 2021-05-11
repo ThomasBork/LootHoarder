@@ -4,11 +4,13 @@ import { ItemType } from "./item-type";
 export class Item {
   public id: number;
   public type: ItemType;
-  public abilities: ItemAbility[];
+  public innateAbilities: ItemAbility[];
+  public additionalAbilities: ItemAbility[];
 
-  public constructor(id: number, type: ItemType, abilities: ItemAbility[]) {
+  public constructor(id: number, type: ItemType, innateAbilities: ItemAbility[], additionalAbilities: ItemAbility[]) {
     this.id = id;
     this.type = type;
-    this.abilities = abilities;
+    this.innateAbilities = innateAbilities;
+    this.additionalAbilities = additionalAbilities;
   }
 }

@@ -1,7 +1,22 @@
-<div class="container-wrapper">
+<div 
+  class="container-wrapper"
+  [class.disable-interaction]="!canInteractWithItems"
+>
   <div class="container-stretcher"></div>
   <div class="container">
     <img class="body" src="assets/images/hero/hero-body.png" />
+    <img 
+      class="eyes" 
+      [src]="'assets/images/hero/face/eyes-' + hero.eyesId + '.png'" 
+    />
+    <img 
+      class="nose" 
+      [src]="'assets/images/hero/face/nose-' + hero.noseId + '.png'" 
+    />
+    <img 
+      class="mouth" 
+      [src]="'assets/images/hero/face/mouth-' + hero.mouthId + '.png'" 
+    />
     <div
       *ngFor="let itemVisualPosition of itemVisualPositions"
       class="item-container"

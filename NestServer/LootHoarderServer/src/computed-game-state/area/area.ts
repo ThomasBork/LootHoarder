@@ -50,6 +50,7 @@ export class Area {
   public get currentCombatNumber(): number { return this.dbModel.currentCombatNumber; }
   public set currentCombatNumber(newValue: number) { this.dbModel.currentCombatNumber = newValue; }
   public get totalAmountOfCombats(): number { return this.dbModel.totalAmountOfCombats; }
+  public get hasMoreCombats(): boolean { return this.currentCombatNumber < this.totalAmountOfCombats; }
 
   public startNewCurrentCombat(combat: Combat): void {
     this.currentCombatNumber++;

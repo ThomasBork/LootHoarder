@@ -7,6 +7,7 @@ import HeroTypes from "src/loot-hoarder-static-content/hero-types.json";
 import MonsterTypes from "src/loot-hoarder-static-content/monster-types.json";
 import ItemAbilityTypes from "src/loot-hoarder-static-content/item-ability-types.json";
 import ItemTypes from "src/loot-hoarder-static-content/item-types.json";
+import ItemAbilityRollRecipes from "src/loot-hoarder-static-content/item-ability-roll-recipes.json";
 import { AreaType } from "src/computed-game-state/area/area-type";
 import { AbilityType } from "src/computed-game-state/ability-type";
 import { HeroType } from "src/computed-game-state/hero-type";
@@ -25,6 +26,9 @@ import { ItemAbilityType } from "src/computed-game-state/item-ability-type";
 import { ItemType } from "src/computed-game-state/item-type";
 import { ContractItemCategory } from "src/loot-hoarder-contract/contract-item-category";
 import { ItemAbilityRecipe } from "src/computed-game-state/item-ability-recipe";
+import { ItemAbilityRecipeParameters } from "src/computed-game-state/item-ability-recipe-parameters";
+import { ValueRange } from "src/computed-game-state/value-range";
+import { ItemAbilityRollRecipe } from "src/computed-game-state/item-ability-roll-recipe";
 
 @Injectable()
 export class StaticGameContentService {
@@ -35,6 +39,7 @@ export class StaticGameContentService {
   private areaTypes!: AreaType[];
   private itemAbilityTypes!: ItemAbilityType[];
   private itemTypes!: ItemType[];
+  private itemAbilityRollRecipes!: ItemAbilityRollRecipe[];
 
   private static _instance: StaticGameContentService;
 
@@ -115,14 +120,22 @@ export class StaticGameContentService {
     return result;
   }
 
+  public getAllItemAbilityRollRecipes(filter?: (item: ItemAbilityRollRecipe) => boolean): ItemAbilityRollRecipe[] {
+    if (!filter) {
+      return [...this.itemAbilityRollRecipes];
+    }
+    return this.itemAbilityRollRecipes.filter(filter);
+  }
+
   private loadAssets(): void {
     this.loadAbilityTypeEffectTypes();
     this.loadAbilityTypes();
+    this.loadItemAbilityTypes();
+    this.loadItemTypes();
+    this.loadItemAbilityRollRecipes();
     this.loadHeroTypes();
     this.loadMonsterTypes();
     this.loadAreaTypes();
-    this.loadItemAbilityTypes();
-    this.loadItemTypes();
   }
 
   private loadAbilityTypeEffectTypes(): void {
@@ -171,8 +184,8 @@ export class StaticGameContentService {
     spellUseSpeed?: number;
     attackCooldownSpeed?: number;
     spellCooldownSpeed?: number;
-    armor?: number;
-    magicResistance?: number;
+    physicalResistance?: number;
+    elementalResistance?: number;
   }): AttributeSet {
     const combinedAttributes: CombinedAttributeValueContainer[] = [];
     if (coreAttributes.maximumHealth) {
@@ -199,11 +212,11 @@ export class StaticGameContentService {
     if (coreAttributes.spellCooldownSpeed) {
       combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.cooldownSpeed, "spell", coreAttributes.spellCooldownSpeed, 1));
     }
-    if (coreAttributes.armor) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.armor, undefined, coreAttributes.armor, 1));
+    if (coreAttributes.physicalResistance) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.resistance, "physical", coreAttributes.physicalResistance, 1));
     }
-    if (coreAttributes.magicResistance) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.magicResistance, undefined, coreAttributes.magicResistance, 1));
+    if (coreAttributes.elementalResistance) {
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.resistance, "elemental", coreAttributes.elementalResistance, 1));
     }
     const attributeSet = new AttributeSet(combinedAttributes);
     return attributeSet;
@@ -214,13 +227,15 @@ export class StaticGameContentService {
       {
         const baseAttributes = this.loadAttributeSetFromCoreAttributes(heroType.baseAttributes);
         const attributesPerLevel = this.loadAttributeSetFromCoreAttributes(heroType.attributesPerLevel);
+        const startItemType = this.getItemType(heroType.startingWeaponType);
         return new HeroType(
           heroType.key,
           heroType.name,
           heroType.description,
           heroType.abilityTypes.map(abilityTypeKey => this.getAbilityType(abilityTypeKey)),
           baseAttributes,
-          attributesPerLevel
+          attributesPerLevel,
+          startItemType
         );
       }
     )
@@ -288,9 +303,39 @@ export class StaticGameContentService {
         itemType.category as ContractItemCategory,
         itemType.innateAbilities.map(ability => {
           const itemAbilityType = this.getItemAbilityType(ability.typeKey);
-          return new ItemAbilityRecipe(itemAbilityType, ability.parameters);
+          const typedParameters: ItemAbilityRecipeParameters = {};
+          for(const key of Object.keys(ability.parameters)) {
+            let value = (ability.parameters as any)[key];
+            if (value.hasOwnProperty("min")) {
+              value = new ValueRange(value.min, value.max, value.isInteger);
+            }
+            typedParameters[key] = value;
+          }
+
+          return new ItemAbilityRecipe(itemAbilityType, typedParameters);
         })
       )
     )
+  }
+
+  private loadItemAbilityRollRecipes(): void {
+    this.itemAbilityRollRecipes = ItemAbilityRollRecipes.map(rollRecipe => {
+      const typedParameters: ItemAbilityRecipeParameters = {};
+      for(const key of Object.keys(rollRecipe.parameters)) {
+        let value = (rollRecipe.parameters as any)[key];
+        if (value && typeof value === 'object' && value.hasOwnProperty("min")) {
+          value = new ValueRange(value.min, value.max, value.isInteger);
+        }
+        typedParameters[key] = value;
+      }
+
+      const itemAbilityType = this.getItemAbilityType(rollRecipe.typeKey);
+
+      return new ItemAbilityRollRecipe(
+        rollRecipe.itemCategories as ContractItemCategory[],
+        rollRecipe.weight,
+        new ItemAbilityRecipe(itemAbilityType, typedParameters)
+      );
+    });
   }
 }

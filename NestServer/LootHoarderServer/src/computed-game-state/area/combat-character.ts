@@ -81,18 +81,16 @@ export class CombatCharacter {
   private setUpAbilityValueContainers(): void {
     for(const ability of this.abilities) {
       this.setUpAbilityValueContainer(ability, ability.powerVC, ContractAttributeType.power);
-      this.setUpAbilityValueContainer(ability, ability.timeToUseVC, ContractAttributeType.useSpeed);
+      this.setUpAbilityValueContainer(ability, ability.useSpeedVC, ContractAttributeType.useSpeed);
+      this.setUpAbilityValueContainer(ability, ability.cooldownSpeedVC, ContractAttributeType.cooldownSpeed);
     }
   }
 
   private setUpAbilityValueContainer(ability: Ability, abilityValueContainer: ValueContainer, attributeType: ContractAttributeType): void {
-    const genericAdditiveVC = this.attributes.getAttribute(attributeType, undefined);
-    abilityValueContainer.setAdditiveValueContainer(genericAdditiveVC.additiveValueContainer);
-    abilityValueContainer.setMultiplicativeValueContainer(genericAdditiveVC.multiplicativeValueContainer);
-    for(const abilityTag of ability.type.tags) {
-      const specificAdditiveVC = this.attributes.getAttribute(attributeType, abilityTag);
-      abilityValueContainer.setAdditiveValueContainer(specificAdditiveVC.additiveValueContainer);
-      abilityValueContainer.setMultiplicativeValueContainer(specificAdditiveVC.multiplicativeValueContainer);
+    const combinedAttributes = this.attributes.getAttributes(attributeType, ability.type.tags);
+    for(const combinedAttribute of combinedAttributes) {
+      abilityValueContainer.setAdditiveValueContainer(combinedAttribute.additiveValueContainer);
+      abilityValueContainer.setMultiplicativeValueContainer(combinedAttribute.multiplicativeValueContainer);
     }
   }
 

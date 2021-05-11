@@ -35,7 +35,7 @@ export class Ability {
     
     this.cooldownVC = new ValueContainer(type.cooldown);
     // Cooldown speed should never reach 0 except during setup.
-    this.timeToUseVC.setMultiplicativeValueContainer(this.cooldownSpeedVC, value => value ? 100 / value : 1);
+    this.cooldownVC.setMultiplicativeValueContainer(this.cooldownSpeedVC, value => value ? 100 / value : 1);
   }
 
   public get id(): number { return this.dbModel.id; }

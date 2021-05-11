@@ -12,16 +12,16 @@
       "spellUseSpeed": 100,
       "attackCooldownSpeed": 150,
       "spellCooldownSpeed": 100,
-      "armor": 0,
-      "magicResistance": 50
+      "physicalResistance": 0,
+      "elementalResistance": 50
     },
     "attributesPerLevel": {
       "maximumHealth": 20,
       "maximumMana": 10,
       "attackPower": 5,
       "spellPower": 5,
-      "armor": 0,
-      "magicResistance": 5
+      "physicalResistance": 0,
+      "elementalResistance": 5
     }
   },
   {
@@ -37,16 +37,16 @@
       "spellUseSpeed": 50,
       "attackCooldownSpeed": 80,
       "spellCooldownSpeed": 100,
-      "armor": 50,
-      "magicResistance":50
+      "physicalResistance": 50,
+      "elementalResistance":50
     },
     "attributesPerLevel": {
       "maximumHealth": 100,
       "maximumMana": 5,
       "attackPower": 15,
       "spellPower": 5,
-      "armor": 5,
-      "magicResistance": 5
+      "physicalResistance": 5,
+      "elementalResistance": 5
     }
   }
 ]

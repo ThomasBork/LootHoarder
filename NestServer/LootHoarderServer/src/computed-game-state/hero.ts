@@ -18,6 +18,7 @@ import { Item } from "./item";
 import { Inventory } from "./inventory";
 import { ContractInventoryPosition } from "src/loot-hoarder-contract/contract-inventory-position";
 import { ItemUnequippedEvent } from "./item-unequipped-event";
+import { ItemAbilityParametersAttribute } from "./item-ability-parameters-attribute";
 
 export class Hero {
   public dbModel: DbHero;
@@ -102,7 +103,12 @@ export class Hero {
       level: this.level,
       experience: this.experience,
       attributes: attributes,
-      inventory: inventory
+      inventory: inventory,
+      cosmetics: {
+        eyesId: this.dbModel.cosmetics.eyesId,
+        noseId: this.dbModel.cosmetics.noseId,
+        mouthId: this.dbModel.cosmetics.mouthId
+      }
     };
   }
 
@@ -120,19 +126,20 @@ export class Hero {
     for(const itemAbility of allItemAbilities) {
       switch(itemAbility.type.key) {
         case 'attribute': {
-          const isAdditive: boolean = itemAbility.parameters['isAdditive'];
-          const attributeType: ContractAttributeType = itemAbility.parameters['attributeType'];
-          const abilityTags: string[] = itemAbility.parameters['abilityTags'];
-          const amount: number = itemAbility.parameters['amount'];
-          for(const tag of abilityTags) {
-            const attribute = this.attributes.getAttribute(attributeType, tag);
-            if (isAdditive){ 
-              const attributeValueContainer = attribute.additiveValueContainer;
-              attributeValueContainer.setAdditiveModifier(itemAbility, amount);
-            } else {
-              const attributeValueContainer = attribute.multiplicativeValueContainer;
-              attributeValueContainer.setMultiplicativeModifier(itemAbility, amount);
-            }
+          if (!(itemAbility.parameters instanceof ItemAbilityParametersAttribute)) {
+            throw Error ('Expected attribute ability to have attribute ability parameters.');
+          }
+          const isAdditive = itemAbility.parameters.isAdditive;
+          const attributeType = itemAbility.parameters.attributeType;
+          const abilityTag = itemAbility.parameters.abilityTag;
+          const amount = itemAbility.parameters.amount;
+          const attribute = this.attributes.getAttribute(attributeType, abilityTag);
+          if (isAdditive){ 
+            const attributeValueContainer = attribute.additiveValueContainer;
+            attributeValueContainer.setAdditiveModifier(itemAbility, amount);
+          } else {
+            const attributeValueContainer = attribute.multiplicativeValueContainer;
+            attributeValueContainer.setMultiplicativeModifier(itemAbility, amount);
           }
         }
         break;
@@ -146,14 +153,12 @@ export class Hero {
     for(const itemAbility of allItemAbilities) {
       switch(itemAbility.type.key) {
         case 'attribute': {
-          const isAdditive: boolean = itemAbility.parameters['isAdditive'];
-          const attributeType: ContractAttributeType = itemAbility.parameters['attributeType'];
-          const abilityTags: string[] = itemAbility.parameters['abilityTags'];
-          for(const tag of abilityTags) {
-            const attribute = this.attributes.getAttribute(attributeType, tag);
-            const attributeValueContainer = isAdditive ? attribute.additiveValueContainer : attribute.multiplicativeValueContainer;
-            attributeValueContainer.removeModifiers(itemAbility);
+          if (!(itemAbility.parameters instanceof ItemAbilityParametersAttribute)) {
+            throw Error ('Expected attribute ability to have attribute ability parameters.');
           }
+          const attribute = this.attributes.getAttribute(itemAbility.parameters.attributeType, itemAbility.parameters.abilityTag);
+          const attributeValueContainer = itemAbility.parameters.isAdditive ? attribute.additiveValueContainer : attribute.multiplicativeValueContainer;
+          attributeValueContainer.removeModifiers(itemAbility);
         }
         break;
         default: throw Error (`Unhandled ability type: ${itemAbility.type.key}`);

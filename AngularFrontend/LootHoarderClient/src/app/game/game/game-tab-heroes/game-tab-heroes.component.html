@@ -15,6 +15,7 @@
       <app-hero-with-items
         [hero]="selectedHero"
         [draggedItem]="draggedItem"
+        [canInteractWithItems]="true"
       ></app-hero-with-items>
       <ul class="item-list">
         <li *ngFor="let item of game.items">
