@@ -3,6 +3,7 @@ import { AreaHero } from "./area-hero";
 import { Combat } from "./combat";
 import { Loot } from "./loot";
 import { Item } from "./item";
+import { Hero } from "./hero";
 
 export class Area {
   public id: number;
@@ -31,7 +32,7 @@ export class Area {
     this.loot = loot;
   }
 
-  public changeCombat(combat: Combat, combatNumber: number): void {
+  public changeCombat(combat: Combat, combatNumber: number, gameHeroes: Hero[]): void {
     this.currentCombat = combat;
     this.currentCombatNumber = combatNumber;
     const allCharacters = combat.getAllCharacters();
@@ -40,6 +41,11 @@ export class Area {
       if (!character) {
         throw Error (`Combat character with id ${hero.combatCharacter.id} was not found.`);
       }
+      const gameHero = gameHeroes.find(h => h.id === hero.heroId);
+      if (!gameHero) {
+        throw Error (`Hero with id: ${hero.heroId} was not found`);
+      }
+      character.hero = gameHero;
       hero.combatCharacter = character;
     }
   }

@@ -36,7 +36,7 @@ export class GameStateMapper {
 
   public mapToGame(serverGame: ContractGame): Game {
     const heroes = serverGame.heroes.map(hero => this.mapToHero(hero));
-    const areas = serverGame.areas.map(area => this.mapToArea(area));
+    const areas = serverGame.areas.map(area => this.mapToArea(area, heroes));
     for(const hero of heroes) {
       hero.areaHero = areas
         .map(a => a.heroes.find(h => h.heroId === hero.id))
@@ -105,7 +105,7 @@ export class GameStateMapper {
     return new GameAreaType(areaType, isCompleted, isAvailable, areas);
   }
 
-  public mapToArea(serverArea: ContractArea): Area {
+  public mapToArea(serverArea: ContractArea, heroes: Hero[]): Area {
     const areaType = this.assetManagerService.getAreaType(serverArea.typeKey);
     const currentCombat = this.mapToCombat(serverArea.currentCombat);
     const areaHeroes = serverArea.heroes.map(areaHero => { 
@@ -115,6 +115,11 @@ export class GameStateMapper {
       if (!combatCharacter) {
         throw Error(`Combat character is not in this area.`);
       }
+      const hero = heroes.find(h => h.id === areaHero.heroId);
+      if (!hero) {
+        throw Error (`No hero found with id: ${areaHero.heroId}.`);
+      }
+      combatCharacter.hero = hero;
       return this.mapToAreaHero(areaHero, combatCharacter);
     });
     const loot = this.mapToLoot(serverArea.loot)

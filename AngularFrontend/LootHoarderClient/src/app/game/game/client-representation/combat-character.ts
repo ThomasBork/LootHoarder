@@ -1,6 +1,7 @@
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { AttributeSet } from "./attribute-set";
 import { CombatCharacterAbility } from "./combat-character-ability";
+import { Hero } from "./hero";
 
 export class CombatCharacter {
   public id: number;
@@ -14,6 +15,7 @@ export class CombatCharacter {
   public totalTimeToUseAbility?: number;
   public abilityBeingUsed?: CombatCharacterAbility;
   public targetOfAbilityBeingUsed?: CombatCharacter;
+  public hero?: Hero;
 
   public constructor(
     id: number,

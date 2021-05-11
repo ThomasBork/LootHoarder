@@ -110,7 +110,7 @@ export class GameComponent implements OnInit, OnDestroy {
       break;
       case ContractServerMessageType.areaAdded: {
         const serverArea = message.data.area as ContractArea;
-        const area = this.gameStateMapper.mapToArea(serverArea);
+        const area = this.gameStateMapper.mapToArea(serverArea, this.uiState.game.heroes);
         this.uiState.addArea(area);
       }
       break;

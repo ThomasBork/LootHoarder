@@ -59,7 +59,7 @@ export class UIState {
   }
 
   public startCombat(area: Area, combat: Combat, combatNumber: number): void {
-    area.changeCombat(combat, combatNumber);
+    area.changeCombat(combat, combatNumber, this.game.heroes);
   }
 
   public addCompletedAreaType(areaType: AreaType): void {

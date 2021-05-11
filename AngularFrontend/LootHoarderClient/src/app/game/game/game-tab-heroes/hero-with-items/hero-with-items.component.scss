@@ -1,9 +1,10 @@
 .container-wrapper {
   position: relative;
   width: 100%;
-  
+
   &.disable-interaction {
     pointer-events: none;
+    user-select: none;
   }
 
   .container-stretcher {

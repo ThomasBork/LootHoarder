@@ -10,7 +10,15 @@
 
   <div>Health: {{character.currentHealth | prettyNumber}}</div>
 
-  <img [src]="getImagePath()">
+  <app-hero-with-items
+    *ngIf="character.hero"
+    [hero]="character.hero"
+  ></app-hero-with-items>
+
+  <img
+    *ngIf="!character.hero"
+    [src]="getImagePath()"
+  />
 
   <div
     *ngIf="character.abilityBeingUsed && character.totalTimeToUseAbility"
