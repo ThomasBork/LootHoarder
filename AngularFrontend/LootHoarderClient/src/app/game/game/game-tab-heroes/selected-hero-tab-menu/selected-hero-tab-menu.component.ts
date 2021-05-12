@@ -9,8 +9,6 @@ import { Hero } from '../../client-representation/hero';
 })
 export class SelectedHeroTabMenuComponent implements OnInit {
   @Input()
-  public game!: Game;
-  @Input()
   public hero!: Hero;
 
   public selectedTab: string = 'items';

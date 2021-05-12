@@ -41,6 +41,8 @@ import { SelectedHeroTabMenuComponent } from './game/game/game-tab-heroes/select
 import { SelectedHeroAbilitiesTabComponent } from './game/game/game-tab-heroes/selected-hero-abilities-tab/selected-hero-abilities-tab.component';
 import { SelectedHeroItemsTabComponent } from './game/game/game-tab-heroes/selected-hero-items-tab/selected-hero-items-tab.component';
 import { SelectedHeroPassivesTabComponent } from './game/game/game-tab-heroes/selected-hero-passives-tab/selected-hero-passives-tab.component';
+import { UIStateManager } from './game/game/ui-state-manager';
+import { GameTabWorldActiveAreaCharacterListComponent } from './game/game/game-tab-world/game-tab-world-area-type-information/game-tab-world-active-area-character-list/game-tab-world-active-area-character-list.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,7 @@ import { SelectedHeroPassivesTabComponent } from './game/game/game-tab-heroes/se
     ItemPreviewComponent,
     GameTabMenuComponent,
     GameTabWorldAreaTypeInformationComponent,
+    GameTabWorldActiveAreaCharacterListComponent,
     GameTabWorldComponent,
     GameTabSettingsComponent,
     GameTabItemsComponent,
@@ -87,6 +90,7 @@ import { SelectedHeroPassivesTabComponent } from './game/game/game-tab-heroes/se
     GameService,
     GameStateMapper,
     UIStateAdvancer,
+    UIStateManager,
     UIStateMapper,
     WebSocketService
   ],

@@ -1,0 +1,35 @@
+<ul class="combat-characters">
+  <li 
+    *ngFor="let combatCharacter of combatCharacters"
+    class="combat-character-container"
+  >
+    <app-progress-bar
+      [minimumValue]="0"
+      [maximumValue]="combatCharacter.maximumHealth"
+      [value]="combatCharacter.currentHealth"
+      [height]="'5px'"
+      [backgroundColor]="'black'"
+    ></app-progress-bar>
+
+    <div class="image-container">
+      <ng-container *ngIf="combatCharacter.isAlive">
+        <app-hero-with-items
+          *ngIf="combatCharacter.hero"
+          [hero]="combatCharacter.hero"
+        ></app-hero-with-items>
+  
+        <img
+          *ngIf="!combatCharacter.hero"
+          class="image"
+          [src]="'assets/images/' + combatCharacter.typeKey + '.png'"
+        />
+      </ng-container>
+  
+      <img 
+        *ngIf="!combatCharacter.isAlive"
+        class="image"
+        src="assets/images/hero/tombstone.png" 
+      />
+    </div>
+  </li>
+</ul>

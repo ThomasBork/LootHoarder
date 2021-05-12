@@ -24,6 +24,7 @@ import { ContractItemDroppedInAreaMessageContent } from 'src/loot-hoarder-contra
 import { ContractItemEquippedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-equipped-message-content';
 import { ContractItemUnequippedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-unequipped-message-content';
 import { ContractItemRemovedFromGameMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-removed-from-game-message-content';
+import { UIStateManager } from './ui-state-manager';
 
 
 @Component({
@@ -34,7 +35,7 @@ import { ContractItemRemovedFromGameMessageContent } from 'src/loot-hoarder-cont
 export class GameComponent implements OnInit, OnDestroy {
   public isConnected: boolean = false;
   public isConnecting: boolean = true;
-  public uiState?: UIState;
+  public hasReceivedAFullGameState: boolean = false;
   private gameId?: number;
 
   public constructor(
@@ -44,7 +45,8 @@ export class GameComponent implements OnInit, OnDestroy {
     private readonly gameStateMapper: GameStateMapper,
     private readonly uiStateMapper: UIStateMapper,
     private readonly combatMessageHandler: CombatMessageHandler,
-    private readonly uiStateAdvancer: UIStateAdvancer
+    private readonly uiStateAdvancer: UIStateAdvancer,
+    private readonly uiStateManager: UIStateManager
   ) { }
 
   public ngOnInit(): void {
@@ -78,13 +80,14 @@ export class GameComponent implements OnInit, OnDestroy {
     console.log("Game message received: ", message);
     if (message.typeKey === ContractServerMessageType.fullGameState){
       const uiState = this.uiStateMapper.mapFromGame(message.data.game);
-      this.uiState = uiState;
+      this.uiStateManager.state = uiState;
+      this.hasReceivedAFullGameState = true;
 
       this.uiStateAdvancer.beginUpdating(uiState);
       return;
     }
 
-    if (!this.uiState) {
+    if (!this.hasReceivedAFullGameState) {
       throw Error (`Expected to receive a 'full-game-state' message before receiving a '${message.typeKey}' message.`);
     }
 
@@ -99,51 +102,51 @@ export class GameComponent implements OnInit, OnDestroy {
       case ContractServerMessageType.combat: {
         const combatId = message.data.combatId as number;
         const innerMessage = message.data.innerMessage as ContractCombatWebSocketInnerMessage;
-        this.combatMessageHandler.handleMessage(this.uiState.game, combatId, innerMessage);
+        this.combatMessageHandler.handleMessage(this.uiStateManager.state.game, combatId, innerMessage);
       }
       break;
       case ContractServerMessageType.heroAdded: {
         const serverHero = message.data.hero as ContractHero;
         const hero = this.gameStateMapper.mapToHero(serverHero);
-        this.uiState.addHero(hero);
+        this.uiStateManager.state.addHero(hero);
       }
       break;
       case ContractServerMessageType.areaAdded: {
         const serverArea = message.data.area as ContractArea;
-        const area = this.gameStateMapper.mapToArea(serverArea, this.uiState.game.heroes);
-        this.uiState.addArea(area);
+        const area = this.gameStateMapper.mapToArea(serverArea, this.uiStateManager.state.game.heroes);
+        this.uiStateManager.state.addArea(area);
       }
       break;
       case ContractServerMessageType.areaAbandoned: {
         const data = message.data as ContractAreaAbandonedMessageContent;
-        this.uiState.removeArea(data.areaId);
+        this.uiStateManager.state.removeArea(data.areaId);
       }
       break;
       case ContractServerMessageType.combatStarted: {
         const data = message.data as ContractCombatStartedMessageContent;
-        const area = this.uiState.game.getArea(data.areaId);
+        const area = this.uiStateManager.state.game.getArea(data.areaId);
         const combat = this.gameStateMapper.mapToCombat(data.combat);
-        this.uiState.startCombat(area, combat, data.combatNumber);
+        this.uiStateManager.state.startCombat(area, combat, data.combatNumber);
       }
       break;
       case ContractServerMessageType.areaTypeCompleted: {
         const data = message.data as ContractAreaTypeCompletedMessageContent;
         const completedAreaType = this.assetManagerService.getAreaType(data.areaTypeKey);
         const newAvailableAreaTypes = data.newAvailableAreaTypeKeys.map(key => this.assetManagerService.getAreaType(key));
-        this.uiState.addCompletedAreaType(completedAreaType);
-        this.uiState.addAvailableAreaTypes(newAvailableAreaTypes);
+        this.uiStateManager.state.addCompletedAreaType(completedAreaType);
+        this.uiStateManager.state.addAvailableAreaTypes(newAvailableAreaTypes);
       }
       break;
       case ContractServerMessageType.heroGainedExperience: {
         const data = message.data as ContractHeroGainedExperienceMessageContent;
-        const hero = this.uiState.game.getHero(data.heroId);
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
         hero.level = data.newLevel;
         hero.experience = data.newExperience;
       }
       break;
       case ContractServerMessageType.heroAttributeChanged: {
         const data = message.data as ContractHeroAttributeChangedMessageContent;
-        const hero = this.uiState.game.getHero(data.heroId);
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
         hero.attributes.setAttribute(
           data.attributeType, 
           data.tag,
@@ -156,12 +159,12 @@ export class GameComponent implements OnInit, OnDestroy {
       case ContractServerMessageType.itemAddedToGame: {
         const data = message.data as ContractItemAddedToGameMessageContent;
         const item = this.gameStateMapper.mapToItem(data.item);
-        this.uiState.game.addItem(item);
+        this.uiStateManager.state.game.addItem(item);
       }
       break;
       case ContractServerMessageType.itemDroppedInArea: {
         const data = message.data as ContractItemDroppedInAreaMessageContent;
-        const area = this.uiState.game.getArea(data.areaId);
+        const area = this.uiStateManager.state.game.getArea(data.areaId);
         const item = this.gameStateMapper.mapToItem(data.item);
         area.addItemToLoot(item);
       }
@@ -169,20 +172,20 @@ export class GameComponent implements OnInit, OnDestroy {
       case ContractServerMessageType.itemEquipped: {
         const data = message.data as ContractItemEquippedMessageContent;
         const item = this.gameStateMapper.mapToItem(data.item);
-        const hero = this.uiState.game.getHero(data.heroId);
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
         hero.equipItem(item, data.position);
       }
       break;
       case ContractServerMessageType.itemUnequipped: {
         const data = message.data as ContractItemUnequippedMessageContent;
-        const hero = this.uiState.game.getHero(data.heroId);
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
         hero.unequipItem(data.position);
       }
       break;
       case ContractServerMessageType.itemRemovedFromGame: {
         const data = message.data as ContractItemRemovedFromGameMessageContent;
-        const item = this.uiState.game.getItem(data.itemId);
-        this.uiState.game.removeItem(item);
+        const item = this.uiStateManager.state.game.getItem(data.itemId);
+        this.uiStateManager.state.game.removeItem(item);
       }
       break;
       default: {

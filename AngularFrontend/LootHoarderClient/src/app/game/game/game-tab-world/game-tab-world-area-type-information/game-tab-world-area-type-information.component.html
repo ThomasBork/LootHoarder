@@ -6,9 +6,37 @@
   <div class="area-type-description">{{gameAreaType.type.description}}</div>
 </div>
 <div class="information-group">
-  <div>{{gameAreaType.areas.length > 0 ? 'Instances' : 'No instances'}}</div>
-  <div *ngFor="let area of gameAreaType.areas">
-    Heroes: {{area.heroes.length}}
+  <div>{{gameAreaType.areas.length > 0 ? 'Instances' : 'No active instances'}}</div>
+  <div 
+    *ngFor="let area of gameAreaType.areas"
+    class="active-area"
+  >
+    <div class="header">
+      <span>Combat {{area.currentCombatNumber}} out of {{area.totalAmountOfCombats}}</span>
+      <button (click)="selectArea(area)">Go to combat</button>
+    </div>
+    <div class="combat-characters">
+      <span class="combat-character-list-container team1">
+        <app-game-tab-world-active-area-character-list
+          [combatCharacters]="area.currentCombat.team1"
+        ></app-game-tab-world-active-area-character-list>
+      </span>
+      <span class="combat-character-list-container">
+        <app-game-tab-world-active-area-character-list
+          [combatCharacters]="area.currentCombat.team2"
+        ></app-game-tab-world-active-area-character-list>
+      </span>
+    </div>
+    <div class="footer">
+      <button 
+        [disabled]="area.canGoToNextCombat ? '' : 'disabled'"
+        (click)="goToNextCombat(area)"
+      >Go to next combat</button>
+      <button 
+        [disabled]="area.currentCombat.hasEnded ? '' : 'disabled'"
+        (click)="leaveArea(area)"
+      >Leave area</button>
+    </div>
   </div>
 </div>
 <div class="information-group new-instance-container">

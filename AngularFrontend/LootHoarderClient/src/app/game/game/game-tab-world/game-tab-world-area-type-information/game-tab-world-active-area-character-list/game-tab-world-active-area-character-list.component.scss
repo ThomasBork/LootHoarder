@@ -1,0 +1,19 @@
+.combat-characters {
+  display: flex;
+  flex-wrap: wrap;
+
+  .combat-character-container {
+    margin-right: 5px;
+    margin-bottom: 5px;
+  
+    .image-container {
+      width: 60px;
+      height: 60px;
+
+      .image {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}

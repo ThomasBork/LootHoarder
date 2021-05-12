@@ -2,36 +2,36 @@
   <ul class="tab-buttons">
     <li 
       class="tab-button"
-      [class.selected]="selectedTab === 'world'"
-      (click)="changeTab('world')"
+      [class.selected]="isOnWorldTab"
+      (click)="goToWorldTab()"
     >
       World
     </li>
     <li 
       class="tab-button"
-      [class.selected]="selectedTab === 'heroes'"
-      (click)="changeTab('heroes')"
+      [class.selected]="isOnHeroesTab"
+      (click)="goToHeroesTab()"
     >
       Heroes
     </li>
     <li 
       class="tab-button"
-      [class.selected]="selectedTab === 'combat'"
-      (click)="changeTab('combat')"
+      [class.selected]="isOnCombatTab"
+      (click)="goToCombatTab()"
     >
       Combat
     </li>
     <li 
       class="tab-button"
-      [class.selected]="selectedTab === 'items'"
-      (click)="changeTab('items')"
+      [class.selected]="isOnItemsTab"
+      (click)="goToItemsTab()"
     >
       Items
     </li>
     <li 
       class="tab-button"
-      [class.selected]="selectedTab === 'settings'"
-      (click)="changeTab('settings')"
+      [class.selected]="isOnSettingsTab"
+      (click)="goToSettingsTab()"
     >
       Settings
     </li>
@@ -39,29 +39,23 @@
   
   <div class="tab-content">
     <app-game-tab-world
-      *ngIf="selectedTab === 'world'"
-      [worldTab]="uiState.worldTab"
-      [game]="uiState.game"
+      *ngIf="isOnWorldTab"
     ></app-game-tab-world>
 
     <app-game-tab-heroes
-      *ngIf="selectedTab === 'heroes'"
-      [game]="uiState.game"
+      *ngIf="isOnHeroesTab"
     ></app-game-tab-heroes>
 
     <app-game-tab-combat
-      *ngIf="selectedTab === 'combat'"
-      [game]="uiState.game"
+      *ngIf="isOnCombatTab"
     ></app-game-tab-combat>
     
     <app-game-tab-items
-      *ngIf="selectedTab === 'items'"
-      [game]="uiState.game"
+      *ngIf="isOnItemsTab"
     ></app-game-tab-items>
     
     <app-game-tab-settings
-      *ngIf="selectedTab === 'settings'"
-      [game]="uiState.game"
+      *ngIf="isOnSettingsTab"
     ></app-game-tab-settings>
   </div>
 </div>

@@ -1,10 +1,10 @@
 <div *ngIf="isConnecting">Connecting to server</div>
 <div *ngIf="!isConnecting && !isConnected">Failed to connect to server</div>
-<div *ngIf="!isConnecting && isConnected && !uiState">Loading game</div>
+<div *ngIf="!isConnecting && isConnected && !hasReceivedAFullGameState">Loading game</div>
 
 <div 
-  *ngIf="!isConnecting && isConnected && uiState"
+  *ngIf="!isConnecting && isConnected && hasReceivedAFullGameState"
   class="game-container"
 >
-  <app-game-tab-menu [uiState]="uiState"></app-game-tab-menu>
+  <app-game-tab-menu></app-game-tab-menu>
 </div>

@@ -10,15 +10,23 @@
 
   <div>Health: {{character.currentHealth | prettyNumber}}</div>
 
-  <app-hero-with-items
-    *ngIf="character.hero"
-    [hero]="character.hero"
-  ></app-hero-with-items>
-
-  <img
-    *ngIf="!character.hero"
-    [src]="getImagePath()"
+  <img 
+    *ngIf="!character.isAlive"
+    class="tombstone-image"
+    src="assets/images/hero/tombstone.png" 
   />
+  
+  <ng-container *ngIf="character.isAlive">
+    <app-hero-with-items
+      *ngIf="character.hero"
+      [hero]="character.hero"
+    ></app-hero-with-items>
+  
+    <img
+      *ngIf="!character.hero"
+      [src]="getImagePath()"
+    />
+  </ng-container>
 
   <ul class="abilities">
     <li

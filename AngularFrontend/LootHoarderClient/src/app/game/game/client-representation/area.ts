@@ -41,16 +41,18 @@ export class Area {
       if (!character) {
         throw Error (`Combat character with id ${hero.combatCharacter.id} was not found.`);
       }
-      const gameHero = gameHeroes.find(h => h.id === hero.heroId);
-      if (!gameHero) {
-        throw Error (`Hero with id: ${hero.heroId} was not found`);
-      }
-      character.hero = gameHero;
+      character.hero = hero.gameHero;
       hero.combatCharacter = character;
     }
   }
 
   public addItemToLoot(item: Item): void {
     this.loot.items.push(item);
+  }
+
+  public get canGoToNextCombat(): boolean {
+    return this.currentCombat.hasEnded
+      && !!this.currentCombat.didTeam1Win
+      && this.currentCombatNumber < this.totalAmountOfCombats;
   }
 }

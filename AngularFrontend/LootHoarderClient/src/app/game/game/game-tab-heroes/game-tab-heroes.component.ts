@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Game } from '../client-representation/game';
 import { Hero } from '../client-representation/hero';
 import { Item } from '../client-representation/item';
+import { UIStateManager } from '../ui-state-manager';
 
 @Component({
   selector: 'app-game-tab-heroes',
@@ -9,12 +10,15 @@ import { Item } from '../client-representation/item';
   styleUrls: ['./game-tab-heroes.component.scss']
 })
 export class GameTabHeroesComponent implements OnInit {
-  @Input()
-  public game!: Game;
-
   public isCreatingNewHero: boolean = false;
   public selectedHero?: Hero;
   public draggedItem?: Item;
+
+  public constructor(
+    private readonly uiStateManager: UIStateManager
+  ) {}
+
+  public get game(): Game { return this.uiStateManager.state.game; }
 
   public get numberOfAvailableHeroSlots(): number {
     return this.game.maximumAmountOfHeroes - this.game.heroes.length;

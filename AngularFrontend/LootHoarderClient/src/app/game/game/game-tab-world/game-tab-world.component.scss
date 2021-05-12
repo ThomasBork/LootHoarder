@@ -4,11 +4,13 @@
 
   .world-container {
     height: 100%;
+    width: 100%;
+    position: relative;
     overflow: hidden;
     
     .world-container-content {
       display: inline-block;
-      position: relative;
+      position: absolute;
   
       .area-type-container {
         position: absolute;

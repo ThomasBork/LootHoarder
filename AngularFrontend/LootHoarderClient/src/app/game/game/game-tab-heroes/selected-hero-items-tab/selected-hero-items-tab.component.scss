@@ -1,20 +1,27 @@
 .content {
   display: flex;
-  
-  .hero-with-items-container {
+  padding: 10px;
+
+  .hero-and-information-container {
     flex: 0 0 500px;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+
+    .hero-with-items-container {
+      flex: 0 0 auto;
+    }
   
-    .item-list {
-      display: flex;
-      flex-wrap: wrap;
+    .hero-information-container {
       flex: 1 1 0;
-      align-content: flex-start;
     }
   }
-  
-  .hero-information-container {
-    flex: 0 0 300px;
+    
+  .item-list {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 0;
+    align-content: flex-start;
+    margin-left: 10px;
   }
 }

@@ -1,18 +1,15 @@
 import { CombatCharacter } from "./combat-character";
-import { Loot } from "./loot";
+import { Hero } from "./hero";
 
 export class AreaHero {
-  public gameId: number;
-  public heroId: number;
+  public gameHero: Hero;
   public combatCharacter: CombatCharacter;
 
   public constructor(
-    gameId: number,
-    heroId: number,
-    combatCharacter: CombatCharacter
+    gameHero: Hero,
+    combatCharacter: CombatCharacter,
   ) {
-    this.gameId = gameId;
-    this.heroId = heroId;
+    this.gameHero = gameHero;
     this.combatCharacter = combatCharacter;
   }
 }

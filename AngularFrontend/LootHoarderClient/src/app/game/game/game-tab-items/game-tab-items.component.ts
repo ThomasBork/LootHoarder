@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { WebSocketService } from '../../web-socket/web-socket.service';
 import { Game } from '../client-representation/game';
+import { UIStateManager } from '../ui-state-manager';
 
 @Component({
   selector: 'app-game-tab-items',
@@ -8,12 +9,12 @@ import { Game } from '../client-representation/game';
   styleUrls: ['./game-tab-items.component.scss']
 })
 export class GameTabItemsComponent {
-  @Input()
-  public game!: Game;
-
   public constructor (
-    private readonly webSocketService: WebSocketService
+    private readonly webSocketService: WebSocketService,
+    private readonly uiStateManager: UIStateManager
   ) {
 
   }
+
+  public get items() { return this.uiStateManager.state.game.items; }
 }

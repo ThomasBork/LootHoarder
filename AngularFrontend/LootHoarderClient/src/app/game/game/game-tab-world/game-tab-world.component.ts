@@ -6,6 +6,7 @@ import { AreaType } from '../client-representation/area-type';
 import { ContractEnterAreaMessage } from 'src/loot-hoarder-contract/client-actions/contract-enter-area-message';
 import { WorldTab } from '../client-representation/world-tab';
 import { GameAreaType } from '../client-representation/game-area-type';
+import { UIStateManager } from '../ui-state-manager';
 
 @Component({
   selector: 'app-game-tab-world',
@@ -13,30 +14,29 @@ import { GameAreaType } from '../client-representation/game-area-type';
   styleUrls: ['./game-tab-world.component.scss']
 })
 export class GameTabWorldComponent {
-  @Input()
-  public game!: Game;
-  @Input()
-  public worldTab!: WorldTab;
-
   public selectedGameAreaType?: GameAreaType;
 
   private dragStartX?: number;
   private dragStartY?: number;
 
-  public get areaTypes(): AreaType[] {
-    return this.game.availableAreaTypes;
+  public constructor(
+    private readonly uiStateManager: UIStateManager
+  ) {}
+
+  public get allAreaTypes(): GameAreaType[] {
+    return this.uiStateManager.state.game.allAreaTypes;
   }
 
-  public get x(): number { return this.worldTab.worldMapX; }
-  public set x(newValue: number) { this.worldTab.worldMapX = newValue; }
-  public get y(): number { return this.worldTab.worldMapY; }
-  public set y(newValue: number) { this.worldTab.worldMapY = newValue; }
-  public get zoom(): number { return this.worldTab.worldMapZoom; }
-  public set zoom(newValue: number) { this.worldTab.worldMapZoom = newValue; }
-  public get worldMapWidth(): number { return this.worldTab.worldMapWidth; }
-  public get worldMapHeight(): number { return this.worldTab.worldMapHeight; }
-  public get worldMapFixtureX(): number { return this.worldTab.worldMapFixtureX; }
-  public get worldMapFixtureY(): number { return this.worldTab.worldMapFixtureY; }
+  public get x(): number { return this.uiStateManager.state.worldTab.worldMapX; }
+  public set x(newValue: number) { this.uiStateManager.state.worldTab.worldMapX = newValue; }
+  public get y(): number { return this.uiStateManager.state.worldTab.worldMapY; }
+  public set y(newValue: number) { this.uiStateManager.state.worldTab.worldMapY = newValue; }
+  public get zoom(): number { return this.uiStateManager.state.worldTab.worldMapZoom; }
+  public set zoom(newValue: number) { this.uiStateManager.state.worldTab.worldMapZoom = newValue; }
+  public get worldMapWidth(): number { return this.uiStateManager.state.worldTab.worldMapWidth; }
+  public get worldMapHeight(): number { return this.uiStateManager.state.worldTab.worldMapHeight; }
+  public get worldMapFixtureX(): number { return this.uiStateManager.state.worldTab.worldMapFixtureX; }
+  public get worldMapFixtureY(): number { return this.uiStateManager.state.worldTab.worldMapFixtureY; }
 
   public selectGameAreaType(areaType: GameAreaType): void {
     if (!areaType.isAvailable) {

@@ -39,7 +39,7 @@ export class GameStateMapper {
     const areas = serverGame.areas.map(area => this.mapToArea(area, heroes));
     for(const hero of heroes) {
       hero.areaHero = areas
-        .map(a => a.heroes.find(h => h.heroId === hero.id))
+        .map(a => a.heroes.find(h => h.gameHero === hero))
         .find(h => h !== undefined);
     }
     const completedAreaTypes = serverGame.completedAreaTypeKeys.map(key => this.assetManagerService.getAreaType(key));
@@ -108,19 +108,21 @@ export class GameStateMapper {
   public mapToArea(serverArea: ContractArea, heroes: Hero[]): Area {
     const areaType = this.assetManagerService.getAreaType(serverArea.typeKey);
     const currentCombat = this.mapToCombat(serverArea.currentCombat);
-    const areaHeroes = serverArea.heroes.map(areaHero => { 
+    const areaHeroes = serverArea.heroes.map(serverAreaHero => { 
       const combatCharacter = currentCombat.team1
         .concat(currentCombat.team2)
-        .find(cc => cc.id === areaHero.combatCharacterId);
+        .find(cc => cc.id === serverAreaHero.combatCharacterId);
       if (!combatCharacter) {
         throw Error(`Combat character is not in this area.`);
       }
-      const hero = heroes.find(h => h.id === areaHero.heroId);
+      const hero = heroes.find(h => h.id === serverAreaHero.heroId);
       if (!hero) {
-        throw Error (`No hero found with id: ${areaHero.heroId}.`);
+        throw Error (`No hero found with id: ${serverAreaHero.heroId}.`);
       }
       combatCharacter.hero = hero;
-      return this.mapToAreaHero(areaHero, combatCharacter);
+      const areaHero = this.mapToAreaHero(serverAreaHero, hero, combatCharacter);
+      hero.areaHero = areaHero;
+      return areaHero;
     });
     const loot = this.mapToLoot(serverArea.loot)
 
@@ -156,10 +158,9 @@ export class GameStateMapper {
     );
   }
 
-  public mapToAreaHero(serverAreaHero: ContractAreaHero, combatCharacter: CombatCharacter): AreaHero {
+  public mapToAreaHero(serverAreaHero: ContractAreaHero, gameHero: Hero, combatCharacter: CombatCharacter): AreaHero {
     return new AreaHero(
-      serverAreaHero.gameId,
-      serverAreaHero.heroId,
+      gameHero,
       combatCharacter
     );
   }

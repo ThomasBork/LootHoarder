@@ -1,17 +1,24 @@
 import { Area } from "./area";
 import { AreaType } from "./area-type";
 import { Combat } from "./combat";
+import { CombatTab } from "./combat-tab";
 import { Game } from "./game";
+import { GameTabName } from "./game-tab-name";
 import { Hero } from "./hero";
 import { WorldTab } from "./world-tab";
 
 export class UIState {
   public game: Game;
   public worldTab: WorldTab;
+  public combatTab: CombatTab;
+
+  public selectedTabName: GameTabName;
 
   public constructor(game: Game) {
     this.game = game;
     this.worldTab = new WorldTab();
+    this.combatTab = new CombatTab();
+    this.selectedTabName = game.heroes.length === 0 ? GameTabName.heroes : GameTabName.world;
   }
 
   public addHero(hero: Hero): void {
@@ -25,16 +32,6 @@ export class UIState {
     }
     gameAreaType.areas.push(area);
     this.game.areas.push(area);
-
-    for(const hero of this.game.heroes) {
-      const areaHero = area.heroes.find(ah => 
-        ah.gameId === this.game.id
-        && ah.heroId === hero.id
-      );
-      if (areaHero) {
-        hero.areaHero = areaHero;
-      }
-    }
   }
 
   public removeArea(areaId: number): void {
@@ -72,5 +69,13 @@ export class UIState {
     for(const areaType of areaTypes) {
       this.game.getGameAreaType(areaType.key).isAvailable = true;
     }
+  }
+
+  public selectArea(area: Area): void {
+    this.combatTab.selectedArea = area;
+  }
+
+  public selectTab(tabName: GameTabName): void {
+    this.selectedTabName = tabName;
   }
 }
