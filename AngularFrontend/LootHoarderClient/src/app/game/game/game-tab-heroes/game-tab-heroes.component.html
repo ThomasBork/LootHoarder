@@ -3,6 +3,7 @@
   class="container"
 >
   <div class="hero-list-container">
+    <div class="hero-list-header">Heroes</div>
     <ul class="hero-list">
       <li
         *ngFor="let hero of game.heroes"
@@ -31,26 +32,11 @@
     </ul>
   </div>
   <ng-container *ngIf="selectedHero">
-    <div class="hero-with-items-container">
-      <app-hero-with-items
+    <div class="selected-hero-tabs-container">
+      <app-selected-hero-tab-menu
+        [game]="game"
         [hero]="selectedHero"
-        [draggedItem]="draggedItem"
-        [canInteractWithItems]="true"
-      ></app-hero-with-items>
-      <ul class="item-list">
-        <li *ngFor="let item of game.items">
-          <app-item
-            [item]="item"
-            (dragstart)="setDraggedItem(item)"
-            (dragend)="setDraggedItem(undefined)"
-          ></app-item>
-        </li>
-      </ul>
-    </div>
-    <div class="hero-information-container">
-      <app-hero-information
-        [hero]="selectedHero"
-      ></app-hero-information>
+      ></app-selected-hero-tab-menu>
     </div>
   </ng-container>
 </div>

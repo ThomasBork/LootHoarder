@@ -1,0 +1,23 @@
+<div class="content">
+  <span class="hero-with-items-container">
+    <app-hero-with-items
+      [hero]="hero"
+      [draggedItem]="draggedItem"
+      [canInteractWithItems]="true"
+    ></app-hero-with-items>
+    <ul class="item-list">
+      <li *ngFor="let item of game.items">
+        <app-item
+          [item]="item"
+          (dragstart)="setDraggedItem(item)"
+          (dragend)="setDraggedItem(undefined)"
+        ></app-item>
+      </li>
+    </ul>
+  </span>
+  <span class="hero-information-container">
+    <app-hero-information
+      [hero]="hero"
+    ></app-hero-information>
+  </span>
+</div>

@@ -1,0 +1,37 @@
+<div class="content">
+  <ul class="tab-buttons">
+    <li 
+      class="tab-button"
+      [class.selected]="selectedTab === 'items'"
+      (click)="changeTab('items')"
+    >Items</li>
+    <li 
+      class="tab-button"
+      [class.selected]="selectedTab === 'abilities'"
+      (click)="changeTab('abilities')"
+    >Abilities</li>
+    <li 
+      class="tab-button"
+      [class.selected]="selectedTab === 'passives'"
+      (click)="changeTab('passives')"
+    >Passives</li>
+  </ul>
+  
+  <div class="tab-content">
+    <app-selected-hero-items-tab
+      *ngIf="selectedTab === 'items'"
+      [game]="game"
+      [hero]="hero"
+    ></app-selected-hero-items-tab>
+    
+    <app-selected-hero-abilities-tab
+      *ngIf="selectedTab === 'abilities'"
+      [hero]="hero"
+    ></app-selected-hero-abilities-tab>
+    
+    <app-selected-hero-passives-tab
+      *ngIf="selectedTab === 'passives'"
+      [hero]="hero"
+    ></app-selected-hero-passives-tab>
+  </div>
+</div>

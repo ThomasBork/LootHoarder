@@ -24,6 +24,7 @@
         [class.available]="gameAreaType.isAvailable"
         [class.completed]="gameAreaType.isCompleted"
         [class.undiscovered]="!gameAreaType.isAvailable && !gameAreaType.isCompleted"
+        [class.selected]="selectedGameAreaType === gameAreaType"
         (click)="selectGameAreaType(gameAreaType)"
       >
         <div

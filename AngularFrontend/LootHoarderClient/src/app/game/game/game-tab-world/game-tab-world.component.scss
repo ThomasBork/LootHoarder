@@ -14,6 +14,12 @@
         position: absolute;
 
         &.available.completed {
+          &.selected {
+            .area-type-marker {
+              background-color: gold;
+            }
+          }
+
           .area-type-marker {
             background-color: goldenrod;
             cursor: pointer;
@@ -25,6 +31,12 @@
         }
 
         &.available {
+          &.selected {
+            .area-type-marker {
+              background-color: orangered;
+            }
+          }
+
           .area-type-marker {
             background-color: red;
             cursor: pointer;

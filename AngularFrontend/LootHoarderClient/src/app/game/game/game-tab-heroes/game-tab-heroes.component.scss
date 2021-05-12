@@ -4,6 +4,12 @@
 
   .hero-list-container {
     flex: 0 0 300px;
+    
+    .hero-list-header {
+      font-size: 20px;
+      margin-bottom: 10px;
+      margin-top: 5px;
+    }
 
     .hero-list {
       max-width: 500px;
@@ -50,20 +56,8 @@
     }
   }
 
-  .hero-with-items-container {
-    flex: 0 0 500px;
-    display: flex;
-    flex-direction: column;
-
-    .item-list {
-      display: flex;
-      flex-wrap: wrap;
-      flex: 1 1 0;
-      align-content: flex-start;
-    }
-  }
-
-  .hero-information-container {
-    flex: 0 0 300px;
+  .selected-hero-tabs-container {
+    flex: 1 1 0;
+    margin-left: 10px;
   }
 }

@@ -4,8 +4,8 @@
     "name": "Basic Forest",
     "description": "Contains various stupid beasts.",
     "level": 1,
-    "x": 250,
-    "y": 200,
+    "x": 0,
+    "y": 0,
     "repeatedEncounters": [
       {
         "repetitionAmount": 3,
@@ -51,8 +51,8 @@
     "name": "Basic Plains",
     "description": "Contains scary bandits.",
     "level": 3,
-    "x": 500,
-    "y": 500,
+    "x": 250,
+    "y": 300,
     "repeatedEncounters": [
       {
         "repetitionAmount": 4,

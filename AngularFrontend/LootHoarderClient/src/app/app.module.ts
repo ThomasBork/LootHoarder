@@ -14,7 +14,6 @@ import { GameComponent } from './game/game/game.component';
 import { AuthGuard } from './auth/auth.guard';
 import { GameService } from './game/service/game.service';
 import { WebSocketService } from './game/web-socket/web-socket.service';
-import { HeroListComponent } from './game/game/game-tab-heroes/hero-list/hero-list.component';
 import { LabelWithValueComponent } from './shared/label-with-value/label-with-value.component';
 import { AssetManagerService } from './game/game/client-representation/asset-manager.service';
 import { GameTabMenuComponent } from './game/game/game-tab-menu/game-tab-menu.component';
@@ -38,12 +37,15 @@ import { HeroWithItemsComponent } from './game/game/game-tab-heroes/hero-with-it
 import { HeroWithItemsItemComponent } from './game/game/game-tab-heroes/hero-with-items/hero-with-items-item/hero-with-items-item.component';
 import { ItemComponent } from './game/game/item/item.component';
 import { ItemPreviewComponent } from './game/game/item-preview/item-preview.component';
+import { SelectedHeroTabMenuComponent } from './game/game/game-tab-heroes/selected-hero-tab-menu/selected-hero-tab-menu.component';
+import { SelectedHeroAbilitiesTabComponent } from './game/game/game-tab-heroes/selected-hero-abilities-tab/selected-hero-abilities-tab.component';
+import { SelectedHeroItemsTabComponent } from './game/game/game-tab-heroes/selected-hero-items-tab/selected-hero-items-tab.component';
+import { SelectedHeroPassivesTabComponent } from './game/game/game-tab-heroes/selected-hero-passives-tab/selected-hero-passives-tab.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateNewHeroComponent,
-    HeroListComponent,
     LabelWithValueComponent,
     LoginComponent,
     CreateUserComponent,
@@ -53,6 +55,10 @@ import { ItemPreviewComponent } from './game/game/item-preview/item-preview.comp
     CombatComponent,
     CombatCharacterComponent,
     GameTabHeroesComponent,
+    SelectedHeroTabMenuComponent,
+    SelectedHeroAbilitiesTabComponent,
+    SelectedHeroItemsTabComponent,
+    SelectedHeroPassivesTabComponent,
     HeroInformationComponent,
     HeroWithItemsComponent,
     HeroWithItemsItemComponent,

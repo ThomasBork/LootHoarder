@@ -22,10 +22,11 @@
       (click)="toggleHeroSelected(hero)"
     >
       <div>{{hero.name}}</div>
-      <img 
-        class="hero-image"
-        [src]="'assets/images/' + hero.type.key + '.png'" 
-      />
+      <div class="hero-image-container">
+        <app-hero-with-items
+          [hero]="hero"
+        ></app-hero-with-items>
+      </div>
       <img 
         class="selected-check-mark"
         src="assets/images/check-mark.png"

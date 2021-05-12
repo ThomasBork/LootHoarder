@@ -22,8 +22,6 @@ export class GameTabWorldComponent {
 
   private dragStartX?: number;
   private dragStartY?: number;
-  private readonly worldMapWidth = 8000;
-  private readonly worldMapHeight = 4000;
 
   public get areaTypes(): AreaType[] {
     return this.game.availableAreaTypes;
@@ -35,6 +33,10 @@ export class GameTabWorldComponent {
   public set y(newValue: number) { this.worldTab.worldMapY = newValue; }
   public get zoom(): number { return this.worldTab.worldMapZoom; }
   public set zoom(newValue: number) { this.worldTab.worldMapZoom = newValue; }
+  public get worldMapWidth(): number { return this.worldTab.worldMapWidth; }
+  public get worldMapHeight(): number { return this.worldTab.worldMapHeight; }
+  public get worldMapFixtureX(): number { return this.worldTab.worldMapFixtureX; }
+  public get worldMapFixtureY(): number { return this.worldTab.worldMapFixtureY; }
 
   public selectGameAreaType(areaType: GameAreaType): void {
     if (!areaType.isAvailable) {
@@ -44,11 +46,11 @@ export class GameTabWorldComponent {
   }
 
   public getGameAreaTypeLeft(areaType: GameAreaType): string {
-    return areaType.type.x - 30 + 'px';
+    return areaType.type.x + this.worldMapFixtureX - 30 + 'px';
   }
 
   public getGameAreaTypeTop(areaType: GameAreaType): string {
-    return areaType.type.y - 85 + 'px';
+    return areaType.type.y + this.worldMapFixtureY - 85 + 'px';
   }
 
   public startDragging(mouseEvent: MouseEvent): void {
@@ -62,8 +64,8 @@ export class GameTabWorldComponent {
 
       const newDragStartX = mouseEvent.clientX;
       const newDragStartY = mouseEvent.clientY;
-      const deltaX = newDragStartX - this.dragStartX;
-      const deltaY = newDragStartY - this.dragStartY;
+      const deltaX = (newDragStartX - this.dragStartX) / this.zoom;
+      const deltaY = (newDragStartY - this.dragStartY) / this.zoom;
       let newX = this.x + deltaX;
       let newY = this.y + deltaY;
       const browserElement = mouseEvent.currentTarget as Element;
