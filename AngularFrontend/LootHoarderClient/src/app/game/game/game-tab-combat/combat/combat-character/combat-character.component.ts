@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CombatCharacter } from '../../../client-representation/combat-character';
+import { CombatCharacterAbility } from '../../../client-representation/combat-character-ability';
 
 @Component({
   selector: 'app-combat-character',
@@ -26,5 +27,9 @@ export class CombatCharacterComponent {
     }
 
     return '00FF88';
+  }
+
+  public getCooldownOverlayWidthInPercent(ability: CombatCharacterAbility): number {
+    return (ability.remainingCooldown / ability.cooldown) * 100;
   }
 }

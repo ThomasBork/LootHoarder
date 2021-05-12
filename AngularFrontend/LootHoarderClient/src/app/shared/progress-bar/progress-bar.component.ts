@@ -14,6 +14,7 @@ export class ProgressBarComponent {
     @Input() rightToLeft: boolean = false;
     @Input() text: string = '';
     @Input() textColor: string = 'black';
+    @Input() height: string = '';
 
     public get barWidth(): string {
         const rangeSize = this.maximumValue - this.minimumValue;

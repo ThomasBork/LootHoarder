@@ -198,6 +198,7 @@ export class GameStateMapper {
     return new CombatCharacterAbility(
       serverAbility.id,
       abilityType,
+      serverAbility.cooldown,
       serverAbility.remainingCooldown
     );
   }

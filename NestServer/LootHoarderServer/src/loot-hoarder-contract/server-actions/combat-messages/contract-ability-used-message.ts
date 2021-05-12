@@ -9,6 +9,7 @@ export class ContractAbilityUsedMessage
     abilityId: number,
     usingCombatCharacterId: number,
     targetCombatCharacterId: number | undefined,
+    newRemainingCooldown: number,
     effects: ContractCombatWebSocketInnerMessage[]
   ) {
     super(
@@ -17,6 +18,7 @@ export class ContractAbilityUsedMessage
         abilityId, 
         usingCombatCharacterId,
         targetCombatCharacterId,
+        newRemainingCooldown,
         effects
       }
     );

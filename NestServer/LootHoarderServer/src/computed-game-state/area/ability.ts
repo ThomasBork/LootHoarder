@@ -58,6 +58,7 @@ export class Ability {
     return {
       id: this.dbModel.id,
       typeKey: this.dbModel.typeKey,
+      cooldown: this.cooldownVC.value,
       remainingCooldown: this.dbModel.remainingCooldown
     };
   }

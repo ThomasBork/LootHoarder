@@ -20,15 +20,40 @@
     [src]="getImagePath()"
   />
 
-  <div
-    *ngIf="character.abilityBeingUsed && character.totalTimeToUseAbility"
-  >
-    <app-progress-bar
-      [minimumValue]="0"
-      [maximumValue]="character.totalTimeToUseAbility"
-      [value]="character.totalTimeToUseAbility - character.remainingTimeToUseAbility"
-      [text]="character.abilityBeingUsed.type.name"
-      [barColor]="getAbilityUsageBarColor()"
-    ></app-progress-bar>
-  </div>
+  <ul class="abilities">
+    <li
+      *ngFor="let ability of character.abilities"
+    >
+      <div 
+        class="ability"
+        [class.being-used]="ability === character.abilityBeingUsed"
+      >
+        <img 
+          class="thumbnail"
+          [src]="'assets/images/abilities/' + ability.type.key + '-thumbnail.png'" 
+        />
+
+        <div 
+          *ngIf="ability === character.abilityBeingUsed && character.totalTimeToUseAbility"
+          class="progress-bar-container"
+        >
+          <app-progress-bar
+            [minimumValue]="0"
+            [maximumValue]="character.totalTimeToUseAbility"
+            [value]="character.totalTimeToUseAbility - character.remainingTimeToUseAbility"
+            [barColor]="getAbilityUsageBarColor()"
+            [height]="'3px'"
+            [backgroundColor]="'black'"
+          ></app-progress-bar>
+        </div>
+
+        <div 
+          *ngIf="ability !== character.abilityBeingUsed"
+          class="cooldown-overlay"
+          [style.width] = "getCooldownOverlayWidthInPercent(ability) + '%'"
+        >
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

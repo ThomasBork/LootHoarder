@@ -133,7 +133,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
 
         // Stop redirecting all events and send ability used message
         const messageInnerEvents = combat.onCombatEvent.flushEventBucket();
-        const message = new ContractAbilityUsedMessage(abilityToUse.id, character.id, character.targetOfAbilityBeingUsed, messageInnerEvents);
+        const message = new ContractAbilityUsedMessage(abilityToUse.id, character.id, character.targetOfAbilityBeingUsed, abilityToUse.remainingCooldown, messageInnerEvents);
         combat.onCombatEvent.next(message);
       }
     }

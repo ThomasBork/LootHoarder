@@ -43,12 +43,25 @@ export class UIStateAdvancer {
     }
     for(const area of this.uiState.game.areas) {
       const combat = area.currentCombat;
+      if (combat.hasEnded) {
+        continue;
+      }
+      
       const allCharacters = combat.getAllCharacters();
       for(const character of allCharacters) {
         if (character.remainingTimeToUseAbility > 0) {
           character.remainingTimeToUseAbility -= tickSize;
           if (character.remainingTimeToUseAbility < 0) {
             character.remainingTimeToUseAbility = 0;
+          }
+        }
+
+        for(const ability of character.abilities) {
+          if (ability.remainingCooldown > 0) {
+            ability.remainingCooldown -= tickSize;
+            if (ability.remainingCooldown < 0) {
+              ability.remainingCooldown = 0;
+            }
           }
         }
       }

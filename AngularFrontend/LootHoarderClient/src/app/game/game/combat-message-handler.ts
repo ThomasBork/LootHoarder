@@ -64,6 +64,9 @@ export class CombatMessageHandler {
       usingCharacter.targetOfAbilityBeingUsed = undefined;
     }
 
+    const ability = usingCharacter.getAbility(data.abilityId);
+    ability.remainingCooldown = data.newRemainingCooldown;
+
     for(const innerMessage of data.effects) {
       this.handleMessage(game, combat.id, innerMessage);
     }
