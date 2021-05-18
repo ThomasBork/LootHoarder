@@ -213,7 +213,7 @@ export class Game {
     const areas = dbModel.state.areas.map(dbArea => Area.load(dbArea));
     const items = dbModel.state.items.map(dbItem => Item.load(dbItem));
 
-    const maximumAmountOfHeroes = 1;
+    const maximumAmountOfHeroes = 6;
 
     const game = new Game(
       dbModel,

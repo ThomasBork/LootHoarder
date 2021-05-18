@@ -1,7 +1,8 @@
-<ul>
-  <li *ngFor="let item of items">
-    <div>
-      {{item.type.name}} - {{item.type.category}}
-    </div>
+<ul class="items">
+  <li 
+    class="item-container" 
+    *ngFor="let item of items"
+  >
+    <app-item [item]="item"></app-item>
   </li>
 </ul>

@@ -15,15 +15,55 @@
             "monsters": [
               {
                 "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
               }
             ]
           },
           {
-            "weight": 200,
+            "weight": 1000,
             "monsters": [
               {
                 "typeKey": "snake"
               },
+              {
+                "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
+              }
+            ]
+          },
+          {
+            "weight": 1000,
+            "monsters": [
+              {
+                "typeKey": "snake"
+              },
+              {
+                "typeKey": "snake"
+              }
+            ]
+          },
+          {
+            "weight": 1000,
+            "monsters": [
               {
                 "typeKey": "snake"
               }

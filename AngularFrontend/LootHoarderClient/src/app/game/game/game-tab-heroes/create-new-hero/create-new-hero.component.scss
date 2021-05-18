@@ -40,7 +40,7 @@
   margin-top: 20px;
 
   .hero-container {
-    width: 500px;
+    width: 400px;
 
     .name {
       font-size: 24px;
@@ -50,34 +50,39 @@
     }
   }
 
-  .ability-types-container {
+  .hero-type-information-container {
     flex: 1 1 0;
     max-width: 400px;
-
+  
     .header {
       font-size: 24px;
       margin-bottom: 10px;
     }
 
-    .ability-container {
-      display: flex;
-      margin-bottom: 5px;
-
-      .image {
-        flex: 0 0 100px;
-        width: 100px;
-        height: 100px;
-        border: 3px solid black;
-        border-radius: 10px;
-        margin-right: 5px;
-      }
-
-      .text-container {
-        flex: 1 1 0;
-
-        .name {
-          font-size: 20px;
-          margin-bottom: 5px;
+    .ability-types-container {
+      margin-top: 15px;
+      width: 100%;
+  
+      .ability-container {
+        display: flex;
+        margin-bottom: 5px;
+  
+        .image {
+          flex: 0 0 70px;
+          width: 70px;
+          height: 70px;
+          border: 3px solid black;
+          border-radius: 10px;
+          margin-right: 5px;
+        }
+  
+        .text-container {
+          flex: 1 1 0;
+  
+          .name {
+            font-size: 20px;
+            margin-bottom: 5px;
+          }
         }
       }
     }

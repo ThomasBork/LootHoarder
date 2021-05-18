@@ -24,10 +24,60 @@
     flex: 1 1 0;
     position: relative;
 
-    .end-of-combat-buttons {
+    .end-of-combat-overlay {
       position: absolute;
-      bottom: 0;
+      top: 0;
       left: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      
+      .dimmer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        opacity: 0.8;
+      }
+
+      .end-of-combat-information-container {
+        background-color: lightgrey;
+        z-index: 1;
+        padding: 10px;
+        max-width: 35%;
+
+        .title {
+          font-size: 26px;
+          margin-bottom: 10px;
+        }
+
+        .item-description {
+          margin-bottom: 10px;
+        }
+
+        .item-list {    
+          display: flex;
+          flex-wrap: wrap;
+          margin-bottom: 10px;
+
+          .item-container {
+            display: inline-block;
+            margin-right: 5px;
+          }
+        }
+
+        .end-of-combat-buttons {
+          display: flex;
+          justify-content: space-between;
+          .button {
+
+          }
+        }
+      }
     }
   }
 }

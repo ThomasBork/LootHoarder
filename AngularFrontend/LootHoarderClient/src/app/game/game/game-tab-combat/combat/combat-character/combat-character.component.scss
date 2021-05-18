@@ -1,5 +1,18 @@
 .character {
-  width: 250px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .image-container {
+    flex: 1 1 0;
+
+    .image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
 
   .abilities {
     display: flex;

@@ -1,0 +1,10 @@
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+
+  .item-container {
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+}

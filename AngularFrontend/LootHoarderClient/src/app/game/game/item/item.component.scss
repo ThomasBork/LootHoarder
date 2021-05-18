@@ -3,8 +3,6 @@
   height: 100px;
   display: flex;
   position: relative;
-  margin-right: 5px;
-  margin-bottom: 5px;
 
   .image-container {
     width: 100%;
@@ -39,12 +37,9 @@
 
   .item-preview-container {
     width: max-content;
-    position: absolute;
-    left: 50%;
-    bottom: 100%;
-    transform: translate(-50%, 0);
+    position: fixed;
     z-index: 1;
-    padding: 10px;
+    pointer-events: none;
 
     .item-name {
       font-size: 20px;

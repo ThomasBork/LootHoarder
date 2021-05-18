@@ -81,23 +81,27 @@
       [hero]="temporaryHero"
     ></app-hero-with-items>
   </div>
-  <div class="ability-types-container">
-    <div class="header">Starting Abilities</div>
-    <ul>
-      <li
-        *ngFor="let abilityType of selectedHeroType.abilityTypes"
-        class="ability-container"
-      >
-        <img 
-          class="image"
-          [src]="'assets/images/abilities/' + abilityType.key + '-thumbnail.png'" 
-        />
-        <span class="text-container">
-          <div class="name">{{abilityType.name}}</div>
-          <div class="description">{{abilityType.description}}</div>
-        </span>
-      </li>
-    </ul>
+  <div class="hero-type-information-container">
+    <div class="header">{{selectedHeroType.name}}</div>
+    <div>{{selectedHeroType.description}}</div>
+    <div class="ability-types-container">
+      <div class="header">Starting Abilities</div>
+      <ul>
+        <li
+          *ngFor="let abilityType of selectedHeroType.abilityTypes"
+          class="ability-container"
+        >
+          <img 
+            class="image"
+            [src]="'assets/images/abilities/' + abilityType.key + '-thumbnail.png'" 
+          />
+          <span class="text-container">
+            <div class="name">{{abilityType.name}}</div>
+            <div class="description">{{abilityType.description}}</div>
+          </span>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 

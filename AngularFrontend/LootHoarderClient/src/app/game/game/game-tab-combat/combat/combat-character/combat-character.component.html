@@ -8,25 +8,26 @@
     [text]="character.typeKey"
   ></app-progress-bar>
 
-  <div>Health: {{character.currentHealth | prettyNumber}}</div>
-
-  <img 
-    *ngIf="!character.isAlive"
-    class="tombstone-image"
-    src="assets/images/hero/tombstone.png" 
-  />
-  
-  <ng-container *ngIf="character.isAlive">
-    <app-hero-with-items
-      *ngIf="character.hero"
-      [hero]="character.hero"
-    ></app-hero-with-items>
-  
-    <img
-      *ngIf="!character.hero"
-      [src]="getImagePath()"
+  <div class="image-container">
+    <img 
+      *ngIf="!character.isAlive"
+      class="image"
+      src="assets/images/hero/tombstone.png" 
     />
-  </ng-container>
+    
+    <ng-container *ngIf="character.isAlive">
+      <app-hero-with-items
+        *ngIf="character.hero"
+        [hero]="character.hero"
+      ></app-hero-with-items>
+    
+      <img
+        *ngIf="!character.hero"
+        class="image"
+        [src]="getImagePath()"
+      />
+    </ng-container>
+  </div>
 
   <ul class="abilities">
     <li

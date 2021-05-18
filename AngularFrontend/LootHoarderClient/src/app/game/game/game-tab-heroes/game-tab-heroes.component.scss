@@ -20,6 +20,7 @@
         margin-bottom: 10px;
         display: flex;
         border: 1px solid transparent;
+        cursor: pointer;
 
         &.selected {
           border-color: grey;
@@ -52,6 +53,14 @@
         background-color: lightblue;
         cursor: pointer;
         padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+
+        .plus-sign {
+          font-size: 30px;
+        }
       }
     }
   }
