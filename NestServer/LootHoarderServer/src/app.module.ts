@@ -25,6 +25,8 @@ import { GoToNextCombatHandler } from './game-message-handlers/from-client/go-to
 import { SetSettingHandler } from './game-message-handlers/from-client/set-setting-handler';
 import { ItemSpawnerService } from './services/item-spawner-service';
 import { EquipItemHandler } from './game-message-handlers/from-client/equip-item-handler';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 export const CommandHandlers = [
   CreateHeroHandler,
@@ -36,7 +38,13 @@ export const CommandHandlers = [
 ];
 
 @Module({
-  imports: [CqrsModule],
+  imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../../../AngularFrontend/LootHoarderClient/dist', 'LootHoarderClient'),
+      exclude: ['/api*'],
+    }),
+    CqrsModule
+  ],
   controllers: [
     AppController,
     AuthController,

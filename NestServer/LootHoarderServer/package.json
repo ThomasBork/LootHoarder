@@ -26,6 +26,7 @@
     "@nestjs/cqrs": "^7.0.1",
     "@nestjs/platform-express": "^7.5.1",
     "@nestjs/platform-ws": "^7.6.15",
+    "@nestjs/serve-static": "^2.1.4",
     "@nestjs/websockets": "^7.6.15",
     "@types/bcrypt": "^3.0.0",
     "@types/mysql": "^2.15.18",
