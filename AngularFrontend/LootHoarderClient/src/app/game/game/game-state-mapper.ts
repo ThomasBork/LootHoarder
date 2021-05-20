@@ -186,7 +186,7 @@ export class GameStateMapper {
   public mapToAttributeSetValues(serverAttributeSet: ContractAttribute[]): AttributeSet {
     const clientAttributes = serverAttributeSet.map(serverAttribute => new Attribute(
       serverAttribute.type,
-      serverAttribute.tag,
+      serverAttribute.tags,
       serverAttribute.additiveValue,
       serverAttribute.multiplicativeValue,
       serverAttribute.value

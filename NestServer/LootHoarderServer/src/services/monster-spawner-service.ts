@@ -34,7 +34,7 @@ export class MonsterSpawnerService {
       attributesPerLevel.setMultiplicativeModifier(this, level);
       attributes.setAdditiveAttributeSet(attributesPerLevel);
 
-      const maximumHealth = attributes.getAttribute(ContractAttributeType.maximumHealth, undefined).valueContainer.value;
+      const maximumHealth = attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer.value;
 
       const dbAttributeSet = attributes.toDbModel();
 

@@ -14,7 +14,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "power",
-          "abilityTag": "attack",
+          "abilityTags": ["attack"],
           "amount": 50
         }
       }
@@ -35,7 +35,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "power",
-          "abilityTag": "spell",
+          "abilityTags": ["spell"],
           "amount": 40
         }
       },
@@ -44,7 +44,7 @@
         "parameters": {
           "isAdditive": false,
           "attributeType": "use-speed",
-          "abilityTag": "spell",
+          "abilityTags": ["spell"],
           "amount": 1.5
         }
       }
@@ -65,7 +65,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "power",
-          "abilityTag": "attack",
+          "abilityTags": ["attack"],
           "amount": 20
         }
       },
@@ -74,7 +74,7 @@
         "parameters": {
           "isAdditive": false,
           "attributeType": "use-speed",
-          "abilityTag": "attack",
+          "abilityTags": ["attack"],
           "amount": 1.25
         }
       }
@@ -95,7 +95,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "resistance",
-          "abilityTag": "physical",
+          "abilityTags": ["physical"],
           "amount": 30
         }
       }
@@ -116,7 +116,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "resistance",
-          "abilityTag": "physical",
+          "abilityTags": ["physical"],
           "amount": 20
         }
       }
@@ -137,7 +137,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "resistance",
-          "abilityTag": "physical",
+          "abilityTags": ["physical"],
           "amount": 40
         }
       }
@@ -158,7 +158,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "resistance",
-          "abilityTag": "physical",
+          "abilityTags": ["physical"],
           "amount": 25
         }
       }
@@ -179,7 +179,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "resistance",
-          "abilityTag": "physical",
+          "abilityTags": ["physical"],
           "amount": 25
         }
       }
@@ -200,7 +200,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "resistance",
-          "abilityTag": "physical",
+          "abilityTags": ["physical"],
           "amount": 45
         }
       }
@@ -221,7 +221,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "resistance",
-          "abilityTag": "physical",
+          "abilityTags": ["physical"],
           "amount": 75
         }
       }
@@ -242,7 +242,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "resistance",
-          "abilityTag": "physical",
+          "abilityTags": ["physical"],
           "amount": 20
         }
       },
@@ -251,7 +251,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "power",
-          "abilityTag": "attack",
+          "abilityTags": ["attack"],
           "amount": 20
         }
       }
@@ -272,7 +272,7 @@
         "parameters": {
           "isAdditive": true,
           "attributeType": "resistance",
-          "abilityTag": "elemental",
+          "abilityTags": ["elemental"],
           "amount": 20
         }
       }

@@ -50,7 +50,7 @@ export class CombatCharacter {
   }
 
   public get maximumHealth(): number {
-    return this.attributes.getAttribute(ContractAttributeType.maximumHealth, undefined).value;
+    return this.attributes.getAttribute(ContractAttributeType.maximumHealth, []).value;
   }
 
   public get isAlive(): boolean { return this.currentHealth > 0; }

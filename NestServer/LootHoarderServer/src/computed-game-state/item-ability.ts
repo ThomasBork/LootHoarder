@@ -33,7 +33,7 @@ export class ItemAbility {
         abilityParameters = new ItemAbilityParametersAttribute(
           ItemAbility.expectBoolean(dbModel.parameters.isAdditive),
           ItemAbility.expectString(dbModel.parameters.attributeType) as ContractAttributeType,
-          dbModel.parameters.abilityTag ? ItemAbility.expectString(dbModel.parameters.abilityTag) : undefined,
+          ItemAbility.expectStringArray(dbModel.parameters.abilityTags),
           ItemAbility.expectNumber(dbModel.parameters.amount)
         );
       }
@@ -66,5 +66,12 @@ export class ItemAbility {
       return value;
     }
     throw Error(`Expected value to be string: ${value}`);
+  }
+
+  private static expectStringArray(value: any): string[] {
+    if (typeof value === 'object' && value instanceof Array) {
+      return value;
+    }
+    throw Error(`Expected value to be string array: ${value}`);
   }
 }

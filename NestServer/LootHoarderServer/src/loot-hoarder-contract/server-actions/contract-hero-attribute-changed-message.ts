@@ -9,7 +9,7 @@ export class ContractHeroAttributeChangedMessage implements ContractServerWebSoc
   public constructor(
     heroId: number, 
     attributeType: ContractAttributeType,
-    tag: string | undefined,
+    tags: string[],
     newAdditiveValue: number,
     newMultiplicativeValue: number,
     newValue: number
@@ -18,7 +18,7 @@ export class ContractHeroAttributeChangedMessage implements ContractServerWebSoc
     this.data = { 
       heroId,
       attributeType,
-      tag,
+      tags,
       newAdditiveValue,
       newMultiplicativeValue,
       newValue

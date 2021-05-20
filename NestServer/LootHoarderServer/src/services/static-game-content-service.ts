@@ -189,34 +189,34 @@ export class StaticGameContentService {
   }): AttributeSet {
     const combinedAttributes: CombinedAttributeValueContainer[] = [];
     if (coreAttributes.maximumHealth) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.maximumHealth, undefined, coreAttributes.maximumHealth, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.maximumHealth, [], coreAttributes.maximumHealth, 1));
     }
     if (coreAttributes.maximumMana) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.maximumMana, undefined, coreAttributes.maximumMana, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.maximumMana, [], coreAttributes.maximumMana, 1));
     }
     if (coreAttributes.attackPower) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.power, "attack", coreAttributes.attackPower, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.power, ["attack"], coreAttributes.attackPower, 1));
     }
     if (coreAttributes.spellPower) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.power, "spell", coreAttributes.spellPower, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.power, ["spell"], coreAttributes.spellPower, 1));
     }
     if (coreAttributes.attackUseSpeed) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.useSpeed, "attack", coreAttributes.attackUseSpeed, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.useSpeed, ["attack"], coreAttributes.attackUseSpeed, 1));
     }
     if (coreAttributes.spellUseSpeed) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.useSpeed, "spell", coreAttributes.spellUseSpeed, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.useSpeed, ["spell"], coreAttributes.spellUseSpeed, 1));
     }
     if (coreAttributes.attackCooldownSpeed) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.cooldownSpeed, "attack", coreAttributes.attackCooldownSpeed, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.cooldownSpeed, ["attack"], coreAttributes.attackCooldownSpeed, 1));
     }
     if (coreAttributes.spellCooldownSpeed) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.cooldownSpeed, "spell", coreAttributes.spellCooldownSpeed, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.cooldownSpeed, ["spell"], coreAttributes.spellCooldownSpeed, 1));
     }
     if (coreAttributes.physicalResistance) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.resistance, "physical", coreAttributes.physicalResistance, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.resistance, ["physical"], coreAttributes.physicalResistance, 1));
     }
     if (coreAttributes.elementalResistance) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.resistance, "elemental", coreAttributes.elementalResistance, 1));
+      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.resistance, ["elemental"], coreAttributes.elementalResistance, 1));
     }
     const attributeSet = new AttributeSet(combinedAttributes);
     return attributeSet;

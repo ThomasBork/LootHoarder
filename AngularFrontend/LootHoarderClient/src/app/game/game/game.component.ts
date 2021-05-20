@@ -149,7 +149,7 @@ export class GameComponent implements OnInit, OnDestroy {
         const hero = this.uiStateManager.state.game.getHero(data.heroId);
         hero.attributes.setAttribute(
           data.attributeType, 
-          data.tag,
+          data.tags,
           data.newAdditiveValue,
           data.newMultiplicativeValue,
           data.newValue

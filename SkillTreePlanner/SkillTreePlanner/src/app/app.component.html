@@ -1,0 +1,83 @@
+<div class="content">
+  <div class="header">
+    <div>
+      <button (click)="loadTree()">Load (Text => editor)</button>
+      <button (click)="isTextShown = !isTextShown">Show / hide</button>
+      <button (click)="saveTree()">Save (Editor => text)</button>
+    </div>
+    <textarea 
+      *ngIf="isTextShown"
+      [(ngModel)]="treeAsText"
+    >
+      
+    </textarea>
+  </div>
+  
+  <div class="body">
+    <div 
+      class="skill-tree-container"  
+      (mousedown)="startDragging($event)"
+      (mousemove)="handleMouseMove($event)"
+      (mouseup)="stopDragging($event)"
+      (wheel)="handleMouseScroll($event)"
+    >
+      <div
+        class="skill-tree"
+        [style.transform]="'translate(' + translateX + 'px, ' + translateY +'px)'"
+        [style.zoom]="zoom"
+      >
+        <div
+          *ngFor="let transition of transitions"
+          class="transition"
+          [style.left]="getTransitionLeft(transition) + 'px'"
+          [style.top]="getTransitionTop(transition) + 'px'"
+          [style.transform]="getTransitionTransform(transition)"
+          (click)="deleteTransition(transition)"
+        >Delete</div>  
+  
+        <div 
+          *ngFor="let node of nodes"
+          class="skill-tree-node"
+          [class.selected]="node === selectedNode"
+          [class.hero-type-start-position]="isNodeHeroTypeStartPosition(node)"
+          [style.left]="getNodeLeft(node) + 'px'"
+          [style.top]="getNodeTop(node) + 'px'"
+          (click)="selectNode(node)"
+        >
+          <div>{{ getNodeLabel(node) }}</div>
+          <div 
+            class="arrow left"
+            (click)="createTransitionLeftFrom(node, $event)"
+          ></div>
+          <div 
+            class="arrow right"
+            (click)="createTransitionRightFrom(node, $event)"
+          ></div>
+          <div 
+            class="arrow up"
+            (click)="createTransitionUpFrom(node, $event)"
+          ></div>
+          <div 
+            class="arrow down"
+            (click)="createTransitionDownFrom(node, $event)"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <div 
+      *ngIf="selectedNode"
+      class="sidebar"
+    >
+      <button (click)="deleteNode(selectedNode)">Delete</button>
+      <div>TypeKey</div>
+      <input type="text" [(ngModel)]="selectedNode.typeKey" />
+      <div>Data</div>
+      <textarea 
+        class="data" 
+        [value]="selectedNode.getDataAsJson()"
+        (change)="handleSelectedNodeDataChangeEvent($event)"
+      ></textarea>
+    </div>
+  </div>
+</div>

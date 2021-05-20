@@ -4,18 +4,18 @@ import { ItemAbilityParameters } from "./item-ability-parameters";
 export class ItemAbilityParametersAttribute extends ItemAbilityParameters {
   public isAdditive: boolean;
   public attributeType: ContractAttributeType;
-  public abilityTag?: string;
+  public abilityTags: string[];
   public amount: number;
   public constructor(
     isAdditive: boolean,
     attributeType: ContractAttributeType,
-    abilityTag: string | undefined,
+    abilityTags: string[],
     amount: number,
   ) {
     super();
     this.isAdditive = isAdditive;
     this.attributeType = attributeType;
-    this.abilityTag = abilityTag;
+    this.abilityTags = abilityTags;
     this.amount = amount;
   }
 }

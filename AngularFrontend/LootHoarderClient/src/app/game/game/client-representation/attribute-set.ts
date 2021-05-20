@@ -8,26 +8,34 @@ export class AttributeSet {
     this.attributes = attributes;
   }
 
-  public getAttribute(attributeType: ContractAttributeType, tag: string | undefined): Attribute {
-    const attribute = this.attributes.find(a => a.type === attributeType && a.tag === tag);
+  public getAttribute(attributeType: ContractAttributeType, tags: string[]): Attribute {
+    const attribute = this.findAttribute(attributeType, tags);
     if (!attribute) {
-      throw Error (`Attribute with type ${attributeType} and tag ${tag} does not exist on this attribute set`);
+      throw Error (`Attribute with type ${attributeType} and tags ${tags.join(', ')} does not exist on this attribute set`);
     }
     return attribute;
   }
 
+  public findAttribute(attributeType: ContractAttributeType, tags: string[]): Attribute | undefined {
+    return this.attributes.find(a => 
+      a.type === attributeType 
+      && a.tags.length === tags.length 
+      && a.tags.every(tag => tags.includes(tag))
+    );
+  }
+
   public setAttribute(
     attributeType: ContractAttributeType, 
-    tag: string | undefined, 
+    tags: string[], 
     additiveValue: number, 
     multiplicativeValue: number, 
     value: number
   ): void {
-    const attribute = this.attributes.find(a => a.type === attributeType && a.tag === tag);
+    const attribute = this.findAttribute(attributeType, tags);
     if (!attribute) {
       this.attributes.push({
         type: attributeType,
-        tag: tag,
+        tags: tags,
         additiveValue: additiveValue,
         multiplicativeValue: multiplicativeValue,
         value: value

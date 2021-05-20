@@ -13,7 +13,7 @@ export class HeroInformationComponent {
 
   public getLabel(attribute: Attribute, isAdditive: boolean): string {
     const additiveText = isAdditive ? 'Additive' : 'Multiplicative';
-    const tagText = attribute.tag ? attribute.tag + ' ' : '';
+    const tagText = attribute.tags.join(' ') + (attribute.tags.length > 0 ? ' ' : '');
     return `${additiveText} ${tagText}${attribute.type}`;
   }
 }

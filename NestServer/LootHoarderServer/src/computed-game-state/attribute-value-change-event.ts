@@ -2,7 +2,7 @@ import { ContractAttributeType } from "../loot-hoarder-contract/contract-attribu
 
 export interface AttributeValueChangeEvent {
   type: ContractAttributeType;
-  tag?: string;
+  tags: string[];
   newAdditiveValue: number;
   newMultiplicativeValue: number;
   newValue: number;

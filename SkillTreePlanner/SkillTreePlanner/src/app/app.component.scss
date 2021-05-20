@@ -1,0 +1,108 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .header {
+    background-color: #EEEEEE;
+    padding: 10px;
+
+    textarea {
+      height: 240px;
+      width: 100%;
+    }
+  }
+
+  .body {
+    flex: 1 1 0;
+    display: flex;
+
+    .skill-tree-container {
+      flex: 1 1 0;
+      overflow: hidden;
+      user-select: none;
+    
+      .skill-tree {
+        position: relative;
+  
+        .transition {
+          position: absolute;
+          height: 20px;
+          width: 240px;
+          border-top: 1px solid black;
+          border-bottom: 1px solid black;
+          background-color: lightgrey;
+          color: lightgrey;
+          text-align: center;
+          cursor: pointer;
+
+          &:hover {
+            color: black;
+          }
+        }
+  
+        .skill-tree-node {
+          background-color: lightgrey;
+          position: absolute;
+          height: 100px;
+          width: 100px;
+          border: 1px solid black;
+          cursor: pointer;
+          font-size: 12px;
+
+          &.selected {
+            background-color: yellow;
+          }
+
+          &.hero-type-start-position:not(.selected) {
+            background-color: green;
+          }
+        
+          .arrow {
+            background-color: black;
+            position: absolute;
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+        
+            &.left {
+              left: -40px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+        
+            &.right {
+              right: -40px;
+              top: 50%;
+              transform: translateY(-50%);
+            }
+        
+            &.up {
+              left: 50%;
+              top: -40px;
+              transform: translateX(-50%);
+            }
+        
+            &.down {
+              left: 50%;
+              bottom: -40px;
+              transform: translateX(-50%);
+            }
+          }
+        }
+      }
+    }
+
+    .sidebar {
+      background-color: lightgrey;
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+
+      .data {
+        flex: 1 1 0;
+      }
+    }
+  }
+}

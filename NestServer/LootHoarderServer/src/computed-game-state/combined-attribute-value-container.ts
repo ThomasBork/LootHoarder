@@ -3,19 +3,19 @@ import { ValueContainer } from "./value-container";
 
 export class CombinedAttributeValueContainer {
   public attributeType: ContractAttributeType;
-  public tag?: string;
+  public abilityTags: string[];
   public additiveValueContainer: ValueContainer;
   public multiplicativeValueContainer: ValueContainer;
   public valueContainer: ValueContainer;
 
   public constructor(
     attributeType: ContractAttributeType, 
-    tag: string | undefined, 
+    abilityTags: string[], 
     baseAdditiveValue: number,
     baseMultiplicativeValue: number
   ) {
     this.attributeType = attributeType;
-    this.tag = tag;
+    this.abilityTags = abilityTags;
     this.additiveValueContainer = new ValueContainer(baseAdditiveValue);
     this.multiplicativeValueContainer = new ValueContainer(baseMultiplicativeValue);
     this.valueContainer = new ValueContainer(0);
@@ -26,7 +26,7 @@ export class CombinedAttributeValueContainer {
   public flatCopy(): CombinedAttributeValueContainer {
     return new CombinedAttributeValueContainer(
       this.attributeType, 
-      this.tag,
+      this.abilityTags,
       this.additiveValueContainer.value,
       this.multiplicativeValueContainer.value
     );

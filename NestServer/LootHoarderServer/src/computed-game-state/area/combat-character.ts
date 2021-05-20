@@ -30,7 +30,7 @@ export class CombatCharacter {
     }
     this.onCurrentHealthChanged = new Subject();
     this.setUpAbilityValueContainers();
-    this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, undefined).valueContainer;
+    this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer;
   }
 
   public get id(): number { return this.dbModel.id; }

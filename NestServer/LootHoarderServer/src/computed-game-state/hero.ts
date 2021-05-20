@@ -48,7 +48,7 @@ export class Hero {
     this.onEvent = new EventStream();
     this.onItemUnequipped = new Subject();
     this.abilityTypes = dbModel.abilityTypeKeys.map(key => StaticGameContentService.instance.getAbilityType(key));
-    this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, undefined).valueContainer;
+    this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer;
     
     this.attributes.setAdditiveAttributeSet(this.type.baseAttributes);
 
@@ -131,15 +131,17 @@ export class Hero {
           }
           const isAdditive = itemAbility.parameters.isAdditive;
           const attributeType = itemAbility.parameters.attributeType;
-          const abilityTag = itemAbility.parameters.abilityTag;
+          const abilityTags = itemAbility.parameters.abilityTags;
           const amount = itemAbility.parameters.amount;
-          const attribute = this.attributes.getAttribute(attributeType, abilityTag);
-          if (isAdditive){ 
-            const attributeValueContainer = attribute.additiveValueContainer;
-            attributeValueContainer.setAdditiveModifier(itemAbility, amount);
-          } else {
-            const attributeValueContainer = attribute.multiplicativeValueContainer;
-            attributeValueContainer.setMultiplicativeModifier(itemAbility, amount);
+          const attributes = this.attributes.getAttributes(attributeType, abilityTags);
+          for(let attribute of attributes) {
+            if (isAdditive){ 
+              const attributeValueContainer = attribute.additiveValueContainer;
+              attributeValueContainer.setAdditiveModifier(itemAbility, amount);
+            } else {
+              const attributeValueContainer = attribute.multiplicativeValueContainer;
+              attributeValueContainer.setMultiplicativeModifier(itemAbility, amount);
+            }
           }
         }
         break;
@@ -156,7 +158,7 @@ export class Hero {
           if (!(itemAbility.parameters instanceof ItemAbilityParametersAttribute)) {
             throw Error ('Expected attribute ability to have attribute ability parameters.');
           }
-          const attribute = this.attributes.getAttribute(itemAbility.parameters.attributeType, itemAbility.parameters.abilityTag);
+          const attribute = this.attributes.getAttribute(itemAbility.parameters.attributeType, itemAbility.parameters.abilityTags);
           const attributeValueContainer = itemAbility.parameters.isAdditive ? attribute.additiveValueContainer : attribute.multiplicativeValueContainer;
           attributeValueContainer.removeModifiers(itemAbility);
         }
@@ -172,7 +174,7 @@ export class Hero {
         new ContractHeroAttributeChangedMessage(
           this.id, 
           change.type,
-          change.tag,
+          [...change.tags],
           change.newAdditiveValue,
           change.newMultiplicativeValue,
           change.newValue

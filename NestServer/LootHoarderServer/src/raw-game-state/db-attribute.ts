@@ -2,7 +2,7 @@ import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attrib
 
 export interface DbAttribute {
   type: ContractAttributeType;
-  tag?: string;
+  tags: string[];
   additiveValue: number;
   multiplicativeValue: number;
 }

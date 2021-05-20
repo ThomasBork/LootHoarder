@@ -24,20 +24,24 @@ export class AttributeSet {
     }
   }
 
-  public getAttribute(attributeType: ContractAttributeType, tag: string | undefined): CombinedAttributeValueContainer {
-    let attribute = this.combinedAttributes.find(a => a.attributeType === attributeType && a.tag === tag);
+  public getAttribute(attributeType: ContractAttributeType, abilityTags: string[]): CombinedAttributeValueContainer {
+    let attribute = this.combinedAttributes.find(a => 
+      a.attributeType === attributeType 
+      && a.abilityTags.length === abilityTags.length
+      && a.abilityTags.every(tag => abilityTags.includes(tag))
+    );
     if (!attribute) {
-      attribute = new CombinedAttributeValueContainer(attributeType, tag, 0, 1);
+      attribute = new CombinedAttributeValueContainer(attributeType, abilityTags, 0, 1);
       this.addAttribute(attribute);
     }
     return attribute;
   }
 
-  public getAttributes(attributeType: ContractAttributeType, tags: (string | undefined)[]): CombinedAttributeValueContainer[] {
-    return [
-      this.getAttribute(attributeType, undefined),
-      ...tags.map(tag => this.getAttribute(attributeType, tag)), 
-    ];
+  public getAttributes(attributeType: ContractAttributeType, tags: string[]): CombinedAttributeValueContainer[] {
+    return this.combinedAttributes.filter(attribute => 
+      attribute.attributeType === attributeType
+      && attribute.abilityTags.every(tag => tags.includes(tag))
+    );
   }
 
   public calculateAttributeValue(attributeType: ContractAttributeType, tags: string[]): number {
@@ -56,7 +60,7 @@ export class AttributeSet {
     const additiveAttributes: ContractAttribute[] = this.combinedAttributes.map(attribute => {
       return {
         type: attribute.attributeType,
-        tag: attribute.tag,
+        tags: [...attribute.abilityTags],
         additiveValue: attribute.additiveValueContainer.value,
         multiplicativeValue: attribute.multiplicativeValueContainer.value,
         value: attribute.valueContainer.value,
@@ -71,7 +75,7 @@ export class AttributeSet {
       attributes: this.combinedAttributes.map(combinedAttribute => {
         return {
           type: combinedAttribute.attributeType,
-          tag: combinedAttribute.tag,
+          tags: [...combinedAttribute.abilityTags],
           additiveValue: combinedAttribute.additiveValueContainer.value,
           multiplicativeValue: combinedAttribute.multiplicativeValueContainer.value
         };
@@ -81,11 +85,11 @@ export class AttributeSet {
 
   public setAdditiveAttributeSet(attributeSet: AttributeSet): void {
     for(const otherCombinedAttribute of attributeSet.combinedAttributes) {
-      const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.tag);
+      const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.abilityTags);
       thisCombinedAttribute.additiveValueContainer.setAdditiveValueContainer(otherCombinedAttribute.additiveValueContainer);
     }
     attributeSet.onCombintedAttributeAdded.subscribe(otherCombinedAttribute => {
-      const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.tag);
+      const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.abilityTags);
       thisCombinedAttribute.additiveValueContainer.setAdditiveValueContainer(otherCombinedAttribute.additiveValueContainer);
     });
   }
@@ -126,7 +130,7 @@ export class AttributeSet {
   private buildChangeEvent(attribute: CombinedAttributeValueContainer): AttributeValueChangeEvent {
     return { 
       type: attribute.attributeType, 
-      tag: attribute.tag,
+      tags: [...attribute.abilityTags],
       newAdditiveValue: attribute.additiveValueContainer.value,
       newMultiplicativeValue: attribute.multiplicativeValueContainer.value,
       newValue: attribute.valueContainer.value
@@ -137,7 +141,7 @@ export class AttributeSet {
     const attributes: CombinedAttributeValueContainer[] = dbModel.attributes.map(dbAttribute => 
       new CombinedAttributeValueContainer(
         dbAttribute.type, 
-        dbAttribute.tag, 
+        [...dbAttribute.tags], 
         dbAttribute.additiveValue,
         dbAttribute.multiplicativeValue
       )
