@@ -1,0 +1,23 @@
+.skill-tree-container {
+  height: 100%;
+  width: 100%;
+  padding: 15px;
+
+  .skill-tree {
+    position: relative;
+    height: 100%;
+    width: 100%;
+
+    .transition {
+      background-color: white;
+      position: absolute;
+    }
+  
+    .node {
+      background-color: black;
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid white;
+    }
+  }
+}

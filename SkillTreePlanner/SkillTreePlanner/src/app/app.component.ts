@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SkillTreeNode } from './skill-tree-node';
+import { SkillTreeNodeAbility } from './skill-tree-node-ability';
 import { Transition } from './transition';
 
 @Component({
@@ -24,7 +25,7 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this.nodes = [
-      new SkillTreeNode(0, 0, 'heroTypeStartPosition', { heroTypeKey: 'berserker' })
+      new SkillTreeNode(0, 0, [ new SkillTreeNodeAbility('heroTypeStartPosition', { heroTypeKey: 'berserker' })])
     ];
     
     this.saveTree();
@@ -38,7 +39,18 @@ export class AppComponent implements OnInit {
 
     const deserializedJson = JSON.parse(this.treeAsText);
     const transitions = deserializedJson.transitions.map((t: any) => new Transition(t.fromX, t.fromY, t.toX, t.toY));
-    const nodes = deserializedJson.nodes.map((n: any) => new SkillTreeNode(n.x, n.y, n.typeKey, n.data));
+    const nodes = deserializedJson.nodes.map((n: any) => 
+      new SkillTreeNode(
+        n.x, 
+        n.y, 
+        n.abilities.map((ability: any) => 
+          new SkillTreeNodeAbility(
+            ability.typeKey, 
+            ability.data
+          )
+        )
+      )
+    );
     this.transitions = transitions;
     this.nodes = nodes;
     this.selectedNode = undefined;
@@ -59,20 +71,30 @@ export class AppComponent implements OnInit {
 
   public deleteNode(node: SkillTreeNode): void {
     this.nodes.splice(this.nodes.indexOf(node), 1);
+    this.transitions = this.transitions.filter(transition => 
+      !(transition.fromX === node.x && transition.fromY === node.y)
+      && !(transition.toX === node.x && transition.toY === node.y)
+    );
   }
 
   public isNodeHeroTypeStartPosition(node: SkillTreeNode): boolean {
-    return node.typeKey === 'heroTypeStartPosition';
+    return node.abilities.some(ability => ability.typeKey === 'heroTypeStartPosition');
   }
 
   public getNodeLabel(node: SkillTreeNode): string {
-    switch(node.typeKey) {
+    return node.abilities
+      .map(ability => this.getNodeAbilityLabel(ability))
+      .join('\n');
+  }
+
+  private getNodeAbilityLabel(ability: SkillTreeNodeAbility): string {
+    switch(ability.typeKey) {
       case 'heroTypeStartPosition': 
-        return `${node.data.heroTypeKey}`;
+        return `${ability.data.heroTypeKey}`;
       case 'attribute':
-        return `${node.data.abilityTags.length > 0 ? node.data.abilityTags.join(' ') + ' ' : ''}${node.data.attributeType}: ${node.data.isAdditive ? '' : 'x'}${node.data.amount}`;
+        return `${ability.data.abilityTags.length > 0 ? ability.data.abilityTags.join(' ') + ' ' : ''}${ability.data.attributeType}: ${ability.data.isAdditive ? '' : 'x'}${ability.data.amount}`;
       default: 
-        return `${node.typeKey}: ${JSON.stringify(node.data, null, 2)}`
+        return `${ability.typeKey}: ${JSON.stringify(ability.data, null, 2)}`
     }
   }
 
@@ -134,12 +156,17 @@ export class AppComponent implements OnInit {
         abilityTags: [],
         amount: 200
       }
-      const newNode = new SkillTreeNode(x, y, typeKey, data);
+      const abilities = [new SkillTreeNodeAbility(typeKey, data)];
+      const newNode = new SkillTreeNode(x, y, abilities);
       return newNode;
     } else {
-      const typeKey = previousNode.typeKey;
-      const data = JSON.parse(JSON.stringify(previousNode.data));
-      const newNode = new SkillTreeNode(x, y, typeKey, data);
+      const abilities = [];
+      for(const ability of previousNode.abilities) {
+        const copiedData = JSON.parse(JSON.stringify(ability.data));
+        const newAbility = new SkillTreeNodeAbility(ability.typeKey, copiedData);
+        abilities.push(newAbility);
+      }
+      const newNode = new SkillTreeNode(x, y, abilities);
       return newNode;
     }
   }
@@ -192,21 +219,21 @@ export class AppComponent implements OnInit {
     this.insertTransitionIfNeeded(node.x, node.y, x, y);
   }
 
-  public handleSelectedNodeDataChangeEvent(event: Event): void {
+  public handleSelectedNodeAbilitiesChangeEvent(event: Event): void {
     if (!this.selectedNode) {
       return;
     }
 
     const value = (event.target as any).value;
-    let newData;
+    let newAbilities;
     try {
-      newData = JSON.parse(value);
+      newAbilities = JSON.parse(value);
     }
     catch(e) {
       return;
     }
 
-    this.selectedNode.data = newData;
+    this.selectedNode.abilities = newAbilities.map((ability: any) => new SkillTreeNodeAbility(ability.typeKey, ability.data));
   }
 
   public deleteTransition(transition: Transition): void {

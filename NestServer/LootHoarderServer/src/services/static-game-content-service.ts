@@ -5,9 +5,10 @@ import AreaTypes from "src/loot-hoarder-static-content/area-types.json";
 import AreaTypeTransitions from "src/loot-hoarder-static-content/area-type-transitions.json";
 import HeroTypes from "src/loot-hoarder-static-content/hero-types.json";
 import MonsterTypes from "src/loot-hoarder-static-content/monster-types.json";
-import ItemAbilityTypes from "src/loot-hoarder-static-content/item-ability-types.json";
+import PassiveAbilityTypes from "src/loot-hoarder-static-content/passive-ability-types.json";
 import ItemTypes from "src/loot-hoarder-static-content/item-types.json";
 import ItemAbilityRollRecipes from "src/loot-hoarder-static-content/item-ability-roll-recipes.json";
+import HeroSkillTreeJson from "src/loot-hoarder-static-content/hero-skill-tree.json";
 import { AreaType } from "src/computed-game-state/area/area-type";
 import { AbilityType } from "src/computed-game-state/ability-type";
 import { HeroType } from "src/computed-game-state/hero-type";
@@ -22,22 +23,27 @@ import { MonsterType } from "src/computed-game-state/area/monster-type";
 import { AreaTypeEncounter } from "src/computed-game-state/area/area-type-encounter";
 import { CombinedAttributeValueContainer } from "src/computed-game-state/combined-attribute-value-container";
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
-import { ItemAbilityType } from "src/computed-game-state/item-ability-type";
+import { PassiveAbilityType } from "src/computed-game-state/passive-ability-type";
 import { ItemType } from "src/computed-game-state/item-type";
 import { ContractItemCategory } from "src/loot-hoarder-contract/contract-item-category";
 import { ItemAbilityRecipe } from "src/computed-game-state/item-ability-recipe";
 import { ItemAbilityRecipeParameters } from "src/computed-game-state/item-ability-recipe-parameters";
 import { ValueRange } from "src/computed-game-state/value-range";
 import { ItemAbilityRollRecipe } from "src/computed-game-state/item-ability-roll-recipe";
+import { HeroSkillTree } from "src/computed-game-state/hero-skill-tree";
+import { HeroSkillTreeNode } from "src/computed-game-state/hero-skill-tree-node";
+import { PassiveAbility } from "src/computed-game-state/passive-ability";
+import { HeroSkillTreeStartingNode } from "src/computed-game-state/hero-skill-tree-starting-node";
 
 @Injectable()
 export class StaticGameContentService {
   private abilityTypeEffectTypes!: AbilityTypeEffectType[];
   private abilityTypes!: AbilityType[];
+  private heroSkillTree!: HeroSkillTree;
   private heroTypes!: HeroType[];
   private monsterTypes!: MonsterType[];
   private areaTypes!: AreaType[];
-  private itemAbilityTypes!: ItemAbilityType[];
+  private passiveAbilityTypes!: PassiveAbilityType[];
   private itemTypes!: ItemType[];
   private itemAbilityRollRecipes!: ItemAbilityRollRecipe[];
 
@@ -73,10 +79,10 @@ export class StaticGameContentService {
     return result;
   }
 
-  public getItemAbilityType(key: string): ItemAbilityType {
-    const result = this.itemAbilityTypes.find(x => x.key === key);
+  public getPassiveAbilityType(key: string): PassiveAbilityType {
+    const result = this.passiveAbilityTypes.find(x => x.key === key);
     if (!result) {
-      throw Error (`Item ability type with key = '${key}' not found.`);
+      throw Error (`Passive ability type with key = '${key}' not found.`);
     }
     return result;
   }
@@ -127,12 +133,17 @@ export class StaticGameContentService {
     return this.itemAbilityRollRecipes.filter(filter);
   }
 
+  public getHeroSkillTree(): HeroSkillTree {
+    return this.heroSkillTree;
+  }
+
   private loadAssets(): void {
     this.loadAbilityTypeEffectTypes();
     this.loadAbilityTypes();
-    this.loadItemAbilityTypes();
+    this.loadPassiveAbilityTypes();
     this.loadItemTypes();
     this.loadItemAbilityRollRecipes();
+    this.loadHeroSkillTree();
     this.loadHeroTypes();
     this.loadMonsterTypes();
     this.loadAreaTypes();
@@ -222,12 +233,48 @@ export class StaticGameContentService {
     return attributeSet;
   }
 
+  private loadHeroSkillTree(): void {
+    const transitions = HeroSkillTreeJson.transitions;
+    const nodes = HeroSkillTreeJson.nodes.map(node => {
+      const startNodeAbility = (node.abilities as any).find((ability: any) => ability.typeKey === 'heroTypeStartPosition');
+      if (startNodeAbility) {
+        if (!startNodeAbility.data.heroTypeKey) {
+          throw Error (`Starting node at position (${node.x}, ${node.y}) has no hero type key.`);
+        }
+        return new HeroSkillTreeStartingNode(
+          node.x,
+          node.y,
+          startNodeAbility.data.heroTypeKey
+        );
+      }
+
+      return new HeroSkillTreeNode(
+        node.x, 
+        node.y, 
+        node.abilities.map((ability: any) => 
+          PassiveAbility.load({
+            typeKey: ability.typeKey,
+            parameters: ability.data as any
+          })
+        )
+      );
+    });
+    this.heroSkillTree = new HeroSkillTree(nodes);
+    for(const transition of transitions) {
+      const fromNode = this.heroSkillTree.getNode(transition.fromX, transition.fromY);
+      const toNode = this.heroSkillTree.getNode(transition.toX, transition.toY);
+      fromNode.addNeighborNode(toNode);
+      toNode.addNeighborNode(fromNode);
+    }
+  }
+
   private loadHeroTypes(): void {
     this.heroTypes = HeroTypes.map(heroType => 
       {
         const baseAttributes = this.loadAttributeSetFromCoreAttributes(heroType.baseAttributes);
         const attributesPerLevel = this.loadAttributeSetFromCoreAttributes(heroType.attributesPerLevel);
         const startItemType = this.getItemType(heroType.startingWeaponType);
+        const startingSkillTreeNode = this.heroSkillTree.nodes.find(node => node.passiveAbilities.some(a => a.type))
         return new HeroType(
           heroType.key,
           heroType.name,
@@ -235,7 +282,8 @@ export class StaticGameContentService {
           heroType.abilityTypes.map(abilityTypeKey => this.getAbilityType(abilityTypeKey)),
           baseAttributes,
           attributesPerLevel,
-          startItemType
+          startItemType,
+          this.heroSkillTree.getHeroTypeStartingPosition(heroType.key)
         );
       }
     )
@@ -290,9 +338,9 @@ export class StaticGameContentService {
     }
   }
 
-  private loadItemAbilityTypes(): void {
-    this.itemAbilityTypes = ItemAbilityTypes.map(itemAbilityType => 
-      new ItemAbilityType(itemAbilityType.key, itemAbilityType.parameters));
+  private loadPassiveAbilityTypes(): void {
+    this.passiveAbilityTypes = PassiveAbilityTypes.map(passiveAbilityType => 
+      new PassiveAbilityType(passiveAbilityType.key, passiveAbilityType.parameters));
   }
 
   private loadItemTypes(): void {
@@ -302,7 +350,7 @@ export class StaticGameContentService {
         itemType.name,
         itemType.category as ContractItemCategory,
         itemType.innateAbilities.map(ability => {
-          const itemAbilityType = this.getItemAbilityType(ability.typeKey);
+          const itemAbilityType = this.getPassiveAbilityType(ability.typeKey);
           const typedParameters: ItemAbilityRecipeParameters = {};
           for(const key of Object.keys(ability.parameters)) {
             let value = (ability.parameters as any)[key];
@@ -329,7 +377,7 @@ export class StaticGameContentService {
         typedParameters[key] = value;
       }
 
-      const itemAbilityType = this.getItemAbilityType(rollRecipe.typeKey);
+      const itemAbilityType = this.getPassiveAbilityType(rollRecipe.typeKey);
 
       return new ItemAbilityRollRecipe(
         rollRecipe.itemCategories as ContractItemCategory[],

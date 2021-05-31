@@ -6,11 +6,17 @@ import AbilityTypes from 'src/loot-hoarder-static-content/ability-types.json';
 import AreaTypes from 'src/loot-hoarder-static-content/area-types.json';
 import AreaTypeTransitions from 'src/loot-hoarder-static-content/area-type-transitions.json';
 import ItemTypes from 'src/loot-hoarder-static-content/item-types.json';
-import ItemAbilityTypes from 'src/loot-hoarder-static-content/item-ability-types.json';
+import PassiveAbilityTypes from 'src/loot-hoarder-static-content/passive-ability-types.json';
+import HeroSkillTreeJson from 'src/loot-hoarder-static-content/hero-skill-tree.json';
 import { AreaType } from "./area-type";
 import { ItemType } from "./item-type";
 import { ContractItemCategory } from "src/loot-hoarder-contract/contract-item-category";
-import { ItemAbilityType } from "./item-ability-type";
+import { PassiveAbilityType } from "./passive-ability-type";
+import { HeroSkillTree } from "./hero-skill-tree";
+import { SkillTreeTransition } from "./skill-tree-transition";
+import { HeroSkillTreeNode } from "./hero-skill-tree-node";
+import { PassiveAbility } from "./passive-ability";
+import { HeroSkillTreeStartingNode } from "./hero-skill-tree-starting-node";
 
 @Injectable()
 export class AssetManagerService {
@@ -18,16 +24,16 @@ export class AssetManagerService {
   private heroTypes: HeroType[] = [];
   private areaTypes: AreaType[] = [];
   private itemTypes!: ItemType[];
-  private itemAbilityTypes!: ItemAbilityType[];
+  private passiveAbilityTypes!: PassiveAbilityType[];
+  private heroSkillTree!: HeroSkillTree;
 
   public loadAssets(): void {
-    console.log("Loading assets");
     this.loadAbilityTypes();
-    this.loadItemAbilityTypes();
+    this.loadPassiveAbilityTypes();
     this.loadItemTypes();
     this.loadHeroTypes();
     this.loadAreaTypes();
-    console.log("Done loading assets");
+    this.loadHeroSkillTree();
   }
 
   public getAbilityType(key: string): AbilityType {
@@ -54,6 +60,10 @@ export class AssetManagerService {
     return [...this.heroTypes];
   }
 
+  public getHeroSkillTree(): HeroSkillTree {
+    return this.heroSkillTree;
+  }
+
   public getAreaType(key: string): AreaType {
     const areaType = this.areaTypes.find(x => x.key === key);
     if (!areaType) {
@@ -66,12 +76,12 @@ export class AssetManagerService {
     return [...this.areaTypes];
   }
 
-  public getItemAbilityType(key: string): ItemAbilityType {
-    const itemAbilityType = this.itemAbilityTypes.find(x => x.key === key);
-    if (!itemAbilityType) {
+  public getPassiveAbilityType(key: string): PassiveAbilityType {
+    const passiveAbilityType = this.passiveAbilityTypes.find(x => x.key === key);
+    if (!passiveAbilityType) {
       throw Error (`Item ability type '${key}' not found.`);
     }
-    return itemAbilityType;
+    return passiveAbilityType;
   }
 
   public getItemType(key: string): ItemType {
@@ -134,10 +144,40 @@ export class AssetManagerService {
     ));
   }
 
-  private loadItemAbilityTypes(): void {
-    this.itemAbilityTypes = ItemAbilityTypes.map(itemAbilityType => new ItemAbilityType(
-      itemAbilityType.key,
-      itemAbilityType.parameters
+  private loadPassiveAbilityTypes(): void {
+    this.passiveAbilityTypes = PassiveAbilityTypes.map(passiveAbilityType => new PassiveAbilityType(
+      passiveAbilityType.key,
+      passiveAbilityType.parameters
     ));
+  }
+
+  private loadHeroSkillTree(): void {
+    const nodes = HeroSkillTreeJson.nodes.map(node => {
+      const startNodeAbility = (node.abilities as any).find((ability: any) => ability.typeKey === 'heroTypeStartPosition');
+      
+      if (startNodeAbility) {
+        if (!startNodeAbility.data.heroTypeKey) {
+          throw Error (`Starting node at position (${node.x}, ${node.y}) has no hero type key.`);
+        }
+        return new HeroSkillTreeStartingNode(
+          node.x,
+          node.y,
+          startNodeAbility.data.heroTypeKey
+        );
+      }
+      
+      const abilities = (node.abilities as any)
+        .map((ability: any) => {
+          const abilityType = this.getPassiveAbilityType(ability.typeKey);
+          return new PassiveAbility(abilityType, ability.data);
+        });
+
+      return new HeroSkillTreeNode(node.x, node.y, abilities);
+    });
+
+    const transitions = HeroSkillTreeJson.transitions
+      .map(transition => new SkillTreeTransition(transition.fromX, transition.fromY, transition.toX, transition.toY));
+
+    this.heroSkillTree = new HeroSkillTree(nodes, transitions);
   }
 }

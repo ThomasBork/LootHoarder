@@ -43,6 +43,7 @@ import { SelectedHeroItemsTabComponent } from './game/game/game-tab-heroes/selec
 import { SelectedHeroPassivesTabComponent } from './game/game/game-tab-heroes/selected-hero-passives-tab/selected-hero-passives-tab.component';
 import { UIStateManager } from './game/game/ui-state-manager';
 import { GameTabWorldActiveAreaCharacterListComponent } from './game/game/game-tab-world/game-tab-world-area-type-information/game-tab-world-active-area-character-list/game-tab-world-active-area-character-list.component';
+import { ZoomableContainerComponent } from './shared/zoomable-container/zoomable-container.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { GameTabWorldActiveAreaCharacterListComponent } from './game/game/game-t
     GameTabItemsComponent,
     PrettyNumberPipe,
     ProgressBarComponent,
+    ZoomableContainerComponent,
   ],
   imports: [
     BrowserModule,

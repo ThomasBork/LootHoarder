@@ -1,8 +1,8 @@
-import { ContractItemAbility } from "./contract-item-ability";
+import { ContractPassiveAbility } from "./contract-passive-ability";
 
 export interface ContractItem {
   id: number;
   typeKey: string;
-  innateAbilities: ContractItemAbility[];
-  additionalAbilities: ContractItemAbility[];
+  innateAbilities: ContractPassiveAbility[];
+  additionalAbilities: ContractPassiveAbility[];
 }

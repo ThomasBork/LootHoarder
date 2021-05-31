@@ -125,283 +125,925 @@
       "fromY": 2,
       "toX": 4,
       "toY": 3
+    },
+    {
+      "fromX": 4,
+      "fromY": 3,
+      "toX": 5,
+      "toY": 3
+    },
+    {
+      "fromX": 5,
+      "fromY": 3,
+      "toX": 6,
+      "toY": 3
+    },
+    {
+      "fromX": 6,
+      "fromY": 2,
+      "toX": 6,
+      "toY": 3
+    },
+    {
+      "fromX": 6,
+      "fromY": 2,
+      "toX": 6,
+      "toY": 1
+    },
+    {
+      "fromX": 6,
+      "fromY": 1,
+      "toX": 5,
+      "toY": 1
+    },
+    {
+      "fromX": 5,
+      "fromY": 1,
+      "toX": 4,
+      "toY": 1
+    },
+    {
+      "fromX": 0,
+      "fromY": 0,
+      "toX": 0,
+      "toY": -1
+    },
+    {
+      "fromX": 0,
+      "fromY": -1,
+      "toX": 0,
+      "toY": -2
+    },
+    {
+      "fromX": 0,
+      "fromY": -2,
+      "toX": -1,
+      "toY": -2
+    },
+    {
+      "fromX": -1,
+      "fromY": -2,
+      "toX": -1,
+      "toY": -3
+    },
+    {
+      "fromX": -1,
+      "fromY": -3,
+      "toX": -1,
+      "toY": -4
+    },
+    {
+      "fromX": -1,
+      "fromY": -4,
+      "toX": 0,
+      "toY": -4
+    },
+    {
+      "fromX": 0,
+      "fromY": -4,
+      "toX": 1,
+      "toY": -4
+    },
+    {
+      "fromX": 1,
+      "fromY": -4,
+      "toX": 1,
+      "toY": -3
+    },
+    {
+      "fromX": 1,
+      "fromY": -3,
+      "toX": 1,
+      "toY": -2
+    },
+    {
+      "fromX": 1,
+      "fromY": -2,
+      "toX": 0,
+      "toY": -2
+    },
+    {
+      "fromX": 4,
+      "fromY": 0,
+      "toX": 4,
+      "toY": -1
+    },
+    {
+      "fromX": 4,
+      "fromY": -1,
+      "toX": 4,
+      "toY": -2
+    },
+    {
+      "fromX": 4,
+      "fromY": -2,
+      "toX": 4,
+      "toY": -3
+    },
+    {
+      "fromX": 4,
+      "fromY": -3,
+      "toX": 4,
+      "toY": -4
+    },
+    {
+      "fromX": 4,
+      "fromY": -4,
+      "toX": 4,
+      "toY": -5
+    },
+    {
+      "fromX": 0,
+      "fromY": -4,
+      "toX": 0,
+      "toY": -5
+    },
+    {
+      "fromX": 0,
+      "fromY": -5,
+      "toX": 0,
+      "toY": -6
+    },
+    {
+      "fromX": 4,
+      "fromY": -5,
+      "toX": 4,
+      "toY": -6
+    },
+    {
+      "fromX": 4,
+      "fromY": -6,
+      "toX": 3,
+      "toY": -6
+    },
+    {
+      "fromX": 3,
+      "fromY": -6,
+      "toX": 2,
+      "toY": -6
+    },
+    {
+      "fromX": 2,
+      "fromY": -6,
+      "toX": 1,
+      "toY": -6
+    },
+    {
+      "fromX": 1,
+      "fromY": -6,
+      "toX": 0,
+      "toY": -6
     }
   ],
   "nodes": [
     {
       "x": 0,
       "y": 0,
-      "typeKey": "heroTypeStartPosition",
-      "data": {
-        "heroTypeKey": "berserker"
-      }
+      "abilities": [
+        {
+          "typeKey": "heroTypeStartPosition",
+          "data": {
+            "heroTypeKey": "berserker"
+          }
+        }
+      ]
     },
     {
       "x": 1,
       "y": 0,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": -1,
       "y": 0,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "physical"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": -2,
       "y": 0,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "physical"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": -3,
       "y": 0,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "physical"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": 2,
       "y": 0,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": 3,
       "y": 0,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": 4,
       "y": 0,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": 1,
       "y": 1,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": 1,
       "y": 2,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": 1,
       "y": 3,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": 2,
       "y": 3,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "fire",
-          "attack"
-        ],
-        "amount": 20
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 20
+          }
+        }
+      ]
     },
     {
       "x": 3,
       "y": 3,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "fire",
-          "attack"
-        ],
-        "amount": 20
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 20
+          }
+        }
+      ]
     },
     {
       "x": 3,
       "y": 4,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "fire",
-          "attack"
-        ],
-        "amount": 20
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 20
+          }
+        }
+      ]
     },
     {
       "x": 3,
       "y": 5,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": false,
-        "attributeType": "power",
-        "abilityTags": [
-          "fire",
-          "attack"
-        ],
-        "amount": 1.5
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 1.5
+          }
+        }
+      ]
     },
     {
       "x": 2,
       "y": 5,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "fire",
-          "attack"
-        ],
-        "amount": 20
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 20
+          }
+        }
+      ]
     },
     {
       "x": 1,
       "y": 5,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "fire",
-          "attack"
-        ],
-        "amount": 20
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 20
+          }
+        }
+      ]
     },
     {
       "x": 1,
       "y": 4,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "fire",
-          "attack"
-        ],
-        "amount": 20
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 20
+          }
+        }
+      ]
     },
     {
       "x": 4,
       "y": 1,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": 4,
       "y": 2,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     },
     {
       "x": 4,
       "y": 3,
-      "typeKey": "attribute",
-      "data": {
-        "isAdditive": true,
-        "attributeType": "power",
-        "abilityTags": [
-          "attack"
-        ],
-        "amount": 10
-      }
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "cooldown speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": 1,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -1,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -4,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -4,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -4,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -1,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -4,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -5,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -5,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -6,
+      "abilities": [
+        {
+          "typeKey": "heroTypeStartPosition",
+          "data": {
+            "heroTypeKey": "wizard"
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -6,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -6,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -6,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -6,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
     }
   ]
 }

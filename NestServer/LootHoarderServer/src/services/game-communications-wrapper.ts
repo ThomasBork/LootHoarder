@@ -16,10 +16,14 @@ import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next
 import { SetSetting } from "src/game-message-handlers/from-client/set-setting";
 import { EquipItem } from "src/game-message-handlers/from-client/equip-item";
 import { ContractCreateHeroMessageContent } from "src/loot-hoarder-contract/client-actions/contract-create-hero-message-content";
+import { ContractTakeHeroSkillNodeMessageContent } from "src/loot-hoarder-contract/client-actions/contract-take-hero-skill-node-message-content";
+import { TakeHeroSkillNode } from "src/game-message-handlers/from-client/take-hero-skill-node";
+
+
 
 export class GameCommunicationsWrapper {
   public game: Game;
-  private logger: Logger = new Logger('GamesManager');
+  private logger: Logger = new Logger('GameCommunicationsWrapper');
   private connection?: Connection;
   private commandBus: CommandBus;
 
@@ -82,6 +86,16 @@ export class GameCommunicationsWrapper {
           data.heroId,
           data.itemId,
           data.inventoryPosition
+        ));
+      }
+      break;
+      case ContractClientMessageType.takeHeroSkillNode: {
+        const data: ContractTakeHeroSkillNodeMessageContent = message.data;
+        this.commandBus.execute(new TakeHeroSkillNode (
+          this.game,
+          data.heroId,
+          data.nodeX,
+          data.nodeY
         ));
       }
       break;

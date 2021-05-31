@@ -7,8 +7,8 @@ import { ValueRange } from "src/computed-game-state/value-range";
 import { WeightedElement } from "src/computed-game-state/weighted-element";
 import { ContractItemCategory } from "src/loot-hoarder-contract/contract-item-category";
 import { DbItem } from "src/raw-game-state/db-item";
-import { DbItemAbility } from "src/raw-game-state/db-item-ability";
-import { DbItemAbilityParameters } from "src/raw-game-state/db-item-ability-parameters";
+import { DbPassiveAbility } from "src/raw-game-state/db-passive-ability";
+import { DbPassiveAbilityParameters } from "src/raw-game-state/db-passive-ability-parameters";
 import { RandomService } from "./random-service";
 import { StaticGameContentService } from "./static-game-content-service";
 
@@ -69,7 +69,7 @@ export class ItemSpawnerService {
     }
   }
 
-  private createNItemAbilities(itemCategory: ContractItemCategory, amount: number): DbItemAbility[] {
+  private createNItemAbilities(itemCategory: ContractItemCategory, amount: number): DbPassiveAbility[] {
     const abilityRecipesForCategory = this.itemCategoryAbilityRollRecipes.get(itemCategory);
     if (!abilityRecipesForCategory) {
       throw Error (`Item category ${itemCategory} has no item ability recipes`);
@@ -79,8 +79,8 @@ export class ItemSpawnerService {
     return dbItemAbilities;
   }
 
-  private createItemAbilityFromItemAbilityRecipe(recipe: ItemAbilityRecipe): DbItemAbility {
-    const dbParameters: DbItemAbilityParameters = {};
+  private createItemAbilityFromItemAbilityRecipe(recipe: ItemAbilityRecipe): DbPassiveAbility {
+    const dbParameters: DbPassiveAbilityParameters = {};
     for(const key of Object.keys(recipe.parameters)) {
       let value = recipe.parameters[key];
       if (value instanceof ValueRange) {

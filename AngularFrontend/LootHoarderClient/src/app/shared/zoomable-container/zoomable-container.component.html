@@ -1,0 +1,15 @@
+<div 
+  class="container"
+  (mousedown)="startDragging($event)"
+  (mousemove)="handleMouseMove($event)"
+  (mouseup)="stopDragging($event)"
+  (wheel)="handleMouseScroll($event)"
+>
+  <div 
+    class="content-wrapper"
+    [style.transform]="'translate(' + viewPortX + 'px, ' + viewPortY +'px)'"
+    [style.zoom]="zoom"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

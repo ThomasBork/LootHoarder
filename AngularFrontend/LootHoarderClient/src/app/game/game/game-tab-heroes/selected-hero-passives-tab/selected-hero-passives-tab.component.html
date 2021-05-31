@@ -1,1 +1,25 @@
-PASSIVES
+<div 
+  class="skill-tree-container"
+>
+  <app-zoomable-container>
+    <div class="skill-tree">
+      <div 
+        *ngFor="let transition of skillTree.transitions"
+        class="transition"
+        [style.left]="getTransitionLeft(transition)"
+        [style.top]="getTransitionTop(transition)"
+        [style.width]="getTransitionWidth(transition)"
+        [style.height]="getTransitionHeight(transition)"
+      ></div>
+
+      <div 
+        *ngFor="let node of skillTree.nodes"
+        class="node"
+        [style.left]="getNodeLeft(node)"
+        [style.top]="getNodeTop(node)"
+        [style.width]="getNodeWidth(node)"
+        [style.height]="getNodeHeight(node)"
+      ></div>
+    </div>
+  </app-zoomable-container>
+</div>

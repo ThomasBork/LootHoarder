@@ -70,13 +70,11 @@
       class="sidebar"
     >
       <button (click)="deleteNode(selectedNode)">Delete</button>
-      <div>TypeKey</div>
-      <input type="text" [(ngModel)]="selectedNode.typeKey" />
-      <div>Data</div>
+      <div>Abilities</div>
       <textarea 
         class="data" 
-        [value]="selectedNode.getDataAsJson()"
-        (change)="handleSelectedNodeDataChangeEvent($event)"
+        [value]="selectedNode.getAbilitiesAsJson()"
+        (change)="handleSelectedNodeAbilitiesChangeEvent($event)"
       ></textarea>
     </div>
   </div>

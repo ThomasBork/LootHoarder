@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, Input, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { Item } from "../client-representation/item";
-import { ItemAbility } from "../client-representation/item-ability";
+import { PassiveAbility } from "../client-representation/passive-ability";
 
 @Component({
   selector: 'app-item',
@@ -33,7 +33,7 @@ export class ItemComponent implements AfterViewInit {
     );
   }
 
-  public getAbilityText(ability: ItemAbility): string {
+  public getAbilityText(ability: PassiveAbility): string {
     switch (ability.type.key) {
       case 'attribute': {
         const attributeType: ContractAttributeType = ability.parameters.attributeType;

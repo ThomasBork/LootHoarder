@@ -22,11 +22,11 @@ import { CombatCharacterAbility } from "./client-representation/combat-character
 import { ContractAttribute } from "src/loot-hoarder-contract/contract-attribute";
 import { Attribute } from "./client-representation/attribute";
 import { Item } from "./client-representation/item";
-import { ItemAbility } from "./client-representation/item-ability";
+import { PassiveAbility } from "./client-representation/passive-ability";
 import { ContractItem } from "src/loot-hoarder-contract/contract-item";
 import { ContractInventory } from "src/loot-hoarder-contract/contract-inventory";
 import { Inventory } from "./client-representation/inventory";
-import { ContractItemAbility } from "src/loot-hoarder-contract/contract-item-ability";
+import { ContractPassiveAbility } from "src/loot-hoarder-contract/contract-passive-ability";
 
 @Injectable()
 export class GameStateMapper {
@@ -215,15 +215,15 @@ export class GameStateMapper {
     return new Item (
       serverItem.id,
       this.assetManagerService.getItemType(serverItem.typeKey),
-      serverItem.innateAbilities.map(ability => this.mapToItemAbility(ability)),
-      serverItem.additionalAbilities.map(ability => this.mapToItemAbility(ability))
+      serverItem.innateAbilities.map(ability => this.mapToPassiveAbility(ability)),
+      serverItem.additionalAbilities.map(ability => this.mapToPassiveAbility(ability))
     );
   }
 
-  public mapToItemAbility(serverItemAbility: ContractItemAbility): ItemAbility {
-    return new ItemAbility(
-      this.assetManagerService.getItemAbilityType(serverItemAbility.typeKey),
-      serverItemAbility.parameters
+  public mapToPassiveAbility(serverPassiveAbility: ContractPassiveAbility): PassiveAbility {
+    return new PassiveAbility(
+      this.assetManagerService.getPassiveAbilityType(serverPassiveAbility.typeKey),
+      serverPassiveAbility.parameters
     );
   }
 }

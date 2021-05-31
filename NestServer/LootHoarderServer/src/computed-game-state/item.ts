@@ -1,16 +1,16 @@
 import { ContractItem } from "src/loot-hoarder-contract/contract-item";
 import { DbItem } from "src/raw-game-state/db-item";
 import { StaticGameContentService } from "src/services/static-game-content-service";
-import { ItemAbility } from "./item-ability";
+import { PassiveAbility } from "./passive-ability";
 import { ItemType } from "./item-type";
 
 export class Item {
   public dbModel: DbItem;
   public type: ItemType;
-  public innateAbilities: ItemAbility[];
-  public additionalAbilities: ItemAbility[];
+  public innateAbilities: PassiveAbility[];
+  public additionalAbilities: PassiveAbility[];
 
-  private constructor(dbModel: DbItem, type: ItemType, innateAbilities: ItemAbility[], additionalAbilities: ItemAbility[]) {
+  private constructor(dbModel: DbItem, type: ItemType, innateAbilities: PassiveAbility[], additionalAbilities: PassiveAbility[]) {
     this.dbModel = dbModel;
     this.type = type;
     this.innateAbilities = innateAbilities;
@@ -19,7 +19,7 @@ export class Item {
 
   public get id(): number { return this.dbModel.id; }
 
-  public getAllAbilities(): ItemAbility[] {
+  public getAllAbilities(): PassiveAbility[] {
     return this.innateAbilities.concat(this.additionalAbilities);
   }
 
@@ -34,8 +34,8 @@ export class Item {
 
   public static load (dbModel: DbItem): Item {
     const itemType = StaticGameContentService.instance.getItemType(dbModel.typeKey);
-    const innateAbilities = dbModel.innateAbilities.map(dbItemAbility => ItemAbility.load(dbItemAbility));
-    const additionalAbilities = dbModel.additionalAbilities.map(dbItemAbility => ItemAbility.load(dbItemAbility));
+    const innateAbilities = dbModel.innateAbilities.map(dbPassiveAbility => PassiveAbility.load(dbPassiveAbility));
+    const additionalAbilities = dbModel.additionalAbilities.map(dbPassiveAbility => PassiveAbility.load(dbPassiveAbility));
     const item = new Item(dbModel, itemType, innateAbilities, additionalAbilities);
     return item;
   }

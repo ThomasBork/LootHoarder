@@ -1,7 +1,7 @@
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
-import { ItemAbilityParameters } from "./item-ability-parameters";
+import { PassiveAbilityParameters } from "./passive-ability-parameters";
 
-export class ItemAbilityParametersAttribute extends ItemAbilityParameters {
+export class PassiveAbilityParametersAttribute extends PassiveAbilityParameters {
   public isAdditive: boolean;
   public attributeType: ContractAttributeType;
   public abilityTags: string[];

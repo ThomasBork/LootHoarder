@@ -1,4 +1,4 @@
-export class ItemAbilityType {
+export class PassiveAbilityType {
   public key: string;
   public parameters: string[];
   public constructor(

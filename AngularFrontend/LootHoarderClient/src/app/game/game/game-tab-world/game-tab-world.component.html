@@ -23,13 +23,15 @@
         [style.top]="getGameAreaTypeTop(gameAreaType)"
         [class.available]="gameAreaType.isAvailable"
         [class.completed]="gameAreaType.isCompleted"
-        [class.undiscovered]="!gameAreaType.isAvailable && !gameAreaType.isCompleted"
+        [class.undiscovered]="!isGameAreaTypeDiscovered(gameAreaType)"
         [class.selected]="selectedGameAreaType === gameAreaType"
-        (click)="selectGameAreaType(gameAreaType)"
       >
         <div
+          (click)="selectGameAreaType(gameAreaType)"
           class="area-type-marker"
-        ></div>
+        >
+          <div>{{ isGameAreaTypeDiscovered(gameAreaType) ? gameAreaType.type.name : '?'}}</div>
+        </div>
       </div>
     </div>
   </div>

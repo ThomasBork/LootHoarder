@@ -19,6 +19,10 @@ export class CreateHeroHandler implements ICommandHandler<CreateHero> {
 
     const dbItem = this.itemSpawnerService.spawnStarterItem(command.game, heroType.startItemType);
 
+    const skillTreeStartingNode = this.staticGameContentService
+      .getHeroSkillTree()
+      .getHeroTypeStartingPosition(command.typeKey);
+
     const dbHero: DbHero = {
       id: command.game.getNextHeroId(),
       typeKey: command.typeKey,
@@ -33,7 +37,13 @@ export class CreateHeroHandler implements ICommandHandler<CreateHero> {
         eyesId: command.eyesId,
         noseId: command.noseId,
         mouthId: command.mouthId
-      }
+      },
+      skillNodesLocations: [
+        {
+          x: skillTreeStartingNode.x,
+          y: skillTreeStartingNode.y
+        }
+      ]
     };
 
     const hero = Hero.load(dbHero);

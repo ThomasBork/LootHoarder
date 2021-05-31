@@ -1,0 +1,1 @@
+export type DbPassiveAbilityParameters = { [keys: string]: boolean | number | string | string[] };

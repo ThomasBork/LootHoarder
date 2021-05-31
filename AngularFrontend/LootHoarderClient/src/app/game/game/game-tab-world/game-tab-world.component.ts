@@ -45,12 +45,16 @@ export class GameTabWorldComponent {
     this.selectedGameAreaType = areaType;
   }
 
+  public isGameAreaTypeDiscovered(areaType: GameAreaType): boolean {
+    return areaType.isAvailable || areaType.isCompleted;
+  }
+
   public getGameAreaTypeLeft(areaType: GameAreaType): string {
-    return areaType.type.x + this.worldMapFixtureX - 30 + 'px';
+    return (areaType.type.x + this.worldMapFixtureX) + 'px';
   }
 
   public getGameAreaTypeTop(areaType: GameAreaType): string {
-    return areaType.type.y + this.worldMapFixtureY - 85 + 'px';
+    return (areaType.type.y + this.worldMapFixtureY - 30) + 'px';
   }
 
   public startDragging(mouseEvent: MouseEvent): void {

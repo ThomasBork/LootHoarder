@@ -6,4 +6,5 @@ export enum ContractClientMessageType {
   leaveArea = 'leave-area',
   loadGame = 'load-game',
   setSetting = 'set-setting',
+  takeHeroSkillNode = 'take-hero-skill-node',
 }

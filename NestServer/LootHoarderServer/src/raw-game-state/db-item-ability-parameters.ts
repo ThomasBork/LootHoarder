@@ -1,1 +1,0 @@
-export type DbItemAbilityParameters = { [keys: string]: boolean | number | string | string[] };

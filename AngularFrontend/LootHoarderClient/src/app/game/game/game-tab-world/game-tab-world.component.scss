@@ -56,11 +56,25 @@
         }
   
         .area-type-marker {
-          height: 60px;
-          width: 60px;
-          transform: rotate(45deg) skew(15deg, 15deg);
           user-select: none;
-          border: 5px solid black;
+          padding: 15px;
+          transform: translate(-50%, -100%);
+          border: 3px solid black;
+          font-size: 20px;
+
+          &::after {
+            content: '';
+            position: absolute;
+            left: calc(50% - 10px);
+            bottom: -30px;
+            height: 0;
+            width: 0;
+            border: 30px solid transparent;
+            border-top-color: black;
+            border-bottom: 0;
+            border-left-width: 10px;
+            border-right-width: 10px;
+          }
         }
       }
     }

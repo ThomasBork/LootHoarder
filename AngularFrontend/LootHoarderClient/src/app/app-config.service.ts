@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import * as config from './app-config.json';
+import * as developConfig from './app-config.json';
+import * as productionConfig from './app-config-production.json';
 
 @Injectable()
 export class AppConfigService {
@@ -7,7 +8,7 @@ export class AppConfigService {
   public readonly webSocketUrl: string;
 
   public constructor() {
-    this.apiUrl = config.apiUrl;
-    this.webSocketUrl = config.webSocketUrl;
+    this.apiUrl = developConfig.apiUrl;
+    this.webSocketUrl = developConfig.webSocketUrl;
   }
 }

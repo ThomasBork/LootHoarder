@@ -1,21 +1,20 @@
+import { SkillTreeNodeAbility } from "./skill-tree-node-ability";
+
 export class SkillTreeNode {
   public x: number;
   public y: number;
-  public typeKey: string;
-  public data: any;
+  public abilities: SkillTreeNodeAbility[];
   public constructor(
     x: number,
     y: number,
-    typeKey: string,
-    data: any,
+    abilities: SkillTreeNodeAbility[]
   ) {
     this.x = x;
     this.y = y;
-    this.typeKey = typeKey;
-    this.data = data;
+    this.abilities = abilities;
   }
 
-  public getDataAsJson(): string {
-    return JSON.stringify(this.data, null, 2);
+  public getAbilitiesAsJson(): string {
+    return JSON.stringify(this.abilities, null, 2);
   }
 }
