@@ -159,11 +159,16 @@ export class AssetManagerService {
         if (!startNodeAbility.data.heroTypeKey) {
           throw Error (`Starting node at position (${node.x}, ${node.y}) has no hero type key.`);
         }
-        return new HeroSkillTreeStartingNode(
+        const newNode = new HeroSkillTreeStartingNode(
           node.x,
           node.y,
           startNodeAbility.data.heroTypeKey
         );
+
+        const heroType = this.getHeroType(startNodeAbility.data.heroTypeKey);
+        heroType.heroSkillTreeStartingNode = newNode;
+
+        return newNode;
       }
       
       const abilities = (node.abilities as any)

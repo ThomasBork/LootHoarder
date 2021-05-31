@@ -1,8 +1,10 @@
 <div 
+  #container
   class="container"
   (mousedown)="startDragging($event)"
   (mousemove)="handleMouseMove($event)"
   (mouseup)="stopDragging($event)"
+  (mouseleave)="stopDragging($event)"
   (wheel)="handleMouseScroll($event)"
 >
   <div 

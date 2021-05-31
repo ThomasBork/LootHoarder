@@ -15,38 +15,56 @@ export class SelectedHeroPassivesTabComponent {
   public hero!: Hero;
 
   public skillTree: HeroSkillTree;
-  public minNodeX: number;
-  public minNodeY: number;
-  public maxNodeX: number;
-  public maxNodeY: number;
+  public minNodeXInPixels: number;
+  public minNodeYInPixels: number;
+  public maxNodeXInPixels: number;
+  public maxNodeYInPixels: number;
 
   public readonly nodeDiameter = 80;
   public readonly nodeMargin = 40;
   public readonly transitionWidth = 15;
+  public readonly skillTreePadding = 200;
 
   public constructor(
     private readonly assetManagerService: AssetManagerService
   ) {
     this.skillTree = this.assetManagerService.getHeroSkillTree();
-    this.minNodeX = this.skillTree.nodes
+    const minNodeX = this.skillTree.nodes
       .map(node => node.x)
       .reduce((x1, x2) => x1 < x2 ? x1 : x2, Infinity);
 
-    this.minNodeY = this.skillTree.nodes
+    const minNodeY = this.skillTree.nodes
       .map(node => node.y)
       .reduce((y1, y2) => y1 < y2 ? y1 : y2, Infinity);
 
-    this.maxNodeX = this.skillTree.nodes
+    const maxNodeX = this.skillTree.nodes
       .map(node => node.x)
-      .reduce((x1, x2) => x1 > x2 ? x1 : x2, Infinity);
+      .reduce((x1, x2) => x1 > x2 ? x1 : x2, -Infinity);
 
-    this.maxNodeY = this.skillTree.nodes
+    const maxNodeY = this.skillTree.nodes
       .map(node => node.y)
-      .reduce((y1, y2) => y1 > y2 ? y1 : y2, Infinity);
+      .reduce((y1, y2) => y1 > y2 ? y1 : y2, -Infinity);
+
+      this.minNodeXInPixels = this.getCellLeft(minNodeX);
+      this.minNodeYInPixels = this.getCellTop(minNodeY);
+      this.maxNodeXInPixels = this.getCellLeft(maxNodeX) + this.nodeDiameter;
+      this.maxNodeYInPixels = this.getCellTop(maxNodeY) + this.nodeDiameter;
   }
 
   public get gridCellSize(): number { 
     return this.nodeDiameter + this.nodeMargin;
+  }
+
+  public get startPositionCenterX(): number {
+    const centerX = this.getCellLeft(this.hero.type.heroSkillTreeStartingNode.x)
+      + this.nodeDiameter / 2;
+    return centerX;
+  }
+
+  public get startPositionCenterY(): number {
+    const centerY = this.getCellTop(this.hero.type.heroSkillTreeStartingNode.y)
+      + this.nodeDiameter / 2;
+    return centerY;
   }
 
   public getTransitionLeft(transition: SkillTreeTransition): string {
@@ -92,10 +110,10 @@ export class SelectedHeroPassivesTabComponent {
   }
 
   private getCellLeft(x: number): number {
-    return this.gridCellSize * (x - this.minNodeX);
+    return this.gridCellSize * x;
   }
 
   private getCellTop(y: number): number {
-    return this.gridCellSize * (y - this.minNodeY);
+    return this.gridCellSize * y;
   }
 }

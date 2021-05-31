@@ -1,7 +1,14 @@
 <div 
   class="skill-tree-container"
 >
-  <app-zoomable-container>
+  <app-zoomable-container
+    [initialCenterX]="startPositionCenterX"
+    [initialCenterY]="startPositionCenterY"
+    [minX]="minNodeXInPixels - skillTreePadding"
+    [minY]="minNodeYInPixels - skillTreePadding"
+    [maxX]="maxNodeXInPixels + skillTreePadding"
+    [maxY]="maxNodeYInPixels + skillTreePadding"
+  >
     <div class="skill-tree">
       <div 
         *ngFor="let transition of skillTree.transitions"
