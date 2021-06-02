@@ -159,13 +159,15 @@ export class AssetManagerService {
         if (!startNodeAbility.data.heroTypeKey) {
           throw Error (`Starting node at position (${node.x}, ${node.y}) has no hero type key.`);
         }
+
+        const heroType = this.getHeroType(startNodeAbility.data.heroTypeKey);
+
         const newNode = new HeroSkillTreeStartingNode(
           node.x,
           node.y,
-          startNodeAbility.data.heroTypeKey
+          heroType
         );
 
-        const heroType = this.getHeroType(startNodeAbility.data.heroTypeKey);
         heroType.heroSkillTreeStartingNode = newNode;
 
         return newNode;
@@ -177,7 +179,7 @@ export class AssetManagerService {
           return new PassiveAbility(abilityType, ability.data);
         });
 
-      return new HeroSkillTreeNode(node.x, node.y, abilities);
+      return new HeroSkillTreeNode(node.x, node.y, node.size, abilities);
     });
 
     const transitions = HeroSkillTreeJson.transitions

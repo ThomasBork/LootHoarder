@@ -3,6 +3,7 @@ import { ContractHero } from "src/loot-hoarder-contract/contract-hero";
 import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/server-actions/contract-server-web-socket-message";
 import { ContractHeroGainedExperienceMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-gained-experience-message";
 import { ContractHeroTookSkillNodeMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-took-skill-node-message";
+import { ContractHeroUnspentSkillPointsChangedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-unspent-skill-points-changed-message";
 import { ContractHeroAttributeChangedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-attribute-changed-message";
 import { ContractItemEquippedMessage } from "src/loot-hoarder-contract/server-actions/contract-item-equipped-message";
 import { ContractItemUnequippedMessage } from "src/loot-hoarder-contract/server-actions/contract-item-unequipped-message";
@@ -65,6 +66,10 @@ export class Hero {
     this.totalSkillPointsVC = new ValueContainer();
     this.totalSkillPointsVC.setAdditiveModifier(this, this.level);
     this.onLevelUp.subscribe(newLevel => this.totalSkillPointsVC.setAdditiveModifier(this, this.level));
+    this.onLevelUp.subscribe(newLevel => {
+      const message = new ContractHeroUnspentSkillPointsChangedMessage(this.id, this.unspentSkillPoints);
+      this.onEvent.next(message);
+    });
 
     this.attributes.setAdditiveAttributeSet(this.type.baseAttributes);
 
@@ -84,7 +89,7 @@ export class Hero {
   public get name(): string { return this.dbModel.name; }
   public get level(): number { return this.dbModel.level; }
   public get experience(): number { return this.dbModel.experience; }
-  public get unspentSkillPoints(): number { return this.takenSkillTreeNodes.length - this.totalSkillPointsVC.value; }
+  public get unspentSkillPoints(): number { return this.totalSkillPointsVC.value - this.takenSkillTreeNodes.length; }
 
   public giveExperience(experience: number): void {
     this.onEvent.setUpNewEventBucket();
@@ -115,13 +120,33 @@ export class Hero {
       throw Error (`Cannot take skill node at (${nodeX}, ${nodeY}) because it is not available.`);
     }
 
+    if (this.unspentSkillPoints === 0) {
+      throw Error (`Cannot take skill node when the hero does not have any unspent skill points.`);
+    }
+
     this.onEvent.setUpNewEventBucket();
     const nodeIndex = this.availableSkillTreeNodes.indexOf(node);
     this.availableSkillTreeNodes.splice(nodeIndex, 1);
     this.takenSkillTreeNodes.push(node);
     this.applyPassiveAbilityEffects(node.passiveAbilities);
+
+    const newAvailableSkillNodes = node.neighborNodes.filter(newNode => 
+      !this.takenSkillTreeNodes.includes(newNode)
+      && !this.availableSkillTreeNodes.includes(newNode)
+    );
+    this.availableSkillTreeNodes.push(...newAvailableSkillNodes);
+    const newAvailableSkillNodeLocations: ContractSkillNodeLocation[] = newAvailableSkillNodes.map(newNode => {
+      return {
+        x: newNode.x,
+        y: newNode.y
+      };
+    });
+
+    const message = new ContractHeroUnspentSkillPointsChangedMessage(this.id, this.unspentSkillPoints);
+    this.onEvent.next(message);
+
     const innerMessages = this.onEvent.flushEventBucket();
-    const nodeMessage = new ContractHeroTookSkillNodeMessage(this.id, nodeX, nodeY);
+    const nodeMessage = new ContractHeroTookSkillNodeMessage(this.id, nodeX, nodeY, newAvailableSkillNodeLocations);
     const multimessage = new ContractServerWebSocketMultimessage([...innerMessages, nodeMessage]);
     this.onEvent.next(multimessage);
   }
@@ -181,15 +206,13 @@ export class Hero {
           const attributeType = ability.parameters.attributeType;
           const abilityTags = ability.parameters.abilityTags;
           const amount = ability.parameters.amount;
-          const attributes = this.attributes.getAttributes(attributeType, abilityTags);
-          for(let attribute of attributes) {
-            if (isAdditive){ 
-              const attributeValueContainer = attribute.additiveValueContainer;
-              attributeValueContainer.setAdditiveModifier(ability, amount);
-            } else {
-              const attributeValueContainer = attribute.multiplicativeValueContainer;
-              attributeValueContainer.setMultiplicativeModifier(ability, amount);
-            }
+          const attribute = this.attributes.getAttribute(attributeType, abilityTags);
+          if (isAdditive){ 
+            const attributeValueContainer = attribute.additiveValueContainer;
+            attributeValueContainer.setAdditiveModifier(ability, amount);
+          } else {
+            const attributeValueContainer = attribute.multiplicativeValueContainer;
+            attributeValueContainer.setMultiplicativeModifier(ability, amount);
           }
         }
         break;

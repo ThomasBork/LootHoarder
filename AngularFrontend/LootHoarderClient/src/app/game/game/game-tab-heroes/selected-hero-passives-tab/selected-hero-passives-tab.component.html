@@ -11,8 +11,10 @@
   >
     <div class="skill-tree">
       <div 
-        *ngFor="let transition of skillTree.transitions"
+        *ngFor="let transition of hero.skillTree.transitions"
         class="transition"
+        [class.available]="getIsTransitionAvailable(transition)"
+        [class.taken]="getIsTransitionTaken(transition)"
         [style.left]="getTransitionLeft(transition)"
         [style.top]="getTransitionTop(transition)"
         [style.width]="getTransitionWidth(transition)"
@@ -20,13 +22,28 @@
       ></div>
 
       <div 
-        *ngFor="let node of skillTree.nodes"
+        *ngFor="let node of hero.skillTree.nodesWithStatus"
         class="node"
+        [class.taken]="node.isTaken"
+        [class.available]="node.isAvailable && hero.unspentSkillPoints > 0"
         [style.left]="getNodeLeft(node)"
         [style.top]="getNodeTop(node)"
         [style.width]="getNodeWidth(node)"
         [style.height]="getNodeHeight(node)"
-      ></div>
+        [style.color]="getNodeFontColor(node)"
+        [style.background-color]="getNodeBackgroundColor(node)"
+        (click)="takeSkillNode(node)"
+      >
+        <div>{{ getNodeText(node) }}</div>
+        <div class="tooltip">
+          <ul>
+            <li
+              *ngFor="let abilityDescription of node.abilityDescriptions"
+            >{{ abilityDescription }}</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </app-zoomable-container>
+  <div class="skill-point-status">Remaining skill points: {{hero.unspentSkillPoints}}</div>
 </div>

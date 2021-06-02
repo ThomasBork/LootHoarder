@@ -27,6 +27,8 @@ import { ContractItem } from "src/loot-hoarder-contract/contract-item";
 import { ContractInventory } from "src/loot-hoarder-contract/contract-inventory";
 import { Inventory } from "./client-representation/inventory";
 import { ContractPassiveAbility } from "src/loot-hoarder-contract/contract-passive-ability";
+import { HeroSkillTreeStatus } from "./client-representation/hero-skill-tree-status";
+import { HeroSkillTreeNodeStatus } from "./client-representation/hero-skill-tree-node-status";
 
 @Injectable()
 export class GameStateMapper {
@@ -75,6 +77,15 @@ export class GameStateMapper {
     const heroType = this.assetManagerService.getHeroType(serverHero.typeKey);
     const attributes = this.mapToAttributeSetValues(serverHero.attributes);
     const inventory = this.mapToInventory(serverHero.inventory);
+    const skillTree = this.assetManagerService.getHeroSkillTree();
+    const skillTreeWithStatus = new HeroSkillTreeStatus(
+      skillTree.nodes.map(node => new HeroSkillTreeNodeStatus(
+        node, 
+        serverHero.availableSkillNodes.some(location => location.x === node.x && location.y === node.y),
+        serverHero.takenSkillNodes.some(location => location.x === node.x && location.y === node.y)
+      )),
+      skillTree.transitions
+    );
 
     return new Hero (
       serverHero.id,
@@ -86,7 +97,9 @@ export class GameStateMapper {
       inventory,
       serverHero.cosmetics.eyesId,
       serverHero.cosmetics.noseId,
-      serverHero.cosmetics.mouthId
+      serverHero.cosmetics.mouthId,
+      serverHero.unspentSkillPoints,
+      skillTreeWithStatus
     );
   }
 

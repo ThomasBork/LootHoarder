@@ -34,6 +34,8 @@ import { HeroSkillTree } from "src/computed-game-state/hero-skill-tree";
 import { HeroSkillTreeNode } from "src/computed-game-state/hero-skill-tree-node";
 import { PassiveAbility } from "src/computed-game-state/passive-ability";
 import { HeroSkillTreeStartingNode } from "src/computed-game-state/hero-skill-tree-starting-node";
+import { AbilityTypeEffectDealDamage } from "src/computed-game-state/ability-type-effect-deal-damage";
+import { AbilityTypeEffectApplyContinuousEffect } from "src/computed-game-state/ability-type-effect-apply-continuous-effect";
 
 @Injectable()
 export class StaticGameContentService {
@@ -165,22 +167,42 @@ export class StaticGameContentService {
         abilityType.name, 
         abilityType.description, 
         abilityType.tags,
+        abilityType.inheritedTags,
         abilityType.manaCost,
         abilityType.timeToUse,
         abilityType.cooldown,
         abilityType.criticalStrikeChance,
-        abilityType.effects.map(effect => {
+        abilityType.effects.map((effect: any) => {
           const effectType = this.getAbilityTypeEffectType(effect.key);
           for(const parameterKey of effectType.parameters) {
             if (!effect.parameters.hasOwnProperty(parameterKey)) {
               throw Error (`The ability type, '${abilityType.key}', has an effect of the type, '${effect.key}', that does not have all parameters of that effect type.`);
             }
           }
-          return new AbilityTypeEffect(
-            effectType,
-            effect.target as AbilityTargetScheme,
-            effect.parameters
-          )
+          const tags = [...new Set([...effect.tags, ...abilityType.inheritedTags])];
+          const target = effect.target;
+          switch(effect.key) {
+            case 'deal-damage': {
+              const parameters = effect.parameters;
+              return new AbilityTypeEffectDealDamage(
+                effectType,
+                tags,
+                target,
+                parameters
+              );
+            }
+            case 'apply-continuous-effect': {
+              const parameters = effect.parameters;
+              return new AbilityTypeEffectApplyContinuousEffect(
+                effectType,
+                tags,
+                target,
+                parameters
+              );
+            }
+            default:
+              throw Error (`The ability type effect has no implementation.`);
+          }
         })
       )
     );

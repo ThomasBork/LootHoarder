@@ -70,6 +70,11 @@
       class="sidebar"
     >
       <button (click)="deleteNode(selectedNode)">Delete</button>
+      <hr>
+      <div>
+        <span>Size</span>
+        <input type="number" [(ngModel)]="selectedNode.size" />
+      </div>
       <div>Abilities</div>
       <textarea 
         class="data" 

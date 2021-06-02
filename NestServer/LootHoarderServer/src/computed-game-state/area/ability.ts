@@ -3,10 +3,11 @@ import { DbAbility } from "src/raw-game-state/db-ability";
 import { StaticGameContentService } from "src/services/static-game-content-service";
 import { AbilityType } from "../ability-type";
 import { ValueContainer } from "../value-container";
+import { AbilityEffect } from "./ability-effect";
 
 export class Ability {
   public type: AbilityType;
-  public powerVC: ValueContainer;
+  public effects: AbilityEffect[];
   public useSpeedVC: ValueContainer;
   public cooldownSpeedVC: ValueContainer;
   public cooldownVC: ValueContainer;
@@ -23,7 +24,8 @@ export class Ability {
     this.dbModel = dbModel;
     this.type = type;
 
-    this.powerVC = new ValueContainer(0);
+    this.effects = type.effects.map(effect => new AbilityEffect(effect));
+
     this.useSpeedVC = new ValueContainer(0);
     this.cooldownSpeedVC = new ValueContainer(0);
     this.manaCostVC = new ValueContainer(type.manaCost);

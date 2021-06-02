@@ -7,7 +7,7 @@ import { AttributeValueChangeEvent } from "./attribute-value-change-event";
 
 export class AttributeSet {
   public onChange: Subject<AttributeValueChangeEvent>;
-  public onCombintedAttributeAdded: Subject<CombinedAttributeValueContainer>;
+  public onCombinedAttributeAdded: Subject<CombinedAttributeValueContainer>;
   
   private combinedAttributes: CombinedAttributeValueContainer[];
   private multiplicativeModifiers: Map<any, number>;
@@ -15,7 +15,7 @@ export class AttributeSet {
   public constructor(attributes: CombinedAttributeValueContainer[] = []) {
     this.combinedAttributes = [];
     this.multiplicativeModifiers = new Map();
-    this.onCombintedAttributeAdded = new Subject();
+    this.onCombinedAttributeAdded = new Subject();
 
     this.onChange = new Subject();
 
@@ -24,6 +24,12 @@ export class AttributeSet {
     }
   }
 
+  /**
+   * Creates a new attribute, if one does not already exist
+   * @param attributeType 
+   * @param abilityTags 
+   * @returns 
+   */
   public getAttribute(attributeType: ContractAttributeType, abilityTags: string[]): CombinedAttributeValueContainer {
     let attribute = this.combinedAttributes.find(a => 
       a.attributeType === attributeType 
@@ -37,11 +43,19 @@ export class AttributeSet {
     return attribute;
   }
 
+  /**
+   * Does not create new attributes.
+   * @param attributeType 
+   * @param tags 
+   * @returns all attributes that include zero or more of the provided tags
+   */
   public getAttributes(attributeType: ContractAttributeType, tags: string[]): CombinedAttributeValueContainer[] {
-    return this.combinedAttributes.filter(attribute => 
+    const allCombinedAttributesIncludingTags = this.combinedAttributes.filter(attribute => 
       attribute.attributeType === attributeType
       && attribute.abilityTags.every(tag => tags.includes(tag))
     );
+
+    return allCombinedAttributesIncludingTags;
   }
 
   public calculateAttributeValue(attributeType: ContractAttributeType, tags: string[]): number {
@@ -88,7 +102,7 @@ export class AttributeSet {
       const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.abilityTags);
       thisCombinedAttribute.additiveValueContainer.setAdditiveValueContainer(otherCombinedAttribute.additiveValueContainer);
     }
-    attributeSet.onCombintedAttributeAdded.subscribe(otherCombinedAttribute => {
+    attributeSet.onCombinedAttributeAdded.subscribe(otherCombinedAttribute => {
       const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.abilityTags);
       thisCombinedAttribute.additiveValueContainer.setAdditiveValueContainer(otherCombinedAttribute.additiveValueContainer);
     });
@@ -112,7 +126,7 @@ export class AttributeSet {
     for(const [key, modifier] of this.multiplicativeModifiers) {
       attribute.multiplicativeValueContainer.setMultiplicativeModifier(key, modifier);
     }
-    this.onCombintedAttributeAdded.next(attribute);
+    this.onCombinedAttributeAdded.next(attribute);
   }
 
   private subscribeToChangeEvent(attribute: CombinedAttributeValueContainer): void {

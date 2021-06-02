@@ -299,6 +299,7 @@
     {
       "x": 0,
       "y": 0,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "heroTypeStartPosition",
@@ -311,6 +312,7 @@
     {
       "x": 1,
       "y": 0,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -328,6 +330,7 @@
     {
       "x": -1,
       "y": 0,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -345,6 +348,7 @@
     {
       "x": -2,
       "y": 0,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -362,6 +366,7 @@
     {
       "x": -3,
       "y": 0,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -379,6 +384,7 @@
     {
       "x": 2,
       "y": 0,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -396,6 +402,7 @@
     {
       "x": 3,
       "y": 0,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -413,6 +420,7 @@
     {
       "x": 4,
       "y": 0,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -430,6 +438,7 @@
     {
       "x": 1,
       "y": 1,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -447,6 +456,7 @@
     {
       "x": 1,
       "y": 2,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -464,6 +474,7 @@
     {
       "x": 1,
       "y": 3,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -481,6 +492,7 @@
     {
       "x": 2,
       "y": 3,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -499,6 +511,7 @@
     {
       "x": 3,
       "y": 3,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -517,6 +530,7 @@
     {
       "x": 3,
       "y": 4,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -535,6 +549,7 @@
     {
       "x": 3,
       "y": 5,
+      "size": 3,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -553,6 +568,7 @@
     {
       "x": 2,
       "y": 5,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -571,6 +587,7 @@
     {
       "x": 1,
       "y": 5,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -589,6 +606,7 @@
     {
       "x": 1,
       "y": 4,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -607,6 +625,7 @@
     {
       "x": 4,
       "y": 1,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -624,12 +643,13 @@
     {
       "x": 4,
       "y": 2,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "cooldown speed",
+            "attributeType": "cooldown-speed",
             "abilityTags": [
               "attack"
             ],
@@ -641,12 +661,13 @@
     {
       "x": 4,
       "y": 3,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "cooldown speed",
+            "attributeType": "cooldown-speed",
             "abilityTags": [
               "attack"
             ],
@@ -658,12 +679,13 @@
     {
       "x": 5,
       "y": 3,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "cooldown speed",
+            "attributeType": "cooldown-speed",
             "abilityTags": [
               "attack"
             ],
@@ -675,12 +697,13 @@
     {
       "x": 6,
       "y": 3,
+      "size": 3,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": false,
-            "attributeType": "cooldown speed",
+            "attributeType": "cooldown-speed",
             "abilityTags": [
               "attack"
             ],
@@ -692,12 +715,13 @@
     {
       "x": 6,
       "y": 2,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "cooldown speed",
+            "attributeType": "cooldown-speed",
             "abilityTags": [
               "attack"
             ],
@@ -709,12 +733,13 @@
     {
       "x": 6,
       "y": 1,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "cooldown speed",
+            "attributeType": "cooldown-speed",
             "abilityTags": [
               "attack"
             ],
@@ -726,12 +751,13 @@
     {
       "x": 5,
       "y": 1,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "cooldown speed",
+            "attributeType": "cooldown-speed",
             "abilityTags": [
               "attack"
             ],
@@ -743,6 +769,7 @@
     {
       "x": 0,
       "y": -1,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -758,6 +785,7 @@
     {
       "x": 0,
       "y": -2,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -773,6 +801,7 @@
     {
       "x": -1,
       "y": -2,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -788,6 +817,7 @@
     {
       "x": -1,
       "y": -3,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -803,6 +833,7 @@
     {
       "x": -1,
       "y": -4,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -818,6 +849,7 @@
     {
       "x": 0,
       "y": -4,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -833,6 +865,7 @@
     {
       "x": 1,
       "y": -4,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -848,6 +881,7 @@
     {
       "x": 1,
       "y": -3,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -863,6 +897,7 @@
     {
       "x": 1,
       "y": -2,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -878,6 +913,7 @@
     {
       "x": 4,
       "y": -1,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -893,6 +929,7 @@
     {
       "x": 4,
       "y": -2,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -908,6 +945,7 @@
     {
       "x": 4,
       "y": -3,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -923,6 +961,7 @@
     {
       "x": 4,
       "y": -4,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -938,6 +977,7 @@
     {
       "x": 4,
       "y": -5,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -953,6 +993,7 @@
     {
       "x": 0,
       "y": -5,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -968,6 +1009,7 @@
     {
       "x": 0,
       "y": -6,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "heroTypeStartPosition",
@@ -980,6 +1022,7 @@
     {
       "x": 4,
       "y": -6,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -997,6 +1040,7 @@
     {
       "x": 3,
       "y": -6,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -1014,6 +1058,7 @@
     {
       "x": 2,
       "y": -6,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
@@ -1031,6 +1076,7 @@
     {
       "x": 1,
       "y": -6,
+      "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",

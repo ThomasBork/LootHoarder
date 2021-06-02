@@ -11,6 +11,13 @@
       background-color: #C0C0C0;
       cursor: pointer;
       margin-right: 5px;
+      display: flex;
+      align-items: center;
+      height: 50px;
+
+      app-notification-bubble {
+        margin-left: 5px;
+      }
 
       &.selected {
         background-color: lightgrey;

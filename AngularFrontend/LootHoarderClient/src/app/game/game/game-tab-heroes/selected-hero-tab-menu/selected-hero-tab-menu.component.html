@@ -14,7 +14,13 @@
       class="tab-button"
       [class.selected]="selectedTab === 'passives'"
       (click)="changeTab('passives')"
-    >Passives</li>
+    >
+      <span>Passives</span>
+      <app-notification-bubble 
+        *ngIf="hero.unspentSkillPoints > 0"
+        [value]="hero.unspentSkillPoints"
+      ></app-notification-bubble>
+    </li>
   </ul>
   
   <div class="tab-content">

@@ -27,14 +27,16 @@ import { ItemSpawnerService } from './services/item-spawner-service';
 import { EquipItemHandler } from './game-message-handlers/from-client/equip-item-handler';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { TakeHeroSkillNodeHandler } from './game-message-handlers/from-client/take-hero-skill-node-handler';
 
 export const CommandHandlers = [
   CreateHeroHandler,
   EnterAreaTypeHandler, 
   EquipItemHandler,
-  LeaveAreaCombatHandler,
   GoToNextCombatHandler,
-  SetSettingHandler
+  LeaveAreaCombatHandler,
+  SetSettingHandler,
+  TakeHeroSkillNodeHandler,
 ];
 
 @Module({

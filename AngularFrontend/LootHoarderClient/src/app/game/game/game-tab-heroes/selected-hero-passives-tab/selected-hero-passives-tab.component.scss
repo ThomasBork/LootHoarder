@@ -2,6 +2,14 @@
   height: 100%;
   width: 100%;
   padding: 15px;
+  position: relative;
+
+  .skill-point-status {
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 10px;
+  }
 
   .skill-tree {
     position: relative;
@@ -11,13 +19,56 @@
     .transition {
       background-color: white;
       position: absolute;
+
+      &.taken {
+        background-color: black;
+      }
+
+      &.available {
+        background-color: grey;
+      }
     }
   
     .node {
       background-color: black;
       position: absolute;
       border-radius: 50%;
-      border: 3px solid white;
+      border: 5px solid white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+
+      &.taken {
+        border-color: black;
+      }
+
+      &.available {
+        cursor: pointer;
+
+        &:hover {
+          border-color: black;
+        }
+      }
+
+      &:not(:hover) {
+        .tooltip {
+          display: none;
+        }
+      }
+
+      .tooltip {
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 10px);
+        transform: translateX(-50%);
+        border-radius: 5px;
+        padding: 10px;
+        z-index: 1;
+        background-color: darkgrey;
+        color: black;
+        width: max-content;
+      }
     }
   }
 }

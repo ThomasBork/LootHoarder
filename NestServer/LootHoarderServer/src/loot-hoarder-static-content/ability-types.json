@@ -4,17 +4,108 @@
     "name": "Basic Attack",
     "description": "Deals physical damage to a single target.",
     "tags": ["physical", "attack"],
+    "inheritedTags": ["attack"],
     "manaCost": 0,
-    "timeToUse": 500,
-    "cooldown": 2000,
+    "timeToUse": 1000,
+    "cooldown": 3000,
     "criticalStrikeChance": 0.05,
     "effects": [
       {
         "key": "deal-damage",
         "target": "any-enemy",
+        "tags": ["physical"],
         "parameters": {
-          "baseAmount": 50,
-          "damageType": "physical"
+          "baseAmount": 5
+        }
+      }
+    ]
+  },
+  {
+    "key": "armor-smash",
+    "name": "Armor Smash",
+    "description": "Deals physical damage to a single target and reduces its physical resistance for some time.",
+    "tags": ["physical", "attack", "debuff"],
+    "inheritedTags": ["attack"],
+    "manaCost": 10,
+    "timeToUse": 2000,
+    "cooldown": 7000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["physical"],
+        "parameters": {
+          "baseAmount": 20
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "any-enemy",
+        "tags": ["debuff"],
+        "parameters": {
+          "typeKey": "change-attribute",
+          "duration": 10000,
+          "parameters": {
+            "attributeKey": "resistance",
+            "abilityTags": ["physical"],
+            "amount": 0.5,
+            "isAdditive": false
+          }
+        }
+      }
+    ]
+  },
+  {
+    "key": "flame-slash",
+    "name": "Flame Slash",
+    "description": "Deals fire damage to a all enemies.",
+    "tags": ["fire", "elemental", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 8,
+    "timeToUse": 1500,
+    "cooldown": 6000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "all-enemies",
+        "tags": ["fire", "elemental"],
+        "parameters": {
+          "baseAmount": 10
+        }
+      }
+    ]
+  },
+  {
+    "key": "cobra-strike",
+    "name": "Cobra Strike",
+    "description": "Deals physical damage to an enemy with a 50% chance to apply poison on hit.",
+    "tags": ["physical", "poison", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 8,
+    "timeToUse": 1000,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["physical"],
+        "parameters": {
+          "baseAmount": 10
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "any-enemy",
+        "tags": ["poison"],
+        "parameters": {
+          "typeKey": "poison",
+          "duration": 10000,
+          "parameters": {
+            "damagePerSecond": 5
+          }
         }
       }
     ]
@@ -23,45 +114,19 @@
     "key": "lightning-bolt",
     "name": "Lightning Bolt",
     "description": "Deals lightning damage to a single target.",
-    "tags": ["lightning", "elemental", "spell"],
+    "tags": ["lightning", "elemental"],
+    "inheritedTags": ["spell"],
     "manaCost": 5,
-    "timeToUse": 300,
+    "timeToUse": 500,
     "cooldown": 5000,
     "criticalStrikeChance": 0.10,
     "effects": [
       {
         "key": "deal-damage",
         "target": "any-enemy",
+        "tags": ["lightning", "elemental"],
         "parameters": {
-          "baseAmount": 10,
-          "damageType": "lightning"
-        }
-      }
-    ]
-  },
-  {
-    "key": "drain-life",
-    "name": "Drain Life",
-    "description": "Deals physical damage to a single target and restores health to the caster equal to a portion of the damage dealt.",
-    "tags": ["physical", "healing", "spell"],
-    "manaCost": 8,
-    "timeToUse": 600,
-    "cooldown": 10000,
-    "criticalStrikeChance": 0,
-    "effects": [
-      {
-        "key": "deal-damage",
-        "target": "any-enemy",
-        "parameters": {
-          "baseAmount": 15,
-          "damageType": "physical"
-        }
-      },
-      {
-        "key": "life-steal",
-        "target": "none",
-        "parameters": {
-          "factor": 0.2
+          "baseAmount": 10
         }
       }
     ]

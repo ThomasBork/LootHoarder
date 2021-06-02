@@ -25,6 +25,8 @@ import { ContractItemEquippedMessageContent } from 'src/loot-hoarder-contract/se
 import { ContractItemUnequippedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-unequipped-message-content';
 import { ContractItemRemovedFromGameMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-removed-from-game-message-content';
 import { UIStateManager } from './ui-state-manager';
+import { ContractHeroTookSkillNodeMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-took-skill-node-message-content';
+import { ContractHeroUnspentSkillPointsChangedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-unspent-skill-points-changed-message-content';
 
 
 @Component({
@@ -135,6 +137,24 @@ export class GameComponent implements OnInit, OnDestroy {
         const newAvailableAreaTypes = data.newAvailableAreaTypeKeys.map(key => this.assetManagerService.getAreaType(key));
         this.uiStateManager.state.addCompletedAreaType(completedAreaType);
         this.uiStateManager.state.addAvailableAreaTypes(newAvailableAreaTypes);
+      }
+      break;
+      case ContractServerMessageType.heroTookSkillNode: {
+        const data = message.data as ContractHeroTookSkillNodeMessageContent;
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
+        const node = hero.skillTree.getNode(data.nodeX, data.nodeY);
+        node.isAvailable = false;
+        node.isTaken = true;
+        for(let newAvailableSkillNodeLocation of data.newAvailableSkillNodes) {
+          const newAvailableSkillNode = hero.skillTree.getNode(newAvailableSkillNodeLocation.x, newAvailableSkillNodeLocation.y);
+          newAvailableSkillNode.isAvailable = true;
+        }
+      }
+      break;
+      case ContractServerMessageType.heroUnspentSkillPointsChanged: {
+        const data = message.data as ContractHeroUnspentSkillPointsChangedMessageContent;
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
+        hero.unspentSkillPoints = data.newUnspentSkillPoints;
       }
       break;
       case ContractServerMessageType.heroGainedExperience: {

@@ -1,6 +1,7 @@
 import { ContractInventoryPosition } from "src/loot-hoarder-contract/contract-inventory-position";
 import { AreaHero } from "./area-hero";
 import { AttributeSet } from "./attribute-set";
+import { HeroSkillTreeStatus } from "./hero-skill-tree-status";
 import { HeroType } from "./hero-type";
 import { Inventory } from "./inventory";
 import { Item } from "./item";
@@ -17,6 +18,8 @@ export class Hero {
   public eyesId: number;
   public noseId: number;
   public mouthId: number;
+  public unspentSkillPoints: number;
+  public skillTree: HeroSkillTreeStatus;
 
   public constructor(
     id: number,
@@ -29,6 +32,8 @@ export class Hero {
     eyesId: number,
     noseId: number,
     mouthId: number,
+    unspentSkillPoints: number,
+    skillTree: HeroSkillTreeStatus,
   ) {
     this.id = id;
     this.type = type;
@@ -40,6 +45,8 @@ export class Hero {
     this.eyesId = eyesId;
     this.noseId = noseId;
     this.mouthId = mouthId;
+    this.unspentSkillPoints = unspentSkillPoints;
+    this.skillTree = skillTree;
   }
 
   public equipItem(item: Item, inventoryPosition: ContractInventoryPosition): void {

@@ -80,17 +80,19 @@ export class CombatCharacter {
 
   private setUpAbilityValueContainers(): void {
     for(const ability of this.abilities) {
-      this.setUpAbilityValueContainer(ability, ability.powerVC, ContractAttributeType.power);
-      this.setUpAbilityValueContainer(ability, ability.useSpeedVC, ContractAttributeType.useSpeed);
-      this.setUpAbilityValueContainer(ability, ability.cooldownSpeedVC, ContractAttributeType.cooldownSpeed);
+      for(const effect of ability.effects) {
+        this.setUpAbilityValueContainer(effect.typeEffect.tags, effect.powerVC, ContractAttributeType.power);
+      }
+      this.setUpAbilityValueContainer(ability.type.tags, ability.useSpeedVC, ContractAttributeType.useSpeed);
+      this.setUpAbilityValueContainer(ability.type.tags, ability.cooldownSpeedVC, ContractAttributeType.cooldownSpeed);
     }
   }
 
-  private setUpAbilityValueContainer(ability: Ability, abilityValueContainer: ValueContainer, attributeType: ContractAttributeType): void {
-    const combinedAttributes = this.attributes.getAttributes(attributeType, ability.type.tags);
+  private setUpAbilityValueContainer(tags: string[], valueContainer: ValueContainer, attributeType: ContractAttributeType): void {
+    const combinedAttributes = this.attributes.getAttributes(attributeType, tags);
     for(const combinedAttribute of combinedAttributes) {
-      abilityValueContainer.setAdditiveValueContainer(combinedAttribute.additiveValueContainer);
-      abilityValueContainer.setMultiplicativeValueContainer(combinedAttribute.multiplicativeValueContainer);
+      valueContainer.setAdditiveValueContainer(combinedAttribute.additiveValueContainer);
+      valueContainer.setMultiplicativeValueContainer(combinedAttribute.multiplicativeValueContainer);
     }
   }
 

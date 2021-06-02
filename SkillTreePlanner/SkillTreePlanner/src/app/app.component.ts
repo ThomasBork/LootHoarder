@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
 
   public ngOnInit(): void {
     this.nodes = [
-      new SkillTreeNode(0, 0, [ new SkillTreeNodeAbility('heroTypeStartPosition', { heroTypeKey: 'berserker' })])
+      new SkillTreeNode(0, 0, 2, [ new SkillTreeNodeAbility('heroTypeStartPosition', { heroTypeKey: 'berserker' })])
     ];
     
     this.saveTree();
@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
       new SkillTreeNode(
         n.x, 
         n.y, 
+        n.size,
         n.abilities.map((ability: any) => 
           new SkillTreeNodeAbility(
             ability.typeKey, 
@@ -157,7 +158,7 @@ export class AppComponent implements OnInit {
         amount: 200
       }
       const abilities = [new SkillTreeNodeAbility(typeKey, data)];
-      const newNode = new SkillTreeNode(x, y, abilities);
+      const newNode = new SkillTreeNode(x, y, previousNode.size, abilities);
       return newNode;
     } else {
       const abilities = [];
@@ -166,7 +167,7 @@ export class AppComponent implements OnInit {
         const newAbility = new SkillTreeNodeAbility(ability.typeKey, copiedData);
         abilities.push(newAbility);
       }
-      const newNode = new SkillTreeNode(x, y, abilities);
+      const newNode = new SkillTreeNode(x, y, previousNode.size, abilities);
       return newNode;
     }
   }

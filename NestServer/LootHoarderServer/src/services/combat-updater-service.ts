@@ -14,6 +14,8 @@ import { RandomService } from "./random-service";
 import { Area } from "src/computed-game-state/area/area";
 import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next-combat";
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
+import { AbilityTypeEffectApplyContinuousEffect } from "src/computed-game-state/ability-type-effect-apply-continuous-effect";
+import { AbilityTypeEffectDealDamage } from "src/computed-game-state/ability-type-effect-deal-damage";
 
 @Injectable()
 export class CombatUpdaterService implements OnApplicationBootstrap {
@@ -140,79 +142,60 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
   }
 
   private resolveAbility(combat: Combat, usingCharacter: CombatCharacter, ability: Ability, targetCharacter: CombatCharacter | undefined): void {
-    const lifeStealEffects: AbilityTypeEffect[] = [];
-    const otherEffects: AbilityTypeEffect[] = [];
-
-    this.logger.log(`[${usingCharacter.id}]: Begins resolving ${ability.type.name}.`);
-
-    for(const effect of ability.type.effects) {
-      switch(effect.type.key) {
-        case 'life-steal':
-          lifeStealEffects.push(effect);
-          break;
-        default: 
-          otherEffects.push(effect);
-          break;
-      }
-    }
-
     const criticalStrikeChance = ability.criticalStrikeChanceVC.value;
     const criticalStrikeRoll = this.randomService.randomFloat(0, 1);
     const isCriticalStrike = criticalStrikeRoll <= criticalStrikeChance;
 
-    for(const effect of otherEffects) {
-      switch(effect.type.key) {
-        case 'deal-damage': {
-          const baseAmount = effect.parameters['baseAmount'] as number;
+    for(const effect of ability.effects) {
+      if (effect.typeEffect instanceof AbilityTypeEffectApplyContinuousEffect) {
 
-          let damageGiven = baseAmount;
+      } else if (effect.typeEffect instanceof AbilityTypeEffectDealDamage) {
+        const baseAmount = effect.typeEffect.parameters.baseAmount;
 
-          damageGiven *= ability.powerVC.value / 100;
+        let damageGiven = baseAmount;
 
-          if (isCriticalStrike) {
-            const criticalStrikeDamageMultiplier = 1.5;
-            damageGiven *= criticalStrikeDamageMultiplier;
+        damageGiven *= effect.powerVC.value / 100;
+
+        if (isCriticalStrike) {
+          const criticalStrikeDamageMultiplier = 1.5;
+          damageGiven *= criticalStrikeDamageMultiplier;
+        }
+
+        const charactersTakingDamage: CombatCharacter[] = [];
+        if (effect.typeEffect.requiresTarget) {
+          if (!targetCharacter) {
+            throw Error (`Must have a target ability '${ability.type.key}' for effect with key = ${effect.typeEffect.type.key}`);
           }
+          charactersTakingDamage.push(targetCharacter);
+        } else {
+          const allies = combat.getAllies(usingCharacter);
+          const enemies = combat.getEnemies(usingCharacter);
 
-          const charactersTakingDamage: CombatCharacter[] = [];
-          if (effect.requiresTarget) {
-            if (!targetCharacter) {
-              throw Error (`Must have a target ability '${ability.type.key}' for effect with key = ${effect.type.key}`);
+          switch(effect.typeEffect.targetScheme) {
+            case AbilityTargetScheme.all: {
+              charactersTakingDamage.push(...allies, ...enemies);
             }
-            charactersTakingDamage.push(targetCharacter);
-          } else {
-            const allies = combat.getAllies(usingCharacter);
-            const enemies = combat.getEnemies(usingCharacter);
-
-            switch(effect.targetScheme) {
-              case AbilityTargetScheme.all: {
-                charactersTakingDamage.push(...allies, ...enemies);
-              }
-              break;
-              case AbilityTargetScheme.allAllies: {
-                charactersTakingDamage.push(...allies);
-              }
-              break;
-              case AbilityTargetScheme.allEnemies: {
-                charactersTakingDamage.push(...enemies);
-              }
-              break;
+            break;
+            case AbilityTargetScheme.allAllies: {
+              charactersTakingDamage.push(...allies);
             }
-          }
-
-          for(const characterTakingDamage of charactersTakingDamage) {
-            let damageTaken = damageGiven;
-            const resistance = characterTakingDamage.attributes.calculateAttributeValue(ContractAttributeType.resistance, ability.type.tags);
-            const resistanceMultiplier = 100 / (100 + resistance);
-            damageTaken *= resistanceMultiplier;
-            characterTakingDamage.currentHealth -= damageTaken;
+            break;
+            case AbilityTargetScheme.allEnemies: {
+              charactersTakingDamage.push(...enemies);
+            }
+            break;
           }
         }
-        break;
-        default: {
-          throw Error (`Unhandled ability effect type: ${effect.type.key}`);
+
+        for(const characterTakingDamage of charactersTakingDamage) {
+          let damageTaken = damageGiven;
+          const resistance = characterTakingDamage.attributes.calculateAttributeValue(ContractAttributeType.resistance, effect.typeEffect.tags);
+          const resistanceMultiplier = 100 / (100 + resistance);
+          damageTaken *= resistanceMultiplier;
+          characterTakingDamage.currentHealth -= damageTaken;
         }
-        break;
+      } else {
+        throw Error (`Unhandled ability effect type: ${effect.typeEffect.type.key}`);
       }
     }
 

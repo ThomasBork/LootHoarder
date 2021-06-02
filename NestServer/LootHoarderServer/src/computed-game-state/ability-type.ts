@@ -1,11 +1,11 @@
 import { AbilityTypeEffect } from "./ability-type-effect";
-import { ValueContainer } from "./value-container";
 
 export class AbilityType {
   public key: string;
   public name: string;
   public description: string;
   public tags: string[];
+  public inheritedTags: string[];
   public manaCost: number;
   public timeToUse: number;
   public cooldown: number;
@@ -17,6 +17,7 @@ export class AbilityType {
     name: string,
     description: string,
     tags: string[],
+    inheritedTags: string[],
     manaCost: number,
     timeToUse: number,
     cooldown: number,
@@ -27,6 +28,7 @@ export class AbilityType {
     this.name = name;
     this.description = description;
     this.tags = tags;
+    this.inheritedTags = inheritedTags;
     this.manaCost = manaCost;
     this.timeToUse = timeToUse;
     this.cooldown = cooldown;

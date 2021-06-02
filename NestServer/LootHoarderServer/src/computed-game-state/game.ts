@@ -142,7 +142,7 @@ export class Game {
   }
 
   private calculateAvailableAreaTypes(): AreaType[] {
-    const firstAreaType = StaticGameContentService.instance.getAreaType('basic-forest');
+    const firstAreaType = StaticGameContentService.instance.getAreaType('forest');
     const availableAreaTypes = this.completedAreaTypes
       .map(a => a.adjacentAreaTypes)
       .reduce((acc, x) => acc.concat(x), [])

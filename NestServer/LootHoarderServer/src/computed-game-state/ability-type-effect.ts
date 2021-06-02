@@ -3,17 +3,17 @@ import { AbilityTypeEffectType } from "./ability-type-effect-type";
 
 export class AbilityTypeEffect {
   public type: AbilityTypeEffectType;
+  public tags: string[];
   public targetScheme: AbilityTargetScheme;
-  public parameters: any;
 
   public constructor(
     type: AbilityTypeEffectType,
+    tags: string[],
     targetScheme: AbilityTargetScheme,
-    parameters: any
   ) {
     this.type = type;
+    this.tags = tags;
     this.targetScheme = targetScheme;
-    this.parameters = parameters;
   }
 
   public get requiresTarget(): boolean {

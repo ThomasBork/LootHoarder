@@ -13,17 +13,6 @@ export class ItemPreviewComponent {
   public item!: Item;
 
   public getAbilityText(ability: PassiveAbility): string {
-    switch (ability.type.key) {
-      case 'attribute': {
-        const attributeType: ContractAttributeType = ability.parameters.attributeType;
-        const abilityTags: string[] = ability.parameters.abilityTags;
-        const amount: number = ability.parameters.amount;
-        const attributeTypeText = `${attributeType}`;
-        const abilityTagText = abilityTags.length > 0 ? abilityTags.join(' ') + ' ' : '';
-        return abilityTagText + attributeTypeText + ' ' + amount;
-      }
-      default: 
-        throw Error(`Unhandled ability type: ${ability.type.key}`);
-    }
+    return ability.description;
   }
 }

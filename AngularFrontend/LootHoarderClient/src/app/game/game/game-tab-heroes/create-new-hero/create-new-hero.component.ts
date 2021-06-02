@@ -8,6 +8,7 @@ import { AttributeSet } from '../../client-representation/attribute-set';
 import { Inventory } from '../../client-representation/inventory';
 import { Item } from '../../client-representation/item';
 import { ContractInventoryPosition } from 'src/loot-hoarder-contract/contract-inventory-position';
+import { HeroSkillTreeStatus } from '../../client-representation/hero-skill-tree-status';
 
 @Component({
   selector: 'app-create-new-hero',
@@ -145,7 +146,9 @@ export class CreateNewHeroComponent implements OnInit {
       new Inventory(undefined, undefined, undefined, undefined, undefined, undefined, undefined),
       this.eyesId,
       this.noseId,
-      this.mouthId
+      this.mouthId,
+      0,
+      new HeroSkillTreeStatus([], [])
     );
   }
 }

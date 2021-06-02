@@ -3,7 +3,7 @@
     "key": "berserker",
     "name": "Berserker",
     "description": "Uses brute force to defeat the enemies.",
-    "abilityTypes": ["basic-attack"],
+    "abilityTypes": ["basic-attack", "armor-smash"],
     "baseAttributes": {
       "maximumHealth": 1000,
       "maximumMana": 500,

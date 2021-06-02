@@ -1,0 +1,14 @@
+[
+  {
+    "key": "poison",
+    "name": "Poison",
+    "description": "The character takes {damagePerSecond} damage per second.",
+    "parameters": ["damagePerSecond"]
+  },
+  {
+    "key": "modified-attribute",
+    "name": "Modified Attribute",
+    "description": null,
+    "parameters": ["attributeKey", "abilityTags", "amount", "isAdditive"]
+  }
+]

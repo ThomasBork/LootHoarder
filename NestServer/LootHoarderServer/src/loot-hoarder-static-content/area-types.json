@@ -1,7 +1,7 @@
 [
   {
-    "key": "basic-forest",
-    "name": "Basic Forest",
+    "key": "forest",
+    "name": "Forest",
     "description": "Contains various stupid beasts.",
     "level": 1,
     "x": 0,
@@ -87,8 +87,8 @@
     ]
   },
   {
-    "key": "basic-plains",
-    "name": "Basic Plains",
+    "key": "plains",
+    "name": "Plains",
     "description": "Contains scary bandits.",
     "level": 3,
     "x": 250,
