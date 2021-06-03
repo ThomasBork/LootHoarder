@@ -4,8 +4,18 @@
   <app-progress-bar
     [minimumValue]="0"
     [maximumValue]="character.maximumHealth"
+    [rightToLeft]="!isTeam1"
     [value]="character.currentHealth"
-    [text]="character.typeKey"
+    style="margin-bottom:3px"
+  ></app-progress-bar>
+
+  <app-progress-bar
+    [minimumValue]="0"
+    [maximumValue]="character.maximumMana"
+    [rightToLeft]="!isTeam1"
+    [value]="character.currentMana"
+    [barColor]="'blue'"
+    [height]="'5px'"
   ></app-progress-bar>
 
   <div class="image-container">
@@ -61,6 +71,11 @@
           class="cooldown-overlay"
           [style.width] = "getCooldownOverlayWidthInPercent(ability) + '%'"
         >
+        </div>
+
+        <div class="ability-description">
+          <div>{{ability.type.name}}</div>
+          <div>{{ability.type.description}}</div>
         </div>
       </div>
     </li>

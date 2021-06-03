@@ -4,6 +4,7 @@ import { ContractCombatMessageType } from "src/loot-hoarder-contract/server-acti
 import { ContractAbilityUsedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-ability-used-message-content";
 import { ContractBegunUsingAbilityMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-begun-using-ability-message-content";
 import { ContractCombatCharacterCurrentHealthChangedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-health-changed-message-content";
+import { ContractCombatCharacterCurrentManaChangedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-mana-changed-message-content";
 import { ContractCombatEndedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-ended-message-content";
 import { Combat } from "./client-representation/combat";
 import { Game } from "./client-representation/game";
@@ -22,6 +23,10 @@ export class CombatMessageHandler {
     switch(message.typeKey) {
       case ContractCombatMessageType.combatCharacterCurrentHealthChanged: {
         this.handleCharacterCurrentHealthChanged(combat, message.data);
+      }
+      break;
+      case ContractCombatMessageType.combatCharacterCurrentManaChanged: {
+        this.handleCharacterCurrentManaChanged(combat, message.data);
       }
       break;
       case ContractCombatMessageType.begunUsingAbility: {
@@ -80,6 +85,16 @@ export class CombatMessageHandler {
       throw Error (`Character with id: ${characterId} was not found in combat with id: ${combat.id}`);
     }
     character.currentHealth = newCurrentHealth;
+  }
+
+  private handleCharacterCurrentManaChanged(combat: Combat, data: ContractCombatCharacterCurrentManaChangedMessageContent): void {
+    const characterId = data.characterId;
+    const newCurrentMana = data.newCurrentMana;
+    const character = combat.team1.concat(combat.team2).find(c => c.id === characterId);
+    if (!character) {
+      throw Error (`Character with id: ${characterId} was not found in combat with id: ${combat.id}`);
+    }
+    character.currentMana = newCurrentMana;
   }
 
   private handleCombatEnded(combat: Combat, data: ContractCombatEndedMessageContent): void {

@@ -188,6 +188,7 @@ export class GameStateMapper {
       serverCombatCharacter.controllingUserId,
       serverCombatCharacter.name,
       serverCombatCharacter.currentHealth,
+      serverCombatCharacter.currentMana,
       attributeSetValues,
       abilities,
       serverCombatCharacter.remainingTimeToUseAbility,

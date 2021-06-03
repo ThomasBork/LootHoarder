@@ -21,7 +21,10 @@
       </ul>
     </div>
     <div class="area-container">
-      <app-combat [combat]="selectedArea.currentCombat"></app-combat>
+      <app-combat 
+        [combat]="selectedArea.currentCombat"
+        [area]="selectedArea"
+      ></app-combat>
       <div
         *ngIf="hasCombatEnded"
         class="end-of-combat-overlay"

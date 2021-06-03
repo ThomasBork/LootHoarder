@@ -80,7 +80,7 @@
   {
     "key": "cobra-strike",
     "name": "Cobra Strike",
-    "description": "Deals physical damage to an enemy with a 50% chance to apply poison on hit.",
+    "description": "Deals physical damage to an enemy with a 50% chance to apply poisoned on hit.",
     "tags": ["physical", "poison", "attack"],
     "inheritedTags": ["attack"],
     "manaCost": 8,
@@ -99,9 +99,42 @@
       {
         "key": "apply-continuous-effect",
         "target": "any-enemy",
+        "tags": ["poison", "debuff"],
+        "parameters": {
+          "typeKey": "poisoned",
+          "duration": 10000,
+          "parameters": {
+            "damagePerSecond": 5
+          }
+        }
+      }
+    ]
+  },
+  {
+    "key": "contamination",
+    "name": "Contamination",
+    "description": "Deals poison damage and applies poisoned to all enemies.",
+    "tags": ["poison", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 20,
+    "timeToUse": 2000,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0.1,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "all-enemies",
         "tags": ["poison"],
         "parameters": {
-          "typeKey": "poison",
+          "baseAmount": 15
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "all-enemies",
+        "tags": ["poison", "debuff"],
+        "parameters": {
+          "typeKey": "poisoned",
           "duration": 10000,
           "parameters": {
             "damagePerSecond": 5

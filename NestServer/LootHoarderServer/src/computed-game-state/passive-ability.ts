@@ -4,6 +4,7 @@ import { DbPassiveAbility } from "src/raw-game-state/db-passive-ability";
 import { StaticGameContentService } from "src/services/static-game-content-service";
 import { PassiveAbilityParameters } from "./passive-ability-parameters";
 import { PassiveAbilityParametersAttribute } from "./passive-ability-parameters-attribute";
+import { PassiveAbilityParametersUnlockAbility } from "./passive-ability-parameters-unlock-ability";
 import { PassiveAbilityType } from "./passive-ability-type";
 
 export class PassiveAbility {
@@ -39,6 +40,12 @@ export class PassiveAbility {
           PassiveAbility.expectString(dbModel.parameters.attributeType) as ContractAttributeType,
           PassiveAbility.expectStringArray(dbModel.parameters.abilityTags),
           PassiveAbility.expectNumber(dbModel.parameters.amount)
+        );
+      }
+      break;
+      case 'unlock-ability': {
+        abilityParameters = new PassiveAbilityParametersUnlockAbility(
+          PassiveAbility.expectString(dbModel.parameters.abilityTypeKey)
         );
       }
       break;

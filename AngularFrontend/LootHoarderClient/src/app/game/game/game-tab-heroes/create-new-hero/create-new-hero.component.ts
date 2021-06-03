@@ -18,6 +18,8 @@ import { HeroSkillTreeStatus } from '../../client-representation/hero-skill-tree
 export class CreateNewHeroComponent implements OnInit {
   @Output()
   public createHero: EventEmitter<void> = new EventEmitter();
+  @Output()
+  public cancel: EventEmitter<void> = new EventEmitter();
 
   public heroTypes!: HeroType[];
   public selectedHeroType!: HeroType;
@@ -44,7 +46,21 @@ export class CreateNewHeroComponent implements OnInit {
     this.selectedHeroTypeIndex = 0;
     this.selectedHeroType = this.heroTypes[this.selectedHeroTypeIndex];
     this.initializeTemporaryHero();
+    this.randomizeFace();
     this.updatedSelectedHeroType();
+  }
+
+  public exit(): void {
+    this.cancel.emit();
+  }
+
+  public randomizeFace(): void {
+    this.eyesId = Math.ceil(Math.random() * this.eyesCount);
+    this.noseId = Math.ceil(Math.random() * this.noseCount);
+    this.mouthId = Math.ceil(Math.random() * this.mouthCount);
+    this.temporaryHero.eyesId = this.eyesId;
+    this.temporaryHero.noseId = this.noseId;
+    this.temporaryHero.mouthId = this.mouthId;
   }
 
   public choosePreviousHeroType(): void {

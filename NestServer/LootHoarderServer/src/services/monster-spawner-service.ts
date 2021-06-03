@@ -35,6 +35,7 @@ export class MonsterSpawnerService {
       attributes.setAdditiveAttributeSet(attributesPerLevel);
 
       const maximumHealth = attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer.value;
+      const maximumMana = attributes.getAttribute(ContractAttributeType.maximumMana, []).valueContainer.value;
 
       const dbAttributeSet = attributes.toDbModel();
 
@@ -42,6 +43,7 @@ export class MonsterSpawnerService {
         id: firstMonsterId + index,
         typeKey: monsterType.key,
         currentHealth: maximumHealth,
+        currentMana: maximumMana,
         name: monsterType.name,
         controllingUserId: game.userId,
         attributeSet: dbAttributeSet,

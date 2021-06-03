@@ -7,6 +7,7 @@ export interface ContractCombatCharacter {
   controllingUserId?: number;
   name: string;
   currentHealth: number;
+  currentMana: number;
   attributes: ContractAttribute[];
   abilities: ContractCombatCharacterAbility[];
   remainingTimeToUseAbility: number;

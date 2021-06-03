@@ -1,6 +1,7 @@
 import { AbilityTagTranslator } from "src/app/shared/ability-tag-translator";
 import { AttributeTypeTranslator } from "src/app/shared/attribute-type-translator";
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
+import { AssetManagerService } from "./asset-manager.service";
 import { PassiveAbilityType } from "./passive-ability-type";
 
 export class PassiveAbility {
@@ -29,6 +30,11 @@ export class PassiveAbility {
           : '';
         const amountText = isAdditive ? amount : 'x' + amount;
         return abilityTagText + attributeTypeText + ' ' + amountText;
+      }
+      case 'unlock-ability': {
+        const abilityTypeKey: string = this.parameters.abilityTypeKey;
+        const abilityType = AssetManagerService.instance.getAbilityType(abilityTypeKey);
+        return `Unlocks the ${abilityType.name} ability`;
       }
       default: 
         throw Error(`Unhandled ability type: ${this.type.key}`);

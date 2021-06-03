@@ -7,6 +7,7 @@ export interface DbCombatCharacter {
   controllingUserId?: number;
   name: string;
   currentHealth: number;
+  currentMana: number;
   attributeSet: DbAttributeSet;
   abilities: DbAbility[];
   idOfAbilityBeingUsed?: number;

@@ -92,6 +92,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
               !ability.type.requiresTarget
               || combat.getLegalTargets(character, ability, false).length > 0
             )
+            && ability.manaCostVC.value < character.currentMana
           );
 
         if (availableAbilities.length > 0) {
@@ -110,6 +111,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
           character.remainingTimeToUseAbility = timeToUse;
           character.totalTimeToUseAbility = timeToUse;
           character.targetOfAbilityBeingUsed = target;
+          character.currentMana -= chosenAbility.manaCostVC.value;
 
           // Stop redirecting all events and send ability used message
           const messageInnerEvents = combat.onCombatEvent.flushEventBucket();
@@ -118,7 +120,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
         }
       }
 
-      // Use ability
+      // Resolve ability
       if (character.abilityBeingUsed && character.remainingTimeToUseAbility <= 0) {
         // Now all events in the combat will be put into this new bucket
         combat.onCombatEvent.setUpNewEventBucket();

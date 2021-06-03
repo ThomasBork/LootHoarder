@@ -9,6 +9,7 @@ export class CombatCharacter {
   public controllingUserId?: number;
   public name: string;
   public currentHealth: number;
+  public currentMana: number;
   public attributes: AttributeSet;
   public abilities: CombatCharacterAbility[];
   public remainingTimeToUseAbility: number;
@@ -23,6 +24,7 @@ export class CombatCharacter {
     controllingUserId: number | undefined,
     name: string,
     currentHealth: number,
+    currentMana: number,
     attributes: AttributeSet,
     abilities: CombatCharacterAbility[],
     remainingTimeToUseAbility: number,
@@ -34,6 +36,7 @@ export class CombatCharacter {
     this.controllingUserId = controllingUserId;
     this.name = name;
     this.currentHealth = currentHealth;
+    this.currentMana = currentMana;
     this.attributes = attributes;
     this.abilities = abilities;
     this.remainingTimeToUseAbility = remainingTimeToUseAbility;
@@ -51,6 +54,10 @@ export class CombatCharacter {
 
   public get maximumHealth(): number {
     return this.attributes.getAttribute(ContractAttributeType.maximumHealth, []).value;
+  }
+
+  public get maximumMana(): number {
+    return this.attributes.getAttribute(ContractAttributeType.maximumMana, []).value;
   }
 
   public get isAlive(): boolean { return this.currentHealth > 0; }

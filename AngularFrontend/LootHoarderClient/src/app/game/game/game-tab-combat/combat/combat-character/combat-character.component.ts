@@ -10,9 +10,11 @@ import { CombatCharacterAbility } from '../../../client-representation/combat-ch
 export class CombatCharacterComponent {
   @Input()
   public character!: CombatCharacter;
+  @Input()
+  public isTeam1!: boolean;
 
   public getImagePath(): string {
-    return `assets/images/${this.character.typeKey}.png`;
+    return `assets/images/combat-character/${this.character.typeKey}.png`;
   }
 
   public getAbilityUsageBarColor(): string {

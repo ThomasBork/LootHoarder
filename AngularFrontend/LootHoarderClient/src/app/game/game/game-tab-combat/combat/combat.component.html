@@ -1,4 +1,7 @@
-<div class="content">
+<div 
+  class="content"
+  [style.background-image]="'url(assets/images/area/' + area.type.key + '.png'"
+>
   <ul class="team1-characters">
     <li 
       *ngFor="let character of combat.team1"
@@ -6,6 +9,7 @@
     >
       <app-combat-character
         [character]="character"
+        [isTeam1]="true"
       ></app-combat-character>
     </li>
   </ul>
@@ -16,6 +20,7 @@
     >
       <app-combat-character
         [character]="character"
+        [isTeam1]="false"
       ></app-combat-character>
     </li>
   </ul>

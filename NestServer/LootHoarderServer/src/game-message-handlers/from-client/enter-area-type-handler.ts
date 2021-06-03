@@ -52,6 +52,7 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
         id: index + 1,
         typeKey: hero.type.key,
         currentHealth: hero.maximumHealthVC.value,
+        currentMana: hero.maximumManaVC.value,
         name: hero.name,
         controllingUserId: command.game.userId,
         attributeSet: hero.attributes

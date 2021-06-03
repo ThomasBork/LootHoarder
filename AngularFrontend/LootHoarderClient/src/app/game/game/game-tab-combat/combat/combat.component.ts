@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Area } from '../../client-representation/area';
 import { Combat } from '../../client-representation/combat';
 
 @Component({
@@ -9,4 +10,6 @@ import { Combat } from '../../client-representation/combat';
 export class CombatComponent {
   @Input()
   public combat!: Combat;
+  @Input()
+  public area!: Area;
 }

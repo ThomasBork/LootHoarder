@@ -5,11 +5,13 @@ import { CombatTab } from "./combat-tab";
 import { Game } from "./game";
 import { GameTabName } from "./game-tab-name";
 import { Hero } from "./hero";
+import { HeroTab } from "./hero-tab";
 import { WorldTab } from "./world-tab";
 
 export class UIState {
   public game: Game;
   public worldTab: WorldTab;
+  public heroTab: HeroTab;
   public combatTab: CombatTab;
 
   public selectedTabName: GameTabName;
@@ -17,12 +19,17 @@ export class UIState {
   public constructor(game: Game) {
     this.game = game;
     this.worldTab = new WorldTab();
+    this.heroTab = new HeroTab();
     this.combatTab = new CombatTab();
     this.selectedTabName = game.heroes.length === 0 ? GameTabName.heroes : GameTabName.world;
+    if (game.heroes.length === 1) {
+      this.heroTab.selectedHero = game.heroes[0];
+    }
   }
 
   public addHero(hero: Hero): void {
     this.game.heroes.push(hero);
+    this.heroTab.selectedHero = hero;
   }
 
   public addArea(area: Area): void {

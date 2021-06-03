@@ -49,6 +49,9 @@ export class UIStateAdvancer {
       
       const allCharacters = combat.getAllCharacters();
       for(const character of allCharacters) {
+        if (!character.isAlive) {
+          continue;
+        }
         if (character.remainingTimeToUseAbility > 0) {
           character.remainingTimeToUseAbility -= tickSize;
           if (character.remainingTimeToUseAbility < 0) {

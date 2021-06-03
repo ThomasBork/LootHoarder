@@ -17,16 +17,15 @@
                 "typeKey": "snake"
               },
               {
-                "typeKey": "snake"
-              },
+                "typeKey": "moth"
+              }
+            ]
+          },
+          {
+            "weight": 1000,
+            "monsters": [
               {
-                "typeKey": "snake"
-              },
-              {
-                "typeKey": "snake"
-              },
-              {
-                "typeKey": "snake"
+                "typeKey": "wolf"
               },
               {
                 "typeKey": "snake"
@@ -37,16 +36,26 @@
             "weight": 1000,
             "monsters": [
               {
-                "typeKey": "snake"
+                "typeKey": "wolf"
               },
               {
-                "typeKey": "snake"
-              },
+                "typeKey": "moth"
+              }
+            ]
+          },
+          {
+            "weight": 1000,
+            "monsters": [
               {
-                "typeKey": "snake"
-              },
+                "typeKey": "wolf"
+              }
+            ]
+          },
+          {
+            "weight": 1000,
+            "monsters": [
               {
-                "typeKey": "snake"
+                "typeKey": "moth"
               }
             ]
           },
@@ -55,30 +64,6 @@
             "monsters": [
               {
                 "typeKey": "snake"
-              },
-              {
-                "typeKey": "snake"
-              }
-            ]
-          },
-          {
-            "weight": 1000,
-            "monsters": [
-              {
-                "typeKey": "snake"
-              }
-            ]
-          }
-        ]
-      }, 
-      {
-        "repetitionAmount": 1,
-        "encounters": [
-          {
-            "weight": 1000,
-            "monsters": [
-              {
-                "typeKey": "bear"
               }
             ]
           }
@@ -101,7 +86,10 @@
             "weight": 500,
             "monsters": [
               {
-                "typeKey": "snake"
+                "typeKey": "bandit-mage"
+              },
+              {
+                "typeKey": "bandit-mage"
               }
             ]
           },
@@ -109,7 +97,10 @@
             "weight": 500,
             "monsters": [
               {
-                "typeKey": "bear"
+                "typeKey": "sellsword"
+              },
+              {
+                "typeKey": "sellsword"
               }
             ]
           },
@@ -117,21 +108,7 @@
             "weight": 1000,
             "monsters": [
               {
-                "typeKey": "snake"
-              },
-              {
-                "typeKey": "snake"
-              }
-            ]
-          },
-          {
-            "weight": 300,
-            "monsters": [
-              {
-                "typeKey": "bear"
-              },
-              {
-                "typeKey": "snake"
+                "typeKey": "assassin"
               }
             ]
           }

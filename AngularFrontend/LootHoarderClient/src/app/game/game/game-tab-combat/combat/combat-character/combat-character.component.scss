@@ -24,6 +24,7 @@
       border: 2px solid black;
       border-radius: 4px;
       margin-right: 5px;
+      background-color: white;
 
       &.being-used {
         border-color: orangered;
@@ -48,6 +49,24 @@
         opacity: 0.5;
         height: 100%;
         background-color: black;
+      }
+
+      .ability-description {
+        left: 50%;
+        bottom: calc(100% + 10px);
+        transform: translateX(-50%);
+        width: max-content;
+        max-width: 400px;
+        position: absolute;
+        background-color: lightgrey;
+        border-radius: 5px;
+        padding: 5px;
+      }
+
+      &:not(:hover) {
+        .ability-description {
+          display: none;
+        }
       }
     }
   }

@@ -9,9 +9,8 @@ import { UIStateManager } from '../ui-state-manager';
   templateUrl: './game-tab-heroes.component.html',
   styleUrls: ['./game-tab-heroes.component.scss']
 })
-export class GameTabHeroesComponent implements OnInit {
+export class GameTabHeroesComponent {
   public isCreatingNewHero: boolean = false;
-  public selectedHero?: Hero;
   public draggedItem?: Item;
 
   public constructor(
@@ -24,11 +23,7 @@ export class GameTabHeroesComponent implements OnInit {
     return this.game.maximumAmountOfHeroes - this.game.heroes.length;
   }
 
-  public ngOnInit(): void {
-    if (this.game.heroes.length === 1) {
-      this.selectedHero = this.game.heroes[0];
-    }
-  }
+  public get selectedHero(): Hero | undefined { return this.uiStateManager.state.heroTab.selectedHero; }
 
   public openCreateNewHero(): void {
     this.isCreatingNewHero = true;
@@ -39,7 +34,7 @@ export class GameTabHeroesComponent implements OnInit {
   }
 
   public selectHero(hero: Hero): void {
-    this.selectedHero = hero;
+    this.uiStateManager.state.heroTab.selectedHero = hero;
   }
 
   public setDraggedItem(item: Item | undefined): void {

@@ -293,6 +293,60 @@
       "fromY": -6,
       "toX": 0,
       "toY": -6
+    },
+    {
+      "fromX": -3,
+      "fromY": 0,
+      "toX": -3,
+      "toY": 1
+    },
+    {
+      "fromX": -3,
+      "fromY": 1,
+      "toX": -4,
+      "toY": 1
+    },
+    {
+      "fromX": -4,
+      "fromY": 1,
+      "toX": -5,
+      "toY": 1
+    },
+    {
+      "fromX": -5,
+      "fromY": 1,
+      "toX": -5,
+      "toY": 2
+    },
+    {
+      "fromX": -5,
+      "fromY": 2,
+      "toX": -5,
+      "toY": 3
+    },
+    {
+      "fromX": -5,
+      "fromY": 3,
+      "toX": -4,
+      "toY": 3
+    },
+    {
+      "fromX": -4,
+      "fromY": 3,
+      "toX": -3,
+      "toY": 3
+    },
+    {
+      "fromX": -3,
+      "fromY": 3,
+      "toX": -3,
+      "toY": 2
+    },
+    {
+      "fromX": -3,
+      "fromY": 2,
+      "toX": -3,
+      "toY": 1
     }
   ],
   "nodes": [
@@ -474,17 +528,12 @@
     {
       "x": 1,
       "y": 3,
-      "size": 2,
+      "size": 3,
       "abilities": [
         {
-          "typeKey": "attribute",
+          "typeKey": "unlock-ability",
           "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
+            "abilityTypeKey": "flame-slash"
           }
         }
       ]
@@ -1087,6 +1136,145 @@
               "spell"
             ],
             "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "cobra-strike"
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": 2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": 3,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 1.5
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": 2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
           }
         }
       ]

@@ -27,6 +27,19 @@ export class AssetManagerService {
   private passiveAbilityTypes!: PassiveAbilityType[];
   private heroSkillTree!: HeroSkillTree;
 
+  private static _instance?: AssetManagerService;
+  public constructor() {
+    AssetManagerService._instance = this;
+  }
+
+  public static get instance(): AssetManagerService {
+    if (!AssetManagerService._instance) {
+      throw Error ('Cannot get instance of the AssetManagerService before an instance has been constructed.');
+    }
+
+    return AssetManagerService._instance;
+  }
+
   public loadAssets(): void {
     this.loadAbilityTypes();
     this.loadPassiveAbilityTypes();

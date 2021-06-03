@@ -1,5 +1,6 @@
 import { Subject } from 'rxjs';
 import { ContractCombatCharacterCurrentHealthChangedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-health-changed-message';
+import { ContractCombatCharacterCurrentManaChangedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-mana-changed-message';
 import { ContractCombatEndedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-ended-message';
 import { ContractCombat } from 'src/loot-hoarder-contract/contract-combat';
 import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/server-actions/contract-combat-web-socket-inner-message';
@@ -116,6 +117,10 @@ export class Combat {
     for(const character of allCharacters) {
       character.onCurrentHealthChanged.subscribe(newCurrentHealth => {
         this.onCombatEvent.next(new ContractCombatCharacterCurrentHealthChangedMessage(character.id, newCurrentHealth));
+        this.updateHasEnded();
+      });
+      character.onCurrentManaChanged.subscribe(newCurrentMana => {
+        this.onCombatEvent.next(new ContractCombatCharacterCurrentManaChangedMessage(character.id, newCurrentMana));
         this.updateHasEnded();
       });
     }

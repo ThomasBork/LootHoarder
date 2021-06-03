@@ -44,4 +44,5 @@
 <app-create-new-hero 
   *ngIf="isCreatingNewHero"
   (createHero)="closeCreateNewHero()"
+  (cancel)="closeCreateNewHero()"
 ></app-create-new-hero>

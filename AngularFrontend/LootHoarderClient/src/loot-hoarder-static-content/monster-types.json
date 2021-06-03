@@ -2,7 +2,7 @@
   {
     "key": "snake",
     "name": "Snake",
-    "abilityTypes": ["basic-attack"],
+    "abilityTypes": ["basic-attack", "cobra-strike"],
     "baseAttributes": {
       "maximumHealth": 200,
       "maximumMana": 100,
@@ -25,26 +25,126 @@
     }
   },
   {
-    "key": "bear",
-    "name": "Bear",
+    "key": "wolf",
+    "name": "Wolf",
     "abilityTypes": ["basic-attack"],
     "baseAttributes": {
-      "maximumHealth": 800,
+      "maximumHealth": 400,
       "maximumMana": 50,
-      "attackPower": 150,
+      "attackPower": 100,
       "spellPower": 50,
-      "attackUseSpeed": 80,
+      "attackUseSpeed": 100,
       "spellUseSpeed": 50,
-      "attackCooldownSpeed": 80,
+      "attackCooldownSpeed": 100,
       "spellCooldownSpeed": 100,
       "physicalResistance": 50,
-      "elementalResistance":50
+      "elementalResistance": 0
     },
     "attributesPerLevel": {
-      "maximumHealth": 100,
+      "maximumHealth": 50,
       "maximumMana": 5,
-      "attackPower": 15,
+      "attackPower": 10,
       "spellPower": 5,
+      "physicalResistance": 5,
+      "elementalResistance": 5
+    }
+  },
+  {
+    "key": "moth",
+    "name": "Moth",
+    "abilityTypes": ["basic-attack", "contamination"],
+    "baseAttributes": {
+      "maximumHealth": 250,
+      "maximumMana": 50,
+      "attackPower": 30,
+      "spellPower": 100,
+      "attackUseSpeed": 50,
+      "spellUseSpeed": 100,
+      "attackCooldownSpeed": 100,
+      "spellCooldownSpeed": 50,
+      "physicalResistance": 50,
+      "elementalResistance": 50
+    },
+    "attributesPerLevel": {
+      "maximumHealth": 30,
+      "maximumMana": 5,
+      "attackPower": 3,
+      "spellPower": 10,
+      "physicalResistance": 5,
+      "elementalResistance": 0
+    }
+  },
+  {
+    "key": "sellsword",
+    "name": "Sellsword",
+    "abilityTypes": ["basic-attack", "flame-slash"],
+    "baseAttributes": {
+      "maximumHealth": 400,
+      "maximumMana": 50,
+      "attackPower": 100,
+      "spellPower": 100,
+      "attackUseSpeed": 100,
+      "spellUseSpeed": 100,
+      "attackCooldownSpeed": 100,
+      "spellCooldownSpeed": 100,
+      "physicalResistance": 50,
+      "elementalResistance": 50
+    },
+    "attributesPerLevel": {
+      "maximumHealth": 50,
+      "maximumMana": 5,
+      "attackPower": 10,
+      "spellPower": 10,
+      "physicalResistance": 5,
+      "elementalResistance": 5
+    }
+  },
+  {
+    "key": "assassin",
+    "name": "Assassin",
+    "abilityTypes": ["basic-attack", "cobra-strike"],
+    "baseAttributes": {
+      "maximumHealth": 350,
+      "maximumMana": 50,
+      "attackPower": 100,
+      "spellPower": 100,
+      "attackUseSpeed": 200,
+      "spellUseSpeed": 100,
+      "attackCooldownSpeed": 200,
+      "spellCooldownSpeed": 100,
+      "physicalResistance": 50,
+      "elementalResistance": 50
+    },
+    "attributesPerLevel": {
+      "maximumHealth": 50,
+      "maximumMana": 5,
+      "attackPower": 20,
+      "spellPower": 10,
+      "physicalResistance": 5,
+      "elementalResistance": 5
+    }
+  },
+  {
+    "key": "bandit-mage",
+    "name": "Bandit Mage",
+    "abilityTypes": ["basic-attack", "lightning-bolt"],
+    "baseAttributes": {
+      "maximumHealth": 300,
+      "maximumMana": 50,
+      "attackPower": 100,
+      "spellPower": 100,
+      "attackUseSpeed": 100,
+      "spellUseSpeed": 100,
+      "attackCooldownSpeed": 100,
+      "spellCooldownSpeed": 100,
+      "physicalResistance": 50,
+      "elementalResistance": 50
+    },
+    "attributesPerLevel": {
+      "maximumHealth": 40,
+      "maximumMana": 5,
+      "attackPower": 10,
+      "spellPower": 10,
       "physicalResistance": 5,
       "elementalResistance": 5
     }

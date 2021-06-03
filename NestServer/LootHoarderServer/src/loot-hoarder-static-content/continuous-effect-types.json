@@ -1,8 +1,8 @@
 [
   {
-    "key": "poison",
-    "name": "Poison",
-    "description": "The character takes {damagePerSecond} damage per second.",
+    "key": "poisoned",
+    "name": "Poisoned",
+    "description": "The character takes {damagePerSecond} poison damage per second.",
     "parameters": ["damagePerSecond"]
   },
   {

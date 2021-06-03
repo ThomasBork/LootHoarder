@@ -24,6 +24,7 @@ import { PassiveAbilityParametersAttribute } from "./passive-ability-parameters-
 import { HeroSkillTreeNode } from "./hero-skill-tree-node";
 import { PassiveAbility } from "./passive-ability";
 import { ContractSkillNodeLocation } from "src/loot-hoarder-contract/contract-skill-node-location";
+import { PassiveAbilityParametersUnlockAbility } from "./passive-ability-parameters-unlock-ability";
 
 export class Hero {
   public dbModel: DbHero;
@@ -32,6 +33,7 @@ export class Hero {
   public inventory: Inventory;
   public abilityTypes: AbilityType[];
   public maximumHealthVC: ValueContainer;
+  public maximumManaVC: ValueContainer;
 
   public totalSkillPointsVC: ValueContainer;
   public takenSkillTreeNodes: HeroSkillTreeNode[];
@@ -60,6 +62,7 @@ export class Hero {
     this.onItemUnequipped = new Subject();
     this.abilityTypes = dbModel.abilityTypeKeys.map(key => StaticGameContentService.instance.getAbilityType(key));
     this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer;
+    this.maximumManaVC = this.attributes.getAttribute(ContractAttributeType.maximumMana, []).valueContainer;
     
     this.takenSkillTreeNodes = takenSkillTreeNodes;
     this.availableSkillTreeNodes = availableSkillTreeNodes;
@@ -83,6 +86,7 @@ export class Hero {
     this.setUpEventListeners();
 
     this.inventory.getAllItems().forEach(item => this.applyItemEffects(item));
+    this.takenSkillTreeNodes.forEach(skillNode => this.applyPassiveAbilityEffects(skillNode.passiveAbilities));
   }
 
   public get id(): number { return this.dbModel.id; }
@@ -216,6 +220,16 @@ export class Hero {
           }
         }
         break;
+        case 'unlock-ability': {
+          if (!(ability.parameters instanceof PassiveAbilityParametersUnlockAbility)) {
+            throw Error ('Expected unlock ability ability to have unlock ability ability parameters.');
+          }
+          const abilityType = StaticGameContentService.instance.getAbilityType(ability.parameters.abilityTypeKey);
+          if (!this.abilityTypes.includes(abilityType)) {
+            this.abilityTypes.push(abilityType);
+          }
+        }
+        break;
         default: throw Error (`Unhandled ability type: ${ability.type.key}`);
       }
     }
@@ -231,6 +245,14 @@ export class Hero {
           const attribute = this.attributes.getAttribute(ability.parameters.attributeType, ability.parameters.abilityTags);
           const attributeValueContainer = ability.parameters.isAdditive ? attribute.additiveValueContainer : attribute.multiplicativeValueContainer;
           attributeValueContainer.removeModifiers(ability);
+        }
+        break;
+        case 'unlock-ability': {
+          if (!(ability.parameters instanceof PassiveAbilityParametersUnlockAbility)) {
+            throw Error ('Expected unlock ability ability to have unlock ability ability parameters.');
+          }
+          const abilityType = StaticGameContentService.instance.getAbilityType(ability.parameters.abilityTypeKey);
+          this.abilityTypes.splice(this.abilityTypes.indexOf(abilityType), 1);
         }
         break;
         default: throw Error (`Unhandled ability type: ${ability.type.key}`);

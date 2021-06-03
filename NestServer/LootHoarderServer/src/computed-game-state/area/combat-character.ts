@@ -13,7 +13,9 @@ export class CombatCharacter {
   public abilities: Ability[];
   public abilityBeingUsed?: Ability;
   public onCurrentHealthChanged: Subject<number>;
+  public onCurrentManaChanged: Subject<number>;
   public maximumHealthVC: ValueContainer;
+  public maximumManaVC: ValueContainer;
   
   private _targetOfAbilityBeingUsed?: CombatCharacter;
 
@@ -29,8 +31,10 @@ export class CombatCharacter {
       this.abilityBeingUsed = abilities.find(a => a.id === dbModel.idOfAbilityBeingUsed);
     }
     this.onCurrentHealthChanged = new Subject();
+    this.onCurrentManaChanged = new Subject();
     this.setUpAbilityValueContainers();
     this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer;
+    this.maximumManaVC = this.attributes.getAttribute(ContractAttributeType.maximumMana, []).valueContainer;
   }
 
   public get id(): number { return this.dbModel.id; }
@@ -46,6 +50,19 @@ export class CombatCharacter {
     if (this.dbModel.currentHealth !== value) {
       this.dbModel.currentHealth = value;
       this.onCurrentHealthChanged.next(value);
+    }
+  }
+  public get currentMana(): number { return this.dbModel.currentMana; }
+  public set currentMana(value: number) { 
+    if (value < 0) {
+      value = 0;
+    }
+    if (value > this.maximumManaVC.value) {
+      value = this.maximumManaVC.value;
+    }
+    if (this.dbModel.currentMana !== value) {
+      this.dbModel.currentMana = value;
+      this.onCurrentManaChanged.next(value);
     }
   }
   public get isAlive(): boolean { return this.currentHealth > 0; }
@@ -67,6 +84,7 @@ export class CombatCharacter {
       id: this.dbModel.id,
       typeKey: this.dbModel.typeKey,
       currentHealth: this.dbModel.currentHealth,
+      currentMana: this.dbModel.currentMana,
       name: this.dbModel.name,
       controllingUserId: this.dbModel.controllingUserId,
       attributes: this.attributes.toContractModel(),
