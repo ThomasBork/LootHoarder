@@ -202,6 +202,5 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
     }
 
     ability.startCooldown();
-    this.logger.log(`[${usingCharacter.id}]: Begins cooling down ${ability.type.name} over ${ability.remainingCooldown} milliseconds.`);
   }
 }

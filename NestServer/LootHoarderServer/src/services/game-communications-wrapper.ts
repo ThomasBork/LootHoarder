@@ -4,6 +4,7 @@ import { Connection } from "./connection";
 import { CommandBus } from "@nestjs/cqrs";
 import { EnterAreaType } from "src/game-message-handlers/from-client/enter-area-type";
 import { CreateHero } from "src/game-message-handlers/from-client/create-hero";
+import { ContractSendChatMessageMessageContent } from "src/loot-hoarder-contract/client-actions/contract-send-chat-message-message-content";
 import { ContractLeaveAreaMessageContent } from "src/loot-hoarder-contract/client-actions/contract-leave-area-message-content";
 import { ContractEquipItemMessageContent } from "src/loot-hoarder-contract/client-actions/contract-equip-item-message-content";
 import { ContractGoToNextCombatMessageContent } from "src/loot-hoarder-contract/client-actions/contract-go-to-next-combat-message-content";
@@ -18,6 +19,7 @@ import { EquipItem } from "src/game-message-handlers/from-client/equip-item";
 import { ContractCreateHeroMessageContent } from "src/loot-hoarder-contract/client-actions/contract-create-hero-message-content";
 import { ContractTakeHeroSkillNodeMessageContent } from "src/loot-hoarder-contract/client-actions/contract-take-hero-skill-node-message-content";
 import { TakeHeroSkillNode } from "src/game-message-handlers/from-client/take-hero-skill-node";
+import { SendChatMessage } from "src/game-message-handlers/from-client/send-chat-message";
 
 
 
@@ -50,6 +52,16 @@ export class GameCommunicationsWrapper {
     this.logger.log('Received message: ' + JSON.stringify(message));
 
     switch(message.typeKey) {
+      case ContractClientMessageType.sendChatMessage: {
+        const data: ContractSendChatMessageMessageContent = message.data;
+        const user = this.connection!.user!;
+        this.commandBus.execute(new SendChatMessage(
+          user.id,
+          user.userName,
+          data.messageContent
+        ));
+      }
+      break;
       case ContractClientMessageType.createHero: {
         const data: ContractCreateHeroMessageContent = message.data;
         this.commandBus.execute(new CreateHero(

@@ -3,5 +3,6 @@ export enum GameTabName {
   heroes = 'heroes',
   combat = 'combat',
   items = 'items',
-  settings = 'settings'
+  settings = 'settings',
+  social = 'social'
 }

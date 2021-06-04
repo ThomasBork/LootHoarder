@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Game } from '../client-representation/game';
 import { GameTabName } from '../client-representation/game-tab-name';
-import { UIState } from '../client-representation/ui-state';
 import { UIStateManager } from '../ui-state-manager';
 
 @Component({
@@ -19,6 +17,7 @@ export class GameTabMenuComponent {
   public get isOnCombatTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.combat; }
   public get isOnItemsTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.items; }
   public get isOnSettingsTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.settings; }
+  public get isOnSocialTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.social; }
 
   public goToWorldTab(): void {
     this.uiStateManager.state.selectTab(GameTabName.world);
@@ -38,5 +37,9 @@ export class GameTabMenuComponent {
 
   public goToSettingsTab(): void {
     this.uiStateManager.state.selectTab(GameTabName.settings);
+  }
+
+  public goToSocialTab(): void {
+    this.uiStateManager.state.selectTab(GameTabName.social);
   }
 }

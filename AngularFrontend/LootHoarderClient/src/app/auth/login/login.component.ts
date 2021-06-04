@@ -26,6 +26,12 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  public handleKeyPress(keyEvent: KeyboardEvent): void {
+    if (keyEvent.key === 'Enter') {
+      this.login();
+    }
+  }
+
   private clearForm(): void {
     this.userName = '';
     this.password = '';

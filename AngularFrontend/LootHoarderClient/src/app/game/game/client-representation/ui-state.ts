@@ -1,11 +1,15 @@
+import { ContractServerChatMessageType } from "src/loot-hoarder-contract/server-actions/contract-server-chat-message-type";
 import { Area } from "./area";
 import { AreaType } from "./area-type";
+import { ChatMessage } from "./chat-message";
 import { Combat } from "./combat";
 import { CombatTab } from "./combat-tab";
 import { Game } from "./game";
 import { GameTabName } from "./game-tab-name";
 import { Hero } from "./hero";
 import { HeroTab } from "./hero-tab";
+import { SocialTab } from "./social-tab";
+import { User } from "./user";
 import { WorldTab } from "./world-tab";
 
 export class UIState {
@@ -13,6 +17,7 @@ export class UIState {
   public worldTab: WorldTab;
   public heroTab: HeroTab;
   public combatTab: CombatTab;
+  public socialTab: SocialTab;
 
   public selectedTabName: GameTabName;
 
@@ -21,6 +26,7 @@ export class UIState {
     this.worldTab = new WorldTab();
     this.heroTab = new HeroTab();
     this.combatTab = new CombatTab();
+    this.socialTab = new SocialTab();
     this.selectedTabName = game.heroes.length === 0 ? GameTabName.heroes : GameTabName.world;
     if (game.heroes.length === 1) {
       this.heroTab.selectedHero = game.heroes[0];
@@ -60,6 +66,15 @@ export class UIState {
     if (areaIndex >= 0) {
       this.game.areas.splice(areaIndex, 1);
     }
+
+    if (this.combatTab.selectedArea === area) {
+      // If the area was the last area in the list
+      if (this.game.areas.length === areaIndex) {
+        this.combatTab.selectedArea = this.game.areas[this.game.areas.length - 1];
+      } else {
+        this.combatTab.selectedArea = this.game.areas[areaIndex];
+      }
+    }
   }
 
   public startCombat(area: Area, combat: Combat, combatNumber: number): void {
@@ -84,5 +99,17 @@ export class UIState {
 
   public selectTab(tabName: GameTabName): void {
     this.selectedTabName = tabName;
+  }
+
+  public addChatMessage(chatMessage: ChatMessage): void {
+    this.socialTab.chatMessages.push(chatMessage);
+    if (chatMessage.messageType === ContractServerChatMessageType.userConnected) {
+      const newUser = new User(chatMessage.userId, chatMessage.userName);
+      this.socialTab.addConnectedUser(newUser);
+    }
+  }
+
+  public updateConnectedUsers(users: User[]): void {
+    this.socialTab.connectedUsers = users;
   }
 }

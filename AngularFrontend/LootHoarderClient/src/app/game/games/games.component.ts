@@ -24,7 +24,7 @@ export class GamesComponent implements OnInit {
   public async createGame(): Promise<void> {
     const gameId = await this.gameService.createGame();
     console.log("Created game with id", gameId);
-    this.loadGames();
+    this.goToGame(gameId);
   }
 
   public goToGame(gameId: number): void {
@@ -37,5 +37,4 @@ export class GamesComponent implements OnInit {
     this.games = games;
     this.isLoading = false;
   }
-
 }

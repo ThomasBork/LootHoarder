@@ -1,8 +1,18 @@
 <div class="form-container">
   <div class="form">
     <p>Enter user name and password</p>
-    <input type="text" placeholder="User name" [(ngModel)]="userName" />
-    <input type="password" placeholder="Password" [(ngModel)]="password" />
+    <input 
+      type="text" 
+      placeholder="User name" 
+      [(ngModel)]="userName" 
+      (keypress)="handleKeyPress($event)"
+    />
+    <input 
+      type="password" 
+      placeholder="Password" 
+      [(ngModel)]="password" 
+      (keypress)="handleKeyPress($event)"
+    />
     <button (click)="login()">Login</button>
   </div>
 </div>

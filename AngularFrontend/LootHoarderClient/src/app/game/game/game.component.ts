@@ -27,6 +27,10 @@ import { ContractItemRemovedFromGameMessageContent } from 'src/loot-hoarder-cont
 import { UIStateManager } from './ui-state-manager';
 import { ContractHeroTookSkillNodeMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-took-skill-node-message-content';
 import { ContractHeroUnspentSkillPointsChangedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-unspent-skill-points-changed-message-content';
+import { ContractChatMessageSentMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-chat-message-sent-message-content';
+import { ContractChatStatusMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-chat-status-message-content';
+import { ChatMessage } from './client-representation/chat-message';
+import { User } from './client-representation/user';
 
 
 @Component({
@@ -99,6 +103,18 @@ export class GameComponent implements OnInit, OnDestroy {
         for(const innerMessage of data.messages) {
           this.handleMessage(innerMessage);
         }
+      }
+      break;
+      case ContractServerMessageType.chatStatus: {
+        const data = message.data as ContractChatStatusMessageContent;
+        const users = data.users.map(u => new User(u.id, u.userName));
+        this.uiStateManager.state.updateConnectedUsers(users);
+      }
+      break;
+      case ContractServerMessageType.chatMessageSent: {
+        const data = message.data as ContractChatMessageSentMessageContent;
+        const chatMessage = new ChatMessage(data.user.id, data.user.userName, data.messageContent, data.messageType, new Date());
+        this.uiStateManager.state.addChatMessage(chatMessage);
       }
       break;
       case ContractServerMessageType.combat: {

@@ -35,6 +35,13 @@
     >
       Settings
     </li>
+    <li 
+      class="tab-button"
+      [class.selected]="isOnSocialTab"
+      (click)="goToSocialTab()"
+    >
+      Social
+    </li>
   </ul>
   
   <div class="tab-content">
@@ -57,5 +64,11 @@
     <app-game-tab-settings
       *ngIf="isOnSettingsTab"
     ></app-game-tab-settings>
+
+    <app-game-tab-social
+      *ngIf="isOnSocialTab"
+    ></app-game-tab-social>
+
+    
   </div>
 </div>

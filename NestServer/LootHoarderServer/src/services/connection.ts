@@ -10,16 +10,15 @@ export class Connection {
   public user?: User;
   public socket: WebSocket;
   public onMessage: Subject<ContractClientWebSocketMessage>;
+  public onAuthTokenReceived: Subject<string>;
   
   private logger: Logger = new Logger('Connection');
-  
-  private userAuthenticator: (authToken: string) => Promise<User | undefined>;
 
-  public constructor(socket: WebSocket, userAuthenticator: (authToken: string) => Promise<User | undefined>) {
+  public constructor(socket: WebSocket) {
     this.socket = socket;
-    this.userAuthenticator = userAuthenticator;
     this.user = undefined;
     this.onMessage = new Subject();
+    this.onAuthTokenReceived = new Subject();
   }
 
   public get isAuthenticated(): boolean { 
@@ -32,20 +31,7 @@ export class Connection {
 
       if (!this.isAuthenticated) {
         const authToken = message;
-        const player = await this.userAuthenticator(authToken);
-        if (player === null) {
-          this.sendMessage({ 
-            typeKey: ContractServerMessageType.authenticationResponse, 
-            data: { success: false, error: `Could not authenticate with the token: "${authToken}"` }
-          });
-          this.socket.close();
-        } else {
-          this.user = player;
-          this.sendMessage({ 
-            typeKey: ContractServerMessageType.authenticationResponse, 
-            data: { success: true }
-          });
-        }
+        this.onAuthTokenReceived.next(authToken);
       } else {
         let messageObject = null;
         try {

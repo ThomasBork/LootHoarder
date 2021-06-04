@@ -1,0 +1,41 @@
+<div class="content">
+  <div class="sidebar">
+    <div class="header">Connected users</div>
+    <ul class="user-list">
+      <li *ngFor="let connectedUser of connectedUsers">{{connectedUser.userName}}</li>
+    </ul>
+  </div>
+  <div class="chat-container">
+    <ul class="chat-history">
+      <li *ngFor="let chatMessage of chatMessages">
+        <ng-container [ngSwitch]="chatMessage.messageType">
+          <span 
+            *ngSwitchCase="'user-connected'"
+            class="chat-message user-connected"
+            [title]="chatMessage.timeStamp | date: 'HH:mm'"
+          >{{chatMessage.messageContent}}</span>
+          <span 
+            *ngSwitchDefault
+            class="chat-message"
+            [title]="chatMessage.timeStamp | date: 'HH:mm'"
+          >{{chatMessage.userName}}: {{chatMessage.messageContent}}</span>
+        </ng-container>
+      </li>
+    </ul>
+    <div
+      class="footer"
+    >
+      <input 
+        type='text' 
+        class="new-chat-message-input"
+        placeholder="Say hello"
+        [(ngModel)]="newChatMessageContent"
+        (keypress)="handleKeyPressInNewChatMessageInput($event)"
+      />
+      <button 
+        class="send-button"
+        (click)="sendMessage()"
+      >Send</button>
+    </div>
+  </div>
+</div>

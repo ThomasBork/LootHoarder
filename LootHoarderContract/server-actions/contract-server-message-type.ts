@@ -5,6 +5,8 @@ export enum ContractServerMessageType {
   areaTypeCompleted = 'area-type-completed',
   combat = 'combat',
   combatStarted = 'combat-started',
+  chatMessageSent = 'chat-message-sent',
+  chatStatus = 'chat-status',
   fullGameState = 'full-game-state',
   heroAdded = 'hero-added',
   heroAttributeChanged = 'hero-attribute-changed',

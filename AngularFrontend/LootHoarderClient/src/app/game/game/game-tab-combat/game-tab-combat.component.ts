@@ -12,7 +12,6 @@ import { UIStateManager } from '../ui-state-manager';
   styleUrls: ['./game-tab-combat.component.scss']
 })
 export class GameTabCombatComponent implements OnInit {
-  public selectedArea?: Area;
 
   public constructor(
     private readonly webSocketService: WebSocketService,
@@ -22,6 +21,10 @@ export class GameTabCombatComponent implements OnInit {
 
   public get areas(): Area[] {
     return this.uiStateManager.state.game.areas;
+  }
+
+  public get selectedArea(): Area | undefined {
+    return this.uiStateManager.state.combatTab.selectedArea;
   }
 
   public get hasCombatEnded(): boolean {
@@ -41,7 +44,7 @@ export class GameTabCombatComponent implements OnInit {
   }
 
   public selectArea(area: Area): void {
-    this.selectedArea = area;
+    this.uiStateManager.state.combatTab.selectedArea = area;
   }
 
   public goToNextCombat(area: Area): void {

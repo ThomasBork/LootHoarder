@@ -45,6 +45,7 @@ import { UIStateManager } from './game/game/ui-state-manager';
 import { GameTabWorldActiveAreaCharacterListComponent } from './game/game/game-tab-world/game-tab-world-area-type-information/game-tab-world-active-area-character-list/game-tab-world-active-area-character-list.component';
 import { ZoomableContainerComponent } from './shared/zoomable-container/zoomable-container.component';
 import { NotificationBubbleComponent } from './shared/notification-bubble/notification-bubble.component';
+import { GameTabSocialComponent } from './game/game/game-tab-social/game-tab-social.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { NotificationBubbleComponent } from './shared/notification-bubble/notifi
     GameTabWorldComponent,
     GameTabSettingsComponent,
     GameTabItemsComponent,
+    GameTabSocialComponent,
     PrettyNumberPipe,
     ProgressBarComponent,
     ZoomableContainerComponent,
