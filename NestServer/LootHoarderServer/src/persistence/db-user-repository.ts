@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { DbQueryHelper } from "./db-query-helper";
+import { DbUser } from "./db-user";
 
 @Injectable()
 export class DbUserRepository {
@@ -60,5 +61,36 @@ export class DbUserRepository {
     const firstResult = result[0];
 
     return firstResult['password'];
+  }
+
+  public async getUserByUserName(userName: string): Promise<DbUser> {
+    const con = await this.dbQueryHelper.createConnection();
+
+    const query = `
+      SELECT id, username FROM user WHERE username = @username
+    `;
+
+    const parameters = {
+      username: userName
+    };
+
+    const queryWithParameterValues = this.dbQueryHelper.buildQuery(query, parameters);
+
+    const result = await con.query(queryWithParameterValues);
+
+    con.end();
+
+    if (result.length === 0) {
+      throw Error('No user found with user name: ' + userName);
+    }
+
+    const firstResult = result[0];
+
+    const dbUser: DbUser = {
+      id: firstResult['id'],
+      userName: firstResult['username']
+    }
+    
+    return dbUser;
   }
 }

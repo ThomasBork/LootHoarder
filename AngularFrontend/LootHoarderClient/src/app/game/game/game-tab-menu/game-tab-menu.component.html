@@ -40,7 +40,11 @@
       [class.selected]="isOnSocialTab"
       (click)="goToSocialTab()"
     >
-      Social
+      <span>Social</span>
+      <app-notification-bubble 
+        *ngIf="amountOfUnreadMessages > 0"
+        [value]="amountOfUnreadMessages"
+      ></app-notification-bubble>
     </li>
   </ul>
   

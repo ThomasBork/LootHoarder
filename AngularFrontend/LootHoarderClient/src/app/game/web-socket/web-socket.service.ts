@@ -32,7 +32,7 @@ export class WebSocketService {
           return;
         }
   
-        const authToken = this.authService.getAuthToken();
+        const authToken = this.authService.getLogin()?.authToken;
   
         if (!authToken) {
           reject('Cannot connect to web socket without an auth token.');

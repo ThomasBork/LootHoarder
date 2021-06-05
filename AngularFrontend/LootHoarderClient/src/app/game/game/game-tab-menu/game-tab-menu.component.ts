@@ -18,6 +18,7 @@ export class GameTabMenuComponent {
   public get isOnItemsTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.items; }
   public get isOnSettingsTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.settings; }
   public get isOnSocialTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.social; }
+  public get amountOfUnreadMessages(): number { return this.uiStateManager.state.socialTab.amountOfUnreadMessages; }
 
   public goToWorldTab(): void {
     this.uiStateManager.state.selectTab(GameTabName.world);
@@ -42,4 +43,5 @@ export class GameTabMenuComponent {
   public goToSocialTab(): void {
     this.uiStateManager.state.selectTab(GameTabName.social);
   }
+
 }

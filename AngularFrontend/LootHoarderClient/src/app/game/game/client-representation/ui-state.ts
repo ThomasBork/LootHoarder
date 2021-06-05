@@ -13,6 +13,9 @@ import { User } from "./user";
 import { WorldTab } from "./world-tab";
 
 export class UIState {
+  public userId: number;
+  public userName: string;
+
   public game: Game;
   public worldTab: WorldTab;
   public heroTab: HeroTab;
@@ -21,8 +24,11 @@ export class UIState {
 
   public selectedTabName: GameTabName;
 
-  public constructor(game: Game) {
+  public constructor(userId: number, userName: string, game: Game) {
+    this.userId = userId;
+    this.userName = userName;
     this.game = game;
+
     this.worldTab = new WorldTab();
     this.heroTab = new HeroTab();
     this.combatTab = new CombatTab();
@@ -99,9 +105,19 @@ export class UIState {
 
   public selectTab(tabName: GameTabName): void {
     this.selectedTabName = tabName;
+
+    if (tabName === GameTabName.social) {
+      this.socialTab.chatMessages.forEach(message => message.isRead = true);
+    }
   }
 
   public addChatMessage(chatMessage: ChatMessage): void {
+    if (
+      this.userId === chatMessage.userId
+      || this.selectedTabName === GameTabName.social
+    ) {
+      chatMessage.isRead = true;
+    }
     this.socialTab.chatMessages.push(chatMessage);
     if (chatMessage.messageType === ContractServerChatMessageType.userConnected) {
       const newUser = new User(chatMessage.userId, chatMessage.userName);

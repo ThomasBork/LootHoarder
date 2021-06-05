@@ -45,12 +45,12 @@ export class GameService {
   }
 
   private getAuthenticationHeaders(): { [header: string]: string } {
-    const authToken = this.authService.getAuthToken();
-    if (!authToken) {
+    const login = this.authService.getLogin();
+    if (!login) {
       throw Error ('Not logged in');
     }
     return {
-      'authentication': authToken
+      'authentication': login.authToken
     }
   }
 }

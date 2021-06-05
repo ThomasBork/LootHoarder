@@ -18,6 +18,10 @@ export class SocialTab {
     this.sortConnectedUsers();
   }
 
+  public get amountOfUnreadMessages(): number {
+    return this.chatMessages.filter(message => !message.isRead).length;
+  }
+
   public addConnectedUser(user: User): void {
     if (this._connectedUsers.some(u => u.id === user.id)) {
       return;

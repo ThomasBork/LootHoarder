@@ -6,6 +6,7 @@ export class ChatMessage {
   public messageContent: string;
   public messageType: ContractServerChatMessageType;
   public timeStamp: Date;
+  public isRead: boolean;
 
   public constructor(
     userId: number,
@@ -19,5 +20,7 @@ export class ChatMessage {
     this.messageContent = messageContent;
     this.messageType = messageType;
     this.timeStamp = timeStamp;
+
+    this.isRead = false;
   }
 }

@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
   }
 
   public async login(): Promise<void> {
-    const authToken = await this.authService.login(this.userName, this.password);
-    this.authService.storeAuthToken(authToken);
+    const login = await this.authService.login(this.userName, this.password);
+    this.authService.storeLogin(login.userId, login.userName, login.authToken);
     this.router.navigate(['/']);
   }
 

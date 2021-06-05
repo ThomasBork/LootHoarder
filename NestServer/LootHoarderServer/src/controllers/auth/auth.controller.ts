@@ -3,6 +3,7 @@ import { CreateUserInput } from './create-user-input';
 import { Login } from './login';
 import { AuthService } from '../../services/auth-service';
 import { UserService } from '../../services/user-service';
+import { ContractUserWithAuthToken } from 'src/loot-hoarder-contract/contract-user-with-auth-token';
 
 @Controller('auth')
 export class AuthController {
@@ -12,9 +13,9 @@ export class AuthController {
   ) {}
 
   @Post('login')
-  public async postLogin(@Body() loginModel: Login): Promise<{ authToken: string }> {
-    const authToken = await this.authService.login(loginModel.userName, loginModel.password);
-    return { authToken };
+  public async postLogin(@Body() loginModel: Login): Promise<ContractUserWithAuthToken> {
+    const userWithAuthToken = await this.authService.login(loginModel.userName, loginModel.password);
+    return userWithAuthToken;
   }
 
   @Post('createUser')
