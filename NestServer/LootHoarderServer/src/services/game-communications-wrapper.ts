@@ -17,9 +17,11 @@ import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next
 import { SetSetting } from "src/game-message-handlers/from-client/set-setting";
 import { EquipItem } from "src/game-message-handlers/from-client/equip-item";
 import { ContractCreateHeroMessageContent } from "src/loot-hoarder-contract/client-actions/contract-create-hero-message-content";
+import { ContractDeleteHeroMessageContent } from "src/loot-hoarder-contract/client-actions/contract-delete-hero-message-content";
 import { ContractTakeHeroSkillNodeMessageContent } from "src/loot-hoarder-contract/client-actions/contract-take-hero-skill-node-message-content";
 import { TakeHeroSkillNode } from "src/game-message-handlers/from-client/take-hero-skill-node";
 import { SendChatMessage } from "src/game-message-handlers/from-client/send-chat-message";
+import { DeleteHero } from "src/game-message-handlers/from-client/delete-hero";
 
 
 
@@ -72,6 +74,11 @@ export class GameCommunicationsWrapper {
           data.hero.noseId,
           data.hero.mouthId
         ));
+      }
+      break;
+      case ContractClientMessageType.deleteHero: {
+        const data: ContractDeleteHeroMessageContent = message.data;
+        this.commandBus.execute(new DeleteHero(this.game, data.heroId));
       }
       break;
       case ContractClientMessageType.enterArea: {

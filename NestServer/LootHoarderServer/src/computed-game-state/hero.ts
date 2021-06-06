@@ -13,7 +13,7 @@ import { StaticGameContentService } from "src/services/static-game-content-servi
 import { AbilityType } from "./ability-type";
 import { AttributeSet } from "./attribute-set";
 import { HeroType } from "./hero-type";
-import { EventStream } from "./message-bucket";
+import { EventStream } from "./event-stream";
 import { ValueContainer } from "./value-container";
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { Item } from "./item";

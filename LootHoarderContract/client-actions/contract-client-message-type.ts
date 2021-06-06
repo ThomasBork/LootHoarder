@@ -1,5 +1,6 @@
 export enum ContractClientMessageType {
   createHero = 'create-hero',
+  deleteHero = 'delete-hero',
   enterArea = 'enter-area',
   equipItem = 'equip-item',
   goToNextCombat = 'go-to-next-combat',

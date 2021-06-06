@@ -21,6 +21,11 @@
         [value]="hero.unspentSkillPoints"
       ></app-notification-bubble>
     </li>
+    <li 
+      class="tab-button"
+      [class.selected]="selectedTab === 'management'"
+      (click)="changeTab('management')"
+    >Management</li>
   </ul>
   
   <div class="tab-content">
@@ -38,5 +43,10 @@
       *ngIf="selectedTab === 'passives'"
       [hero]="hero"
     ></app-selected-hero-passives-tab>
+    
+    <app-selected-hero-management-tab
+      *ngIf="selectedTab === 'management'"
+      [hero]="hero"
+    ></app-selected-hero-management-tab>
   </div>
 </div>

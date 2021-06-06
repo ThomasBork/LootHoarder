@@ -29,9 +29,11 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { TakeHeroSkillNodeHandler } from './game-message-handlers/from-client/take-hero-skill-node-handler';
 import { SendChatMessageHandler } from './game-message-handlers/from-client/send-chat-message-handler';
+import { DeleteHeroHandler } from './game-message-handlers/from-client/delete-hero-handler';
 
 export const CommandHandlers = [
   CreateHeroHandler,
+  DeleteHeroHandler,
   EnterAreaTypeHandler, 
   EquipItemHandler,
   GoToNextCombatHandler,

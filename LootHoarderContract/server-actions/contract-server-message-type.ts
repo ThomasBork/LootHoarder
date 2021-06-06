@@ -10,6 +10,7 @@ export enum ContractServerMessageType {
   fullGameState = 'full-game-state',
   heroAdded = 'hero-added',
   heroAttributeChanged = 'hero-attribute-changed',
+  heroDeleted = 'hero-deleted',
   heroGainedExperience = 'hero-gained-experience',
   heroTookSkillNode = 'hero-took-skill-node',
   heroUnspentSkillPointsChanged = 'hero-unspent-skill-points-changed',

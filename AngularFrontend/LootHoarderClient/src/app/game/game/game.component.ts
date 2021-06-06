@@ -25,6 +25,7 @@ import { ContractItemEquippedMessageContent } from 'src/loot-hoarder-contract/se
 import { ContractItemUnequippedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-unequipped-message-content';
 import { ContractItemRemovedFromGameMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-item-removed-from-game-message-content';
 import { UIStateManager } from './ui-state-manager';
+import { ContractHeroDeletedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-deleted-message-content';
 import { ContractHeroTookSkillNodeMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-took-skill-node-message-content';
 import { ContractHeroUnspentSkillPointsChangedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-unspent-skill-points-changed-message-content';
 import { ContractChatMessageSentMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-chat-message-sent-message-content';
@@ -127,6 +128,11 @@ export class GameComponent implements OnInit, OnDestroy {
         const serverHero = message.data.hero as ContractHero;
         const hero = this.gameStateMapper.mapToHero(serverHero);
         this.uiStateManager.state.addHero(hero);
+      }
+      break;
+      case ContractServerMessageType.heroDeleted: {
+        const data = message.data as ContractHeroDeletedMessageContent;
+        this.uiStateManager.state.removeHero(data.heroId);
       }
       break;
       case ContractServerMessageType.areaAdded: {

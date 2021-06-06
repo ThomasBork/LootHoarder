@@ -5,7 +5,7 @@ import { ContractCombatEndedMessage } from 'src/loot-hoarder-contract/server-act
 import { ContractCombat } from 'src/loot-hoarder-contract/contract-combat';
 import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/server-actions/contract-combat-web-socket-inner-message';
 import { DbCombat } from 'src/raw-game-state/db-combat';
-import { EventStream } from '../message-bucket';
+import { EventStream } from '../event-stream';
 import { Ability } from './ability';
 import { CombatCharacter } from './combat-character';
 

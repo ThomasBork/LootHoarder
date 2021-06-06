@@ -44,6 +44,19 @@ export class UIState {
     this.heroTab.selectedHero = hero;
   }
 
+  public removeHero(heroId: number): void {
+    const hero = this.game.getHero(heroId);
+    if (this.heroTab.selectedHero === hero) {
+      const heroIndex = this.game.heroes.indexOf(hero);
+      if (heroIndex === this.game.heroes.length - 1) {
+        this.heroTab.selectedHero = this.game.heroes[heroIndex - 1];
+      } else {
+        this.heroTab.selectedHero = this.game.heroes[heroIndex + 1];
+      }
+    }
+    this.game.removeHero(hero);
+  }
+
   public addArea(area: Area): void {
     const gameAreaType = this.game.allAreaTypes.find(areaType => area.type === areaType.type);
     if (!gameAreaType) {

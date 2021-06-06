@@ -1,12 +1,12 @@
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ContractAreaCreatedMessage } from 'src/loot-hoarder-contract/server-actions/contract-area-created-message';
 import { ContractGame } from 'src/loot-hoarder-contract/contract-game';
 import { ContractHeroAddedMessage } from 'src/loot-hoarder-contract/server-actions/contract-hero-added-message';
+import { ContractHeroDeletedMessage } from 'src/loot-hoarder-contract/server-actions/contract-hero-deleted-message';
 import { ContractAreaAbandonedMessage } from 'src/loot-hoarder-contract/server-actions/contract-area-abandoned-message';
 import { ContractAreaTypeCompletedMessage } from 'src/loot-hoarder-contract/server-actions/contract-area-type-completed-message';
 import { ContractItemAddedToGameMessage } from 'src/loot-hoarder-contract/server-actions/contract-item-added-to-game-message';
 import { ContractItemRemovedFromGameMessage } from 'src/loot-hoarder-contract/server-actions/contract-item-removed-from-game-message';
-import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-message';
 import { DbGame } from 'src/raw-game-state/db-game';
 import { StaticGameContentService } from 'src/services/static-game-content-service';
 import { Area } from './area/area';
@@ -14,16 +14,19 @@ import { AreaType } from './area/area-type';
 import { Hero } from './hero';
 import { GameSettings } from './game-settings';
 import { Item } from './item';
+import { ValueContainer } from './value-container';
+import { ContractInventoryPosition } from 'src/loot-hoarder-contract/contract-inventory-position';
+import { WebSocketEventStream } from './web-socket-event-stream';
 
 export class Game {
   public heroes: Hero[];
   public completedAreaTypes: AreaType[];
   public availableAreaTypes!: AreaType[];
   public areas: Area[];
-  public onEvent: Subject<ContractServerWebSocketMessage>;
+  public onEvent: WebSocketEventStream;
   public settings: GameSettings;
   public items: Item[];
-  public maximumAmountOfHeroes: number;
+  public maximumAmountOfHeroesVC: ValueContainer;
   
   private dbModel: DbGame;
   private areaSubscriptions: Map<Area, Subscription[]>;
@@ -34,8 +37,7 @@ export class Game {
     heroes: Hero[],
     completedAreaTypes: AreaType[],
     areas: Area[],
-    items: Item[],
-    maximumAmountOfHeroes: number
+    items: Item[]
   ) {
     this.dbModel = dbModel;
     this.settings = settings;
@@ -43,10 +45,10 @@ export class Game {
     this.completedAreaTypes = completedAreaTypes;
     this.areas = areas;
     this.items = items;
-    this.maximumAmountOfHeroes = maximumAmountOfHeroes;
+    this.maximumAmountOfHeroesVC = new ValueContainer(3);
     this.availableAreaTypes = this.calculateAvailableAreaTypes();
 
-    this.onEvent = new Subject();
+    this.onEvent = new WebSocketEventStream();
 
     this.areaSubscriptions = new Map();
     this.setUpEventListeners();
@@ -76,12 +78,42 @@ export class Game {
     return this.dbModel.state.nextItemId++;
   }
 
+  public getHero(heroId: number): Hero {
+    const hero = this.heroes.find(h => h.id === heroId);
+    if (!hero) {
+      throw Error (`Hero with id ${heroId} does not exist.`);
+    }
+    return hero;
+  }
+
   public addHero(hero: Hero): void {
     this.dbModel.state.heroes.push(hero.dbModel);
     this.heroes.push(hero);
 
     this.setUpEventListenersForHero(hero);
     this.onEvent.next(new ContractHeroAddedMessage(hero.toContractModel()));
+  }
+
+  public removeHero(hero: Hero): void {
+    const dbHero = this.dbModel.state.heroes.find(h => h.id === hero.id);
+    if (!dbHero) {
+      throw Error(`Attempted to delete hero with id ${hero.id}, but that hero does not exist.`);
+    }
+    const isHeroInAnArea = this.areas.some(area => area.heroes.some(areaHero => areaHero.hero === hero));
+    if (isHeroInAnArea) {
+      throw Error (`Attempted to delete hero with id ${hero.id}, but that hero is in an area, so it cannot be deleted.`);
+    }
+    this.onEvent.setUpNewEventBucket();
+    for(const inventoryPosition of Object.values(ContractInventoryPosition)) {
+      const item = hero.inventory.getItemAtPosition(inventoryPosition);
+      hero.unequipItem(inventoryPosition);
+    }
+    this.dbModel.state.heroes.splice(this.dbModel.state.heroes.indexOf(dbHero), 1);
+    this.heroes.splice(this.heroes.indexOf(hero), 1);
+    const heroDeletedMessage = new ContractHeroDeletedMessage(hero.id);
+    this.onEvent.next(heroDeletedMessage);
+    const multimessage = this.onEvent.flushEventBucketAsMultimessage();
+    this.onEvent.next(multimessage);
   }
 
   public getArea(id: number): Area {
@@ -137,7 +169,7 @@ export class Game {
       completedAreaTypeKeys: this.completedAreaTypes.map(a => a.key),
       settings: this.settings.getUIState(),
       items: this.items.map(item => item.toContractModel()),
-      maximumAmountOfHeroes: this.maximumAmountOfHeroes
+      maximumAmountOfHeroes: this.maximumAmountOfHeroesVC.value
     };
   }
 
@@ -213,16 +245,13 @@ export class Game {
     const areas = dbModel.state.areas.map(dbArea => Area.load(dbArea));
     const items = dbModel.state.items.map(dbItem => Item.load(dbItem));
 
-    const maximumAmountOfHeroes = 6;
-
     const game = new Game(
       dbModel,
       settings,
       heroes,
       completedAreaTypes,
       areas,
-      items,
-      maximumAmountOfHeroes
+      items
     );
     return game;
   }

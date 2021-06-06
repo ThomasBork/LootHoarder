@@ -13,6 +13,13 @@
       padding: 10px;
       cursor: pointer;
       user-select: none;
+      display: flex;
+      align-items: center;
+      height: 50px;
+
+      app-notification-bubble {
+        margin-left: 5px;
+      }
 
       &:not(.selected) {
         background-color: lightgrey;

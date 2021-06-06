@@ -46,6 +46,7 @@ import { GameTabWorldActiveAreaCharacterListComponent } from './game/game/game-t
 import { ZoomableContainerComponent } from './shared/zoomable-container/zoomable-container.component';
 import { NotificationBubbleComponent } from './shared/notification-bubble/notification-bubble.component';
 import { GameTabSocialComponent } from './game/game/game-tab-social/game-tab-social.component';
+import { SelectedHeroManagementTabComponent } from './game/game/game-tab-heroes/selected-hero-management-tab/selected-hero-management-tab.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { GameTabSocialComponent } from './game/game/game-tab-social/game-tab-soc
     SelectedHeroAbilitiesTabComponent,
     SelectedHeroItemsTabComponent,
     SelectedHeroPassivesTabComponent,
+    SelectedHeroManagementTabComponent,
     HeroInformationComponent,
     HeroWithItemsComponent,
     HeroWithItemsItemComponent,

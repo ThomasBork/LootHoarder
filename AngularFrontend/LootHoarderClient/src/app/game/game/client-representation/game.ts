@@ -80,4 +80,8 @@ export class Game {
   public removeItem(item: Item): void {
     this.items = this.items.filter(i => i !== item);
   }
+
+  public removeHero(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+  }
 }
