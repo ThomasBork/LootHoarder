@@ -23,10 +23,7 @@ export class PassiveAbility {
 
         const attributeTypeText = AttributeTypeTranslator.translate(attributeType);
         const abilityTagText = abilityTags.length > 0 
-          ? abilityTags
-            .map(tag => AbilityTagTranslator.translate(tag))
-            .join(' ') 
-            + ' ' 
+          ? this.getAbilityTagList(abilityTags) + ' ' 
           : '';
         const amountText = isAdditive ? amount : 'x' + amount;
         return abilityTagText + attributeTypeText + ' ' + amountText;
@@ -36,8 +33,25 @@ export class PassiveAbility {
         const abilityType = AssetManagerService.instance.getAbilityType(abilityTypeKey);
         return `Unlocks the ${abilityType.name} ability`;
       }
+      case 'take-damage-over-time': {
+        const damagePerSecond: number = this.parameters.damagePerSecond;
+        const abilityTags: string[] = this.parameters.abilityTags;
+
+        const abilityTagText = abilityTags.length > 0 
+          ? this.getAbilityTagList(abilityTags) + ' ' 
+          : '';
+        const damageText = Math.floor(damagePerSecond);
+
+        return `Take ${damageText} ${abilityTagText}damage every second.`;
+      }
       default: 
         throw Error(`Unhandled ability type: ${this.type.key}`);
     }
+  }
+
+  private getAbilityTagList(abilityTags: string[]): string {
+    return abilityTags
+      .map(tag => AbilityTagTranslator.translate(tag))
+      .join(' ');
   }
 }

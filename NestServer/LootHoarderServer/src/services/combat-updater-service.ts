@@ -1,11 +1,9 @@
 import { Injectable, Logger, OnApplicationBootstrap } from "@nestjs/common";
 import { CommandBus, EventBus } from "@nestjs/cqrs";
 import { AbilityTargetScheme } from "src/computed-game-state/ability-target-scheme";
-import { AbilityTypeEffect } from "src/computed-game-state/ability-type-effect";
 import { Ability } from "src/computed-game-state/area/ability";
 import { Combat } from "src/computed-game-state/area/combat";
 import { CombatCharacter } from "src/computed-game-state/area/combat-character";
-import { DamageType } from "src/computed-game-state/damage-type";
 import { Game } from "src/computed-game-state/game";
 import { ContractAbilityUsedMessage } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-ability-used-message";
 import { ContractBegunUsingAbilityMessage } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-begun-using-ability-message";
@@ -16,6 +14,9 @@ import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { AbilityTypeEffectApplyContinuousEffect } from "src/computed-game-state/ability-type-effect-apply-continuous-effect";
 import { AbilityTypeEffectDealDamage } from "src/computed-game-state/ability-type-effect-deal-damage";
+import { PassiveAbilityParametersTakeDamageOverTime } from "src/computed-game-state/passive-ability-parameters-take-damage-over-time";
+import { DbContinuousEffect } from "src/raw-game-state/db-continuous-effect";
+import { ContinuousEffect } from "src/computed-game-state/area/continuous-effect";
 
 @Injectable()
 export class CombatUpdaterService implements OnApplicationBootstrap {
@@ -60,7 +61,36 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
 
   private updateCombat(game: Game, area: Area, combat: Combat): void {
     const allCharacters = [...combat.team1, ...combat.team2];
+
+    // Continuous effects
+    for(const character of allCharacters) {
+      if (character.isDead) {
+        continue;
+      }
+
+      for(const continuousEffect of character.continuousEffects) {
+        for(const continuousEffectAbility of continuousEffect.abilities) {
+          if (continuousEffectAbility.parameters instanceof PassiveAbilityParametersTakeDamageOverTime) {
+            const timeTakingDamage = continuousEffect.lastsIndefinitely || continuousEffect.timeRemaining > this.tickFrequencyInMilliseconds
+              ? this.tickFrequencyInMilliseconds
+              : continuousEffect.timeRemaining;
+            const damageGiven = continuousEffectAbility.parameters.damagePerSecond * timeTakingDamage / 1000;
+            const damageTaken = this.calculateDamageTaken(damageGiven, character, continuousEffectAbility.parameters.abilityTags);
+            const healthAfterDamageTaken = character.currentHealth - damageTaken;
+            character.setCurrentHealth(healthAfterDamageTaken);
+          }
+        }
+
+        if(!continuousEffect.lastsIndefinitely) {
+          continuousEffect.timeRemaining -= this.tickFrequencyInMilliseconds;
+          if (continuousEffect.timeRemaining <= 0) {
+            character.removeContinuousEffect(continuousEffect);
+          }
+        }
+      }
+    }
     
+    // Abilities
     for(const character of allCharacters) {
       if (character.isDead) {
         continue;
@@ -111,7 +141,8 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
           character.remainingTimeToUseAbility = timeToUse;
           character.totalTimeToUseAbility = timeToUse;
           character.targetOfAbilityBeingUsed = target;
-          character.currentMana -= chosenAbility.manaCostVC.value;
+          const manaAfterUse = character.currentMana - chosenAbility.manaCostVC.value;
+          character.setCurrentMana(manaAfterUse);
 
           // Stop redirecting all events and send ability used message
           const messageInnerEvents = combat.onCombatEvent.flushEventBucket();
@@ -126,7 +157,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
         combat.onCombatEvent.setUpNewEventBucket();
 
         const abilityToUse = character.abilityBeingUsed;
-        this.resolveAbility(combat, character, abilityToUse, character.targetOfAbilityBeingUsed);
+        this.resolveAbility(game, combat, character, abilityToUse, character.targetOfAbilityBeingUsed);
 
         character.abilityBeingUsed = undefined;
         character.targetOfAbilityBeingUsed = undefined;
@@ -143,14 +174,51 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
     }
   }
 
-  private resolveAbility(combat: Combat, usingCharacter: CombatCharacter, ability: Ability, targetCharacter: CombatCharacter | undefined): void {
+  private resolveAbility(game: Game, combat: Combat, usingCharacter: CombatCharacter, ability: Ability, targetCharacter: CombatCharacter | undefined): void {
     const criticalStrikeChance = ability.criticalStrikeChanceVC.value;
     const criticalStrikeRoll = this.randomService.randomFloat(0, 1);
     const isCriticalStrike = criticalStrikeRoll <= criticalStrikeChance;
 
     for(const effect of ability.effects) {
-      if (effect.typeEffect instanceof AbilityTypeEffectApplyContinuousEffect) {
+      const effectedCharacters: CombatCharacter[] = [];
+      if (effect.typeEffect.requiresTarget) {
+        if (!targetCharacter) {
+          throw Error (`Must have a target ability '${ability.type.key}' for effect with key = ${effect.typeEffect.type.key}`);
+        }
+        effectedCharacters.push(targetCharacter);
+      } else {
+        const allies = combat.getAllies(usingCharacter);
+        const enemies = combat.getEnemies(usingCharacter);
 
+        switch(effect.typeEffect.targetScheme) {
+          case AbilityTargetScheme.all: {
+            effectedCharacters.push(...allies, ...enemies);
+          }
+          break;
+          case AbilityTargetScheme.allAllies: {
+            effectedCharacters.push(...allies);
+          }
+          break;
+          case AbilityTargetScheme.allEnemies: {
+            effectedCharacters.push(...enemies);
+          }
+          break;
+        }
+      }
+
+      if (effect.typeEffect instanceof AbilityTypeEffectApplyContinuousEffect) {
+        for(const effectedCharacter of effectedCharacters) {
+          const dbContinuousEffect: DbContinuousEffect = {
+            id: game.getNextContinuousEffectId(),
+            typeKey: effect.typeEffect.parameters.continuousEffectType.key,
+            lastsIndefinitely: effect.typeEffect.parameters.duration === 0,
+            timeRemaining: effect.typeEffect.parameters.duration,
+            abilities: effect.typeEffect.parameters.buildDbPassiveAbilities()
+          }
+
+          const continuousEffect = ContinuousEffect.load(dbContinuousEffect);
+          effectedCharacter.addContinuousEffect(continuousEffect);
+        }
       } else if (effect.typeEffect instanceof AbilityTypeEffectDealDamage) {
         const baseAmount = effect.typeEffect.parameters.baseAmount;
 
@@ -163,38 +231,10 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
           damageGiven *= criticalStrikeDamageMultiplier;
         }
 
-        const charactersTakingDamage: CombatCharacter[] = [];
-        if (effect.typeEffect.requiresTarget) {
-          if (!targetCharacter) {
-            throw Error (`Must have a target ability '${ability.type.key}' for effect with key = ${effect.typeEffect.type.key}`);
-          }
-          charactersTakingDamage.push(targetCharacter);
-        } else {
-          const allies = combat.getAllies(usingCharacter);
-          const enemies = combat.getEnemies(usingCharacter);
-
-          switch(effect.typeEffect.targetScheme) {
-            case AbilityTargetScheme.all: {
-              charactersTakingDamage.push(...allies, ...enemies);
-            }
-            break;
-            case AbilityTargetScheme.allAllies: {
-              charactersTakingDamage.push(...allies);
-            }
-            break;
-            case AbilityTargetScheme.allEnemies: {
-              charactersTakingDamage.push(...enemies);
-            }
-            break;
-          }
-        }
-
-        for(const characterTakingDamage of charactersTakingDamage) {
-          let damageTaken = damageGiven;
-          const resistance = characterTakingDamage.attributes.calculateAttributeValue(ContractAttributeType.resistance, effect.typeEffect.tags);
-          const resistanceMultiplier = 100 / (100 + resistance);
-          damageTaken *= resistanceMultiplier;
-          characterTakingDamage.currentHealth -= damageTaken;
+        for(const characterTakingDamage of effectedCharacters) {
+          const damageTaken = this.calculateDamageTaken(damageGiven, characterTakingDamage, effect.typeEffect.tags);
+          const healthAfterDamageTaken = characterTakingDamage.currentHealth - damageTaken;
+          characterTakingDamage.setCurrentHealth(healthAfterDamageTaken);
         }
       } else {
         throw Error (`Unhandled ability effect type: ${effect.typeEffect.type.key}`);
@@ -202,5 +242,11 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
     }
 
     ability.startCooldown();
+  }
+
+  private calculateDamageTaken (damageGiven: number, characterTakingDamage: CombatCharacter, abilityTags: string[]): number {
+    const resistance = characterTakingDamage.attributes.calculateAttributeValue(ContractAttributeType.resistance, abilityTags);
+    const resistanceMultiplier = 100 / (100 + resistance);
+    return damageGiven * resistanceMultiplier;
   }
 }

@@ -1,6 +1,7 @@
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { AttributeSet } from "./attribute-set";
 import { CombatCharacterAbility } from "./combat-character-ability";
+import { ContinuousEffect } from "./continuous-effect";
 import { Hero } from "./hero";
 
 export class CombatCharacter {
@@ -16,6 +17,7 @@ export class CombatCharacter {
   public totalTimeToUseAbility?: number;
   public abilityBeingUsed?: CombatCharacterAbility;
   public targetOfAbilityBeingUsed?: CombatCharacter;
+  public continuousEffects: ContinuousEffect[];
   public hero?: Hero;
 
   public constructor(
@@ -29,7 +31,8 @@ export class CombatCharacter {
     abilities: CombatCharacterAbility[],
     remainingTimeToUseAbility: number,
     totalTimeToUseAbility: number | undefined,
-    abilityBeingUsed: CombatCharacterAbility | undefined
+    abilityBeingUsed: CombatCharacterAbility | undefined,
+    continuousEffects: ContinuousEffect[]
   ) {
     this.id = id;
     this.typeKey = typeKey;
@@ -42,14 +45,7 @@ export class CombatCharacter {
     this.remainingTimeToUseAbility = remainingTimeToUseAbility;
     this.totalTimeToUseAbility = totalTimeToUseAbility;
     this.abilityBeingUsed = abilityBeingUsed;
-  }
-
-  public getAbility(id: number): CombatCharacterAbility {
-    const ability = this.abilities.find(a => a.id === id);
-    if (!ability) {
-      throw Error (`Could not find ability with id: ${id}`);
-    }
-    return ability;
+    this.continuousEffects = continuousEffects;
   }
 
   public get maximumHealth(): number {
@@ -61,4 +57,24 @@ export class CombatCharacter {
   }
 
   public get isAlive(): boolean { return this.currentHealth > 0; }
+
+  public getAbility(id: number): CombatCharacterAbility {
+    const ability = this.abilities.find(a => a.id === id);
+    if (!ability) {
+      throw Error (`Could not find ability with id: ${id}`);
+    }
+    return ability;
+  }
+
+  public getContinuousEffect(id: number): ContinuousEffect {
+    const continuousEffect = this.continuousEffects.find(c => c.id === id);
+    if (!continuousEffect) {
+      throw Error (`Could not find continuous effect with id: ${id}`);
+    }
+    return continuousEffect;
+  }
+
+  public removeContinuousEffect(continuousEffect: ContinuousEffect): void {
+    this.continuousEffects = this.continuousEffects.filter(c => c != continuousEffect)
+  }
 }

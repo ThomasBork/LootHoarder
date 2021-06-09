@@ -4,68 +4,114 @@
   display: flex;
   flex-direction: column;
 
-  .image-container {
-    flex: 1 1 0;
-
-    .image {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-  }
-
-  .abilities {
+  .image-abilities-and-effects {
     display: flex;
-
-    .ability {
-      height: 50px;
-      width: 50px;
-      position: relative;
-      border: 2px solid black;
-      border-radius: 4px;
-      margin-right: 5px;
-      background-color: white;
-
-      &.being-used {
-        border-color: orangered;
-      }
-
-      .thumbnail {
-        height: 100%;
-        width: 100%;
-      }
-
-      .progress-bar-container {
-        position: absolute;
-        bottom: 3px;
-        width: 100%;
-        border: 1px solid black;
-      }
-
-      .cooldown-overlay {
-        position: absolute;
-        top: 0;
-        right: 0;
-        opacity: 0.5;
-        height: 100%;
-        background-color: black;
-      }
-
-      .ability-description {
-        left: 50%;
-        bottom: calc(100% + 10px);
-        transform: translateX(-50%);
-        width: max-content;
-        max-width: 400px;
-        position: absolute;
-        background-color: lightgrey;
-        border-radius: 5px;
-        padding: 5px;
-      }
-
-      &:not(:hover) {
+    flex-direction: column;
+  
+    .abilities {
+      display: flex;
+      min-height: 30px;
+      margin-top: 3px;
+  
+      .ability {
+        height: 30px;
+        width: 30px;
+        position: relative;
+        border: 2px solid black;
+        border-radius: 4px;
+        margin-right: 3px;
+        background-color: white;
+  
+        &.being-used {
+          border-color: orangered;
+        }
+  
+        .thumbnail {
+          height: 100%;
+          width: 100%;
+        }
+  
+        .progress-bar-container {
+          position: absolute;
+          bottom: 0px;
+          width: 100%;
+          border: 1px solid black;
+        }
+  
+        .cooldown-overlay {
+          position: absolute;
+          top: 0;
+          right: 0;
+          opacity: 0.5;
+          height: 100%;
+          background-color: black;
+        }
+  
         .ability-description {
-          display: none;
+          left: 50%;
+          bottom: calc(100% + 10px);
+          transform: translateX(-50%);
+          width: max-content;
+          max-width: 400px;
+          position: absolute;
+          background-color: lightgrey;
+          border-radius: 5px;
+          padding: 5px;
+        }
+  
+        &:not(:hover) {
+          .ability-description {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .image-container {
+      flex: 1 1 0;
+  
+      .image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    .continuous-effects {
+      display: flex;
+      min-height: 30px;
+      margin-top: 3px;
+
+      .continuous-effect {
+        height: 30px;
+        width: 30px;
+        position: relative;
+        border: 2px solid black;
+        border-radius: 4px;
+        margin-right: 3px;
+        background-color: white;
+
+        .image {
+          height: 100%;
+          width: 100%;
+        }
+    
+        .description {
+          left: 50%;
+          bottom: calc(100% + 10px);
+          transform: translateX(-50%);
+          width: max-content;
+          max-width: 400px;
+          position: absolute;
+          background-color: lightgrey;
+          border-radius: 5px;
+          padding: 5px;
+        }
+        
+        &:not(:hover) {
+          .description {
+            display: none;
+          }
         }
       }
     }

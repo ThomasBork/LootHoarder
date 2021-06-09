@@ -49,7 +49,8 @@ export class MonsterSpawnerService {
         attributeSet: dbAttributeSet,
         abilities: dbAbilities,
         idOfAbilityBeingUsed: undefined,
-        remainingTimeToUseAbility: 0
+        remainingTimeToUseAbility: 0,
+        continuousEffects: []
       };
       return dbCombatCharacter;
     });

@@ -230,7 +230,7 @@ export class Hero {
           }
         }
         break;
-        default: throw Error (`Unhandled ability type: ${ability.type.key}`);
+        default: throw Error (`Unhandled ability type for hero: ${ability.type.key}`);
       }
     }
   }
@@ -255,7 +255,7 @@ export class Hero {
           this.abilityTypes.splice(this.abilityTypes.indexOf(abilityType), 1);
         }
         break;
-        default: throw Error (`Unhandled ability type: ${ability.type.key}`);
+        default: throw Error (`Unhandled ability type for hero: ${ability.type.key}`);
       }
     }
   }

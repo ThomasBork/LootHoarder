@@ -59,7 +59,8 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
           .toDbModel(),
         abilities: dbAbilities,
         idOfAbilityBeingUsed: undefined,
-        remainingTimeToUseAbility: 0
+        remainingTimeToUseAbility: 0,
+        continuousEffects: []
       };
       return dbCombatCharacter;
     });

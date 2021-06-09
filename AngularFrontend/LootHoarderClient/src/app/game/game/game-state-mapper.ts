@@ -18,6 +18,7 @@ import { GameAreaType } from "./client-representation/game-area-type";
 import { AreaType } from "./client-representation/area-type";
 import { AttributeSet } from "./client-representation/attribute-set";
 import { ContractCombatCharacterAbility } from "src/loot-hoarder-contract/contract-combat-character-ability";
+import { ContractContinuousEffect } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-continuous-effect";
 import { CombatCharacterAbility } from "./client-representation/combat-character-ability";
 import { ContractAttribute } from "src/loot-hoarder-contract/contract-attribute";
 import { Attribute } from "./client-representation/attribute";
@@ -29,6 +30,7 @@ import { Inventory } from "./client-representation/inventory";
 import { ContractPassiveAbility } from "src/loot-hoarder-contract/contract-passive-ability";
 import { HeroSkillTreeStatus } from "./client-representation/hero-skill-tree-status";
 import { HeroSkillTreeNodeStatus } from "./client-representation/hero-skill-tree-node-status";
+import { ContinuousEffect } from "./client-representation/continuous-effect";
 
 @Injectable()
 export class GameStateMapper {
@@ -182,6 +184,7 @@ export class GameStateMapper {
     const attributeSetValues = this.mapToAttributeSetValues(serverCombatCharacter.attributes);
     const abilities = serverCombatCharacter.abilities.map(ability => this.mapToCombatCharacterAbility(ability));
     const abilityBeingUsed = abilities.find(ability => ability.id === serverCombatCharacter.idOfAbilityBeingUsed);
+    const continuousEffects = serverCombatCharacter.continuousEffects.map(continuousEffect => this.mapToContinuousEffect(continuousEffect));
     return new CombatCharacter(
       serverCombatCharacter.id,
       serverCombatCharacter.typeKey,
@@ -193,8 +196,22 @@ export class GameStateMapper {
       abilities,
       serverCombatCharacter.remainingTimeToUseAbility,
       serverCombatCharacter.totalTimeToUseAbility,
-      abilityBeingUsed
+      abilityBeingUsed,
+      continuousEffects
     );
+  }
+
+  public mapToContinuousEffect(serverContinuousEffect: ContractContinuousEffect): ContinuousEffect {
+    const type = this.assetManagerService.getContinuousEffectType(serverContinuousEffect.typeKey);
+    const abilities = serverContinuousEffect.abilities.map(ability => this.mapToPassiveAbility(ability));
+
+    return new ContinuousEffect(
+      serverContinuousEffect.id,
+      type,
+      abilities,
+      serverContinuousEffect.timeRemaining,
+      serverContinuousEffect.lastsIndefinitely
+    )
   }
 
   public mapToAttributeSetValues(serverAttributeSet: ContractAttribute[]): AttributeSet {

@@ -75,9 +75,9 @@ export class ZoomableContainerComponent implements AfterViewInit, OnChanges {
     const newZoom = this.zoom * zoomChangeFactor;
 
     const browserElement = mouseEvent.currentTarget as HTMLElement;
-
-    const browserElementX = mouseEvent.clientX - browserElement.offsetLeft;
-    const browserElementY = mouseEvent.clientY - browserElement.offsetTop;
+    const browserElementCoordinates = browserElement.getBoundingClientRect();
+    const browserElementX = mouseEvent.clientX - browserElementCoordinates.x;
+    const browserElementY = mouseEvent.clientY - browserElementCoordinates.y;
 
     const contentX = browserElementX / oldZoom - this.viewPortX;
     const contentY = browserElementY / oldZoom - this.viewPortY;

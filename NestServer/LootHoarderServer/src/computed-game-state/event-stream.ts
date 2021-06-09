@@ -3,8 +3,10 @@ import { Subscription, Subject } from "rxjs";
 export class EventStream<T> {
   private onEvent: Subject<T>;
   private currentEventBucket?: T[];
+  private eventBuckets: T[][];
   public constructor() {
     this.onEvent = new Subject();
+    this.eventBuckets = [];
   }
 
   public subscribe(eventHandler: (event: T) => void): Subscription {
@@ -20,10 +22,9 @@ export class EventStream<T> {
   }
 
   public setUpNewEventBucket(): void {
-    if (this.currentEventBucket) {
-      throw Error ('Cannot have two buckets for the same event stream.');
-    }
-    this.currentEventBucket = [];
+    const newEventBucket: T[] = [];
+    this.eventBuckets.push(newEventBucket);
+    this.currentEventBucket = newEventBucket;
   }
 
   public flushEventBucket(): T[] {
@@ -31,7 +32,12 @@ export class EventStream<T> {
       throw Error ('No bucket to flush.');
     }
     const events = this.currentEventBucket;
-    this.currentEventBucket = undefined;
+    this.eventBuckets = this.eventBuckets.filter(b => b !== this.currentEventBucket);
+    if (this.eventBuckets.length > 0) {
+      this.currentEventBucket = this.eventBuckets[this.eventBuckets.length - 1];
+    } else {
+      this.currentEventBucket = undefined;
+    }
     return events;
   }
 }

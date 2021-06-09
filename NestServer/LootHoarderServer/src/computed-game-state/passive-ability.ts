@@ -1,9 +1,11 @@
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { ContractPassiveAbility } from "src/loot-hoarder-contract/contract-passive-ability";
+import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
 import { DbPassiveAbility } from "src/raw-game-state/db-passive-ability";
 import { StaticGameContentService } from "src/services/static-game-content-service";
 import { PassiveAbilityParameters } from "./passive-ability-parameters";
 import { PassiveAbilityParametersAttribute } from "./passive-ability-parameters-attribute";
+import { PassiveAbilityParametersTakeDamageOverTime } from "./passive-ability-parameters-take-damage-over-time";
 import { PassiveAbilityParametersUnlockAbility } from "./passive-ability-parameters-unlock-ability";
 import { PassiveAbilityType } from "./passive-ability-type";
 
@@ -34,7 +36,7 @@ export class PassiveAbility {
 
     let abilityParameters: PassiveAbilityParameters;
     switch(abilityType.key) {
-      case 'attribute': {
+      case ContractPassiveAbilityTypeKey.attribute: {
         abilityParameters = new PassiveAbilityParametersAttribute(
           PassiveAbility.expectBoolean(dbModel.parameters.isAdditive),
           PassiveAbility.expectString(dbModel.parameters.attributeType) as ContractAttributeType,
@@ -43,9 +45,16 @@ export class PassiveAbility {
         );
       }
       break;
-      case 'unlock-ability': {
+      case ContractPassiveAbilityTypeKey.unlockAbility: {
         abilityParameters = new PassiveAbilityParametersUnlockAbility(
           PassiveAbility.expectString(dbModel.parameters.abilityTypeKey)
+        );
+      }
+      break;
+      case ContractPassiveAbilityTypeKey.takeDamageOverTime: {
+        abilityParameters = new PassiveAbilityParametersTakeDamageOverTime(
+          PassiveAbility.expectNumber(dbModel.parameters.damagePerSecond),
+          PassiveAbility.expectStringArray(dbModel.parameters.abilityTags)
         );
       }
       break;

@@ -6,12 +6,16 @@ import { ContractBegunUsingAbilityMessageContent } from "src/loot-hoarder-contra
 import { ContractCombatCharacterCurrentHealthChangedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-health-changed-message-content";
 import { ContractCombatCharacterCurrentManaChangedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-mana-changed-message-content";
 import { ContractCombatEndedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-ended-message-content";
+import { ContractContinuousEffectAddedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-continuous-effect-added-message-content";
+import { ContractContinuousEffectRemovedMessageContent } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-continuous-effect-removed-message-content";
 import { Combat } from "./client-representation/combat";
 import { Game } from "./client-representation/game";
+import { GameStateMapper } from "./game-state-mapper";
 
 @Injectable()
 export class CombatMessageHandler {
   public constructor(
+    private readonly gameStateMapper: GameStateMapper
   ) {}
 
   public handleMessage(game: Game, combatId: number, message: ContractCombatWebSocketInnerMessage): void {
@@ -39,6 +43,14 @@ export class CombatMessageHandler {
       break;
       case ContractCombatMessageType.combatEnded: {
         this.handleCombatEnded(combat, message.data);
+      }
+      break;
+      case ContractCombatMessageType.continuousEffectAdded: {
+        this.handleContinuousEffectAdded(combat, message.data);
+      }
+      break;
+      case ContractCombatMessageType.continuousEffectRemoved: {
+        this.handleContinuousEffectRemoved(combat, message.data);
       }
       break;
       default:
@@ -100,5 +112,17 @@ export class CombatMessageHandler {
   private handleCombatEnded(combat: Combat, data: ContractCombatEndedMessageContent): void {
     combat.hasEnded = true;
     combat.didTeam1Win = data.didTeam1Win;
+  }
+
+  private handleContinuousEffectAdded(combat: Combat, data: ContractContinuousEffectAddedMessageContent): void {
+    const character = combat.getCharacter(data.combatCharacterId);
+    const continuousEffect = this.gameStateMapper.mapToContinuousEffect(data.continuousEffect);
+    character.continuousEffects.push(continuousEffect);
+  }
+
+  private handleContinuousEffectRemoved(combat: Combat, data: ContractContinuousEffectRemovedMessageContent): void {
+    const character = combat.getCharacter(data.combatCharacterId);
+    const continuousEffect = character.getContinuousEffect(data.continuousEffectId);
+    character.removeContinuousEffect(continuousEffect);
   }
 }

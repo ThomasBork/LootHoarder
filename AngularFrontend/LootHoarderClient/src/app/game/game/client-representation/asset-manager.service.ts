@@ -7,6 +7,7 @@ import AreaTypes from 'src/loot-hoarder-static-content/area-types.json';
 import AreaTypeTransitions from 'src/loot-hoarder-static-content/area-type-transitions.json';
 import ItemTypes from 'src/loot-hoarder-static-content/item-types.json';
 import PassiveAbilityTypes from 'src/loot-hoarder-static-content/passive-ability-types.json';
+import ContinuousEffectTypes from 'src/loot-hoarder-static-content/continuous-effect-types.json';
 import HeroSkillTreeJson from 'src/loot-hoarder-static-content/hero-skill-tree.json';
 import { AreaType } from "./area-type";
 import { ItemType } from "./item-type";
@@ -17,6 +18,7 @@ import { SkillTreeTransition } from "./skill-tree-transition";
 import { HeroSkillTreeNode } from "./hero-skill-tree-node";
 import { PassiveAbility } from "./passive-ability";
 import { HeroSkillTreeStartingNode } from "./hero-skill-tree-starting-node";
+import { ContinuousEffectType } from "./continuous-effect-type";
 
 @Injectable()
 export class AssetManagerService {
@@ -26,6 +28,7 @@ export class AssetManagerService {
   private itemTypes!: ItemType[];
   private passiveAbilityTypes!: PassiveAbilityType[];
   private heroSkillTree!: HeroSkillTree;
+  private continuousEffectTypes!: ContinuousEffectType[];
 
   private static _instance?: AssetManagerService;
   public constructor() {
@@ -41,8 +44,9 @@ export class AssetManagerService {
   }
 
   public loadAssets(): void {
-    this.loadAbilityTypes();
     this.loadPassiveAbilityTypes();
+    this.loadContinuousEffectTypes();
+    this.loadAbilityTypes();
     this.loadItemTypes();
     this.loadHeroTypes();
     this.loadAreaTypes();
@@ -103,6 +107,23 @@ export class AssetManagerService {
       throw Error (`Item type '${key}' not found.`);
     }
     return itemType;
+  }
+
+  public getContinuousEffectType(key: string): ContinuousEffectType {
+    const continuousEffectType = this.continuousEffectTypes.find(x => x.key === key);
+    if (!continuousEffectType) {
+      throw Error (`Continuous effect type '${key}' not found.`);
+    }
+    return continuousEffectType;
+  }
+
+  private loadContinuousEffectTypes(): void {
+    this.continuousEffectTypes = ContinuousEffectTypes.map(continuousEffectType => 
+      new ContinuousEffectType(
+        continuousEffectType.key,
+        continuousEffectType.name
+      )
+    );
   }
 
   private loadAbilityTypes(): void {

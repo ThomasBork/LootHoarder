@@ -1,14 +1,51 @@
 [
   {
     "key": "poisoned",
+    "isUnique": false,
     "name": "Poisoned",
-    "description": "The character takes {damagePerSecond} poison damage per second.",
-    "parameters": ["damagePerSecond"]
+    "abilities": [
+      {
+        "typeKey": "take-damage-over-time",
+        "parameters": {
+          "abilityTags": ["poison"],
+          "damagePerSecond": null
+        },
+        "requiredDataParameters": ["damagePerSecond"]
+      }
+    ]
   },
   {
-    "key": "modified-attribute",
-    "name": "Modified Attribute",
-    "description": null,
-    "parameters": ["attributeKey", "abilityTags", "amount", "isAdditive"]
+    "key": "vulnerable",
+    "isUnique": true,
+    "name": "Vulnerable",
+    "abilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "resistance", 
+          "abilityTags": ["physical"], 
+          "amount": 0.67
+        },
+        "requiredDataParameters": []
+      }
+    ]
+  },
+  {
+    "key": "strong",
+    "isUnique": true,
+    "name": "Strong",
+    "abilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "power", 
+          "abilityTags": ["attack"], 
+          "amount": 1.5
+        },
+        "requiredDataParameters": []
+      }
+    ]
   }
 ]

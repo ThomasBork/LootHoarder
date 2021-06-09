@@ -1,5 +1,6 @@
 import { ContractAttribute } from './contract-attribute';
 import { ContractCombatCharacterAbility } from './contract-combat-character-ability'
+import { ContractContinuousEffect } from './server-actions/combat-messages/contract-continuous-effect';
 
 export interface ContractCombatCharacter {
   id: number;
@@ -14,4 +15,5 @@ export interface ContractCombatCharacter {
   totalTimeToUseAbility?: number;
   idOfTargetOfAbilityBeingUsed?: number;
   idOfAbilityBeingUsed?: number;
+  continuousEffects: ContractContinuousEffect[];
 }

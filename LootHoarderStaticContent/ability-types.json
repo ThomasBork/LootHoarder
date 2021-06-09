@@ -44,14 +44,32 @@
         "target": "any-enemy",
         "tags": ["debuff"],
         "parameters": {
-          "typeKey": "change-attribute",
+          "continuousEffectTypeKey": "vulnerable",
           "duration": 10000,
-          "parameters": {
-            "attributeKey": "resistance",
-            "abilityTags": ["physical"],
-            "amount": 0.5,
-            "isAdditive": false
-          }
+          "abilityParameters": [{}]
+        }
+      }
+    ]
+  },
+  {
+    "key": "superman",
+    "name": "Superman",
+    "description": "Deals physical damage to a single target and reduces its physical resistance for some time.",
+    "tags": ["physical", "attack", "debuff"],
+    "inheritedTags": ["attack"],
+    "manaCost": 10,
+    "timeToUse": 5000,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "apply-continuous-effect",
+        "target": "self",
+        "tags": ["debuff"],
+        "parameters": {
+          "continuousEffectTypeKey": "strong",
+          "duration": 10000,
+          "abilityParameters": [{}]
         }
       }
     ]
@@ -99,13 +117,15 @@
       {
         "key": "apply-continuous-effect",
         "target": "any-enemy",
-        "tags": ["poison", "debuff"],
+        "tags": ["debuff"],
         "parameters": {
-          "typeKey": "poisoned",
+          "continuousEffectTypeKey": "poisoned",
           "duration": 10000,
-          "parameters": {
-            "damagePerSecond": 5
-          }
+          "abilityParameters": [
+            {
+              "damagePerSecond": 5
+            }
+          ]
         }
       }
     ]
@@ -132,13 +152,15 @@
       {
         "key": "apply-continuous-effect",
         "target": "all-enemies",
-        "tags": ["poison", "debuff"],
+        "tags": ["debuff"],
         "parameters": {
-          "typeKey": "poisoned",
+          "continuousEffectTypeKey": "poisoned",
           "duration": 10000,
-          "parameters": {
-            "damagePerSecond": 5
-          }
+          "abilityParameters": [
+            {
+              "damagePerSecond": 5
+            }
+          ]
         }
       }
     ]

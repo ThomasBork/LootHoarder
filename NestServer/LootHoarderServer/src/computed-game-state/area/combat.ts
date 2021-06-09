@@ -1,6 +1,8 @@
 import { Subject } from 'rxjs';
 import { ContractCombatCharacterCurrentHealthChangedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-health-changed-message';
 import { ContractCombatCharacterCurrentManaChangedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-character-current-mana-changed-message';
+import { ContractContinuousEffectAddedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-continuous-effect-added-message';
+import { ContractContinuousEffectRemovedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-continuous-effect-removed-message';
 import { ContractCombatEndedMessage } from 'src/loot-hoarder-contract/server-actions/combat-messages/contract-combat-ended-message';
 import { ContractCombat } from 'src/loot-hoarder-contract/contract-combat';
 import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/server-actions/contract-combat-web-socket-inner-message';
@@ -38,8 +40,8 @@ export class Combat {
       id: this.dbModel.id,
       hasEnded: this.dbModel.hasEnded,
       didTeam1Win: this.dbModel.didTeam1Win,
-      team1: this.team1.map(c => c.getUIState()),
-      team2: this.team2.map(c => c.getUIState()),
+      team1: this.team1.map(c => c.toContractModel()),
+      team2: this.team2.map(c => c.toContractModel()),
     };
   }
 
@@ -122,6 +124,20 @@ export class Combat {
       character.onCurrentManaChanged.subscribe(newCurrentMana => {
         this.onCombatEvent.next(new ContractCombatCharacterCurrentManaChangedMessage(character.id, newCurrentMana));
         this.updateHasEnded();
+      });
+      character.onContinuousEffectAdded.subscribe(continuousEffect => {
+        const message = new ContractContinuousEffectAddedMessage(
+          character.id,
+          continuousEffect.toContractModel()
+        );
+        this.onCombatEvent.next(message);
+      });
+      character.onContinuousEffectRemoved.subscribe(continuousEffect => {
+        const message = new ContractContinuousEffectRemovedMessage(
+          character.id,
+          continuousEffect.id
+        );
+        this.onCombatEvent.next(message);
       });
     }
   }

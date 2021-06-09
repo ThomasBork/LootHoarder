@@ -27,6 +27,7 @@ export class GameService {
       nextHeroId: 1,
       nextAbilityId: 1,
       nextItemId: 1,
+      nextContinuousEffectId: 1
     };
 
     const gameId = await this.dbGameRepository.insertGame(userId, initialGameState);

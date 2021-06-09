@@ -11,4 +11,9 @@ export class WebSocketEventStream extends EventStream<ContractServerWebSocketMes
     const messages = this.flushEventBucket();
     return new ContractServerWebSocketMultimessage(messages);
   }
+
+  public flushEventBucketAndSendTheResultAsMultimessage(): void {
+    const message = this.flushEventBucketAsMultimessage();
+    this.next(message);
+  }
 }

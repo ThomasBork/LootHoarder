@@ -5,6 +5,6 @@
   },
   {
     "key": "apply-continuous-effect",
-    "parameters": ["typeKey", "duration", "parameters"]
+    "parameters": ["continuousEffectTypeKey", "duration", "abilityParameters"]
   }
 ]

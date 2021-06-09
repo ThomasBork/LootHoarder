@@ -52,6 +52,7 @@ export class UIStateAdvancer {
         if (!character.isAlive) {
           continue;
         }
+
         if (character.remainingTimeToUseAbility > 0) {
           character.remainingTimeToUseAbility -= tickSize;
           if (character.remainingTimeToUseAbility < 0) {

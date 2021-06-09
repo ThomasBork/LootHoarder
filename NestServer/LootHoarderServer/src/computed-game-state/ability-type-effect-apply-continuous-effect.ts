@@ -1,21 +1,16 @@
 import { AbilityTargetScheme } from "./ability-target-scheme";
 import { AbilityTypeEffect } from "./ability-type-effect";
+import { AbilityTypeEffectApplyContinuousEffectParameters } from "./ability-type-effect-apply-continuous-effect-parameters";
 import { AbilityTypeEffectType } from "./ability-type-effect-type";
 
-interface ApplyContinuousEffectParameters {
-  typeKey: string,
-  duration: number,
-  parameters: any
-}
-
 export class AbilityTypeEffectApplyContinuousEffect extends AbilityTypeEffect {
-  public parameters: ApplyContinuousEffectParameters;
+  public parameters: AbilityTypeEffectApplyContinuousEffectParameters;
 
   public constructor(
     type: AbilityTypeEffectType,
     tags: string[],
     targetScheme: AbilityTargetScheme,
-    parameters: ApplyContinuousEffectParameters
+    parameters: AbilityTypeEffectApplyContinuousEffectParameters
   ) {
     super(type, tags, targetScheme);
     this.parameters = parameters;

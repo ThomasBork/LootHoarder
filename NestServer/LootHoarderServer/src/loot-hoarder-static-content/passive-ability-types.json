@@ -13,5 +13,12 @@
     "parameters": [
       "abilityTypeKey"
     ]
+  },
+  {
+    "key": "take-damage-over-time",
+    "parameters": [
+      "abilityTags",
+      "damagePerSecond"
+    ]
   }
 ]

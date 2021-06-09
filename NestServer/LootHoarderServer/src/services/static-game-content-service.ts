@@ -3,6 +3,7 @@ import AbilityTypeEffectTypes from "src/loot-hoarder-static-content/ability-type
 import AbilityTypes from "src/loot-hoarder-static-content/ability-types.json";
 import AreaTypes from "src/loot-hoarder-static-content/area-types.json";
 import AreaTypeTransitions from "src/loot-hoarder-static-content/area-type-transitions.json";
+import ContinuousEffectTypes from "src/loot-hoarder-static-content/continuous-effect-types.json";
 import HeroTypes from "src/loot-hoarder-static-content/hero-types.json";
 import MonsterTypes from "src/loot-hoarder-static-content/monster-types.json";
 import PassiveAbilityTypes from "src/loot-hoarder-static-content/passive-ability-types.json";
@@ -14,8 +15,6 @@ import { AbilityType } from "src/computed-game-state/ability-type";
 import { HeroType } from "src/computed-game-state/hero-type";
 import { AttributeSet } from "src/computed-game-state/attribute-set";
 import { AbilityTypeEffectType } from "src/computed-game-state/ability-type-effect-type";
-import { AbilityTypeEffect } from "src/computed-game-state/ability-type-effect";
-import { AbilityTargetScheme } from "src/computed-game-state/ability-target-scheme";
 import { WeightedElement } from "src/computed-game-state/weighted-element";
 import { AreaTypeRepeatedEncounter } from "src/computed-game-state/area/area-type-repeated-encounter";
 import { AreaTypeEncounterMonsterType } from "src/computed-game-state/area/area-type-encounter-monster-type";
@@ -36,6 +35,10 @@ import { PassiveAbility } from "src/computed-game-state/passive-ability";
 import { HeroSkillTreeStartingNode } from "src/computed-game-state/hero-skill-tree-starting-node";
 import { AbilityTypeEffectDealDamage } from "src/computed-game-state/ability-type-effect-deal-damage";
 import { AbilityTypeEffectApplyContinuousEffect } from "src/computed-game-state/ability-type-effect-apply-continuous-effect";
+import { ContinuousEffectType } from "src/computed-game-state/area/continuous-effect-type";
+import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
+import { AbilityTypeEffectApplyContinuousEffectParameters } from "src/computed-game-state/ability-type-effect-apply-continuous-effect-parameters";
+import { ContinuousEffectTypeAbilityRecipe } from "src/computed-game-state/area/continuous-effect-type-ability-recipe";
 
 @Injectable()
 export class StaticGameContentService {
@@ -48,6 +51,7 @@ export class StaticGameContentService {
   private passiveAbilityTypes!: PassiveAbilityType[];
   private itemTypes!: ItemType[];
   private itemAbilityRollRecipes!: ItemAbilityRollRecipe[];
+  private continuousEffectTypes!: ContinuousEffectType[];
 
   private static _instance: StaticGameContentService;
 
@@ -85,6 +89,14 @@ export class StaticGameContentService {
     const result = this.passiveAbilityTypes.find(x => x.key === key);
     if (!result) {
       throw Error (`Passive ability type with key = '${key}' not found.`);
+    }
+    return result;
+  }
+
+  public getContinuousEffectType(key: string): ContinuousEffectType {
+    const result = this.continuousEffectTypes.find(x => x.key === key);
+    if (!result) {
+      throw Error (`Continuous effect type with key = '${key}' not found.`);
     }
     return result;
   }
@@ -140,9 +152,10 @@ export class StaticGameContentService {
   }
 
   private loadAssets(): void {
+    this.loadPassiveAbilityTypes();
+    this.loadContinuousEffectTypes();
     this.loadAbilityTypeEffectTypes();
     this.loadAbilityTypes();
-    this.loadPassiveAbilityTypes();
     this.loadItemTypes();
     this.loadItemAbilityRollRecipes();
     this.loadHeroSkillTree();
@@ -176,7 +189,7 @@ export class StaticGameContentService {
           const effectType = this.getAbilityTypeEffectType(effect.key);
           for(const parameterKey of effectType.parameters) {
             if (!effect.parameters.hasOwnProperty(parameterKey)) {
-              throw Error (`The ability type, '${abilityType.key}', has an effect of the type, '${effect.key}', that does not have all parameters of that effect type.`);
+              throw Error (`The ability type, '${abilityType.key}', has an effect of the type, '${effect.key}', that does not have the required parameter: '${parameterKey}'.`);
             }
           }
           const tags = [...new Set([...effect.tags, ...abilityType.inheritedTags])];
@@ -192,7 +205,14 @@ export class StaticGameContentService {
               );
             }
             case 'apply-continuous-effect': {
-              const parameters = effect.parameters;
+              const continuousEffectType = this.getContinuousEffectType(effect.parameters.continuousEffectTypeKey);
+              const duration = effect.parameters.duration;
+              const additionalAbilityParameters = effect.parameters.abilityParameters;
+              const parameters = new AbilityTypeEffectApplyContinuousEffectParameters(
+                continuousEffectType,
+                duration,
+                additionalAbilityParameters
+              );
               return new AbilityTypeEffectApplyContinuousEffect(
                 effectType,
                 tags,
@@ -362,7 +382,23 @@ export class StaticGameContentService {
 
   private loadPassiveAbilityTypes(): void {
     this.passiveAbilityTypes = PassiveAbilityTypes.map(passiveAbilityType => 
-      new PassiveAbilityType(passiveAbilityType.key, passiveAbilityType.parameters));
+      new PassiveAbilityType(passiveAbilityType.key as ContractPassiveAbilityTypeKey, passiveAbilityType.parameters));
+  }
+
+  private loadContinuousEffectTypes(): void {
+    this.continuousEffectTypes = ContinuousEffectTypes.map(continuousEffectType => 
+      new ContinuousEffectType(
+        continuousEffectType.key,
+        continuousEffectType.isUnique,
+        continuousEffectType.abilities.map((ability: any) => 
+          new ContinuousEffectTypeAbilityRecipe(
+            this.getPassiveAbilityType(ability.typeKey),
+            ability.parameters,
+            ability.requiredDataParameters
+          )
+        )
+      )
+    );
   }
 
   private loadItemTypes(): void {

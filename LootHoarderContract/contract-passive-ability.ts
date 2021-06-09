@@ -1,4 +1,6 @@
+import { ContractPassiveAbilityTypeKey } from './contract-passive-ability-type-key';
+
 export interface ContractPassiveAbility {
-  typeKey: string;
+  typeKey: ContractPassiveAbilityTypeKey;
   parameters: any;
 }
