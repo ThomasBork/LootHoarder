@@ -1,0 +1,99 @@
+[
+  {
+    "key": "armed-to-the-teeth",
+    "name": "Armed to the Teeth",
+    "hideDescriptionUntilCompleted": false,
+    "requiredAccomplishments": [
+      {
+        "typeKey": "special",
+        "requiredCount": 1,
+        "description":"Have a hero wear one item in each item slot.",
+        "parameters": {}
+      }
+    ]
+  },
+  {
+    "key": "snake-slayer",
+    "name": "Snake Slayer",
+    "hideDescriptionUntilCompleted": false,
+    "requiredAccomplishments": [
+      {
+        "typeKey": "kill-specific-monster-type",
+        "requiredCount": 20,
+        "parameters": {
+          "monsterTypeKey": "snake"
+        }
+      }
+    ]
+  },
+  {
+    "key": "snake-conqueror",
+    "name": "Snake Conqueror",
+    "hideDescriptionUntilCompleted": false,
+    "requiredAccomplishments": [
+      {
+        "typeKey": "kill-specific-monster-type",
+        "requiredCount": 50,
+        "parameters": {
+          "monsterTypeKey": "snake"
+        }
+      }
+    ]
+  },
+  {
+    "key": "wolf-slayer",
+    "name": "Wolf Slayer",
+    "hideDescriptionUntilCompleted": false,
+    "requiredAccomplishments": [
+      {
+        "typeKey": "kill-specific-monster-type",
+        "requiredCount": 20,
+        "parameters": {
+          "monsterTypeKey": "wolf"
+        }
+      }
+    ]
+  },
+  {
+    "key": "wolf-conqueror",
+    "name": "Wolf Conqueror",
+    "hideDescriptionUntilCompleted": false,
+    "requiredAccomplishments": [
+      {
+        "typeKey": "kill-specific-monster-type",
+        "requiredCount": 50,
+        "parameters": {
+          "monsterTypeKey": "wolf"
+        }
+      }
+    ]
+  },
+  {
+    "key": "bandit-lord",
+    "name": "Bandit Lord",
+    "hideDescriptionUntilCompleted": false,
+    "requiredAccomplishments": [
+      {
+        "typeKey": "kill-specific-monster-type",
+        "requiredCount": 20,
+        "parameters": {
+          "monsterTypeKey": "sellsword"
+        }
+      },
+      {
+        "typeKey": "kill-specific-monster-type",
+        "requiredCount": 20,
+        "parameters": {
+          "monsterTypeKey": "assassin"
+        }
+      },
+      {
+        "typeKey": "kill-specific-monster-type",
+        "requiredCount": 20,
+        "parameters": {
+          "monsterTypeKey": "bandit-mage"
+        }
+      }
+    ]
+  }
+]

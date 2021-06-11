@@ -1,0 +1,14 @@
+[
+  {
+    "key": "special",
+    "requiredParameters": []
+  },
+  {
+    "key": "kill-specific-monster-type",
+    "requiredParameters": ["monsterTypeKey"]
+  },
+  {
+    "key": "kill-monsters",
+    "requiredParameters": []
+  }
+]

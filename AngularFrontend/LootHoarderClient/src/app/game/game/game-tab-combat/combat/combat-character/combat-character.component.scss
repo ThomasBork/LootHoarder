@@ -10,12 +10,12 @@
   
     .abilities {
       display: flex;
-      min-height: 30px;
+      min-height: 40px;
       margin-top: 3px;
   
       .ability {
-        height: 30px;
-        width: 30px;
+        height: 40px;
+        width: 40px;
         position: relative;
         border: 2px solid black;
         border-radius: 4px;
@@ -79,12 +79,12 @@
 
     .continuous-effects {
       display: flex;
-      min-height: 30px;
+      min-height: 40px;
       margin-top: 3px;
 
       .continuous-effect {
-        height: 30px;
-        width: 30px;
+        height: 40px;
+        width: 40px;
         position: relative;
         border: 2px solid black;
         border-radius: 4px;
