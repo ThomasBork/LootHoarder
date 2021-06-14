@@ -28,6 +28,8 @@ import { ContractSkillNodeLocation } from "src/loot-hoarder-contract/contract-sk
 import { PassiveAbilityParametersUnlockAbility } from "./passive-ability-parameters-unlock-ability";
 import { HeroAbility } from "./hero-ability";
 import { DbHeroAbility } from "src/raw-game-state/db-hero-ability";
+import { AttributeValueSet } from "./attribute-value-set";
+import { AttributeValueContainer } from "./attribute-value-container";
 
 export class Hero {
   public dbModel: DbHero;
@@ -45,8 +47,6 @@ export class Hero {
   public onLevelUp: Subject<number>;
   public onEvent: EventStream<ContractServerWebSocketMessage>;
   public onItemUnequipped: Subject<ItemUnequippedEvent>;
-
-  private attributesFromLevel: AttributeSet;
 
   private constructor(
     dbModel: DbHero,
@@ -79,14 +79,18 @@ export class Hero {
       this.onEvent.next(message);
     });
 
-    this.attributes.setAdditiveAttributeSet(this.type.baseAttributes);
+    this.attributes.setAdditiveAttributeValueSet(this.type.baseAttributes);
 
-    const attributesFromLevel = new AttributeSet();
-    attributesFromLevel.setAdditiveAttributeSet(this.type.attributesPerLevel);
-    attributesFromLevel.setMultiplicativeModifier(this, this.level);
-    this.attributes.setAdditiveAttributeSet(attributesFromLevel);
-    this.onLevelUp.subscribe(newLevel => attributesFromLevel.setMultiplicativeModifier(this, newLevel));
-    this.attributesFromLevel = attributesFromLevel;
+    for(const typeAttributePerLevelValueContainer of this.type.attributesPerLevel.attributeValueContainers) {
+      const attributeFromLevelValueContainer = new ValueContainer();
+      attributeFromLevelValueContainer.setAdditiveValueContainer(typeAttributePerLevelValueContainer.valueContainer);
+      attributeFromLevelValueContainer.setMultiplicativeModifier(this, this.level);
+      this.onLevelUp.subscribe(newLevel => attributeFromLevelValueContainer.setMultiplicativeModifier(this, newLevel));
+      const combinedAttribute = this.attributes.getAttribute(typeAttributePerLevelValueContainer.attributeType, typeAttributePerLevelValueContainer.abilityTags);
+      combinedAttribute.additiveValueContainer.setAdditiveValueContainer(attributeFromLevelValueContainer);
+    }
+
+    this.setUpAbilityValueContainers();
 
     this.setUpEventListeners();
 
@@ -247,6 +251,8 @@ export class Hero {
             this.dbModel.abilities.push(dbHeroAbility);
             this.abilities.push(heroAbility);
 
+            this.setUpAbilityValueContainersForAbility(heroAbility);
+
             const message = new ContractHeroAbilityAddedMessage(this.id, heroAbility.toContractModel());
             this.onEvent.next(message);
           }
@@ -318,7 +324,7 @@ export class Hero {
       this.applyItemEffects(event.item);
       this.onEvent.next(
         new ContractItemEquippedMessage(this.id, event.item.toContractModel(), event.position)
-      )
+      );
     });
 
     this.inventory.onItemUnequipped.subscribe(event => {
@@ -328,6 +334,26 @@ export class Hero {
       );
       this.onItemUnequipped.next(event);
     });
+  }
+
+  private setUpAbilityValueContainers(): void {
+    for(const ability of this.abilities) {
+      this.setUpAbilityValueContainersForAbility(ability);
+    }
+  }
+
+  private setUpAbilityValueContainersForAbility(ability: HeroAbility): void {
+    for(const effect of ability.effects) {
+      this.setUpAbilityValueContainer(effect.abilityTypeEffect.tags, effect.powerVC, ContractAttributeType.power);
+    }
+    this.setUpAbilityValueContainer(ability.type.tags, ability.useSpeedVC, ContractAttributeType.useSpeed);
+    this.setUpAbilityValueContainer(ability.type.tags, ability.cooldownSpeedVC, ContractAttributeType.cooldownSpeed);
+  }
+
+  private setUpAbilityValueContainer(tags: string[], valueContainer: ValueContainer, attributeType: ContractAttributeType): void {
+    const combinedAttribute = this.attributes.getAttribute(attributeType, tags);
+    valueContainer.setAdditiveValueContainer(combinedAttribute.accumulatedAdditiveValueContainer);
+    valueContainer.setMultiplicativeValueContainer(combinedAttribute.accumulatedMultiplicativeValueContainer);
   }
 
   public static load(dbModel: DbHero): Hero {

@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { AbilityType } from "./ability-type";
 import { HeroType } from "./hero-type";
 import HeroTypes from 'src/loot-hoarder-static-content/hero-types.json';
+import AbilityTypeEffectTypes from 'src/loot-hoarder-static-content/ability-type-effect-types.json';
 import AbilityTypes from 'src/loot-hoarder-static-content/ability-types.json';
 import AreaTypes from 'src/loot-hoarder-static-content/area-types.json';
 import AreaTypeTransitions from 'src/loot-hoarder-static-content/area-type-transitions.json';
@@ -19,9 +20,15 @@ import { HeroSkillTreeNode } from "./hero-skill-tree-node";
 import { PassiveAbility } from "./passive-ability";
 import { HeroSkillTreeStartingNode } from "./hero-skill-tree-starting-node";
 import { ContinuousEffectType } from "./continuous-effect-type";
+import { AbilityTypeEffectApplyContinuousEffectParameters } from "./ability-type-effect-apply-continuous-effect-parameters";
+import { AbilityTypeEffectApplyContinuousEffect } from "./ability-type-effect-apply-continuous-effect";
+import { AbilityTypeEffectDealDamage } from "./ability-type-effect-deal-damage";
+import { AbilityTypeEffectDealDamageParameters } from "./ability-type-effect-deal-damage-parameters";
+import { AbilityTypeEffectType } from "./ability-type-effect-type";
 
 @Injectable()
 export class AssetManagerService {
+  private abilityTypeEffectTypes!: AbilityTypeEffectType[];
   private abilityTypes: AbilityType[] = [];
   private heroTypes: HeroType[] = [];
   private areaTypes: AreaType[] = [];
@@ -46,11 +53,20 @@ export class AssetManagerService {
   public loadAssets(): void {
     this.loadPassiveAbilityTypes();
     this.loadContinuousEffectTypes();
+    this.loadAbilityTypeEffectTypes();
     this.loadAbilityTypes();
     this.loadItemTypes();
     this.loadHeroTypes();
     this.loadAreaTypes();
     this.loadHeroSkillTree();
+  }
+
+  public getAbilityTypeEffectType(key: string): AbilityTypeEffectType {
+    const result = this.abilityTypeEffectTypes.find(x => x.key === key);
+    if (!result) {
+      throw Error (`Ability type effect type with key = '${key}' not found.`);
+    }
+    return result;
   }
 
   public getAbilityType(key: string): AbilityType {
@@ -126,15 +142,65 @@ export class AssetManagerService {
     );
   }
 
+  private loadAbilityTypeEffectTypes(): void {
+    this.abilityTypeEffectTypes = AbilityTypeEffectTypes.map(effectType => 
+      new AbilityTypeEffectType(
+        effectType.key,
+        effectType.parameters
+      )
+    );
+  }
+
   private loadAbilityTypes(): void {
-    this.abilityTypes = AbilityTypes.map(abilityType => 
-      new AbilityType(
+    this.abilityTypes = AbilityTypes.map(abilityType => {
+      const effects = (abilityType.effects as any).map((effect: any) => {
+        const effectType = this.getAbilityTypeEffectType(effect.key);
+        for(const parameterKey of effectType.parameters) {
+          if (!effect.parameters.hasOwnProperty(parameterKey)) {
+            throw Error (`The ability type, '${abilityType.key}', has an effect of the type, '${effect.key}', that does not have the required parameter: '${parameterKey}'.`);
+          }
+        }
+        const tags = [...new Set([...effect.tags, ...abilityType.inheritedTags])];
+        const target = effect.target;
+        switch(effect.key) {
+          case 'deal-damage': {
+            const parameters = new AbilityTypeEffectDealDamageParameters(effect.parameters.baseAmount);
+            return new AbilityTypeEffectDealDamage(
+              effectType,
+              tags,
+              target,
+              parameters
+            );
+          }
+          case 'apply-continuous-effect': {
+            const continuousEffectType = this.getContinuousEffectType(effect.parameters.continuousEffectTypeKey);
+            const duration = effect.parameters.duration;
+            const additionalAbilityParameters = effect.parameters.abilityParameters;
+            const parameters = new AbilityTypeEffectApplyContinuousEffectParameters(
+              continuousEffectType,
+              duration,
+              additionalAbilityParameters
+            );
+            return new AbilityTypeEffectApplyContinuousEffect(
+              effectType,
+              tags,
+              target,
+              parameters
+            );
+          }
+          default:
+            throw Error (`The ability type effect has no implementation.`);
+        }
+      });
+
+      return new AbilityType(
         abilityType.key, 
         abilityType.name, 
         abilityType.description, 
-        abilityType.tags
-      )
-    );
+        abilityType.tags,
+        effects
+      );
+    });
   }
 
   private loadHeroTypes(): void {

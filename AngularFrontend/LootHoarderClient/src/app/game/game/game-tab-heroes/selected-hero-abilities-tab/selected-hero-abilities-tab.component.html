@@ -15,7 +15,7 @@
         <img 
           *ngIf="ability.isEnabled"
           class="enabled-check-mark"
-          src="assets/images/check-mark.png" 
+          src="assets/images/check-mark.png"
         />
       </span>
       <span class="text-container">
@@ -27,7 +27,11 @@
             [style.background-color]="getAbilityTagColor(tag)"
           >{{getAbilityTagTranslation(tag)}}</li>
         </ul>
-        <div class="description">{{ability.type.description}}</div>
+        <ul>
+          <li
+            *ngFor="let effect of ability.effects"
+          >{{effect.description}}</li>
+        </ul>
       </span>
     </li>
   </ul>

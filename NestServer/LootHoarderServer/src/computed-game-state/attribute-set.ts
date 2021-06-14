@@ -4,6 +4,7 @@ import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attrib
 import { DbAttributeSet } from "src/raw-game-state/db-attribute-set";
 import { CombinedAttributeValueContainer } from "./combined-attribute-value-container";
 import { AttributeValueChangeEvent } from "./attribute-value-change-event";
+import { AttributeValueSet } from "./attribute-value-set";
 
 export class AttributeSet {
   public onChange: Subject<AttributeValueChangeEvent>;
@@ -25,7 +26,7 @@ export class AttributeSet {
   }
 
   /**
-   * Creates a new attribute, if one does not already exist
+   * Creates a new attribute if one does not already exist
    * @param attributeType 
    * @param abilityTags 
    * @returns 
@@ -41,33 +42,6 @@ export class AttributeSet {
       this.addAttribute(attribute);
     }
     return attribute;
-  }
-
-  /**
-   * Does not create new attributes.
-   * @param attributeType 
-   * @param tags 
-   * @returns all attributes that include zero or more of the provided tags
-   */
-  public getAttributes(attributeType: ContractAttributeType, tags: string[]): CombinedAttributeValueContainer[] {
-    const allCombinedAttributesIncludingTags = this.combinedAttributes.filter(attribute => 
-      attribute.attributeType === attributeType
-      && attribute.abilityTags.every(tag => tags.includes(tag))
-    );
-
-    return allCombinedAttributesIncludingTags;
-  }
-
-  public calculateAttributeValue(attributeType: ContractAttributeType, tags: string[]): number {
-    // TODO cache this value
-    const allCombinedAttributes = this.getAttributes(attributeType, tags);
-    const additiveModifiersSum = allCombinedAttributes
-      .map(attribute => attribute.additiveValueContainer.value)
-      .reduce((v1, v2) => v1 + v2, 0);
-    const multiplicativeModifiersProduct = allCombinedAttributes
-      .map(attribute => attribute.multiplicativeValueContainer.value)
-      .reduce((v1, v2) => v1 * v2, 0);
-    return additiveModifiersSum * multiplicativeModifiersProduct;
   }
 
   public toContractModel(): ContractAttribute[] {
@@ -97,36 +71,37 @@ export class AttributeSet {
     };
   }
 
-  public setAdditiveAttributeSet(attributeSet: AttributeSet): void {
-    for(const otherCombinedAttribute of attributeSet.combinedAttributes) {
-      const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.abilityTags);
-      thisCombinedAttribute.additiveValueContainer.setAdditiveValueContainer(otherCombinedAttribute.additiveValueContainer);
-    }
-    attributeSet.onCombinedAttributeAdded.subscribe(otherCombinedAttribute => {
-      const thisCombinedAttribute = this.getAttribute(otherCombinedAttribute.attributeType, otherCombinedAttribute.abilityTags);
-      thisCombinedAttribute.additiveValueContainer.setAdditiveValueContainer(otherCombinedAttribute.additiveValueContainer);
-    });
-  }
-
-  public setMultiplicativeModifier(key: any, modifier: number): void {
-    this.multiplicativeModifiers.set(key, modifier);
-    for(const combinedAttribute of this.combinedAttributes) {
-      combinedAttribute.multiplicativeValueContainer.setAdditiveModifier(key, modifier);
+  public setAdditiveAttributeValueSet(attributeValueSet: AttributeValueSet): void {
+    for(const attributeValueContainer of attributeValueSet.attributeValueContainers) {
+      const thisCombinedAttribute = this.getAttribute(attributeValueContainer.attributeType, attributeValueContainer.abilityTags);
+      thisCombinedAttribute.additiveValueContainer.setAdditiveValueContainer(attributeValueContainer.valueContainer);
     }
   }
 
-  public flatCopy(): AttributeSet {
-    const copyAttributes = this.combinedAttributes.map(combined => combined.flatCopy());
-    return new AttributeSet(copyAttributes);
-  }
+  private addAttribute(newAttribute: CombinedAttributeValueContainer): void {
+    const combinedAttributesEffectingNewAttribute = this.combinedAttributes.filter(existingAttribute => 
+      existingAttribute.attributeType === newAttribute.attributeType
+      && existingAttribute.abilityTags.every(tag => newAttribute.abilityTags.includes(tag))
+    );
 
-  private addAttribute(attribute: CombinedAttributeValueContainer): void {
-    this.combinedAttributes.push(attribute);
-    this.subscribeToChangeEvent(attribute);
-    for(const [key, modifier] of this.multiplicativeModifiers) {
-      attribute.multiplicativeValueContainer.setMultiplicativeModifier(key, modifier);
-    }
-    this.onCombinedAttributeAdded.next(attribute);
+    const combinedAttributesEffectedByNewAttribute = this.combinedAttributes.filter(existingAttribute => 
+      newAttribute.attributeType === existingAttribute.attributeType
+      && newAttribute.abilityTags.every(tag => existingAttribute.abilityTags.includes(tag))
+    );
+
+    for (let existingAttribute of combinedAttributesEffectingNewAttribute) {
+      newAttribute.accumulatedAdditiveValueContainer.setAdditiveValueContainer(existingAttribute.additiveValueContainer);
+      newAttribute.accumulatedMultiplicativeValueContainer.setMultiplicativeValueContainer(existingAttribute.multiplicativeValueContainer);
+    };
+
+    for (let existingAttribute of combinedAttributesEffectedByNewAttribute) {
+      existingAttribute.accumulatedAdditiveValueContainer.setAdditiveValueContainer(newAttribute.additiveValueContainer);
+      existingAttribute.accumulatedMultiplicativeValueContainer.setMultiplicativeValueContainer(newAttribute.multiplicativeValueContainer);
+    };
+
+    this.combinedAttributes.push(newAttribute);
+    this.subscribeToChangeEvent(newAttribute);
+    this.onCombinedAttributeAdded.next(newAttribute);
   }
 
   private subscribeToChangeEvent(attribute: CombinedAttributeValueContainer): void {

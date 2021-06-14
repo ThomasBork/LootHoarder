@@ -245,7 +245,8 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
   }
 
   private calculateDamageTaken (damageGiven: number, characterTakingDamage: CombatCharacter, abilityTags: string[]): number {
-    const resistance = characterTakingDamage.attributes.calculateAttributeValue(ContractAttributeType.resistance, abilityTags);
+    const resistanceCombinedAttribute = characterTakingDamage.attributes.getAttribute(ContractAttributeType.resistance, abilityTags);
+    const resistance = resistanceCombinedAttribute.valueContainer.value;
     const resistanceMultiplier = 100 / (100 + resistance);
     return damageGiven * resistanceMultiplier;
   }

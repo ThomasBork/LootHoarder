@@ -151,11 +151,9 @@ export class CombatCharacter {
   }
 
   private setUpAbilityValueContainer(tags: string[], valueContainer: ValueContainer, attributeType: ContractAttributeType): void {
-    const combinedAttributes = this.attributes.getAttributes(attributeType, tags);
-    for(const combinedAttribute of combinedAttributes) {
-      valueContainer.setAdditiveValueContainer(combinedAttribute.additiveValueContainer);
-      valueContainer.setMultiplicativeValueContainer(combinedAttribute.multiplicativeValueContainer);
-    }
+    const combinedAttribute = this.attributes.getAttribute(attributeType, tags);
+    valueContainer.setAdditiveValueContainer(combinedAttribute.additiveValueContainer);
+    valueContainer.setMultiplicativeValueContainer(combinedAttribute.multiplicativeValueContainer);
   }
 
   private applyPassiveAbilityEffects(abilities: PassiveAbility[]): void {

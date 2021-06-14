@@ -1,6 +1,8 @@
 import { Injectable, Logger, OnApplicationBootstrap } from "@nestjs/common";
 import { AreaTypeEncounterMonsterType } from "src/computed-game-state/area/area-type-encounter-monster-type";
+import { AttributeSet } from "src/computed-game-state/attribute-set";
 import { Game } from "src/computed-game-state/game";
+import { ValueContainer } from "src/computed-game-state/value-container";
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { DbAbility } from "src/raw-game-state/db-ability";
 import { DbCombatCharacter } from "src/raw-game-state/db-combat-character";
@@ -28,11 +30,21 @@ export class MonsterSpawnerService {
         };
       });
       const level = areaLevel;
-
-      const attributes = monsterType.baseAttributes.flatCopy();
-      const attributesPerLevel = monsterType.attributesPerLevel.flatCopy();
-      attributesPerLevel.setMultiplicativeModifier(this, level);
-      attributes.setAdditiveAttributeSet(attributesPerLevel);
+      
+      const attributes = new AttributeSet();
+      
+      for(const typeAttributeValueContainer of monsterType.baseAttributes.attributeValueContainers) {
+        const combinedAttribute = attributes.getAttribute(typeAttributeValueContainer.attributeType, typeAttributeValueContainer.abilityTags);
+        combinedAttribute.additiveValueContainer.setAdditiveValueContainer(combinedAttribute.valueContainer);
+      }
+      
+      for(const typeAttributePerLevelValueContainer of monsterType.attributesPerLevel.attributeValueContainers) {
+        const attributeFromLevelValueContainer = new ValueContainer();
+        attributeFromLevelValueContainer.setAdditiveValueContainer(typeAttributePerLevelValueContainer.valueContainer);
+        attributeFromLevelValueContainer.setMultiplicativeModifier(this, level);
+        const combinedAttribute = attributes.getAttribute(typeAttributePerLevelValueContainer.attributeType, typeAttributePerLevelValueContainer.abilityTags);
+        combinedAttribute.additiveValueContainer.setAdditiveValueContainer(attributeFromLevelValueContainer);
+      }
 
       const maximumHealth = attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer.value;
       const maximumMana = attributes.getAttribute(ContractAttributeType.maximumMana, []).valueContainer.value;

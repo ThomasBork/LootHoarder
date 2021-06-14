@@ -1,4 +1,4 @@
-export enum AbilityTargetScheme {
+export enum ContractAbilityTargetScheme {
   all = 'all',
   allAllies = 'all-allies',
   allEnemies = 'all-enemies',

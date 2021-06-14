@@ -52,29 +52,6 @@
     ]
   },
   {
-    "key": "superman",
-    "name": "Superman",
-    "description": "Deals physical damage to a single target and reduces its physical resistance for some time.",
-    "tags": ["physical", "attack", "debuff"],
-    "inheritedTags": ["attack"],
-    "manaCost": 10,
-    "timeToUse": 5000,
-    "cooldown": 10000,
-    "criticalStrikeChance": 0.05,
-    "effects": [
-      {
-        "key": "apply-continuous-effect",
-        "target": "self",
-        "tags": ["debuff"],
-        "parameters": {
-          "continuousEffectTypeKey": "strong",
-          "duration": 10000,
-          "abilityParameters": [{}]
-        }
-      }
-    ]
-  },
-  {
     "key": "flame-slash",
     "name": "Flame Slash",
     "description": "Deals fire damage to a all enemies.",

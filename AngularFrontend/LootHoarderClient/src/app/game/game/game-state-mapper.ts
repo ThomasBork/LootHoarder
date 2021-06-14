@@ -33,6 +33,8 @@ import { HeroSkillTreeNodeStatus } from "./client-representation/hero-skill-tree
 import { ContinuousEffect } from "./client-representation/continuous-effect";
 import { ContractHeroAbility } from "src/loot-hoarder-contract/contract-hero-ability";
 import { HeroAbility } from "./client-representation/hero-ability";
+import { AbilityEffect } from "./client-representation/ability-effect";
+import { ContractAbilityEffect } from "src/loot-hoarder-contract/contract-ability-effect";
 
 @Injectable()
 export class GameStateMapper {
@@ -111,10 +113,28 @@ export class GameStateMapper {
 
   public mapToHeroAbility(serverHeroAbility: ContractHeroAbility): HeroAbility {
     const type = this.assetManagerService.getAbilityType(serverHeroAbility.typeKey);
+    const effects = serverHeroAbility.effects.map(effect => this.mapToAbilityEffect(effect));
     return new HeroAbility(
       serverHeroAbility.id, 
       type, 
-      serverHeroAbility.isEnabled
+      serverHeroAbility.isEnabled,
+      effects,
+      serverHeroAbility.useSpeed,
+      serverHeroAbility.cooldownSpeed,
+      serverHeroAbility.cooldown,
+      serverHeroAbility.manaCost,
+      serverHeroAbility.criticalStrikeChance,
+      serverHeroAbility.timeToUse
+    );
+  }
+
+  public mapToAbilityEffect(serverAbilityEffect: ContractAbilityEffect): AbilityEffect {
+    const abilityType = this.assetManagerService.getAbilityType(serverAbilityEffect.abilityTypeKey);
+    const abilityTypeEffect = abilityType.effects[serverAbilityEffect.abilityTypeEffectTypeIndex];
+    return new AbilityEffect(
+      abilityType,
+      abilityTypeEffect,
+      serverAbilityEffect.power
     );
   }
 

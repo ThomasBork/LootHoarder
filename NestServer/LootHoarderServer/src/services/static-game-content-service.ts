@@ -39,6 +39,8 @@ import { ContinuousEffectType } from "src/computed-game-state/area/continuous-ef
 import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
 import { AbilityTypeEffectApplyContinuousEffectParameters } from "src/computed-game-state/ability-type-effect-apply-continuous-effect-parameters";
 import { ContinuousEffectTypeAbilityRecipe } from "src/computed-game-state/area/continuous-effect-type-ability-recipe";
+import { AttributeValueSet } from "src/computed-game-state/attribute-value-set";
+import { AttributeValueContainer } from "src/computed-game-state/attribute-value-container";
 
 @Injectable()
 export class StaticGameContentService {
@@ -239,39 +241,39 @@ export class StaticGameContentService {
     spellCooldownSpeed?: number;
     physicalResistance?: number;
     elementalResistance?: number;
-  }): AttributeSet {
-    const combinedAttributes: CombinedAttributeValueContainer[] = [];
+  }): AttributeValueSet {
+    const attributeValueContainers: AttributeValueContainer[] = [];
     if (coreAttributes.maximumHealth) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.maximumHealth, [], coreAttributes.maximumHealth, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.maximumHealth, [], coreAttributes.maximumHealth));
     }
     if (coreAttributes.maximumMana) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.maximumMana, [], coreAttributes.maximumMana, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.maximumMana, [], coreAttributes.maximumMana));
     }
     if (coreAttributes.attackPower) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.power, ["attack"], coreAttributes.attackPower, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.power, ["attack"], coreAttributes.attackPower));
     }
     if (coreAttributes.spellPower) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.power, ["spell"], coreAttributes.spellPower, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.power, ["spell"], coreAttributes.spellPower));
     }
     if (coreAttributes.attackUseSpeed) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.useSpeed, ["attack"], coreAttributes.attackUseSpeed, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.useSpeed, ["attack"], coreAttributes.attackUseSpeed));
     }
     if (coreAttributes.spellUseSpeed) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.useSpeed, ["spell"], coreAttributes.spellUseSpeed, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.useSpeed, ["spell"], coreAttributes.spellUseSpeed));
     }
     if (coreAttributes.attackCooldownSpeed) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.cooldownSpeed, ["attack"], coreAttributes.attackCooldownSpeed, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.cooldownSpeed, ["attack"], coreAttributes.attackCooldownSpeed));
     }
     if (coreAttributes.spellCooldownSpeed) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.cooldownSpeed, ["spell"], coreAttributes.spellCooldownSpeed, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.cooldownSpeed, ["spell"], coreAttributes.spellCooldownSpeed));
     }
     if (coreAttributes.physicalResistance) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.resistance, ["physical"], coreAttributes.physicalResistance, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.resistance, ["physical"], coreAttributes.physicalResistance));
     }
     if (coreAttributes.elementalResistance) {
-      combinedAttributes.push(new CombinedAttributeValueContainer(ContractAttributeType.resistance, ["elemental"], coreAttributes.elementalResistance, 1));
+      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.resistance, ["elemental"], coreAttributes.elementalResistance));
     }
-    const attributeSet = new AttributeSet(combinedAttributes);
+    const attributeSet = new AttributeValueSet(attributeValueContainers);
     return attributeSet;
   }
 
@@ -316,7 +318,6 @@ export class StaticGameContentService {
         const baseAttributes = this.loadAttributeSetFromCoreAttributes(heroType.baseAttributes);
         const attributesPerLevel = this.loadAttributeSetFromCoreAttributes(heroType.attributesPerLevel);
         const startItemType = this.getItemType(heroType.startingWeaponType);
-        const startingSkillTreeNode = this.heroSkillTree.nodes.find(node => node.passiveAbilities.some(a => a.type))
         return new HeroType(
           heroType.key,
           heroType.name,

@@ -1,19 +1,19 @@
 import { AbilityType } from "../ability-type";
-import { AttributeSet } from "../attribute-set";
+import { AttributeValueSet } from "../attribute-value-set";
 
 export class MonsterType {
   public key: string;
   public name: string;
   public abilityTypes: AbilityType[];
-  public baseAttributes: AttributeSet;
-  public attributesPerLevel: AttributeSet;
+  public baseAttributes: AttributeValueSet;
+  public attributesPerLevel: AttributeValueSet;
 
   public constructor(
     key: string,
     name: string,
     abilityTypes: AbilityType[],
-    baseAttributes: AttributeSet,
-    attributesPerLevel: AttributeSet
+    baseAttributes: AttributeValueSet,
+    attributesPerLevel: AttributeValueSet
   ) {
     this.key = key;
     this.name = name;

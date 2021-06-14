@@ -1,5 +1,5 @@
 import { AbilityType } from "./ability-type";
-import { AttributeSet } from "./attribute-set";
+import { AttributeValueSet } from "./attribute-value-set";
 import { HeroSkillTreeNode } from "./hero-skill-tree-node";
 import { ItemType } from "./item-type";
 
@@ -8,8 +8,8 @@ export class HeroType {
   public name: string;
   public description: string;
   public abilityTypes: AbilityType[];
-  public baseAttributes: AttributeSet;
-  public attributesPerLevel: AttributeSet;
+  public baseAttributes: AttributeValueSet;
+  public attributesPerLevel: AttributeValueSet;
   public startItemType: ItemType;
   public startingSkillTreeNode: HeroSkillTreeNode;
 
@@ -18,8 +18,8 @@ export class HeroType {
     name: string,
     description: string,
     abilityTypes: AbilityType[],
-    baseAttributes: AttributeSet,
-    attributesPerLevel: AttributeSet,
+    baseAttributes: AttributeValueSet,
+    attributesPerLevel: AttributeValueSet,
     startItemType: ItemType,
     startingSkillTreeNode: HeroSkillTreeNode
   ) {
