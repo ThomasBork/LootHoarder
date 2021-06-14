@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AbilityTagTranslator } from 'src/app/shared/ability-tag-translator';
 import { CombatCharacter } from '../../../client-representation/combat-character';
 import { CombatCharacterAbility } from '../../../client-representation/combat-character-ability';
 
@@ -33,5 +34,21 @@ export class CombatCharacterComponent {
 
   public getCooldownOverlayWidthInPercent(ability: CombatCharacterAbility): number {
     return (ability.remainingCooldown / ability.cooldown) * 100;
+  }
+
+  public getAbilityTagColor(tag: string): string {
+    switch (tag) {
+      case "lightning": return 'yellow';
+      case "poison": return 'green';
+      case "elemental": return 'purple';
+      case "spell": return 'purple';
+      case "physical": return 'grey';
+      case "attack": return 'grey';
+      default: return 'white';
+    }
+  }
+
+  public getTranslatedAbilityTag(tag: string): string {
+    return AbilityTagTranslator.translate(tag);
   }
 }

@@ -8,7 +8,7 @@ import { ContractCombat } from 'src/loot-hoarder-contract/contract-combat';
 import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/server-actions/contract-combat-web-socket-inner-message';
 import { DbCombat } from 'src/raw-game-state/db-combat';
 import { EventStream } from '../event-stream';
-import { Ability } from './ability';
+import { CombatCharacterAbility } from './combat-character-ability';
 import { CombatCharacter } from './combat-character';
 
 export class Combat {
@@ -45,7 +45,7 @@ export class Combat {
     };
   }
 
-  public getLegalTargets(character: CombatCharacter, ability: Ability, includeDeadTargets: boolean): CombatCharacter[] {
+  public getLegalTargets(character: CombatCharacter, ability: CombatCharacterAbility, includeDeadTargets: boolean): CombatCharacter[] {
     const isTeam1 = this.team1.some(t1c => t1c === character);
     const isTeam2 = this.team2.some(t2c => t2c === character);
 

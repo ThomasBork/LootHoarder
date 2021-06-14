@@ -1,7 +1,7 @@
 import { Injectable, Logger, OnApplicationBootstrap } from "@nestjs/common";
 import { CommandBus, EventBus } from "@nestjs/cqrs";
 import { AbilityTargetScheme } from "src/computed-game-state/ability-target-scheme";
-import { Ability } from "src/computed-game-state/area/ability";
+import { CombatCharacterAbility } from "src/computed-game-state/area/combat-character-ability";
 import { Combat } from "src/computed-game-state/area/combat";
 import { CombatCharacter } from "src/computed-game-state/area/combat-character";
 import { Game } from "src/computed-game-state/game";
@@ -174,7 +174,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
     }
   }
 
-  private resolveAbility(game: Game, combat: Combat, usingCharacter: CombatCharacter, ability: Ability, targetCharacter: CombatCharacter | undefined): void {
+  private resolveAbility(game: Game, combat: Combat, usingCharacter: CombatCharacter, ability: CombatCharacterAbility, targetCharacter: CombatCharacter | undefined): void {
     const criticalStrikeChance = ability.criticalStrikeChanceVC.value;
     const criticalStrikeRoll = this.randomService.randomFloat(0, 1);
     const isCriticalStrike = criticalStrikeRoll <= criticalStrikeChance;

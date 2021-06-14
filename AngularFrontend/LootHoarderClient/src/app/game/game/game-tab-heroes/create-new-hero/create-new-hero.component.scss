@@ -1,87 +1,96 @@
-.setting-list {
-  max-width: 600px;
+.content {
+  height: 100%;
+  overflow-y: auto;
 
-  &>li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 30px;
-
-    .setting-value-selector {
-      flex: 0 1 70%;
+  .setting-list {
+    max-width: 600px;
+  
+    &>li {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      height: 100%;
-
-      .selector-arrow {
-        flex: 0 0 30px;
-        height: 100%;
+      height: 30px;
+  
+      .setting-value-selector {
+        flex: 0 1 70%;
         display: flex;
         align-items: center;
-        justify-content: center;
-        user-select: none;
-        cursor: pointer;
-        background-color: aqua;
-      }
-
-      .selector-content {
-        flex: 1 1 0;
         height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
-  }
-}
-
-.temporary-output {
-  display: flex;
-  margin-top: 20px;
-
-  .hero-container {
-    width: 400px;
-
-    .name {
-      font-size: 24px;
-    }
-    .type {
-      font-size: 16px;
-    }
-  }
-
-  .hero-type-information-container {
-    flex: 1 1 0;
-    max-width: 400px;
   
-    .header {
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
+        .selector-arrow {
+          flex: 0 0 30px;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          user-select: none;
+          cursor: pointer;
+          background-color: aquamarine;
 
-    .ability-types-container {
-      margin-top: 15px;
-      width: 100%;
-  
-      .ability-container {
-        display: flex;
-        margin-bottom: 5px;
-  
-        .image {
-          flex: 0 0 70px;
-          width: 70px;
-          height: 70px;
-          border: 3px solid black;
-          border-radius: 10px;
-          margin-right: 5px;
+          &:hover {
+            background-color: aqua;
+          }
         }
   
-        .text-container {
+        .selector-content {
           flex: 1 1 0;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
   
-          .name {
-            font-size: 20px;
-            margin-bottom: 5px;
+  .temporary-output {
+    display: flex;
+    margin-top: 20px;
+  
+    .hero-container {
+      width: 400px;
+  
+      .name {
+        font-size: 24px;
+      }
+      .type {
+        font-size: 16px;
+      }
+    }
+  
+    .hero-type-information-container {
+      flex: 1 1 0;
+      max-width: 400px;
+    
+      .header {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+  
+      .ability-types-container {
+        margin-top: 15px;
+        width: 100%;
+    
+        .ability-container {
+          display: flex;
+          margin-bottom: 5px;
+    
+          .image {
+            flex: 0 0 70px;
+            width: 70px;
+            height: 70px;
+            border: 3px solid black;
+            border-radius: 10px;
+            margin-right: 5px;
+          }
+    
+          .text-container {
+            flex: 1 1 0;
+    
+            .name {
+              font-size: 20px;
+              margin-bottom: 5px;
+            }
           }
         }
       }

@@ -41,10 +41,10 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
       if (!hero) {
         throw Error (`Hero with id: '${heroId}' does not exist.`);
       }
-      const dbAbilities: DbAbility[] = hero.abilityTypes.map(abilityType => {
+      const dbAbilities: DbAbility[] = hero.abilities.map(ability => {
         return {
-          id: command.game.getNextAbilityId(),
-          typeKey: abilityType.key,
+          id: command.game.getNextCombatCharacterAbilityId(),
+          typeKey: ability.type.key,
           remainingCooldown: 0
         };
       });

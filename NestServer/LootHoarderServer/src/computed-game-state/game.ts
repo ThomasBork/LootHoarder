@@ -70,8 +70,8 @@ export class Game {
     return this.dbModel.state.nextCombatId++;
   }
   
-  public getNextAbilityId(): number {
-    return this.dbModel.state.nextAbilityId++;
+  public getNextCombatCharacterAbilityId(): number {
+    return this.dbModel.state.nextCombatCharacterAbilityId++;
   }
   
   public getNextItemId(): number {

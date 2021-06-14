@@ -8,6 +8,8 @@ export enum ContractServerMessageType {
   chatMessageSent = 'chat-message-sent',
   chatStatus = 'chat-status',
   fullGameState = 'full-game-state',
+  heroAbilityAdded = 'hero-ability-added',
+  heroAbilityRemoved = 'hero-ability-removed',
   heroAdded = 'hero-added',
   heroAttributeChanged = 'hero-attribute-changed',
   heroDeleted = 'hero-deleted',

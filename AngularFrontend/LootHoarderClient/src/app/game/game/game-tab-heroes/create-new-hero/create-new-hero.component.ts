@@ -164,7 +164,8 @@ export class CreateNewHeroComponent implements OnInit {
       this.noseId,
       this.mouthId,
       0,
-      new HeroSkillTreeStatus([], [])
+      new HeroSkillTreeStatus([], []),
+      []
     );
   }
 }

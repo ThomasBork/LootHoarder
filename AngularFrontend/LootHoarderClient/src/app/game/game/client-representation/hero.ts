@@ -1,6 +1,7 @@
 import { ContractInventoryPosition } from "src/loot-hoarder-contract/contract-inventory-position";
 import { AreaHero } from "./area-hero";
 import { AttributeSet } from "./attribute-set";
+import { HeroAbility } from "./hero-ability";
 import { HeroSkillTreeStatus } from "./hero-skill-tree-status";
 import { HeroType } from "./hero-type";
 import { Inventory } from "./inventory";
@@ -20,6 +21,7 @@ export class Hero {
   public mouthId: number;
   public unspentSkillPoints: number;
   public skillTree: HeroSkillTreeStatus;
+  public abilities: HeroAbility[];
 
   public constructor(
     id: number,
@@ -34,6 +36,7 @@ export class Hero {
     mouthId: number,
     unspentSkillPoints: number,
     skillTree: HeroSkillTreeStatus,
+    abilities: HeroAbility[],
   ) {
     this.id = id;
     this.type = type;
@@ -47,6 +50,7 @@ export class Hero {
     this.mouthId = mouthId;
     this.unspentSkillPoints = unspentSkillPoints;
     this.skillTree = skillTree;
+    this.abilities = abilities;
   }
 
   public equipItem(item: Item, inventoryPosition: ContractInventoryPosition): void {
@@ -55,5 +59,16 @@ export class Hero {
 
   public unequipItem(inventoryPosition: ContractInventoryPosition): void {
     this.inventory.setItemAtPosition(undefined, inventoryPosition);
+  }
+
+  public addAbility(ability: HeroAbility): void {
+    this.abilities.push(ability);
+  }
+
+  public removeAbility(abilityId: number): void {
+    const index = this.abilities.findIndex(ability => ability.id === abilityId);
+    if (index >= 0) {
+      this.abilities.splice(index, 1);
+    }
   }
 }

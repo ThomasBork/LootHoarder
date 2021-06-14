@@ -1,7 +1,7 @@
 import { AbilityTypeEffect } from "../ability-type-effect";
 import { ValueContainer } from "../value-container";
 
-export class AbilityEffect {
+export class CombatCharacterAbilityEffect {
   public typeEffect: AbilityTypeEffect;
   public powerVC: ValueContainer;
 

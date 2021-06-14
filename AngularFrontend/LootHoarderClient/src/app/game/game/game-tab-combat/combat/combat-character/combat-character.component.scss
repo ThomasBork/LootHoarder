@@ -57,6 +57,16 @@
           background-color: lightgrey;
           border-radius: 5px;
           padding: 5px;
+
+          .ability-tags {
+            display: flex;
+          
+            .ability-tag {
+              margin-right: 5px;
+              padding: 3px;
+              border-radius: 3px;
+            }
+          }
         }
   
         &:not(:hover) {

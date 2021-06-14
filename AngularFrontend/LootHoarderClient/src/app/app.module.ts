@@ -47,6 +47,7 @@ import { ZoomableContainerComponent } from './shared/zoomable-container/zoomable
 import { NotificationBubbleComponent } from './shared/notification-bubble/notification-bubble.component';
 import { GameTabSocialComponent } from './game/game/game-tab-social/game-tab-social.component';
 import { SelectedHeroManagementTabComponent } from './game/game/game-tab-heroes/selected-hero-management-tab/selected-hero-management-tab.component';
+import { AbilityTagService } from './shared/ability-tag.service';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { SelectedHeroManagementTabComponent } from './game/game/game-tab-heroes/
     FormsModule
   ],
   providers: [
+    AbilityTagService,
     AssetManagerService,
     AuthGuard,
     AuthService,

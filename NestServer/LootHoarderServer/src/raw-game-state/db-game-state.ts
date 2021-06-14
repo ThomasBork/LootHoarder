@@ -11,7 +11,7 @@ export interface DbGameState {
   nextHeroId: number;
   nextAreaId: number;
   nextCombatId: number;
-  nextAbilityId: number;
+  nextCombatCharacterAbilityId: number;
   nextItemId: number;
   nextContinuousEffectId: number;
   settings: DbGameSettings;

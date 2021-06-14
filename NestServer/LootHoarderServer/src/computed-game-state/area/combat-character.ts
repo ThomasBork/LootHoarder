@@ -7,15 +7,15 @@ import { AttributeSet } from '../attribute-set';
 import { PassiveAbility } from '../passive-ability';
 import { PassiveAbilityParametersAttribute } from '../passive-ability-parameters-attribute';
 import { ValueContainer } from '../value-container';
-import { Ability } from './ability';
+import { CombatCharacterAbility } from './combat-character-ability';
 import { ContinuousEffect } from './continuous-effect';
 
 export class CombatCharacter {
   public dbModel: DbCombatCharacter;
 
   public attributes: AttributeSet;
-  public abilities: Ability[];
-  public abilityBeingUsed?: Ability;
+  public abilities: CombatCharacterAbility[];
+  public abilityBeingUsed?: CombatCharacterAbility;
   public continuousEffects: ContinuousEffect[];
 
   public onCurrentHealthChanged: Subject<number>;
@@ -30,7 +30,7 @@ export class CombatCharacter {
   private constructor(
     dbModel: DbCombatCharacter,
     attributes: AttributeSet,
-    abilities: Ability[],
+    abilities: CombatCharacterAbility[],
     continuousEffects: ContinuousEffect[]
   ) {
     this.dbModel = dbModel;
@@ -211,7 +211,7 @@ export class CombatCharacter {
 
   public static load(dbModel: DbCombatCharacter): CombatCharacter {
     const attributes = AttributeSet.load(dbModel.attributeSet);
-    const abilities = dbModel.abilities.map(dbAbility => Ability.load(dbAbility));
+    const abilities = dbModel.abilities.map(dbAbility => CombatCharacterAbility.load(dbAbility));
     const continuousEffects = dbModel.continuousEffects.map(dbContinuousEffect => ContinuousEffect.load(dbContinuousEffect));
     const combatCharacter = new CombatCharacter(dbModel, attributes, abilities, continuousEffects);
     return combatCharacter;

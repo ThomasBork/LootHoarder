@@ -32,6 +32,8 @@ import { ContractChatMessageSentMessageContent } from 'src/loot-hoarder-contract
 import { ContractChatStatusMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-chat-status-message-content';
 import { ChatMessage } from './client-representation/chat-message';
 import { User } from './client-representation/user';
+import { ContractHeroAbilityAddedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-ability-added-message-content';
+import { ContractHeroAbilityRemovedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-ability-removed-message-content';
 
 
 @Component({
@@ -171,6 +173,19 @@ export class GameComponent implements OnInit, OnDestroy {
           const newAvailableSkillNode = hero.skillTree.getNode(newAvailableSkillNodeLocation.x, newAvailableSkillNodeLocation.y);
           newAvailableSkillNode.isAvailable = true;
         }
+      }
+      break;
+      case ContractServerMessageType.heroAbilityAdded: {
+        const data = message.data as ContractHeroAbilityAddedMessageContent;
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
+        const ability = this.gameStateMapper.mapToHeroAbility(data.ability);
+        hero.addAbility(ability);
+      }
+      break;
+      case ContractServerMessageType.heroAbilityRemoved: {
+        const data = message.data as ContractHeroAbilityRemovedMessageContent;
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
+        hero.removeAbility(data.abilityId);
       }
       break;
       case ContractServerMessageType.heroUnspentSkillPointsChanged: {

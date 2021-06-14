@@ -22,7 +22,7 @@ export class MonsterSpawnerService {
       const monsterType = encounterMonster.monsterType;
       const dbAbilities: DbAbility[] = monsterType.abilityTypes.map(abilityType => {
         return {
-          id: game.getNextAbilityId(),
+          id: game.getNextCombatCharacterAbilityId(),
           typeKey: abilityType.key,
           remainingCooldown: 0
         };

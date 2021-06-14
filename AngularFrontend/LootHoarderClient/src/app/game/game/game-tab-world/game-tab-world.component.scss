@@ -1,87 +1,84 @@
 .content {
   display: flex;
   height: 100%;
-
-  .world-container {
+  width: 100%;
+  overflow: hidden;
+    
+  .world-map-container {
+    flex: 1 1 0;
     height: 100%;
     width: 100%;
-    position: relative;
     overflow: hidden;
-    
-    .world-container-content {
-      display: inline-block;
+
+    .area-type-container {
       position: absolute;
-  
-      .area-type-container {
-        position: absolute;
 
-        &.available.completed {
-          &.selected {
-            .area-type-marker {
-              background-color: gold;
-            }
-          }
-
+      &.available.completed {
+        &.selected {
           .area-type-marker {
-            background-color: goldenrod;
-            cursor: pointer;
-
-            &:hover {
-              background-color: gold;
-            }
+            background-color: gold;
           }
         }
 
-        &.available {
-          &.selected {
-            .area-type-marker {
-              background-color: orangered;
-            }
-          }
-
-          .area-type-marker {
-            background-color: red;
-            cursor: pointer;
-
-            &:hover {
-              background-color: orangered;
-            }
-          }
-        }
-
-        &.undiscovered {
-          .area-type-marker {
-            background-color: grey;
-          }
-        }
-  
         .area-type-marker {
-          user-select: none;
-          padding: 15px;
-          transform: translate(-50%, -100%);
-          border: 3px solid black;
-          font-size: 20px;
+          background-color: goldenrod;
+          cursor: pointer;
 
-          &::after {
-            content: '';
-            position: absolute;
-            left: calc(50% - 10px);
-            bottom: -31px;
-            height: 0;
-            width: 0;
-            border: 30px solid transparent;
-            border-top-color: black;
-            border-bottom: 0;
-            border-left-width: 10px;
-            border-right-width: 10px;
+          &:hover {
+            background-color: gold;
           }
+        }
+      }
+
+      &.available {
+        &.selected {
+          .area-type-marker {
+            background-color: orangered;
+          }
+        }
+
+        .area-type-marker {
+          background-color: red;
+          cursor: pointer;
+
+          &:hover {
+            background-color: orangered;
+          }
+        }
+      }
+
+      &.undiscovered {
+        .area-type-marker {
+          background-color: grey;
+        }
+      }
+
+      .area-type-marker {
+        user-select: none;
+        padding: 15px;
+        transform: translate(-50%, -100%);
+        border: 3px solid black;
+        font-size: 20px;
+
+        &::after {
+          content: '';
+          position: absolute;
+          left: calc(50% - 10px);
+          bottom: -31px;
+          height: 0;
+          width: 0;
+          border: 30px solid transparent;
+          border-top-color: black;
+          border-bottom: 0;
+          border-left-width: 10px;
+          border-right-width: 10px;
         }
       }
     }
   }
 
   .area-type-information-container {
-    flex: 1 0 400px;
+    flex: 0 0 400px;
     background-color: lightgrey;
     padding: 10px;
 

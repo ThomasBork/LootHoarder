@@ -1,15 +1,12 @@
 <div class="content">
-  <div 
-    class="world-container"
-    (mousedown)="startDragging($event)"
-    (mousemove)="handleWorldMouseMove($event)"
-    (mouseup)="stopDragging($event)"
-    (wheel)="handleWorldMouseScroll($event)"
-  >
-    <div 
-      class="world-container-content"
-      [style.transform]="'translate(' + x + 'px, ' + y +'px)'"
-      [style.zoom]="zoom"
+  <div class="world-map-container">
+    <app-zoomable-container
+      [initialCenterX]="worldMapFixtureX"
+      [initialCenterY]="worldMapFixtureY"
+      [minX]="0"
+      [minY]="0"
+      [maxX]="worldMapWidth"
+      [maxY]="worldMapHeight"
     >
       <img
         src='/assets/images/world.png'
@@ -33,8 +30,9 @@
           <div>{{ isGameAreaTypeDiscovered(gameAreaType) ? gameAreaType.type.name : '?'}}</div>
         </div>
       </div>
-    </div>
+    </app-zoomable-container>
   </div>
+
 
   <div class="area-type-information-container">
     <app-game-tab-world-area-type-information 

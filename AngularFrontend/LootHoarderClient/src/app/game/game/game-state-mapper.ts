@@ -31,6 +31,8 @@ import { ContractPassiveAbility } from "src/loot-hoarder-contract/contract-passi
 import { HeroSkillTreeStatus } from "./client-representation/hero-skill-tree-status";
 import { HeroSkillTreeNodeStatus } from "./client-representation/hero-skill-tree-node-status";
 import { ContinuousEffect } from "./client-representation/continuous-effect";
+import { ContractHeroAbility } from "src/loot-hoarder-contract/contract-hero-ability";
+import { HeroAbility } from "./client-representation/hero-ability";
 
 @Injectable()
 export class GameStateMapper {
@@ -88,6 +90,7 @@ export class GameStateMapper {
       )),
       skillTree.transitions
     );
+    const abilities = serverHero.abilities.map(ability => this.mapToHeroAbility(ability));
 
     return new Hero (
       serverHero.id,
@@ -101,7 +104,17 @@ export class GameStateMapper {
       serverHero.cosmetics.noseId,
       serverHero.cosmetics.mouthId,
       serverHero.unspentSkillPoints,
-      skillTreeWithStatus
+      skillTreeWithStatus,
+      abilities
+    );
+  }
+
+  public mapToHeroAbility(serverHeroAbility: ContractHeroAbility): HeroAbility {
+    const type = this.assetManagerService.getAbilityType(serverHeroAbility.typeKey);
+    return new HeroAbility(
+      serverHeroAbility.id, 
+      type, 
+      serverHeroAbility.isEnabled
     );
   }
 

@@ -1,3 +1,4 @@
+import { DbHeroAbility } from "./db-hero-ability";
 import { DbHeroCosmetics } from "./db-hero-cosmetics";
 import { DbInventory } from "./db-inventory";
 import { DbSkillNodeLocation } from "./db-skill-node-location";
@@ -8,8 +9,9 @@ export interface DbHero {
   name: string;
   level: number;
   experience: number;
-  abilityTypeKeys: string[];
   inventory: DbInventory;
   cosmetics: DbHeroCosmetics;
   skillNodesLocations: DbSkillNodeLocation[];
+  abilities: DbHeroAbility[];
+  nextAbilityId: number;
 }

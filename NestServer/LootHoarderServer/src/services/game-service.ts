@@ -25,7 +25,7 @@ export class GameService {
       nextAreaId: 1,
       nextCombatId: 1,
       nextHeroId: 1,
-      nextAbilityId: 1,
+      nextCombatCharacterAbilityId: 1,
       nextItemId: 1,
       nextContinuousEffectId: 1
     };

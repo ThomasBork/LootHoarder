@@ -1,62 +1,34 @@
-<div style="overflow: auto;">
-ABILITIES
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
-<div>a</div>
+<div class="content">
+  <ul class="abilities">
+    <li
+      *ngFor="let ability of hero.abilities"
+      class="ability"
+    >
+      <span 
+        class="image-container"
+        (click)="toggleIsEnabled(ability)"
+      >
+        <img 
+          class="image"
+          [src]="'assets/images/abilities/' + ability.type.key + '-thumbnail.png'"
+        />
+        <img 
+          *ngIf="ability.isEnabled"
+          class="enabled-check-mark"
+          src="assets/images/check-mark.png" 
+        />
+      </span>
+      <span class="text-container">
+        <div class="name">{{ability.type.name}}</div>
+        <ul class="tags">
+          <li
+            *ngFor="let tag of ability.type.tags"
+            class="tag"
+            [style.background-color]="getAbilityTagColor(tag)"
+          >{{getAbilityTagTranslation(tag)}}</li>
+        </ul>
+        <div class="description">{{ability.type.description}}</div>
+      </span>
+    </li>
+  </ul>
 </div>

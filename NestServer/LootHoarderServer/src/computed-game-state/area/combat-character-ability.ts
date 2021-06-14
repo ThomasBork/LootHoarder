@@ -3,11 +3,11 @@ import { DbAbility } from "src/raw-game-state/db-ability";
 import { StaticGameContentService } from "src/services/static-game-content-service";
 import { AbilityType } from "../ability-type";
 import { ValueContainer } from "../value-container";
-import { AbilityEffect } from "./ability-effect";
+import { CombatCharacterAbilityEffect } from "./combat-character-ability-effect";
 
-export class Ability {
+export class CombatCharacterAbility {
   public type: AbilityType;
-  public effects: AbilityEffect[];
+  public effects: CombatCharacterAbilityEffect[];
   public useSpeedVC: ValueContainer;
   public cooldownSpeedVC: ValueContainer;
   public cooldownVC: ValueContainer;
@@ -24,7 +24,7 @@ export class Ability {
     this.dbModel = dbModel;
     this.type = type;
 
-    this.effects = type.effects.map(effect => new AbilityEffect(effect));
+    this.effects = type.effects.map(effect => new CombatCharacterAbilityEffect(effect));
 
     this.useSpeedVC = new ValueContainer(0);
     this.cooldownSpeedVC = new ValueContainer(0);
@@ -65,9 +65,9 @@ export class Ability {
     };
   }
 
-  public static load(dbModel: DbAbility): Ability {
+  public static load(dbModel: DbAbility): CombatCharacterAbility {
     const type = StaticGameContentService.instance.getAbilityType(dbModel.typeKey);
-    const ability = new Ability(dbModel, type);
+    const ability = new CombatCharacterAbility(dbModel, type);
     return ability;
   }
 }

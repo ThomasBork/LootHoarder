@@ -1,6 +1,8 @@
 import { Subject } from "rxjs";
 import { ContractHero } from "src/loot-hoarder-contract/contract-hero";
 import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/server-actions/contract-server-web-socket-message";
+import { ContractHeroAbilityAddedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-ability-added-message";
+import { ContractHeroAbilityRemovedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-ability-removed-message";
 import { ContractHeroGainedExperienceMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-gained-experience-message";
 import { ContractHeroTookSkillNodeMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-took-skill-node-message";
 import { ContractHeroUnspentSkillPointsChangedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-unspent-skill-points-changed-message";
@@ -10,7 +12,6 @@ import { ContractItemUnequippedMessage } from "src/loot-hoarder-contract/server-
 import { ContractServerWebSocketMultimessage } from "src/loot-hoarder-contract/server-actions/contract-server-web-socket-multimessage";
 import { DbHero } from "src/raw-game-state/db-hero";
 import { StaticGameContentService } from "src/services/static-game-content-service";
-import { AbilityType } from "./ability-type";
 import { AttributeSet } from "./attribute-set";
 import { HeroType } from "./hero-type";
 import { EventStream } from "./event-stream";
@@ -25,13 +26,15 @@ import { HeroSkillTreeNode } from "./hero-skill-tree-node";
 import { PassiveAbility } from "./passive-ability";
 import { ContractSkillNodeLocation } from "src/loot-hoarder-contract/contract-skill-node-location";
 import { PassiveAbilityParametersUnlockAbility } from "./passive-ability-parameters-unlock-ability";
+import { HeroAbility } from "./hero-ability";
+import { DbHeroAbility } from "src/raw-game-state/db-hero-ability";
 
 export class Hero {
   public dbModel: DbHero;
   public type: HeroType;
   public attributes: AttributeSet;
   public inventory: Inventory;
-  public abilityTypes: AbilityType[];
+  public abilities: HeroAbility[];
   public maximumHealthVC: ValueContainer;
   public maximumManaVC: ValueContainer;
 
@@ -50,17 +53,19 @@ export class Hero {
     type: HeroType,
     attributes: AttributeSet,
     inventory: Inventory,
+    abilities: HeroAbility[],
     takenSkillTreeNodes: HeroSkillTreeNode[],
-    availableSkillTreeNodes: HeroSkillTreeNode[],
+    availableSkillTreeNodes: HeroSkillTreeNode[]
   ) {
     this.dbModel = dbModel;
     this.type = type;
     this.attributes = attributes;
     this.inventory = inventory;
+    this.abilities = abilities;
+
     this.onLevelUp = new Subject();
     this.onEvent = new EventStream();
     this.onItemUnequipped = new Subject();
-    this.abilityTypes = dbModel.abilityTypeKeys.map(key => StaticGameContentService.instance.getAbilityType(key));
     this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer;
     this.maximumManaVC = this.attributes.getAttribute(ContractAttributeType.maximumMana, []).valueContainer;
     
@@ -170,6 +175,7 @@ export class Hero {
         y: node.y
       };
     });
+    const abilities = this.abilities.map(ability => ability.toContractModel());
 
     return {
       id: this.id,
@@ -187,7 +193,12 @@ export class Hero {
       unspentSkillPoints: this.unspentSkillPoints,
       takenSkillNodes: takenSkillNodes,
       availableSkillNodes: availableSkillNodes,
+      abilities: abilities
     };
+  }
+
+  private getNextAbilityId(): number {
+    return this.dbModel.nextAbilityId++;
   }
 
   private levelUp(): void {
@@ -225,8 +236,19 @@ export class Hero {
             throw Error ('Expected unlock ability ability to have unlock ability ability parameters.');
           }
           const abilityType = StaticGameContentService.instance.getAbilityType(ability.parameters.abilityTypeKey);
-          if (!this.abilityTypes.includes(abilityType)) {
-            this.abilityTypes.push(abilityType);
+          if (!this.abilities.some(ability => ability.type === abilityType)) {
+            const abilityId = this.getNextAbilityId();
+            const dbHeroAbility: DbHeroAbility = {
+              id: abilityId,
+              isEnabled: true,
+              typeKey: abilityType.key
+            };
+            const heroAbility = HeroAbility.load(dbHeroAbility);
+            this.dbModel.abilities.push(dbHeroAbility);
+            this.abilities.push(heroAbility);
+
+            const message = new ContractHeroAbilityAddedMessage(this.id, heroAbility.toContractModel());
+            this.onEvent.next(message);
           }
         }
         break;
@@ -252,7 +274,15 @@ export class Hero {
             throw Error ('Expected unlock ability ability to have unlock ability ability parameters.');
           }
           const abilityType = StaticGameContentService.instance.getAbilityType(ability.parameters.abilityTypeKey);
-          this.abilityTypes.splice(this.abilityTypes.indexOf(abilityType), 1);
+          const foundIndex = this.abilities.findIndex(ability => ability.type === abilityType);
+          if (foundIndex < 0) {
+            throw Error (`Tried to remove the ability type ${abilityType.key}, but it could not be found.`);
+          }
+          const removedAbility = this.abilities[foundIndex];
+          this.abilities.splice(foundIndex, 1);
+
+          const message = new ContractHeroAbilityRemovedMessage(this.id, removedAbility.id);
+          this.onEvent.next(message);
         }
         break;
         default: throw Error (`Unhandled ability type for hero: ${ability.type.key}`);
@@ -304,6 +334,7 @@ export class Hero {
     const heroType = StaticGameContentService.instance.getHeroType(dbModel.typeKey);
     const attributes = new AttributeSet();
     const inventory = Inventory.load(dbModel.inventory);
+    const abilities = dbModel.abilities.map(ability => HeroAbility.load(ability));
     const skillTree = StaticGameContentService.instance.getHeroSkillTree();
     const takenSkillNodes = skillTree.getTakenNodesForHero(dbModel.skillNodesLocations);
     const availableSkillNodes = skillTree.getAvailableNodesForHero(dbModel.skillNodesLocations);
@@ -312,6 +343,7 @@ export class Hero {
       heroType,
       attributes,
       inventory,
+      abilities,
       takenSkillNodes,
       availableSkillNodes
     );
