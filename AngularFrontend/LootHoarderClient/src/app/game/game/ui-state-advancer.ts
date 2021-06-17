@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { PassiveAbilityTakeDamageOverTime } from "./client-representation/passive-ability-take-damage-over-time";
 import { UIState } from "./client-representation/ui-state";
 
 @Injectable()
@@ -48,7 +49,21 @@ export class UIStateAdvancer {
       }
       
       const allCharacters = combat.getAllCharacters();
-      for(const character of allCharacters) {
+      for (const character of allCharacters) {
+        if (!character.isAlive) {
+          continue;
+        }
+
+        for (const continuousEffect of character.continuousEffects) {
+          for(const continuousEffectAbility of continuousEffect.abilities) {
+            if (continuousEffectAbility instanceof PassiveAbilityTakeDamageOverTime) {
+              const damageTakenThisTick = continuousEffectAbility.damageTakenEverySecond * tickSize / 1000;
+              character.currentHealth -= damageTakenThisTick;
+            }
+          }
+        }
+      }
+      for (const character of allCharacters) {
         if (!character.isAlive) {
           continue;
         }

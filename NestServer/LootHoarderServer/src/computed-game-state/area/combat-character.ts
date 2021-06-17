@@ -4,8 +4,10 @@ import { ContractCombatCharacter } from 'src/loot-hoarder-contract/contract-comb
 import { ContractPassiveAbilityTypeKey } from 'src/loot-hoarder-contract/contract-passive-ability-type-key';
 import { DbCombatCharacter } from 'src/raw-game-state/db-combat-character';
 import { AttributeSet } from '../attribute-set';
+import { EventStream } from '../event-stream';
 import { PassiveAbility } from '../passive-ability';
 import { PassiveAbilityParametersAttribute } from '../passive-ability-parameters-attribute';
+import { PassiveAbilityTakeDamageOverTime } from '../passive-ability-take-damage-over-time';
 import { ValueContainer } from '../value-container';
 import { CombatCharacterAbility } from './combat-character-ability';
 import { ContinuousEffect } from './continuous-effect';
@@ -18,10 +20,11 @@ export class CombatCharacter {
   public abilityBeingUsed?: CombatCharacterAbility;
   public continuousEffects: ContinuousEffect[];
 
-  public onCurrentHealthChanged: Subject<number>;
-  public onCurrentManaChanged: Subject<number>;
-  public onContinuousEffectAdded: Subject<ContinuousEffect>;
-  public onContinuousEffectRemoved: Subject<ContinuousEffect>;
+  public onDeath: EventStream<void>;
+  public onCurrentHealthChanged: EventStream<number>;
+  public onCurrentManaChanged: EventStream<number>;
+  public onContinuousEffectAdded: EventStream<ContinuousEffect>;
+  public onContinuousEffectRemoved: EventStream<ContinuousEffect>;
   public maximumHealthVC: ValueContainer;
   public maximumManaVC: ValueContainer;
   
@@ -41,10 +44,12 @@ export class CombatCharacter {
     if (dbModel.idOfAbilityBeingUsed) {
       this.abilityBeingUsed = abilities.find(a => a.id === dbModel.idOfAbilityBeingUsed);
     }
-    this.onCurrentHealthChanged = new Subject();
-    this.onCurrentManaChanged = new Subject();
-    this.onContinuousEffectAdded = new Subject();
-    this.onContinuousEffectRemoved = new Subject();
+    
+    this.onDeath = new EventStream();
+    this.onCurrentHealthChanged = new EventStream();
+    this.onCurrentManaChanged = new EventStream();
+    this.onContinuousEffectAdded = new EventStream();
+    this.onContinuousEffectRemoved = new EventStream();
 
     this.setUpAbilityValueContainers();
     this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer;
@@ -82,6 +87,9 @@ export class CombatCharacter {
       this.dbModel.currentHealth = value;
       if (shouldSendChangeEvent) {
         this.onCurrentHealthChanged.next(value);
+      }
+      if (this.dbModel.currentHealth === 0) {
+        this.onDeath.next();
       }
     }
   }
@@ -152,8 +160,8 @@ export class CombatCharacter {
 
   private setUpAbilityValueContainer(tags: string[], valueContainer: ValueContainer, attributeType: ContractAttributeType): void {
     const combinedAttribute = this.attributes.getAttribute(attributeType, tags);
-    valueContainer.setAdditiveValueContainer(combinedAttribute.additiveValueContainer);
-    valueContainer.setMultiplicativeValueContainer(combinedAttribute.multiplicativeValueContainer);
+    valueContainer.setAdditiveValueContainer(combinedAttribute.accumulatedAdditiveValueContainer);
+    valueContainer.setMultiplicativeValueContainer(combinedAttribute.accumulatedMultiplicativeValueContainer);
   }
 
   private applyPassiveAbilityEffects(abilities: PassiveAbility[]): void {
@@ -178,7 +186,12 @@ export class CombatCharacter {
         }
         break;
         case ContractPassiveAbilityTypeKey.takeDamageOverTime: {
-          // This has no immediate effect. It is applied every tick.
+          if (!(ability instanceof PassiveAbilityTakeDamageOverTime)) {
+            throw Error (`The ability with type key ${ability.type.key} must be an instance of PassiveAbilityTakeDamageOverTime`);
+          }
+
+          const combinedResistanceAttribute = this.attributes.getAttribute(ContractAttributeType.resistance, ability.parameters.abilityTags);
+          ability.damageTakenEverySecondVC.setMultiplicativeValueContainer(combinedResistanceAttribute.valueContainer, value => 100 / ( 100 + value));
         }
         break;
         default: throw Error (`Unhandled ability type for combat character: ${ability.type.key}`);

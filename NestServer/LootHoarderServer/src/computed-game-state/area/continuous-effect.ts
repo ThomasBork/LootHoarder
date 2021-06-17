@@ -4,6 +4,7 @@ import { StaticGameContentService } from "src/services/static-game-content-servi
 import { PassiveAbility } from "../passive-ability";
 import { ContinuousEffectType } from "./continuous-effect-type";
 import { ContractContinuousEffect } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-continuous-effect";
+import { PassiveAbilityLoader } from "../passive-ability-loader";
 
 export class ContinuousEffect {
   private dbModel: DbContinuousEffect;
@@ -50,7 +51,7 @@ export class ContinuousEffect {
 
   public static load(dbModel: DbContinuousEffect): ContinuousEffect {
     const type = StaticGameContentService.instance.getContinuousEffectType(dbModel.typeKey);
-    const passiveAbilities = dbModel.abilities.map(dbPassiveAbility => PassiveAbility.load(dbPassiveAbility));
+    const passiveAbilities = dbModel.abilities.map(dbPassiveAbility => PassiveAbilityLoader.loadAbility(dbPassiveAbility));
     const continuousEffect = new ContinuousEffect(dbModel, type, passiveAbilities);
     return continuousEffect;
   }

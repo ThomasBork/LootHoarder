@@ -25,6 +25,11 @@ import { AbilityTypeEffectApplyContinuousEffect } from "./ability-type-effect-ap
 import { AbilityTypeEffectDealDamage } from "./ability-type-effect-deal-damage";
 import { AbilityTypeEffectDealDamageParameters } from "./ability-type-effect-deal-damage-parameters";
 import { AbilityTypeEffectType } from "./ability-type-effect-type";
+import { ContinuousEffectTypeAbilityRecipe } from "./continuous-effect-type-ability-recipe";
+import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
+import { PassiveAbilityAttribute } from "./passive-ability-attribute";
+import { PassiveAbilityUnlockAbility } from "./passive-ability-unlock-ability";
+import { PassiveAbilityTakeDamageOverTime } from "./passive-ability-take-damage-over-time";
 
 @Injectable()
 export class AssetManagerService {
@@ -137,7 +142,14 @@ export class AssetManagerService {
     this.continuousEffectTypes = ContinuousEffectTypes.map(continuousEffectType => 
       new ContinuousEffectType(
         continuousEffectType.key,
-        continuousEffectType.name
+        continuousEffectType.name,
+        continuousEffectType.isUnique,
+        (continuousEffectType.abilities as any).map((ability: any) => 
+          new ContinuousEffectTypeAbilityRecipe(
+            this.getPassiveAbilityType(ability.typeKey),
+            ability.parameters
+          )
+        )
       )
     );
   }
@@ -246,7 +258,7 @@ export class AssetManagerService {
 
   private loadPassiveAbilityTypes(): void {
     this.passiveAbilityTypes = PassiveAbilityTypes.map(passiveAbilityType => new PassiveAbilityType(
-      passiveAbilityType.key,
+      passiveAbilityType.key as ContractPassiveAbilityTypeKey,
       passiveAbilityType.parameters
     ));
   }
@@ -276,7 +288,16 @@ export class AssetManagerService {
       const abilities = (node.abilities as any)
         .map((ability: any) => {
           const abilityType = this.getPassiveAbilityType(ability.typeKey);
-          return new PassiveAbility(abilityType, ability.data);
+          switch(ability.typeKey) {
+            case ContractPassiveAbilityTypeKey.attribute:
+              return new PassiveAbilityAttribute(abilityType, ability.data);
+            case ContractPassiveAbilityTypeKey.takeDamageOverTime:
+              return new PassiveAbilityTakeDamageOverTime(abilityType, ability.data, ability.data.damagePerSecond);
+            case ContractPassiveAbilityTypeKey.unlockAbility:
+              return new PassiveAbilityUnlockAbility(abilityType, ability.data);
+            default: 
+              throw Error (`Unhandled ability type: ${ability.typeKey}`);
+          }
         });
 
       return new HeroSkillTreeNode(node.x, node.y, node.size, abilities);

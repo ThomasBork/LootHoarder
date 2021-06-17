@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, QueryList, ViewChild, View
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { Item } from "../client-representation/item";
 import { PassiveAbility } from "../client-representation/passive-ability";
+import { PassiveAbilityAttribute } from "../client-representation/passive-ability-attribute";
 
 @Component({
   selector: 'app-item',
@@ -34,18 +35,7 @@ export class ItemComponent implements AfterViewInit {
   }
 
   public getAbilityText(ability: PassiveAbility): string {
-    switch (ability.type.key) {
-      case 'attribute': {
-        const attributeType: ContractAttributeType = ability.parameters.attributeType;
-        const abilityTag: string = ability.parameters.abilityTag;
-        const amount: number = ability.parameters.amount;
-        const attributeTypeText = `${attributeType}`;
-        const abilityTagText = abilityTag ? abilityTag + ' ' : '';
-        return abilityTagText + attributeTypeText + ' ' + amount;
-      }
-      default: 
-        throw Error(`Unhandled ability type: ${ability.type.key}`);
-    }
+    return ability.description;
   }
 
   public startDragging(): void {

@@ -35,7 +35,7 @@ export class MonsterSpawnerService {
       
       for(const typeAttributeValueContainer of monsterType.baseAttributes.attributeValueContainers) {
         const combinedAttribute = attributes.getAttribute(typeAttributeValueContainer.attributeType, typeAttributeValueContainer.abilityTags);
-        combinedAttribute.additiveValueContainer.setAdditiveValueContainer(combinedAttribute.valueContainer);
+        combinedAttribute.additiveValueContainer.setAdditiveValueContainer(typeAttributeValueContainer.valueContainer);
       }
       
       for(const typeAttributePerLevelValueContainer of monsterType.attributesPerLevel.attributeValueContainers) {

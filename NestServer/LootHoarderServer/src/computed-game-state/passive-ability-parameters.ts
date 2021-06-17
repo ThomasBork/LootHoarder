@@ -1,3 +1,2 @@
-export class PassiveAbilityParameters {
-  
+export abstract class PassiveAbilityParameters {  
 }

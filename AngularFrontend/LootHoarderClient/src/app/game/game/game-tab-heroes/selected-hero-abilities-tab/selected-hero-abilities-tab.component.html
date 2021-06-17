@@ -19,19 +19,40 @@
         />
       </span>
       <span class="text-container">
-        <div class="name">{{ability.type.name}}</div>
-        <ul class="tags">
-          <li
-            *ngFor="let tag of ability.type.tags"
-            class="tag"
-            [style.background-color]="getAbilityTagColor(tag)"
-          >{{getAbilityTagTranslation(tag)}}</li>
-        </ul>
-        <ul>
-          <li
-            *ngFor="let effect of ability.effects"
-          >{{effect.description}}</li>
-        </ul>
+        <span class="name-and-description">
+          <div class="name">{{ability.type.name}}</div>
+          <ul class="tags">
+            <li
+              *ngFor="let tag of ability.type.tags"
+              class="tag"
+              [style.background-color]="getAbilityTagColor(tag)"
+            >{{getAbilityTagTranslation(tag)}}</li>
+          </ul>
+          <ul>
+            <li
+              *ngFor="let effect of ability.effects"
+              class="description-line"
+            >{{effect.description}}</li>
+          </ul>
+        </span>
+        <span class="details">
+          <div class="label-and-value">
+            <span>Mana cost</span>
+            <span>{{ability.manaCost | prettyNumber}}</span>
+          </div>
+          <div class="label-and-value">
+            <span>Time to use</span>
+            <span>{{getNumberInSeconds(ability.timeToUse)}}s</span>
+          </div>
+          <div class="label-and-value">
+            <span>Cooldown</span>
+            <span>{{getNumberInSeconds(ability.cooldown)}}s</span>
+          </div>
+          <div class="label-and-value">
+            <span>Critical strike chance</span>
+            <span>{{getNumberInPercent(ability.criticalStrikeChance)}}%</span>
+          </div>
+        </span>
       </span>
     </li>
   </ul>

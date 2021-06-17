@@ -17,6 +17,8 @@ import { AbilityTypeEffectDealDamage } from "src/computed-game-state/ability-typ
 import { PassiveAbilityParametersTakeDamageOverTime } from "src/computed-game-state/passive-ability-parameters-take-damage-over-time";
 import { DbContinuousEffect } from "src/raw-game-state/db-continuous-effect";
 import { ContinuousEffect } from "src/computed-game-state/area/continuous-effect";
+import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
+import { PassiveAbilityTakeDamageOverTime } from "src/computed-game-state/passive-ability-take-damage-over-time";
 
 @Injectable()
 export class CombatUpdaterService implements OnApplicationBootstrap {
@@ -70,14 +72,14 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
 
       for(const continuousEffect of character.continuousEffects) {
         for(const continuousEffectAbility of continuousEffect.abilities) {
-          if (continuousEffectAbility.parameters instanceof PassiveAbilityParametersTakeDamageOverTime) {
+          if (continuousEffectAbility instanceof PassiveAbilityTakeDamageOverTime) {
             const timeTakingDamage = continuousEffect.lastsIndefinitely || continuousEffect.timeRemaining > this.tickFrequencyInMilliseconds
               ? this.tickFrequencyInMilliseconds
               : continuousEffect.timeRemaining;
-            const damageGiven = continuousEffectAbility.parameters.damagePerSecond * timeTakingDamage / 1000;
-            const damageTaken = this.calculateDamageTaken(damageGiven, character, continuousEffectAbility.parameters.abilityTags);
+            const damageTaken = continuousEffectAbility.damageTakenEverySecondVC.value * timeTakingDamage / 1000;
             const healthAfterDamageTaken = character.currentHealth - damageTaken;
-            character.setCurrentHealth(healthAfterDamageTaken);
+            // Do not send this update. The client is responsible for updating this.
+            character.setCurrentHealth(healthAfterDamageTaken, false);
           }
         }
 
@@ -214,6 +216,12 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
             lastsIndefinitely: effect.typeEffect.parameters.duration === 0,
             timeRemaining: effect.typeEffect.parameters.duration,
             abilities: effect.typeEffect.parameters.buildDbPassiveAbilities()
+          };
+
+          for(const dbPassiveAbility of dbContinuousEffect.abilities) {
+            if (dbPassiveAbility.typeKey === ContractPassiveAbilityTypeKey.takeDamageOverTime) {
+              (dbPassiveAbility.parameters.damagePerSecond as number) *= effect.powerVC.value / 100;
+            }
           }
 
           const continuousEffect = ContinuousEffect.load(dbContinuousEffect);

@@ -35,6 +35,10 @@ import { ContractHeroAbility } from "src/loot-hoarder-contract/contract-hero-abi
 import { HeroAbility } from "./client-representation/hero-ability";
 import { AbilityEffect } from "./client-representation/ability-effect";
 import { ContractAbilityEffect } from "src/loot-hoarder-contract/contract-ability-effect";
+import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
+import { PassiveAbilityAttribute } from "./client-representation/passive-ability-attribute";
+import { PassiveAbilityUnlockAbility } from "./client-representation/passive-ability-unlock-ability";
+import { PassiveAbilityTakeDamageOverTime } from "./client-representation/passive-ability-take-damage-over-time";
 
 @Injectable()
 export class GameStateMapper {
@@ -285,9 +289,16 @@ export class GameStateMapper {
   }
 
   public mapToPassiveAbility(serverPassiveAbility: ContractPassiveAbility): PassiveAbility {
-    return new PassiveAbility(
-      this.assetManagerService.getPassiveAbilityType(serverPassiveAbility.typeKey),
-      serverPassiveAbility.parameters
-    );
+    const abilityType = this.assetManagerService.getPassiveAbilityType(serverPassiveAbility.typeKey);
+    switch(abilityType.key) {
+      case ContractPassiveAbilityTypeKey.attribute:
+        return new PassiveAbilityAttribute(abilityType, serverPassiveAbility.parameters);
+      case ContractPassiveAbilityTypeKey.takeDamageOverTime:
+        return new PassiveAbilityTakeDamageOverTime(abilityType, serverPassiveAbility.parameters, serverPassiveAbility.parameters.damagePerSecond);
+      case ContractPassiveAbilityTypeKey.unlockAbility:
+        return new PassiveAbilityUnlockAbility(abilityType, serverPassiveAbility.parameters);
+      default: 
+        throw Error (`Unhandled ability type: ${abilityType.key}`);
+    }
   }
 }

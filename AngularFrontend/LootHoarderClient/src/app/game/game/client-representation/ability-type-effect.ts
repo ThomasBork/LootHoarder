@@ -1,7 +1,7 @@
 import { ContractAbilityTargetScheme } from "src/loot-hoarder-contract/server-actions/combat-messages/contract-ability-target-scheme";
 import { AbilityTypeEffectType } from "./ability-type-effect-type";
 
-export class AbilityTypeEffect {
+export abstract class AbilityTypeEffect {
   public type: AbilityTypeEffectType;
   public tags: string[];
   public targetScheme: ContractAbilityTargetScheme;

@@ -8,6 +8,10 @@
     .ability {
       display: flex;
       margin-bottom: 10px;
+      background-color: #EEEEEE;
+      width: max-content;
+      padding: 10px;
+      border-radius: 5px;
 
       .image-container {
         height: 100px;
@@ -38,20 +42,45 @@
 
       .text-container {
         margin-left: 10px;
+        display: flex;
 
-        .name {
-          font-size: 20px;
-          margin-bottom: 5px;
+        .name-and-description {
+          width: 400px;
+
+          .name {
+            font-size: 20px;
+            margin-bottom: 5px;
+          }
+  
+          .tags {
+            display: flex;
+            margin-bottom: 5px;
+  
+            .tag {
+              padding: 5px;
+              border-radius: 5px;
+              margin-right: 5px;
+            }
+          }
+
+          .description-line:not(:last-child) {
+            margin-bottom: 10px;
+          }
         }
 
-        .tags {
+        .details {
           display: flex;
-          margin-bottom: 5px;
+          flex-direction: column;
+          width: 300px;
+          margin-left: 10px;
 
-          .tag {
-            padding: 5px;
-            border-radius: 5px;
-            margin-right: 5px;
+          .label-and-value {
+            display: flex;
+            justify-content: space-between;
+
+            &:not(:last-child) {
+              margin-bottom: 10px;
+            }
           }
         }
       }

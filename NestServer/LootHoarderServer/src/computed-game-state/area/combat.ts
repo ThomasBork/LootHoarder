@@ -117,13 +117,14 @@ export class Combat {
   private setUpEventListeners(): void {
     const allCharacters = this.team1.concat(this.team2);
     for(const character of allCharacters) {
+      character.onDeath.subscribe(() => {
+        this.updateHasEnded();
+      })
       character.onCurrentHealthChanged.subscribe(newCurrentHealth => {
         this.onCombatEvent.next(new ContractCombatCharacterCurrentHealthChangedMessage(character.id, newCurrentHealth));
-        this.updateHasEnded();
       });
       character.onCurrentManaChanged.subscribe(newCurrentMana => {
         this.onCombatEvent.next(new ContractCombatCharacterCurrentManaChangedMessage(character.id, newCurrentMana));
-        this.updateHasEnded();
       });
       character.onContinuousEffectAdded.subscribe(continuousEffect => {
         const message = new ContractContinuousEffectAddedMessage(

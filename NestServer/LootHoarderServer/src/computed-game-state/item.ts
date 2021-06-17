@@ -3,6 +3,7 @@ import { DbItem } from "src/raw-game-state/db-item";
 import { StaticGameContentService } from "src/services/static-game-content-service";
 import { PassiveAbility } from "./passive-ability";
 import { ItemType } from "./item-type";
+import { PassiveAbilityLoader } from "./passive-ability-loader";
 
 export class Item {
   public dbModel: DbItem;
@@ -34,8 +35,8 @@ export class Item {
 
   public static load (dbModel: DbItem): Item {
     const itemType = StaticGameContentService.instance.getItemType(dbModel.typeKey);
-    const innateAbilities = dbModel.innateAbilities.map(dbPassiveAbility => PassiveAbility.load(dbPassiveAbility));
-    const additionalAbilities = dbModel.additionalAbilities.map(dbPassiveAbility => PassiveAbility.load(dbPassiveAbility));
+    const innateAbilities = dbModel.innateAbilities.map(dbPassiveAbility => PassiveAbilityLoader.loadAbility(dbPassiveAbility));
+    const additionalAbilities = dbModel.additionalAbilities.map(dbPassiveAbility => PassiveAbilityLoader.loadAbility(dbPassiveAbility));
     const item = new Item(dbModel, itemType, innateAbilities, additionalAbilities);
     return item;
   }

@@ -41,6 +41,7 @@ import { AbilityTypeEffectApplyContinuousEffectParameters } from "src/computed-g
 import { ContinuousEffectTypeAbilityRecipe } from "src/computed-game-state/area/continuous-effect-type-ability-recipe";
 import { AttributeValueSet } from "src/computed-game-state/attribute-value-set";
 import { AttributeValueContainer } from "src/computed-game-state/attribute-value-container";
+import { PassiveAbilityLoader } from "src/computed-game-state/passive-ability-loader";
 
 @Injectable()
 export class StaticGameContentService {
@@ -296,7 +297,7 @@ export class StaticGameContentService {
         node.x, 
         node.y, 
         node.abilities.map((ability: any) => 
-          PassiveAbility.load({
+          PassiveAbilityLoader.loadAbility({
             typeKey: ability.typeKey,
             parameters: ability.data as any
           })
