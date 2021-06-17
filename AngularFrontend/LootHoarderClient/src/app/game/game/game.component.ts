@@ -34,6 +34,8 @@ import { ChatMessage } from './client-representation/chat-message';
 import { User } from './client-representation/user';
 import { ContractHeroAbilityAddedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-ability-added-message-content';
 import { ContractHeroAbilityRemovedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-ability-removed-message-content';
+import { ContractHeroAbilityValueChangedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-ability-value-changed-message-content';
+import { ContractHeroAbilityValueKey } from 'src/loot-hoarder-contract/contract-hero-ability-value-key';
 
 
 @Component({
@@ -186,6 +188,42 @@ export class GameComponent implements OnInit, OnDestroy {
         const data = message.data as ContractHeroAbilityRemovedMessageContent;
         const hero = this.uiStateManager.state.game.getHero(data.heroId);
         hero.removeAbility(data.abilityId);
+      }
+      break;
+      case ContractServerMessageType.heroAbilityValueChanged: {
+        const data = message.data as ContractHeroAbilityValueChangedMessageContent;
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
+        const ability = hero.getAbility(data.abilityId);
+        if (data.effectIndex !== undefined) {
+          const effect = ability.effects[data.effectIndex];
+          if (data.valueKey !== ContractHeroAbilityValueKey.power) {
+            throw Error (`Expected value key to be ${ContractHeroAbilityValueKey.power}`);
+          }
+          effect.power = data.newValue;
+        } else {
+          switch (data.valueKey) {
+            case ContractHeroAbilityValueKey.cooldown:
+              ability.cooldown = data.newValue;
+              break;
+            case ContractHeroAbilityValueKey.cooldownSpeed:
+              ability.cooldownSpeed = data.newValue;
+              break;
+            case ContractHeroAbilityValueKey.criticalStrikeChance:
+              ability.criticalStrikeChance = data.newValue;
+              break;
+            case ContractHeroAbilityValueKey.manaCost:
+              ability.manaCost = data.newValue;
+              break;
+            case ContractHeroAbilityValueKey.timeToUse:
+              ability.timeToUse = data.newValue;
+              break;
+            case ContractHeroAbilityValueKey.useSpeed:
+              ability.useSpeed = data.newValue;
+              break;
+            default:
+              throw Error (`Unhandled hero ability value key: ${data.valueKey}`);
+          }
+        }
       }
       break;
       case ContractServerMessageType.heroUnspentSkillPointsChanged: {

@@ -94,7 +94,7 @@
       {
         "key": "apply-continuous-effect",
         "target": "any-enemy",
-        "tags": ["debuff"],
+        "tags": ["poison", "debuff"],
         "parameters": {
           "continuousEffectTypeKey": "poisoned",
           "duration": 10000,
@@ -129,7 +129,7 @@
       {
         "key": "apply-continuous-effect",
         "target": "all-enemies",
-        "tags": ["debuff"],
+        "tags": ["poison", "debuff"],
         "parameters": {
           "continuousEffectTypeKey": "poisoned",
           "duration": 10000,

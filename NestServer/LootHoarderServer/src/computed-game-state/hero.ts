@@ -1,6 +1,7 @@
 import { Subject } from "rxjs";
 import { ContractHero } from "src/loot-hoarder-contract/contract-hero";
 import { ContractServerWebSocketMessage } from "src/loot-hoarder-contract/server-actions/contract-server-web-socket-message";
+import { ContractHeroAbilityValueChangedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-ability-value-changed-message";
 import { ContractHeroAbilityAddedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-ability-added-message";
 import { ContractHeroAbilityRemovedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-ability-removed-message";
 import { ContractHeroGainedExperienceMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-gained-experience-message";
@@ -28,8 +29,8 @@ import { ContractSkillNodeLocation } from "src/loot-hoarder-contract/contract-sk
 import { PassiveAbilityParametersUnlockAbility } from "./passive-ability-parameters-unlock-ability";
 import { HeroAbility } from "./hero-ability";
 import { DbHeroAbility } from "src/raw-game-state/db-hero-ability";
-import { AttributeValueSet } from "./attribute-value-set";
-import { AttributeValueContainer } from "./attribute-value-container";
+import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
+import { ContractHeroAbilityValueKey } from "src/loot-hoarder-contract/contract-hero-ability-value-key";
 
 export class Hero {
   public dbModel: DbHero;
@@ -217,7 +218,7 @@ export class Hero {
   private applyPassiveAbilityEffects(abilities: PassiveAbility[]): void {
     for(const ability of abilities) {
       switch(ability.type.key) {
-        case 'attribute': {
+        case ContractPassiveAbilityTypeKey.attribute: {
           if (!(ability.parameters instanceof PassiveAbilityParametersAttribute)) {
             throw Error ('Expected attribute ability to have attribute ability parameters.');
           }
@@ -235,7 +236,7 @@ export class Hero {
           }
         }
         break;
-        case 'unlock-ability': {
+        case ContractPassiveAbilityTypeKey.unlockAbility: {
           if (!(ability.parameters instanceof PassiveAbilityParametersUnlockAbility)) {
             throw Error ('Expected unlock ability ability to have unlock ability ability parameters.');
           }
@@ -343,17 +344,40 @@ export class Hero {
   }
 
   private setUpAbilityValueContainersForAbility(ability: HeroAbility): void {
-    for(const effect of ability.effects) {
+    for(let effectIndex = 0; effectIndex < ability.effects.length; effectIndex++) {
+      const effect = ability.effects[effectIndex];
       this.setUpAbilityValueContainer(effect.abilityTypeEffect.tags, effect.powerVC, ContractAttributeType.power);
+
+      this.subscribeToHeroAbilityValueChange(effect.powerVC, ability.id, ContractHeroAbilityValueKey.power, effectIndex);
     }
     this.setUpAbilityValueContainer(ability.type.tags, ability.useSpeedVC, ContractAttributeType.useSpeed);
     this.setUpAbilityValueContainer(ability.type.tags, ability.cooldownSpeedVC, ContractAttributeType.cooldownSpeed);
+
+    this.subscribeToHeroAbilityValueChange(ability.cooldownVC, ability.id, ContractHeroAbilityValueKey.cooldown, undefined);
+    this.subscribeToHeroAbilityValueChange(ability.cooldownSpeedVC, ability.id, ContractHeroAbilityValueKey.cooldownSpeed, undefined);
+    this.subscribeToHeroAbilityValueChange(ability.criticalStrikeChanceVC, ability.id, ContractHeroAbilityValueKey.criticalStrikeChance, undefined);
+    this.subscribeToHeroAbilityValueChange(ability.manaCostVC, ability.id, ContractHeroAbilityValueKey.manaCost, undefined);
+    this.subscribeToHeroAbilityValueChange(ability.timeToUseVC, ability.id, ContractHeroAbilityValueKey.timeToUse, undefined);
+    this.subscribeToHeroAbilityValueChange(ability.useSpeedVC, ability.id, ContractHeroAbilityValueKey.useSpeed, undefined);
   }
 
   private setUpAbilityValueContainer(tags: string[], valueContainer: ValueContainer, attributeType: ContractAttributeType): void {
     const combinedAttribute = this.attributes.getAttribute(attributeType, tags);
     valueContainer.setAdditiveValueContainer(combinedAttribute.accumulatedAdditiveValueContainer);
     valueContainer.setMultiplicativeValueContainer(combinedAttribute.accumulatedMultiplicativeValueContainer);
+  }
+
+  private subscribeToHeroAbilityValueChange(valueContainer: ValueContainer, abilityId: number, valueKey: ContractHeroAbilityValueKey, effectIndex: number | undefined): void {
+    valueContainer.onValueChange.subscribe(valueChangeEvent => {
+      const message = new ContractHeroAbilityValueChangedMessage(
+        this.id, 
+        abilityId, 
+        valueKey, 
+        effectIndex,
+        valueChangeEvent.newValue
+      );
+      this.onEvent.next(message);
+    });
   }
 
   public static load(dbModel: DbHero): Hero {

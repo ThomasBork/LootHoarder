@@ -1,6 +1,9 @@
-import { ContractHeroAbility } from "../contract-hero-ability";
+import { ContractHeroAbilityValueKey } from "../contract-hero-ability-value-key";
 
-export interface ContractHeroAbilityAddedMessageContent {
+export interface ContractHeroAbilityValueChangedMessageContent {
   heroId: number,
-  ability: ContractHeroAbility
+  abilityId: number,
+  valueKey: ContractHeroAbilityValueKey,
+  effectIndex?: number,
+  newValue: number
 }

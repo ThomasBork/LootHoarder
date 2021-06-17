@@ -65,6 +65,14 @@ export class Hero {
     this.abilities.push(ability);
   }
 
+  public getAbility(abilityId: number): HeroAbility {
+    const ability = this.abilities.find(ability => ability.id === abilityId);
+    if (!ability) {
+      throw Error (`Hero ability with id ${abilityId} was not found.`);
+    }
+    return ability;
+  }
+
   public removeAbility(abilityId: number): void {
     const index = this.abilities.findIndex(ability => ability.id === abilityId);
     if (index >= 0) {
