@@ -1,34 +1,44 @@
 .content {
   height: 100%;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
   background-size: cover;
+  display: flex;
+  flex-direction: column;
 
-  .team1-characters {
-    margin-left: 20px;
-    margin-top: 20px;
+  .header {
+    padding: 10px;
   }
 
-  .team2-characters {
-    margin-right: 20px;
-    margin-top: 20px;
-    flex-direction: row-reverse;
-  }
-
-  .team1-characters, .team2-characters {
-    display: flex;
+  .characters {
     flex: 1 1 0;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    align-items: center;
-  }
+    display: flex;
+    justify-content: space-between;
 
-  .character-container {
-    margin-bottom: 20px;
-    width: 30%;
-    height: calc(50% - 50px);
-    max-width: 30%;
-    max-height: calc(50% - 50px);
+    .team1-characters {
+      margin-left: 20px;
+      margin-top: 20px;
+    }
+  
+    .team2-characters {
+      margin-right: 20px;
+      margin-top: 20px;
+      flex-direction: row-reverse;
+    }
+  
+    .team1-characters, .team2-characters {
+      display: flex;
+      flex: 1 1 0;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+  
+    .character-container {
+      margin-bottom: 20px;
+      width: 30%;
+      height: calc(50% - 50px);
+      max-width: 30%;
+      max-height: calc(50% - 50px);
+    }
   }
 }

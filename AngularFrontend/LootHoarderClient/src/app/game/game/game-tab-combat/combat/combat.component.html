@@ -2,26 +2,37 @@
   class="content"
   [style.background-image]="'url(assets/images/area/' + area.type.key + '.png'"
 >
-  <ul class="team1-characters">
-    <li 
-      *ngFor="let character of combat.team1"
-      class="character-container"
-    >
-      <app-combat-character
-        [character]="character"
-        [isTeam1]="true"
-      ></app-combat-character>
-    </li>
-  </ul>
-  <ul class="team2-characters">
-    <li 
-      *ngFor="let character of combat.team2"
-      class="character-container"
-    >
-      <app-combat-character
-        [character]="character"
-        [isTeam1]="false"
-      ></app-combat-character>
-    </li>
-  </ul>
+  <div class="header">
+    <span class="area-information">
+      <div class="title">{{area.type.name}}</div>
+      <div class="level">Level {{area.type.level}}</div>
+    </span>
+    <span class="combat-information">
+      <div>Encounter {{area.currentCombatNumber}}/{{area.totalAmountOfCombats}}</div>
+    </span>
+  </div>
+  <div class="characters">
+    <ul class="team1-characters">
+      <li 
+        *ngFor="let character of combat.team1"
+        class="character-container"
+      >
+        <app-combat-character
+          [character]="character"
+          [isTeam1]="true"
+        ></app-combat-character>
+      </li>
+    </ul>
+    <ul class="team2-characters">
+      <li 
+        *ngFor="let character of combat.team2"
+        class="character-container"
+      >
+        <app-combat-character
+          [character]="character"
+          [isTeam1]="false"
+        ></app-combat-character>
+      </li>
+    </ul>
+  </div>
 </div>

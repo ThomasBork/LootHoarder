@@ -14,10 +14,17 @@ export class GameSettings {
   public get automaticallyGoToNextCombat(): boolean { return this.dbModel.automaticallyGoToNextCombat; }
   public set automaticallyGoToNextCombat(newValue: boolean) { this.dbModel.automaticallyGoToNextCombat = newValue; }
 
+  public get alwaysShowChat(): boolean { return this.dbModel.alwaysShowChat; }
+  public set alwaysShowChat(newValue: boolean) { this.dbModel.alwaysShowChat = newValue; }
+
   public setSetting(settingType: ContractGameSettingType, settingValue: any): void {
     switch(settingType) {
       case ContractGameSettingType.automaticallyGoToNextCombat: {
         this.automaticallyGoToNextCombat = settingValue;
+      }
+      break;
+      case ContractGameSettingType.alwaysShowChat: {
+        this.alwaysShowChat = settingValue;
       }
       break;
       default: 
@@ -27,7 +34,8 @@ export class GameSettings {
 
   public getUIState(): ContractGameSettings {
     return {
-      automaticallyGoToNextCombat: this.automaticallyGoToNextCombat
+      automaticallyGoToNextCombat: this.automaticallyGoToNextCombat,
+      alwaysShowChat: this.alwaysShowChat
     };
   }
 

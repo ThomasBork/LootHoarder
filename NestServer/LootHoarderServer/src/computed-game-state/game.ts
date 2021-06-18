@@ -17,12 +17,14 @@ import { Item } from './item';
 import { ValueContainer } from './value-container';
 import { ContractInventoryPosition } from 'src/loot-hoarder-contract/contract-inventory-position';
 import { WebSocketEventStream } from './web-socket-event-stream';
+import { EventStream } from './event-stream';
 
 export class Game {
   public heroes: Hero[];
   public completedAreaTypes: AreaType[];
   public availableAreaTypes!: AreaType[];
   public areas: Area[];
+  public onHeroLevelUp: EventStream<Hero>;
   public onEvent: WebSocketEventStream;
   public settings: GameSettings;
   public items: Item[];
@@ -48,6 +50,7 @@ export class Game {
     this.maximumAmountOfHeroesVC = new ValueContainer(3);
     this.availableAreaTypes = this.calculateAvailableAreaTypes();
 
+    this.onHeroLevelUp = new EventStream();
     this.onEvent = new WebSocketEventStream();
 
     this.areaSubscriptions = new Map();
@@ -233,6 +236,8 @@ export class Game {
     hero.onEvent.subscribe(event => this.onEvent.next(event));
 
     hero.onItemUnequipped.subscribe(event => this.addItem(event.item));
+
+    hero.onLevelUp.subscribe(event => this.onHeroLevelUp.next(hero));
   }
 
   private unsubscribeToSubscriptions(subscriptions: Subscription[]): void {

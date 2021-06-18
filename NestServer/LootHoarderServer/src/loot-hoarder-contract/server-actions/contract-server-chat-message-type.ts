@@ -1,4 +1,5 @@
 export enum ContractServerChatMessageType {
   userMessage = 'user-message',
-  userConnected = 'user-connected'
+  userConnected = 'user-connected',
+  userAccomplishmentAnnouncement = 'user-accomplishment-announcement'
 }

@@ -24,6 +24,11 @@ export class GameTabSettingsComponent {
     this.game.settings.automaticallyGoToNextCombat = newValue;
     this.setSetting(ContractGameSettingType.automaticallyGoToNextCombat, newValue);
   }
+  public get alwaysShowChat(): boolean { return this.game.settings.alwaysShowChat; }
+  public set alwaysShowChat(newValue: boolean) {
+    this.game.settings.alwaysShowChat = newValue;
+    this.setSetting(ContractGameSettingType.alwaysShowChat, newValue);
+  }
 
   private setSetting(settingType: ContractGameSettingType, settingValue: any): void {
     this.webSocketService.send(new ContractSetSettingMessage(settingType, settingValue));

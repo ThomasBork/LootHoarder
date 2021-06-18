@@ -83,8 +83,7 @@ export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
         }
 
         const gameId = message.data.gameId;
-        const game = await this.gameService.loadGame(gameId);
-        this.gamesManager.setConnection(game, connection);
+        const game = await this.gameService.loadGame(gameId, connection);
 
         const uiGame = game.toContractModel();
         connection.sendMessage({typeKey: ContractServerMessageType.fullGameState, data: { game: uiGame }});

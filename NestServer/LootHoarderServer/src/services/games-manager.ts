@@ -6,6 +6,8 @@ import { GameCommunicationsWrapper } from './game-communications-wrapper';
 import { Hero } from 'src/computed-game-state/hero';
 import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-message';
 import { Area } from 'src/computed-game-state/area/area';
+import { ContractChatMessageSentMessage } from 'src/loot-hoarder-contract/server-actions/contract-chat-message-sent-message';
+import { ContractServerChatMessageType } from 'src/loot-hoarder-contract/server-actions/contract-server-chat-message-type';
 
 @Injectable()
 export class GamesManager {
@@ -26,9 +28,39 @@ export class GamesManager {
     return GamesManager._instance;
   }
 
-  public addGame(game: Game): void {
-    const wrapper = new GameCommunicationsWrapper(game, this.commandBus);
+  public addGame(game: Game, connection: Connection): GameCommunicationsWrapper {
+    const wrapper = new GameCommunicationsWrapper(game, this.commandBus, connection);
     this.gameCommunicationsWrappers.push(wrapper);
+    game.onHeroLevelUp.subscribe(hero => {
+      const isOnlyHeroAtThisLevel = this.gameCommunicationsWrappers.every(otherWrapper =>
+        otherWrapper.game.heroes.every(otherHero => 
+          otherHero === hero 
+          || otherHero.level < hero.level
+        )
+      );
+      if (!isOnlyHeroAtThisLevel) {
+        return;
+      }
+      const messageContent = `${hero.name} (owned by ${wrapper.user.userName}) was the first hero to reach level ${hero.level}!`;
+      const message = new ContractChatMessageSentMessage(
+        wrapper.user.id, 
+        wrapper.user.userName, 
+        messageContent, 
+        ContractServerChatMessageType.userAccomplishmentAnnouncement
+      );
+
+      this.sendMessageToAll(message);
+    });
+
+    return wrapper;
+  }
+
+  public getWrapperFromGameId(gameId: number): GameCommunicationsWrapper | undefined {
+    const wrapper = this.gameCommunicationsWrappers.find(w => w.game.id === gameId);
+    if (!wrapper) {
+      return undefined;
+    }
+    return wrapper;
   }
 
   public getGame(gameId: number): Game | undefined {
@@ -51,14 +83,6 @@ export class GamesManager {
     return this.gameCommunicationsWrappers.map(wrap => wrap.game);
   }
   
-  public setConnection(game: Game, connection: Connection): void {
-    const wrapper = this.gameCommunicationsWrappers.find(w => w.game === game);
-    if (!wrapper) {
-      throw Error('Cannot set connection to a game that is not loaded');
-    }
-    wrapper.setConnection(connection);
-  }
-  
   public sendMessage(game: Game, message: ContractServerWebSocketMessage): void {
     const wrapper = this.gameCommunicationsWrappers.find(w => w.game === game);
     if (!wrapper) {
@@ -66,6 +90,12 @@ export class GamesManager {
     }
 
     wrapper.sendMessage(message);
+  }
+
+  public sendMessageToAll(message: ContractServerWebSocketMessage): void {
+    for(const wrapper of this.gameCommunicationsWrappers) {
+      wrapper.sendMessage(message);
+    }
   }
 
   public getHero(gameId: number, heroId: number): Hero | undefined {

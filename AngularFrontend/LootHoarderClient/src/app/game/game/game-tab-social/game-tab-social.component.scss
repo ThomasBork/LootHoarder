@@ -8,6 +8,7 @@
     padding: 10px;
     margin-right: 10px;
     background-color: lightgrey;
+    width: 120px;
 
     .header {
       margin-bottom: 10px;
@@ -31,6 +32,10 @@
   
         &.user-connected {
           color: blue;
+        }
+
+        &.user-accomplishment-announcement {
+          color: green;
         }
       }
     }

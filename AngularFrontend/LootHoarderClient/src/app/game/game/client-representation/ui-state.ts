@@ -126,8 +126,12 @@ export class UIState {
 
   public addChatMessage(chatMessage: ChatMessage): void {
     if (
-      this.userId === chatMessage.userId
+      (
+        this.userId === chatMessage.userId
+        && chatMessage.messageType !== ContractServerChatMessageType.userAccomplishmentAnnouncement
+      )
       || this.selectedTabName === GameTabName.social
+      || this.game.settings.alwaysShowChat
     ) {
       chatMessage.isRead = true;
     }

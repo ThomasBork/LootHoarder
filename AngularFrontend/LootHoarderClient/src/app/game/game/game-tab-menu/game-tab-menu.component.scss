@@ -1,36 +1,47 @@
-
-.tabs-container {
+.tab-menu-container {
   display: flex;
-  flex-direction: column;
   height: 100%;
 
-  .tab-buttons {
+  .tabs-container {
     display: flex;
-    
-    .tab-button {
-      margin-right: 5px;
-      background-color: #EEEEEE;
-      padding: 10px;
-      cursor: pointer;
-      user-select: none;
+    flex-direction: column;
+    height: 100%;
+    flex: 1 1 0;
+    overflow: hidden;
+
+    &.right-side {
+      max-width: 400px;
+      margin-left: 10px;
+    }
+  
+    .tab-buttons {
       display: flex;
-      align-items: center;
-      height: 50px;
-
-      app-notification-bubble {
-        margin-left: 5px;
-      }
-
-      &:not(.selected) {
-        background-color: lightgrey;
+      
+      .tab-button {
+        margin-right: 5px;
+        background-color: #EEEEEE;
+        padding: 10px;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        height: 50px;
+  
+        app-notification-bubble {
+          margin-left: 5px;
+        }
+  
+        &:not(.selected) {
+          background-color: lightgrey;
+        }
       }
     }
-  }
-  
-  .tab-content {
-    flex: 1 1 0;
-    background-color: #EEEEEE;
-    padding: 10px;
-    overflow: hidden;
+    
+    .tab-content {
+      flex: 1 1 0;
+      background-color: #EEEEEE;
+      padding: 10px;
+      overflow: hidden;
+    }
   }
 }

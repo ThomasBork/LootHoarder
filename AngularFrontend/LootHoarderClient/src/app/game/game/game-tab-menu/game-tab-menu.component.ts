@@ -20,6 +20,8 @@ export class GameTabMenuComponent {
   public get isOnSocialTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.social; }
   public get amountOfUnreadMessages(): number { return this.uiStateManager.state.socialTab.amountOfUnreadMessages; }
 
+  public get alwaysShowChat(): boolean { return this.uiStateManager.state.game.settings.alwaysShowChat; }
+
   public goToWorldTab(): void {
     this.uiStateManager.state.selectTab(GameTabName.world);
   }

@@ -3,6 +3,7 @@ import { Game } from 'src/computed-game-state/game';
 import { DbGameRepository } from 'src/persistence/db-game-repository';
 import { DbGameState } from 'src/raw-game-state/db-game-state';
 import { StaticGameContentService } from 'src/services/static-game-content-service';
+import { Connection } from './connection';
 import { GamesManager } from './games-manager';
 
 @Injectable()
@@ -18,6 +19,7 @@ export class GameService {
       heroes: [],
       settings: {
         automaticallyGoToNextCombat: false,
+        alwaysShowChat: false
       },
       areas: [],
       items: [],
@@ -35,16 +37,18 @@ export class GameService {
     return gameId;
   }
 
-  public async loadGame(gameId: number): Promise<Game> {
-    let game = this.gamesManager.getGame(gameId);
-    if (!game) {
+  public async loadGame(gameId: number, connection: Connection): Promise<Game> {
+    let wrapper = this.gamesManager.getWrapperFromGameId(gameId);
+    if (!wrapper) {
       const dbGame = await this.dbGameRepository.fetchGame(gameId);
       if (!dbGame) {
         throw Error (`Unable to fetch game with id: '${gameId}'`);
       }
-      game = Game.load(dbGame);
-      this.gamesManager.addGame(game);
+      const game = Game.load(dbGame);
+      wrapper = this.gamesManager.addGame(game, connection);
+    } else {
+      wrapper.setConncetion(connection);
     }
-    return game;
+    return wrapper.game;
   }
 }

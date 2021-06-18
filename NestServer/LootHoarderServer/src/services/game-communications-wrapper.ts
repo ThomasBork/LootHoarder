@@ -22,32 +22,55 @@ import { ContractTakeHeroSkillNodeMessageContent } from "src/loot-hoarder-contra
 import { TakeHeroSkillNode } from "src/game-message-handlers/from-client/take-hero-skill-node";
 import { SendChatMessage } from "src/game-message-handlers/from-client/send-chat-message";
 import { DeleteHero } from "src/game-message-handlers/from-client/delete-hero";
+import { User } from "src/computed-game-state/user";
 
 
 
 export class GameCommunicationsWrapper {
   public game: Game;
   private logger: Logger = new Logger('GameCommunicationsWrapper');
-  private connection?: Connection;
+  private connection: Connection;
   private commandBus: CommandBus;
 
   public constructor(
     game: Game,
-    commandBus: CommandBus
+    commandBus: CommandBus,
+    connection: Connection
   ) {
     this.game = game;
     this.commandBus = commandBus;
-
-    this.setUpEventListeners();
+    this.connection = connection;
+    
+    this.setUpConnectionEventListeners(connection);
+    this.setUpGameEventListeners(game);
   }
 
-  public setConnection(connection: Connection): void {
+  public get user(): User {
+    const user = this.connection.user;
+    if (!user) {
+      throw Error (`The connection is expected to have a user when it has loaded a game.`);
+    }
+    return user;
+  }
+
+  public setConncetion(connection: Connection): void {
+    if (this.connection) {
+      this.removeConnectionEventListeners(this.connection);
+    }
     this.connection = connection;
+    this.setUpConnectionEventListeners(connection);
+  }
+
+  private setUpConnectionEventListeners(connection: Connection): void {
     connection.onMessage.subscribe((message) => this.handleGameMessage(message));
   }
 
-  private setUpEventListeners(): void {
-    this.game.onEvent.subscribe(event => this.sendMessage(event));
+  private removeConnectionEventListeners(connection: Connection): void {
+    connection.onMessage.unsubscribe();
+  }
+
+  private setUpGameEventListeners(game: Game): void {
+    game.onEvent.subscribe(event => this.sendMessage(event));
   }
 
   private handleGameMessage(message: ContractClientWebSocketMessage): void {

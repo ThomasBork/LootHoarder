@@ -1,6 +1,6 @@
 <div class="content">
   <div class="sidebar">
-    <div class="header">Connected users</div>
+    <div class="header">Users</div>
     <ul class="user-list">
       <li *ngFor="let connectedUser of connectedUsers">{{connectedUser.userName}}</li>
     </ul>
@@ -12,6 +12,11 @@
           <span 
             *ngSwitchCase="'user-connected'"
             class="chat-message user-connected"
+            [title]="chatMessage.timeStamp | date: 'HH:mm'"
+          >{{chatMessage.messageContent}}</span>
+          <span 
+            *ngSwitchCase="'user-accomplishment-announcement'"
+            class="chat-message user-accomplishment-announcement"
             [title]="chatMessage.timeStamp | date: 'HH:mm'"
           >{{chatMessage.messageContent}}</span>
           <span 

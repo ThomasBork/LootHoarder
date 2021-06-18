@@ -41,7 +41,10 @@
       </ng-container>
     </div>
 
-    <ul class="abilities">
+    <ul
+      *ngIf="character.isAlive"
+      class="abilities"
+    >
       <li
         *ngFor="let ability of character.abilities"
       >
@@ -90,7 +93,10 @@
       </li>
     </ul>
 
-    <ul class="continuous-effects">
+    <ul
+      *ngIf="character.isAlive" 
+      class="continuous-effects"
+    >
       <li
         *ngFor="let continuousEffect of character.continuousEffects"
       >
