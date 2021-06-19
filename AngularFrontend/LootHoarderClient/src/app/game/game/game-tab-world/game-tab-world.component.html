@@ -1,5 +1,8 @@
 <div class="content">
-  <div class="world-map-container">
+  <div 
+    class="world-map-container"
+    (click)="deselectGameAreaType()"
+  >
     <app-zoomable-container
       [initialCenterX]="worldMapFixtureX"
       [initialCenterY]="worldMapFixtureY"
@@ -24,7 +27,7 @@
         [class.selected]="selectedGameAreaType === gameAreaType"
       >
         <div
-          (click)="selectGameAreaType(gameAreaType)"
+          (click)="selectGameAreaType(gameAreaType, $event)"
           class="area-type-marker"
         >
           <div>{{ isGameAreaTypeDiscovered(gameAreaType) ? gameAreaType.type.name : '?'}}</div>
@@ -34,9 +37,11 @@
   </div>
 
 
-  <div class="area-type-information-container">
+  <div
+    *ngIf="selectedGameAreaType"
+    class="area-type-information-container"
+  >
     <app-game-tab-world-area-type-information 
-      *ngIf="selectedGameAreaType"
       [gameAreaType]="selectedGameAreaType"
     >
     </app-game-tab-world-area-type-information>

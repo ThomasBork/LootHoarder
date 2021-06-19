@@ -29,11 +29,16 @@ export class GameTabWorldComponent {
   public get worldMapFixtureX(): number { return this.uiStateManager.state.worldTab.worldMapFixtureX; }
   public get worldMapFixtureY(): number { return this.uiStateManager.state.worldTab.worldMapFixtureY; }
 
-  public selectGameAreaType(areaType: GameAreaType): void {
+  public selectGameAreaType(areaType: GameAreaType, mouseEvent: MouseEvent): void {
     if (!areaType.isAvailable) {
       return;
     }
+    mouseEvent.stopPropagation();
     this.selectedGameAreaType = areaType;
+  }
+
+  public deselectGameAreaType(): void {
+    this.selectedGameAreaType = undefined;
   }
 
   public isGameAreaTypeDiscovered(areaType: GameAreaType): boolean {
