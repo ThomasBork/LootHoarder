@@ -35,7 +35,13 @@ export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   public async handleDisconnect(client: WebSocket): Promise<void> {
     this.logger.log("Client disconnected.");
+    const connection = this.connectionsManager.getConnectionFromWebSocketClient(client);
     this.connectionsManager.removeConnection(client);
+    if (connection && connection.user) {
+      const messageContent = `${connection.user.userName} disconnected.`;
+      const message = new ContractChatMessageSentMessage(connection.user.id, connection.user.userName, messageContent, ContractServerChatMessageType.userDisconnected);
+      this.connectionsManager.sendMessageToAll(message);
+    }
   }
 
   public async handleConnection(client: WebSocket, ...args: any[]): Promise<void> {

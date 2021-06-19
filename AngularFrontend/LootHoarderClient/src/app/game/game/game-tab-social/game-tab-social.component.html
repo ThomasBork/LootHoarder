@@ -15,6 +15,11 @@
             [title]="chatMessage.timeStamp | date: 'HH:mm'"
           >{{chatMessage.messageContent}}</span>
           <span 
+            *ngSwitchCase="'user-disconnected'"
+            class="chat-message user-disconnected"
+            [title]="chatMessage.timeStamp | date: 'HH:mm'"
+          >{{chatMessage.messageContent}}</span>
+          <span 
             *ngSwitchCase="'user-accomplishment-announcement'"
             class="chat-message user-accomplishment-announcement"
             [title]="chatMessage.timeStamp | date: 'HH:mm'"

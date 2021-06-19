@@ -24,8 +24,6 @@ import { SendChatMessage } from "src/game-message-handlers/from-client/send-chat
 import { DeleteHero } from "src/game-message-handlers/from-client/delete-hero";
 import { User } from "src/computed-game-state/user";
 
-
-
 export class GameCommunicationsWrapper {
   public game: Game;
   private logger: Logger = new Logger('GameCommunicationsWrapper');

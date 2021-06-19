@@ -35,4 +35,8 @@ export class ConnectionsManager {
   public removeConnection(webSocketClient: WebSocket): void {
     this.connections = this.connections.filter(c => c.socket !== webSocketClient);
   }
+
+  public getConnectionFromWebSocketClient(webSocketClient: WebSocket): Connection | undefined {
+    return this.connections.find(c => c.socket === webSocketClient);
+  }
 }

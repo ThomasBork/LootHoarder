@@ -139,6 +139,8 @@ export class UIState {
     if (chatMessage.messageType === ContractServerChatMessageType.userConnected) {
       const newUser = new User(chatMessage.userId, chatMessage.userName);
       this.socialTab.addConnectedUser(newUser);
+    } else if (chatMessage.messageType === ContractServerChatMessageType.userDisconnected) {
+      this.socialTab.removeConnectedUser(chatMessage.userId);
     }
   }
 

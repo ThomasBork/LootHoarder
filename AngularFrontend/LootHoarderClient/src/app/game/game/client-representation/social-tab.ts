@@ -30,6 +30,13 @@ export class SocialTab {
     this.sortConnectedUsers();
   }
 
+  public removeConnectedUser(userId: number): void {
+    const index = this._connectedUsers.findIndex(u => u.id === userId);
+    if (index >= 0) {
+      this._connectedUsers.splice(index, 1);
+    }
+  }
+
   private sortConnectedUsers(): void {
     this._connectedUsers = this._connectedUsers.sort(
       (u1, u2) => 
