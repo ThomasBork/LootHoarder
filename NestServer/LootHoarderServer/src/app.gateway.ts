@@ -106,7 +106,7 @@ export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
         const chatStatusMessage = new ContractChatStatusMessage(connectedUsers);
         connection.sendMessage(chatStatusMessage);
 
-        const adverbs = ['beautiful', 'amazing', 'clever', 'glorious', 'fantastic', 'wonderful'];
+        const adverbs = ['beautiful', 'amazing', 'clever', 'glorious', 'fantastic', 'wonderful', 'magnificent'];
         const adverb = this.randomService.randomElementInArray(adverbs);
         const welcomeMessageContent = `The ${adverb} ${connection.user.userName} has joined the chat.`;
         const welcomeMessage = new ContractChatMessageSentMessage(connection.user.id, connection.user.userName, welcomeMessageContent, ContractServerChatMessageType.userConnected);

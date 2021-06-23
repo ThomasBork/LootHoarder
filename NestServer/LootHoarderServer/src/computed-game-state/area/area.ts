@@ -21,6 +21,7 @@ export class Area {
   public currentCombat: Combat;
   public onEvent: Subject<ContractServerWebSocketMessage>;
   public onAreaComplete: Subject<boolean>;
+  public onCombatComplete: Subject<Combat>;
   public loot: Loot;
 
   private combatEventListeners: Subscription[];
@@ -40,6 +41,7 @@ export class Area {
 
     this.onEvent = new Subject();
     this.onAreaComplete = new Subject();
+    this.onCombatComplete = new Subject();
     this.combatEventListeners = [];
 
     this.setUpEventListeners();
@@ -106,6 +108,7 @@ export class Area {
       const items = [ItemSpawnerService.instance.spawnItem(game, this.type.level)];
       items.forEach(item => this.addItemToLoot(item));
     }
+    this.onCombatComplete.next(combat);
     if (this.currentCombatNumber === this.totalAmountOfCombats) {
       if (this.currentCombat.didTeam1Win) {
         this.onAreaComplete.next();

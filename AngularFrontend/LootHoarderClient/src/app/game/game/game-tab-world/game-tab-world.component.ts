@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Subject } from 'rxjs';
 import { GameAreaType } from '../client-representation/game-area-type';
 import { UIStateManager } from '../ui-state-manager';
 
@@ -8,11 +9,17 @@ import { UIStateManager } from '../ui-state-manager';
   styleUrls: ['./game-tab-world.component.scss']
 })
 export class GameTabWorldComponent {
-  public selectedGameAreaType?: GameAreaType;
+  public centerChanged: Subject<void> = new Subject();
 
   public constructor(
     private readonly uiStateManager: UIStateManager
-  ) {}
+  ) {
+    uiStateManager.state.worldTab.onOpen.subscribe(() => {
+      if (this.selectedGameAreaType) {
+        this.centerChanged.next();
+      }
+    });
+  }
 
   public get allAreaTypes(): GameAreaType[] {
     return this.uiStateManager.state.game.allAreaTypes;
@@ -26,8 +33,12 @@ export class GameTabWorldComponent {
   public set zoom(newValue: number) { this.uiStateManager.state.worldTab.worldMapZoom = newValue; }
   public get worldMapWidth(): number { return this.uiStateManager.state.worldTab.worldMapWidth; }
   public get worldMapHeight(): number { return this.uiStateManager.state.worldTab.worldMapHeight; }
+  public get worldMapCenterX(): number | undefined { return this.uiStateManager.state.worldTab.worldMapCenterX; }
+  public get worldMapCenterY(): number | undefined { return this.uiStateManager.state.worldTab.worldMapCenterY; }
   public get worldMapFixtureX(): number { return this.uiStateManager.state.worldTab.worldMapFixtureX; }
   public get worldMapFixtureY(): number { return this.uiStateManager.state.worldTab.worldMapFixtureY; }
+  public get selectedGameAreaType(): GameAreaType | undefined { return this.uiStateManager.state.worldTab.selectedAreaType; }
+  public set selectedGameAreaType(gameAreaType: GameAreaType | undefined) { this.uiStateManager.state.worldTab.selectedAreaType = gameAreaType; }
 
   public selectGameAreaType(areaType: GameAreaType, mouseEvent: MouseEvent): void {
     if (!areaType.isAvailable) {

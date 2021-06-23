@@ -4,12 +4,13 @@
     (click)="deselectGameAreaType()"
   >
     <app-zoomable-container
-      [initialCenterX]="worldMapFixtureX"
-      [initialCenterY]="worldMapFixtureY"
+      [centerX]="worldMapCenterX"
+      [centerY]="worldMapCenterY"
       [minX]="0"
       [minY]="0"
       [maxX]="worldMapWidth"
       [maxY]="worldMapHeight"
+      [centerChanged]="centerChanged"
     >
       <img
         src='/assets/images/world.png'

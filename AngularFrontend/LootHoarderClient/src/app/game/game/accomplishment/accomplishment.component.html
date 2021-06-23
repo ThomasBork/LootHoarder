@@ -1,0 +1,45 @@
+<div class="content">
+  <div class="check-mark-container">
+    <img 
+      *ngIf="accomplishment.isComplete"
+      src="assets/images/check-mark.png" 
+    />
+    <img 
+      *ngIf="!accomplishment.isComplete"
+      src="assets/images/cancel.png" 
+    />
+  </div>
+  <div 
+    class="progression-container"
+    [class.complete]="accomplishment.isComplete"
+  >
+    <span class="completed-amount">{{accomplishment.completedAmount}}</span><span>/{{accomplishment.type.requiredAmount}}</span>
+  </div>
+  <ul class="description-parts">
+    <li 
+      *ngFor="let descriptionPart of accomplishment.type.descriptionParts"
+      class="description-part"
+    >
+      <ng-container [ngSwitch]="descriptionPart.typeKey">
+        <span 
+          *ngSwitchCase="'string'"
+          class="string"
+        >{{descriptionPart.content}}</span>
+        <span 
+          *ngSwitchCase="'monsterType'"
+          class="monster-type"
+        >{{descriptionPart.content.name}}</span>
+        <span 
+          *ngSwitchCase="'areaType'"
+          class="area-type"
+          (click)="goToAreaType(descriptionPart.content)"
+        >
+          <span class="name">{{descriptionPart.content.name}} area</span>
+          <span class="image-container">
+            <img src="assets/images/magnifying-glass.png" />
+          </span>
+        </span>
+      </ng-container>
+    </li>
+  </ul>
+</div>

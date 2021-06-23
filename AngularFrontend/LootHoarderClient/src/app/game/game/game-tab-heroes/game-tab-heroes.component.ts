@@ -23,7 +23,7 @@ export class GameTabHeroesComponent {
     return this.game.maximumAmountOfHeroes - this.game.heroes.length;
   }
 
-  public get selectedHero(): Hero | undefined { return this.uiStateManager.state.heroTab.selectedHero; }
+  public get selectedHero(): Hero | undefined { return this.uiStateManager.state.heroesTab.selectedHero; }
 
   public openCreateNewHero(): void {
     this.isCreatingNewHero = true;
@@ -34,7 +34,7 @@ export class GameTabHeroesComponent {
   }
 
   public selectHero(hero: Hero): void {
-    this.uiStateManager.state.heroTab.selectedHero = hero;
+    this.uiStateManager.state.heroesTab.selectedHero = hero;
   }
 
   public setDraggedItem(item: Item | undefined): void {

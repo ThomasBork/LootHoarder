@@ -1,19 +1,22 @@
 <div class="content">
   <ul class="tab-buttons">
     <li 
+      *ngIf="itemsTab.isEnabled"
       class="tab-button"
-      [class.selected]="selectedTab === 'items'"
-      (click)="changeTab('items')"
+      [class.selected]="selectedTab === itemsTab"
+      (click)="changeTab(itemsTab)"
     >Items</li>
     <li 
+      *ngIf="abilitiesTab.isEnabled"
       class="tab-button"
-      [class.selected]="selectedTab === 'abilities'"
-      (click)="changeTab('abilities')"
+      [class.selected]="selectedTab === abilitiesTab"
+      (click)="changeTab(abilitiesTab)"
     >Abilities</li>
     <li 
+      *ngIf="passivesTab.isEnabled"
       class="tab-button"
-      [class.selected]="selectedTab === 'passives'"
-      (click)="changeTab('passives')"
+      [class.selected]="selectedTab === passivesTab"
+      (click)="changeTab(passivesTab)"
     >
       <span>Passives</span>
       <app-notification-bubble 
@@ -22,30 +25,31 @@
       ></app-notification-bubble>
     </li>
     <li 
+      *ngIf="managementTab.isEnabled"
       class="tab-button"
-      [class.selected]="selectedTab === 'management'"
-      (click)="changeTab('management')"
+      [class.selected]="selectedTab === managementTab"
+      (click)="changeTab(managementTab)"
     >Management</li>
   </ul>
   
   <div class="tab-content">
     <app-selected-hero-items-tab
-      *ngIf="selectedTab === 'items'"
+      *ngIf="selectedTab === itemsTab"
       [hero]="hero"
     ></app-selected-hero-items-tab>
     
     <app-selected-hero-abilities-tab
-      *ngIf="selectedTab === 'abilities'"
+      *ngIf="selectedTab === abilitiesTab"
       [hero]="hero"
     ></app-selected-hero-abilities-tab>
     
     <app-selected-hero-passives-tab
-      *ngIf="selectedTab === 'passives'"
+      *ngIf="selectedTab === passivesTab"
       [hero]="hero"
     ></app-selected-hero-passives-tab>
     
     <app-selected-hero-management-tab
-      *ngIf="selectedTab === 'management'"
+      *ngIf="selectedTab === managementTab"
       [hero]="hero"
     ></app-selected-hero-management-tab>
   </div>

@@ -36,6 +36,10 @@ import { ContractHeroAbilityAddedMessageContent } from 'src/loot-hoarder-contrac
 import { ContractHeroAbilityRemovedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-ability-removed-message-content';
 import { ContractHeroAbilityValueChangedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-ability-value-changed-message-content';
 import { ContractHeroAbilityValueKey } from 'src/loot-hoarder-contract/contract-hero-ability-value-key';
+import { ContractGameTabUnlockedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-game-tab-unlocked-message-content';
+import { ContractQuestUpdatedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-quest-updated-message-content';
+import { ContractAchievementUpdatedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-achievement-updated-message-content';
+import { ContractHeroSlotAddedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-slot-added-message-content';
 
 
 @Component({
@@ -126,6 +130,45 @@ export class GameComponent implements OnInit, OnDestroy {
         const combatId = message.data.combatId as number;
         const innerMessage = message.data.innerMessage as ContractCombatWebSocketInnerMessage;
         this.combatMessageHandler.handleMessage(this.uiStateManager.state.game, combatId, innerMessage);
+      }
+      break;
+      case ContractServerMessageType.gameTabUnlocked: {
+        const data = message.data as ContractGameTabUnlockedMessageContent;
+        this.uiStateManager.state.unlockTab(data.parentTabKey, data.childTabKey);
+      }
+      break;
+      case ContractServerMessageType.heroSlotAdded: {
+        this.uiStateManager.state.game.maximumAmountOfHeroes++;
+      }
+      break;
+      case ContractServerMessageType.questUpdated: {
+        const data = message.data as ContractQuestUpdatedMessageContent;
+        const quest = this.uiStateManager.state.game.getQuest(data.questTypeKey);
+        if (data.accomplishmentCompletedAmount.length !== quest.accomplishments.length) {
+          throw Error (`Expected the quest to have the same amount of accomplishments as the data from the server.`);
+        }
+        for (let i = 0; i < quest.accomplishments.length; i++) {
+          const accomplishment = quest.accomplishments[i];
+          accomplishment.completedAmount = data.accomplishmentCompletedAmount[i];
+        }
+        if (data.isComplete) {
+          this.uiStateManager.state.completeQuest(quest);
+        }
+      }
+      break;
+      case ContractServerMessageType.achievementUpdated: {
+        const data = message.data as ContractAchievementUpdatedMessageContent;
+        const achievement = this.uiStateManager.state.game.getAchievement(data.achievementTypeKey);
+        if (data.accomplishmentCompletedAmount.length !== achievement.accomplishments.length) {
+          throw Error (`Expected the achievement to have the same amount of accomplishments as the data from the server.`);
+        }
+        for (let i = 0; i < achievement.accomplishments.length; i++) {
+          const accomplishment = achievement.accomplishments[i];
+          accomplishment.completedAmount = data.accomplishmentCompletedAmount[i];
+        }
+        if (data.isComplete) {
+          this.uiStateManager.state.completeAchievement(achievement);
+        }
       }
       break;
       case ContractServerMessageType.heroAdded: {

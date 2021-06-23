@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GameTabName } from '../client-representation/game-tab-name';
+import { ContractGameTabKey } from 'src/loot-hoarder-contract/contract-game-tab-key';
+import { GameTab } from '../client-representation/game-tab';
 import { UIStateManager } from '../ui-state-manager';
 
 @Component({
@@ -10,40 +11,39 @@ import { UIStateManager } from '../ui-state-manager';
 export class GameTabMenuComponent {
   public constructor(
     private readonly uiStateManager: UIStateManager
-  ) { }
-
-  public get isOnWorldTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.world; }
-  public get isOnHeroesTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.heroes; }
-  public get isOnCombatTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.combat; }
-  public get isOnItemsTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.items; }
-  public get isOnSettingsTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.settings; }
-  public get isOnSocialTab(): boolean { return this.uiStateManager.state.selectedTabName === GameTabName.social; }
-  public get amountOfUnreadMessages(): number { return this.uiStateManager.state.socialTab.amountOfUnreadMessages; }
+  ) {  }
 
   public get alwaysShowChat(): boolean { return this.uiStateManager.state.game.settings.alwaysShowChat; }
-
-  public goToWorldTab(): void {
-    this.uiStateManager.state.selectTab(GameTabName.world);
+  
+  public get worldTab(): GameTab {
+    return this.uiStateManager.state.worldTab;
+  }
+  public get heroesTab(): GameTab {
+    return this.uiStateManager.state.heroesTab;
+  }
+  public get combatTab(): GameTab {
+    return this.uiStateManager.state.combatTab;
+  }
+  public get itemsTab(): GameTab {
+    return this.uiStateManager.state.itemsTab;
+  }
+  public get questsTab(): GameTab {
+    return this.uiStateManager.state.questsTab;
+  }
+  public get achievementsTab(): GameTab {
+    return this.uiStateManager.state.achievementsTab;
+  }
+  public get settingsTab(): GameTab {
+    return this.uiStateManager.state.settingsTab;
+  }
+  public get socialTab(): GameTab {
+    return this.uiStateManager.state.socialTab;
   }
 
-  public goToHeroesTab(): void {
-    this.uiStateManager.state.selectTab(GameTabName.heroes);
+  public get selectedTab(): GameTab {
+    return this.uiStateManager.state.selectedTab;
   }
-
-  public goToCombatTab(): void {
-    this.uiStateManager.state.selectTab(GameTabName.combat);
+  public set selectedTab(tab: GameTab) {
+    this.uiStateManager.state.selectedTab = tab;
   }
-
-  public goToItemsTab(): void {
-    this.uiStateManager.state.selectTab(GameTabName.items);
-  }
-
-  public goToSettingsTab(): void {
-    this.uiStateManager.state.selectTab(GameTabName.settings);
-  }
-
-  public goToSocialTab(): void {
-    this.uiStateManager.state.selectTab(GameTabName.social);
-  }
-
 }

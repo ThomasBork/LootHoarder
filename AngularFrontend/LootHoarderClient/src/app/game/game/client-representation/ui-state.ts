@@ -1,16 +1,25 @@
+import { ContractGameTabKey } from "src/loot-hoarder-contract/contract-game-tab-key";
 import { ContractServerChatMessageType } from "src/loot-hoarder-contract/server-actions/contract-server-chat-message-type";
+import { HeroTabChildTab } from "./hero-tab-child-tab";
 import { Area } from "./area";
 import { AreaType } from "./area-type";
 import { ChatMessage } from "./chat-message";
 import { Combat } from "./combat";
 import { CombatTab } from "./combat-tab";
 import { Game } from "./game";
-import { GameTabName } from "./game-tab-name";
 import { Hero } from "./hero";
 import { HeroTab } from "./hero-tab";
 import { SocialTab } from "./social-tab";
 import { User } from "./user";
 import { WorldTab } from "./world-tab";
+import { GameTab } from "./game-tab";
+import { ItemsTab } from "./items-tab";
+import { QuestsTab } from "./quests-tab";
+import { AchievementsTab } from "./achievements-tab";
+import { SettingsTab } from "./settings-tab";
+import { QuestRewardUnlockTab } from "./quest-reward-unlock-tab";
+import { Quest } from "./quest";
+import { Achievement } from "./achievement";
 
 export class UIState {
   public userId: number;
@@ -18,11 +27,17 @@ export class UIState {
 
   public game: Game;
   public worldTab: WorldTab;
-  public heroTab: HeroTab;
+  public heroesTab: HeroTab;
   public combatTab: CombatTab;
+  public itemsTab: ItemsTab;
+  public questsTab: QuestsTab;
+  public achievementsTab: AchievementsTab;
+  public settingsTab: SettingsTab;
   public socialTab: SocialTab;
 
-  public selectedTabName: GameTabName;
+  public selectedTab: GameTab;
+
+  public allTabsAndChildTabs: GameTab[];
 
   public constructor(userId: number, userName: string, game: Game) {
     this.userId = userId;
@@ -30,28 +45,57 @@ export class UIState {
     this.game = game;
 
     this.worldTab = new WorldTab();
-    this.heroTab = new HeroTab();
+    this.heroesTab = new HeroTab();
     this.combatTab = new CombatTab();
     this.socialTab = new SocialTab();
-    this.selectedTabName = game.heroes.length === 0 ? GameTabName.heroes : GameTabName.world;
+    this.itemsTab = new ItemsTab();
+    this.questsTab = new QuestsTab();
+    this.achievementsTab = new AchievementsTab();
+    this.settingsTab = new SettingsTab();
+
+    this.allTabsAndChildTabs = [
+      this.worldTab, 
+      this.heroesTab,
+      ...this.heroesTab.allTabs,
+      this.combatTab,
+      this.itemsTab,
+      this.questsTab,
+      this.achievementsTab,
+      this.settingsTab,
+      this.socialTab
+    ];
+
+    this.allTabsAndChildTabs.forEach(tab => tab.isEnabled = this.isTabEnabled(tab));
+
+    for(const quest of game.quests) {
+      for(const reward of quest.type.getAllRewards()) {
+        if (reward instanceof QuestRewardUnlockTab) {
+          reward.tab = this.getTab(reward.parentTabKey, reward.childTabKey);
+        }
+      }
+    }
+
+    this.worldTab.selectedAreaType = this.game.getGameAreaType('forest');
+
+    this.selectedTab = game.heroes.length === 0 ? this.heroesTab : this.worldTab;
     if (game.heroes.length === 1) {
-      this.heroTab.selectedHero = game.heroes[0];
+      this.heroesTab.selectedHero = game.heroes[0];
     }
   }
 
   public addHero(hero: Hero): void {
     this.game.heroes.push(hero);
-    this.heroTab.selectedHero = hero;
+    this.heroesTab.selectedHero = hero;
   }
 
   public removeHero(heroId: number): void {
     const hero = this.game.getHero(heroId);
-    if (this.heroTab.selectedHero === hero) {
+    if (this.heroesTab.selectedHero === hero) {
       const heroIndex = this.game.heroes.indexOf(hero);
       if (heroIndex === this.game.heroes.length - 1) {
-        this.heroTab.selectedHero = this.game.heroes[heroIndex - 1];
+        this.heroesTab.selectedHero = this.game.heroes[heroIndex - 1];
       } else {
-        this.heroTab.selectedHero = this.game.heroes[heroIndex + 1];
+        this.heroesTab.selectedHero = this.game.heroes[heroIndex + 1];
       }
     }
     this.game.removeHero(hero);
@@ -64,6 +108,9 @@ export class UIState {
     }
     gameAreaType.areas.push(area);
     this.game.areas.push(area);
+    if (!this.combatTab.selectedArea) {
+      this.combatTab.selectedArea = area;
+    }
   }
 
   public removeArea(areaId: number): void {
@@ -116,26 +163,19 @@ export class UIState {
     this.combatTab.selectedArea = area;
   }
 
-  public selectTab(tabName: GameTabName): void {
-    this.selectedTabName = tabName;
-
-    if (tabName === GameTabName.social) {
-      this.socialTab.chatMessages.forEach(message => message.isRead = true);
-    }
-  }
-
   public addChatMessage(chatMessage: ChatMessage): void {
     if (
       (
         this.userId === chatMessage.userId
         && chatMessage.messageType !== ContractServerChatMessageType.userAccomplishmentAnnouncement
       )
-      || this.selectedTabName === GameTabName.social
+      || this.selectedTab === this.socialTab
       || this.game.settings.alwaysShowChat
     ) {
       chatMessage.isRead = true;
     }
     this.socialTab.chatMessages.push(chatMessage);
+    this.socialTab.updateNotificationAmount();
     if (chatMessage.messageType === ContractServerChatMessageType.userConnected) {
       const newUser = new User(chatMessage.userId, chatMessage.userName);
       this.socialTab.addConnectedUser(newUser);
@@ -146,5 +186,65 @@ export class UIState {
 
   public updateConnectedUsers(users: User[]): void {
     this.socialTab.connectedUsers = users;
+  }
+
+  public unlockTab(parentTabKey: ContractGameTabKey, childTabKey: string | undefined): void {
+    const disabledGameTabIndex = this.game.disabledGameTabs.findIndex(tab => tab.parentTabKey === parentTabKey && tab.childTabKey === childTabKey);
+    if (disabledGameTabIndex >= 0) {
+      this.game.disabledGameTabs.splice(disabledGameTabIndex, 1);
+    }
+    const tab = this.getTab(parentTabKey, childTabKey);
+    tab.isEnabled = true;
+  }
+
+  public selectTab(key: ContractGameTabKey): void {
+    const tab = this.getTab(key, undefined);
+    this.selectedTab = tab;
+  }
+
+  public getTab(parentTabKey: ContractGameTabKey, childTabKey: string | undefined): GameTab {
+    const tab = this.allTabsAndChildTabs.find(tab =>
+      (
+        tab.parentTab
+        && tab.parentTab.key === parentTabKey
+        && tab.key === childTabKey
+      )
+      || (
+        !childTabKey
+        && tab.key === parentTabKey
+      )
+    );
+    if (!tab) {
+      throw Error (`Could not find tab: ${parentTabKey}, ${childTabKey}.`);
+    }
+    return tab;
+  }
+
+  public completeQuest(quest: Quest): void {
+    quest.complete();
+    for (const otherQuest of this.game.quests) {
+      if (otherQuest.type.previousQuestType === quest.type) {
+        otherQuest.isAvailable = true;
+      }
+    }
+  }
+
+  public completeAchievement(achievement: Achievement): void {
+    achievement.complete();
+  }
+
+  private isTabEnabled(tab: GameTab): boolean {
+    return !this.game.disabledGameTabs.some(disabledTab => 
+      (
+        tab.parentTab
+        && disabledTab.parentTabKey === tab.parentTab.key
+        && disabledTab.childTabKey === tab.key
+      )
+      ||
+      (
+        !disabledTab.childTabKey
+        && disabledTab.parentTabKey === tab.key
+      ) 
+    );
   }
 }

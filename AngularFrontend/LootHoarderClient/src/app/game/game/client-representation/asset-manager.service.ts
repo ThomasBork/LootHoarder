@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { AbilityType } from "./ability-type";
 import { HeroType } from "./hero-type";
 import HeroTypes from 'src/loot-hoarder-static-content/hero-types.json';
+import MonsterTypes from 'src/loot-hoarder-static-content/monster-types.json';
 import AbilityTypeEffectTypes from 'src/loot-hoarder-static-content/ability-type-effect-types.json';
 import AbilityTypes from 'src/loot-hoarder-static-content/ability-types.json';
 import AreaTypes from 'src/loot-hoarder-static-content/area-types.json';
@@ -10,6 +11,9 @@ import ItemTypes from 'src/loot-hoarder-static-content/item-types.json';
 import PassiveAbilityTypes from 'src/loot-hoarder-static-content/passive-ability-types.json';
 import ContinuousEffectTypes from 'src/loot-hoarder-static-content/continuous-effect-types.json';
 import HeroSkillTreeJson from 'src/loot-hoarder-static-content/hero-skill-tree.json';
+import QuestRewardTypes from "src/loot-hoarder-static-content/quest-reward-types.json";
+import QuestTypes from "src/loot-hoarder-static-content/quest-types.json";
+import AchievementTypes from "src/loot-hoarder-static-content/achievement-types.json";
 import { AreaType } from "./area-type";
 import { ItemType } from "./item-type";
 import { ContractItemCategory } from "src/loot-hoarder-contract/contract-item-category";
@@ -17,7 +21,6 @@ import { PassiveAbilityType } from "./passive-ability-type";
 import { HeroSkillTree } from "./hero-skill-tree";
 import { SkillTreeTransition } from "./skill-tree-transition";
 import { HeroSkillTreeNode } from "./hero-skill-tree-node";
-import { PassiveAbility } from "./passive-ability";
 import { HeroSkillTreeStartingNode } from "./hero-skill-tree-starting-node";
 import { ContinuousEffectType } from "./continuous-effect-type";
 import { AbilityTypeEffectApplyContinuousEffectParameters } from "./ability-type-effect-apply-continuous-effect-parameters";
@@ -30,17 +33,34 @@ import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contrac
 import { PassiveAbilityAttribute } from "./passive-ability-attribute";
 import { PassiveAbilityUnlockAbility } from "./passive-ability-unlock-ability";
 import { PassiveAbilityTakeDamageOverTime } from "./passive-ability-take-damage-over-time";
+import { MonsterType } from "./monster-type";
+import { AccomplishmentTypeDefeatSpecificMonsterType } from "./accomplishment-type-defeat-specific-monster-type";
+import { AccomplishmentTypeSpecial } from "./accomplishment-type-special";
+import { AccomplishmentTypeDefeatMonsters } from "./accomplishment-type-defeat-monsters";
+import { AccomplishmentTypeCompleteSpecificAreaType } from "./accomplishment-type-complete-specific-area-type";
+import { QuestRewardType } from "./quest-reward-type";
+import { QuestType } from "./quest-type";
+import { AchievementType } from "./achievement-type";
+import { AccomplishmentType } from "./accomplishment-type";
+import { QuestReward } from "./quest-reward";
+import { ContractGameTabKey } from "src/loot-hoarder-contract/contract-game-tab-key";
+import { QuestRewardUnlockTab } from "./quest-reward-unlock-tab";
+import { QuestRewardHeroSlot } from "./quest-reward-hero-slot";
 
 @Injectable()
 export class AssetManagerService {
   private abilityTypeEffectTypes!: AbilityTypeEffectType[];
   private abilityTypes: AbilityType[] = [];
   private heroTypes: HeroType[] = [];
+  private monsterTypes: MonsterType[] = [];
   private areaTypes: AreaType[] = [];
   private itemTypes!: ItemType[];
   private passiveAbilityTypes!: PassiveAbilityType[];
   private heroSkillTree!: HeroSkillTree;
   private continuousEffectTypes!: ContinuousEffectType[];
+  private questRewardTypes!: QuestRewardType[];
+  private questTypes!: QuestType[];
+  private achievementTypes!: AchievementType[];
 
   private static _instance?: AssetManagerService;
   public constructor() {
@@ -62,8 +82,12 @@ export class AssetManagerService {
     this.loadAbilityTypes();
     this.loadItemTypes();
     this.loadHeroTypes();
+    this.loadMonsterTypes();
     this.loadAreaTypes();
     this.loadHeroSkillTree();
+    this.loadQuestRewardTypes();
+    this.loadQuestTypes();
+    this.loadAchievementTypes();
   }
 
   public getAbilityTypeEffectType(key: string): AbilityTypeEffectType {
@@ -96,6 +120,14 @@ export class AssetManagerService {
 
   public getAllHeroTypes(): HeroType[] {
     return [...this.heroTypes];
+  }
+
+  public getMonsterType(key: string): MonsterType {
+    const result = this.monsterTypes.find(x => x.key === key);
+    if (!result) {
+      throw Error (`Monster type with key = '${key}' not found.`);
+    }
+    return result;
   }
 
   public getHeroSkillTree(): HeroSkillTree {
@@ -136,6 +168,22 @@ export class AssetManagerService {
       throw Error (`Continuous effect type '${key}' not found.`);
     }
     return continuousEffectType;
+  }
+
+  public getQuestRewardType(key: string): QuestRewardType {
+    const result = this.questRewardTypes.find(x => x.key === key);
+    if (!result) {
+      throw Error (`Quest reward type with key = '${key}' not found.`);
+    }
+    return result;
+  }
+
+  public getAllQuestTypes(): QuestType[] {
+    return this.questTypes;
+  }
+
+  public getAllAchievementTypes(): AchievementType[] {
+    return this.achievementTypes;
   }
 
   private loadContinuousEffectTypes(): void {
@@ -224,7 +272,16 @@ export class AssetManagerService {
         heroType.abilityTypes.map(abilityTypeKey => this.getAbilityType(abilityTypeKey)),
         this.getItemType(heroType.startingWeaponType)
       )
-    )
+    );
+  }
+
+  private loadMonsterTypes(): void {
+    this.monsterTypes = MonsterTypes.map(monsterType => 
+      new MonsterType(
+        monsterType.key,
+        monsterType.name
+      )
+    );
   }
 
   private loadAreaTypes(): void {
@@ -307,5 +364,119 @@ export class AssetManagerService {
       .map(transition => new SkillTreeTransition(transition.fromX, transition.fromY, transition.toX, transition.toY));
 
     this.heroSkillTree = new HeroSkillTree(nodes, transitions);
+  }
+
+  private loadQuestRewardTypes(): void {
+    this.questRewardTypes = QuestRewardTypes.map(questRewardType => 
+      new QuestRewardType(questRewardType.typeKey, questRewardType.requiredParameters)
+    );
+  }
+
+  private loadQuestTypes(): void {
+    const questTypes = QuestTypes.map(questType => {
+      const key = questType.key;
+      const name = questType.name;
+      const requiredAccomplishmentTypes = questType.requiredAccomplishments.map(requiredAccomplishment =>
+        this.buildAccomplishmentType(
+          requiredAccomplishment.typeKey,
+          requiredAccomplishment.parameters,
+          requiredAccomplishment.requiredAmount
+        )
+      );
+      const rewards = (questType.rewards as any[]).map(reward => 
+        this.buildQuestReward(reward.typeKey, reward.parameters)
+      );
+      const hiddenRewards = (questType.hiddenRewards as any[]).map(reward => 
+        this.buildQuestReward(reward.typeKey, reward.parameters)
+      );
+
+      return new QuestType (
+        key,
+        name,
+        requiredAccomplishmentTypes,
+        rewards,
+        hiddenRewards
+      );
+    });
+
+    for(const jsonQuestType of QuestTypes) {
+      if (jsonQuestType.previousQuestKey) {
+        const questType = questTypes.find(q => q.key === jsonQuestType.key);
+        if (!questType) {
+          throw Error (`Could not find the quest type with key: ${jsonQuestType.key}`);
+        }
+        const previousQuestType = questTypes.find(q => q.key === jsonQuestType.previousQuestKey);
+        if (!previousQuestType) {
+          throw Error (`Could not find the quest type with key: ${jsonQuestType.previousQuestKey}`);
+        }
+        questType.previousQuestType = previousQuestType;
+      }
+    }
+
+    this.questTypes = questTypes;
+  }
+
+  private loadAchievementTypes(): void {
+    this.achievementTypes = AchievementTypes.map(achievementType => {
+      const key = achievementType.key;
+      const name = achievementType.name;
+      const hideDescriptionUntilCompleted = achievementType.hideDescriptionUntilCompleted;
+      const requiredAccomplishments = (achievementType.requiredAccomplishments as any[]).map(accomplishment => 
+        this.buildAccomplishmentType(accomplishment.typeKey, accomplishment.parameters, accomplishment.requiredAmount)
+      );
+      return new AchievementType(
+        key,
+        name,
+        hideDescriptionUntilCompleted,
+        requiredAccomplishments
+      );
+    });
+  }
+
+  private buildAccomplishmentType(typeKey: string, parameters: any, requiredAmount: number): AccomplishmentType {
+    switch(typeKey) {
+      case 'special': {
+        const description = parameters.description as string;
+        return new AccomplishmentTypeSpecial(requiredAmount, description);
+      }
+      case 'defeat-specific-monster-type': {
+        const monsterTypeKey = parameters.monsterTypeKey as string;
+        const monsterType = this.getMonsterType(monsterTypeKey);
+        return new AccomplishmentTypeDefeatSpecificMonsterType(requiredAmount, monsterType);
+      }
+      case 'defeat-monsters': {
+        return new AccomplishmentTypeDefeatMonsters(requiredAmount);
+      }
+      case 'complete-specific-area-type': {
+        const areaTypeKey = parameters.areaTypeKey as string;
+        const areaType = this.getAreaType(areaTypeKey);
+        return new AccomplishmentTypeCompleteSpecificAreaType(requiredAmount, areaType);
+      }
+      default:
+        throw Error (`Unhandled accomplishment type key: ${typeKey}`);
+    }
+  }
+
+  private buildQuestReward(typeKey: string, parameters: any): QuestReward {
+    const questRewardType = this.getQuestRewardType(typeKey);
+    const requiredParameters = questRewardType.requiredParameters;
+    for(const requiredParameterKey of requiredParameters) {
+      if (!parameters.hasOwnProperty(requiredParameterKey)) {
+        throw Error (`Expected quest reward type ${typeKey} to have the parameter ${requiredParameterKey}`);
+      }
+    }
+
+    switch(typeKey) {
+      case 'unlock-tab': {
+        const parentTabKey = parameters.parentTabKey as ContractGameTabKey;
+        const childTabKey = parameters.childTabKey as string | null;
+        return new QuestRewardUnlockTab(questRewardType, parentTabKey, childTabKey ?? undefined);
+      }
+      case 'hero-slot': {
+        return new QuestRewardHeroSlot(questRewardType);
+      }
+      default:
+        throw Error (`Unhandled quest reward type key: ${typeKey}`);
+    }
   }
 }

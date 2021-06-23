@@ -1,0 +1,21 @@
+<div class="tab-menu-container">
+  <ul class="tab-buttons">
+    <ng-container *ngFor="let tab of tabs">
+      <li 
+        *ngIf="tab.isEnabled"
+        class="tab-button"
+        [class.selected]="tab === selectedTab"
+        (click)="selectTab(tab)"
+      >
+        <span>{{tab.name}}</span>
+        <app-notification-bubble 
+          *ngIf="tab.notificationAmount > 0"
+          [value]="tab.notificationAmount"
+        ></app-notification-bubble>
+      </li>
+    </ng-container>
+  </ul>
+  <div class="tab-content">
+    <ng-content></ng-content>
+  </div>
+</div>

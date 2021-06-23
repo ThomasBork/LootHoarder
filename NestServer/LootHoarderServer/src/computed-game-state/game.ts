@@ -7,6 +7,10 @@ import { ContractAreaAbandonedMessage } from 'src/loot-hoarder-contract/server-a
 import { ContractAreaTypeCompletedMessage } from 'src/loot-hoarder-contract/server-actions/contract-area-type-completed-message';
 import { ContractItemAddedToGameMessage } from 'src/loot-hoarder-contract/server-actions/contract-item-added-to-game-message';
 import { ContractItemRemovedFromGameMessage } from 'src/loot-hoarder-contract/server-actions/contract-item-removed-from-game-message';
+import { ContractQuestUpdatedMessage } from 'src/loot-hoarder-contract/server-actions/contract-quest-updated-message';
+import { ContractAchievementUpdatedMessage } from 'src/loot-hoarder-contract/server-actions/contract-achievement-updated-message';
+import { ContractHeroSlotAddedMessage } from 'src/loot-hoarder-contract/server-actions/contract-hero-slot-added-message';
+import { ContractGameTabUnlockedMessage } from 'src/loot-hoarder-contract/server-actions/contract-game-tab-unlocked-message';
 import { DbGame } from 'src/raw-game-state/db-game';
 import { StaticGameContentService } from 'src/services/static-game-content-service';
 import { Area } from './area/area';
@@ -14,10 +18,22 @@ import { AreaType } from './area/area-type';
 import { Hero } from './hero';
 import { GameSettings } from './game-settings';
 import { Item } from './item';
-import { ValueContainer } from './value-container';
 import { ContractInventoryPosition } from 'src/loot-hoarder-contract/contract-inventory-position';
 import { WebSocketEventStream } from './web-socket-event-stream';
 import { EventStream } from './event-stream';
+import { Quest } from './quest';
+import { Accomplishment } from './accomplishment';
+import { GameTab } from './game-tab';
+import { QuestRewardUnlockTab } from './quest-reward-unlock-tab';
+import { ContractQuestTypeStatus } from 'src/loot-hoarder-contract/contract-quest-type-status';
+import { ContractGameTab } from 'src/loot-hoarder-contract/contract-game-tab';
+import { ContractGameTabKey } from 'src/loot-hoarder-contract/contract-game-tab-key';
+import { QuestRewardHeroSlot } from './quest-reward-hero-slot';
+import { AccomplishmentTypeCompleteSpecificAreaType } from './accomplishment-type-complete-specific-area-type';
+import { Achievement } from './achievement';
+import { Combat } from './area/combat';
+import { AccomplishmentTypeDefeatMonsters } from './accomplishment-type-defeat-monsters';
+import { AccomplishmentTypeDefeatSpecificMonsterType } from './accomplishment-type-defeat-specific-monster-type';
 
 export class Game {
   public heroes: Hero[];
@@ -28,7 +44,10 @@ export class Game {
   public onEvent: WebSocketEventStream;
   public settings: GameSettings;
   public items: Item[];
-  public maximumAmountOfHeroesVC: ValueContainer;
+  public quests: Quest[];
+  public achievements: Achievement[];
+  public disabledTabs: GameTab[];
+  public maximumAmountOfHeroes: number;
   
   private dbModel: DbGame;
   private areaSubscriptions: Map<Area, Subscription[]>;
@@ -39,7 +58,9 @@ export class Game {
     heroes: Hero[],
     completedAreaTypes: AreaType[],
     areas: Area[],
-    items: Item[]
+    items: Item[],
+    quests: Quest[],
+    achievements: Achievement[],
   ) {
     this.dbModel = dbModel;
     this.settings = settings;
@@ -47,8 +68,14 @@ export class Game {
     this.completedAreaTypes = completedAreaTypes;
     this.areas = areas;
     this.items = items;
-    this.maximumAmountOfHeroesVC = new ValueContainer(3);
+    this.quests = quests;
+    this.achievements = achievements;
+    this.maximumAmountOfHeroes = 1;
     this.availableAreaTypes = this.calculateAvailableAreaTypes();
+    this.disabledTabs = this.calculateDisabledTabs();
+    for(const completeQuest of this.quests.filter(q => q.isComplete)) {
+      this.applyQuestRewards(completeQuest);
+    }
 
     this.onHeroLevelUp = new EventStream();
     this.onEvent = new WebSocketEventStream();
@@ -167,6 +194,26 @@ export class Game {
   }
 
   public toContractModel(): ContractGame {
+    const completedQuestKeys = this.quests
+      .filter(q => q.isComplete)
+      .map(q => q.type.key);
+
+    const questTypeStatuses: ContractQuestTypeStatus[] = this.quests
+      .filter(q => q.isBegun && !q.isComplete)
+      .map(q => {
+        return {
+          typeKey: q.type.key,
+          accomplishmentCompletedAmount: q.accomplishments.map(a => a.completedAmount)
+        };
+      });
+
+    const disabledGameTabs: ContractGameTab[] = this.disabledTabs.map(tab => {
+      return {
+        parentTabKey: tab.parentTabKey,
+        childTabKey: tab.childTabKey
+      };
+    });
+
     return {
       id: this.id,
       createdAt: this.createdAt,
@@ -174,9 +221,14 @@ export class Game {
       areas: this.areas.map(a => a.toContractModel()),
       availableAreaTypeKeys: this.availableAreaTypes.map(a => a.key),
       completedAreaTypeKeys: this.completedAreaTypes.map(a => a.key),
+      completedAchievementTypeKeys: [],
+      completedQuestTypeKeys: completedQuestKeys,
+      achievementTypeStatuses: [],
+      questTypeStatuses: questTypeStatuses,
+      disabledGameTabs: disabledGameTabs,
       settings: this.settings.getUIState(),
       items: this.items.map(item => item.toContractModel()),
-      maximumAmountOfHeroes: this.maximumAmountOfHeroesVC.value
+      maximumAmountOfHeroes: this.maximumAmountOfHeroes
     };
   }
 
@@ -188,6 +240,23 @@ export class Game {
       .concat(firstAreaType);
     const uniqueAvailableAreaTypes = [...new Set(availableAreaTypes)];
     return uniqueAvailableAreaTypes;
+  }
+
+  private getAllIncompleteAccomplishments(): Accomplishment[] {
+    const questAccomplishments = this.quests
+      .filter(q => !q.isComplete)
+      .map(q => q.accomplishments)
+      .reduce((a1, a2) => a1.concat(a2), []);
+
+    const achievementAccomplishments = this.achievements
+      .filter(a => !a.isComplete)
+      .map(a => a.accomplishments)
+      .reduce((a1, a2) => a1.concat(a2), []);
+
+    const allAccomplishments = questAccomplishments.concat(achievementAccomplishments);
+    const incompleteAccomplishments = allAccomplishments.filter(a => !a.isComplete);
+
+    return incompleteAccomplishments;
   }
 
   private handleAreaCompleted(area: Area): void {
@@ -203,6 +272,43 @@ export class Game {
       this.availableAreaTypes = currentAvailableAreaTypes;
       this.onEvent.next(new ContractAreaTypeCompletedMessage(areaType.key, newAvailableAreaTypeKeys));
     }
+
+    const incompleteAccomplishments = this.getAllIncompleteAccomplishments();
+    for(const accomplishment of incompleteAccomplishments) {
+      if (accomplishment.type instanceof AccomplishmentTypeCompleteSpecificAreaType) {
+        if (accomplishment.type.areaType === areaType) {
+          accomplishment.completedAmount++;
+        }
+      }
+    }
+  }
+
+  private handleCombatCompleted(combat: Combat): void {
+    if (combat.didTeam1Win) {
+      const incompleteAccomplishments = this.getAllIncompleteAccomplishments();
+      for(const accomplishment of incompleteAccomplishments) {
+        const accomplishmentType = accomplishment.type;
+        if (accomplishmentType instanceof AccomplishmentTypeDefeatMonsters) {
+          accomplishment.completedAmount += combat.team2.length;
+        } else if (accomplishmentType instanceof AccomplishmentTypeDefeatSpecificMonsterType) {
+          const amountOfMonstersWithType = combat.team2
+            .filter(c => c.typeKey === accomplishmentType.monsterType.key)
+            .length;
+            
+          accomplishment.completedAmount += amountOfMonstersWithType;
+        }
+      }
+    }
+  }
+
+  private calculateDisabledTabs(): GameTab[] {
+    const unlockTabRewards = this.quests
+      .map(q => q.type.rewards.concat(q.type.hiddenRewards))
+      .reduce((r1, r2) => r1.concat(r2), [])
+      .filter(reward => reward instanceof QuestRewardUnlockTab) as QuestRewardUnlockTab[];
+
+    const tabs = unlockTabRewards.map(reward => new GameTab(reward.parentTabKey, reward.childTabKey));
+    return tabs;
   }
 
   private setUpEventListeners(): void {
@@ -212,12 +318,19 @@ export class Game {
     for(const hero of this.heroes) {
       this.setUpEventListenersForHero(hero);
     }
+    for(const quest of this.quests) {
+      this.setUpEventListenersForQuest(quest);
+    }
+    for(const achievement of this.achievements) {
+      this.setUpEventListenersForAchievement(achievement);
+    }
   }
 
   private setUpEventListenersForArea(area: Area): void {
     const subscriptions = [
       area.onEvent.subscribe(event => this.onEvent.next(event)),
-      area.onAreaComplete.subscribe(() => this.handleAreaCompleted(area))
+      area.onAreaComplete.subscribe(() => this.handleAreaCompleted(area)),
+      area.onCombatComplete.subscribe(combat => this.handleCombatCompleted(combat))
     ];
     this.areaSubscriptions.set(area, subscriptions); 
   }
@@ -240,6 +353,49 @@ export class Game {
     hero.onLevelUp.subscribe(event => this.onHeroLevelUp.next(hero));
   }
 
+  private setUpEventListenersForQuest(quest: Quest): void {
+    quest.onUpdate.subscribe(() => {
+      if (quest.isComplete) {
+        this.applyQuestRewards(quest);
+      }
+      const accomplishmentCompletedAmount = quest.accomplishments.map(a => a.completedAmount);
+      const message = new ContractQuestUpdatedMessage(quest.type.key, accomplishmentCompletedAmount, quest.isComplete);
+      this.onEvent.next(message);
+    });
+  }
+
+  private setUpEventListenersForAchievement(achievement: Achievement): void {
+    achievement.onUpdate.subscribe(() => {
+      const accomplishmentCompletedAmount = achievement.accomplishments.map(a => a.completedAmount);
+      const message = new ContractAchievementUpdatedMessage(achievement.type.key, accomplishmentCompletedAmount, achievement.isComplete);
+      this.onEvent.next(message);
+    });
+  }
+
+  private applyQuestRewards(quest: Quest): void {
+    const allRewards = quest.type.rewards.concat(quest.type.hiddenRewards);
+    for(const reward of allRewards) {
+      if (reward instanceof QuestRewardUnlockTab) {
+        this.unlockTab(reward.parentTabKey, reward.childTabKey);
+      } else if (reward instanceof QuestRewardHeroSlot) {
+        this.maximumAmountOfHeroes++;
+        const message = new ContractHeroSlotAddedMessage();
+        this.onEvent.next(message);
+      } else {
+        throw Error (`Unhandled quest reward type ${reward.type.key}.`);
+      }
+    }
+  }
+
+  private unlockTab(parentTabKey: ContractGameTabKey, childTabKey: string | undefined): void {
+    const disabledTabIndex = this.disabledTabs.findIndex(t => t.parentTabKey === parentTabKey && t.childTabKey === childTabKey);
+    if (disabledTabIndex >= 0) {
+      this.disabledTabs.splice(disabledTabIndex, 1);
+      const message = new ContractGameTabUnlockedMessage(parentTabKey, childTabKey);
+      this.onEvent.next(message);
+    }
+  }
+
   private unsubscribeToSubscriptions(subscriptions: Subscription[]): void {
     for(const subscription of subscriptions) {
       subscription.unsubscribe();
@@ -253,6 +409,39 @@ export class Game {
 
     const areas = dbModel.state.areas.map(dbArea => Area.load(dbArea));
     const items = dbModel.state.items.map(dbItem => Item.load(dbItem));
+    const allQuestTypes = StaticGameContentService.instance.getAllQuestTypes();
+    const quests = allQuestTypes.map(questType => {
+      const isCompleted = dbModel.state.completedQuestTypes.some(completedQuestTypeKey => completedQuestTypeKey === questType.key);
+      const dbQuestStatus = dbModel.state.questTypeStatuses.find(questStatus => questStatus.typeKey === questType.key);
+      const accomplishments = questType.requiredAccomplishmentTypes.map((accomplishmentType, accomplishmentIndex) => {
+        let completedAmount = 0;
+        if (isCompleted) {
+          completedAmount = accomplishmentType.requiredAmount;
+        } else if (dbQuestStatus) {
+          completedAmount = dbQuestStatus.accomplishmentCompletedAmount[accomplishmentIndex];
+        }
+
+        return new Accomplishment(accomplishmentType, completedAmount);
+      });
+      return new Quest(questType, accomplishments);
+    });
+    
+    const allAchievementTypes = StaticGameContentService.instance.getAllAchievementTypes();
+    const achievements = allAchievementTypes.map(achievementType => {
+      const isCompleted = dbModel.state.completedAchievementTypes.some(completedAchievementTypeKey => completedAchievementTypeKey === achievementType.key);
+      const dbAchievementStatus = dbModel.state.achievementTypeStatuses.find(achievementStatus => achievementStatus.typeKey === achievementType.key);
+      const accomplishments = achievementType.requiredAccomplishmentTypes.map((accomplishmentType, accomplishmentIndex) => {
+        let completedAmount = 0;
+        if (isCompleted) {
+          completedAmount = accomplishmentType.requiredAmount;
+        } else if (dbAchievementStatus) {
+          completedAmount = dbAchievementStatus.accomplishmentCompletedAmount[accomplishmentIndex];
+        }
+
+        return new Accomplishment(accomplishmentType, completedAmount);
+      });
+      return new Achievement(achievementType, accomplishments);
+    });
 
     const game = new Game(
       dbModel,
@@ -260,7 +449,9 @@ export class Game {
       heroes,
       completedAreaTypes,
       areas,
-      items
+      items,
+      quests,
+      achievements
     );
     return game;
   }

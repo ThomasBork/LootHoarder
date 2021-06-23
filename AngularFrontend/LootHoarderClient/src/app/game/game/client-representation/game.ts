@@ -4,6 +4,9 @@ import { Hero } from "./hero";
 import { GameAreaType } from "./game-area-type";
 import { ContractGameSettings } from "src/loot-hoarder-contract/contract-game-settings";
 import { Item } from "./item";
+import { GameTabReference } from "./game-tab-reference";
+import { Quest } from "./quest";
+import { Achievement } from "./achievement";
 
 export class Game {
   public id: number;
@@ -15,7 +18,10 @@ export class Game {
   public availableAreaTypes: AreaType[];
   public allAreaTypes: GameAreaType[];
   public items: Item[];
+  public quests: Quest[];
+  public achievements: Achievement[];
   public maximumAmountOfHeroes: number;
+  public disabledGameTabs: GameTabReference[]
 
   public constructor(
     id: number,
@@ -26,7 +32,10 @@ export class Game {
     completedAreaTypes: AreaType[],
     availableAreaTypes: AreaType[],
     allAreaTypes: GameAreaType[],
+    disabledGameTabs: GameTabReference[],
     items: Item[],
+    quests: Quest[],
+    achievements: Achievement[],
     maximumAmountOfHeroes: number,
   ) {
     this.id = id;
@@ -37,7 +46,10 @@ export class Game {
     this.completedAreaTypes = completedAreaTypes;
     this.availableAreaTypes = availableAreaTypes;
     this.allAreaTypes = allAreaTypes;
+    this.disabledGameTabs = disabledGameTabs;
     this.items = items;
+    this.quests = quests;
+    this.achievements = achievements;
     this.maximumAmountOfHeroes = maximumAmountOfHeroes;
   }
 
@@ -63,6 +75,22 @@ export class Game {
       throw Error (`Could not find item with id: ${id}`);
     }
     return item;
+  }
+
+  public getQuest(questTypeKey: string): Quest {
+    const quest = this.quests.find(q => q.type.key === questTypeKey);
+    if (!quest) {
+      throw Error (`Could not find quest with type key: ${questTypeKey}`);
+    }
+    return quest;
+  }
+
+  public getAchievement(achievementTypeKey: string): Achievement {
+    const achievement = this.achievements.find(q => q.type.key === achievementTypeKey);
+    if (!achievement) {
+      throw Error (`Could not find achievement with type key: ${achievementTypeKey}`);
+    }
+    return achievement;
   }
 
   public getGameAreaType(areaTypeKey: string): GameAreaType {

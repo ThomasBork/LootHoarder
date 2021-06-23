@@ -1,0 +1,24 @@
+.content {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+
+  .achievements {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: max-content;
+
+    .achievement {
+      background-color: lightgrey;
+      margin-bottom: 10px;
+      padding: 10px;
+      border-radius: 5px;
+
+      .name {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}

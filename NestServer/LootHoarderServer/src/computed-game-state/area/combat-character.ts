@@ -59,6 +59,7 @@ export class CombatCharacter {
   }
 
   public get id(): number { return this.dbModel.id; }
+  public get typeKey(): string { return this.dbModel.typeKey; }
   public get name(): string { return this.dbModel.name; }
   public get currentHealth(): number { return this.dbModel.currentHealth; }
   public get currentMana(): number { return this.dbModel.currentMana; }

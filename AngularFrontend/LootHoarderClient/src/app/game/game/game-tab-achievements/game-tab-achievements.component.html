@@ -1,0 +1,16 @@
+<div class="content">
+  <ul class="achievements">
+    <ng-container *ngFor="let achievement of game.achievements">
+      <li class="achievement">
+        <div class="name">{{achievement.type.name}}</div>
+        <ul class="accomplishments">
+          <li
+            *ngFor="let accomplishment of achievement.accomplishments"
+          >
+            <app-accomplishment [accomplishment]="accomplishment"></app-accomplishment>
+          </li>
+        </ul>
+      </li>
+    </ng-container>
+  </ul>
+</div>

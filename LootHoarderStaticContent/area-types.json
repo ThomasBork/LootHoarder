@@ -115,5 +115,50 @@
         ]
       }
     ]
+  },
+  {
+    "key": "village",
+    "name": "Village",
+    "description": "Also contains scary bandits.",
+    "level": 5,
+    "x": 800,
+    "y": 400,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 4,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "bandit-mage"
+              },
+              {
+                "typeKey": "bandit-mage"
+              }
+            ]
+          },
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "sellsword"
+              },
+              {
+                "typeKey": "sellsword"
+              }
+            ]
+          },
+          {
+            "weight": 1000,
+            "monsters": [
+              {
+                "typeKey": "assassin"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

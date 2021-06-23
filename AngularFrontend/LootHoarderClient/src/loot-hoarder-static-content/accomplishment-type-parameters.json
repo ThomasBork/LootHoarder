@@ -1,0 +1,18 @@
+[
+  {
+    "key": "special",
+    "requiredParameters": ["description"]
+  },
+  {
+    "key": "defeat-specific-monster-type",
+    "requiredParameters": ["monsterTypeKey"]
+  },
+  {
+    "key": "defeat-monsters",
+    "requiredParameters": []
+  },
+  {
+    "key": "complete-specific-area-type",
+    "requiredParameters": ["areaTypeKey"]
+  }
+]

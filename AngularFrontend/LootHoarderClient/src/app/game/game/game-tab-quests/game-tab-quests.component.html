@@ -1,0 +1,28 @@
+<div class="content">
+  <ul class="quests">
+    <ng-container *ngFor="let quest of game.quests">
+      <li
+        *ngIf="quest.isAvailable"
+        class="quest"
+      >
+        <div class="name">{{quest.type.name}}</div>
+        <div class="subheader">Do</div>
+        <ul class="accomplishments">
+          <li
+            *ngFor="let accomplishment of quest.accomplishments"
+          >
+            <app-accomplishment [accomplishment]="accomplishment"></app-accomplishment>
+          </li>
+        </ul>
+        <div class="subheader">Get</div>
+        <ul class="rewards">
+          <li
+            *ngFor="let reward of quest.type.rewards"
+          >
+            <span>{{reward.description}}</span>
+          </li>
+        </ul>
+      </li>
+    </ng-container>
+  </ul>
+</div>

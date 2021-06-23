@@ -48,9 +48,15 @@ import { NotificationBubbleComponent } from './shared/notification-bubble/notifi
 import { GameTabSocialComponent } from './game/game/game-tab-social/game-tab-social.component';
 import { SelectedHeroManagementTabComponent } from './game/game/game-tab-heroes/selected-hero-management-tab/selected-hero-management-tab.component';
 import { AbilityTagService } from './shared/ability-tag.service';
+import { GameTabAchievementsComponent } from './game/game/game-tab-achievements/game-tab-achievements.component';
+import { GameTabQuestsComponent } from './game/game/game-tab-quests/game-tab-quests.component';
+import { TabMenuComponent } from './shared/tab-menu/tab-menu.component';
+import { TabComponent } from './shared/tab-menu/tab/tab.component';
+import { AccomplishmentComponent } from './game/game/accomplishment/accomplishment.component';
 
 @NgModule({
   declarations: [
+    AccomplishmentComponent,
     AppComponent,
     CreateNewHeroComponent,
     LabelWithValueComponent,
@@ -79,10 +85,14 @@ import { AbilityTagService } from './shared/ability-tag.service';
     GameTabSettingsComponent,
     GameTabItemsComponent,
     GameTabSocialComponent,
+    GameTabAchievementsComponent,
+    GameTabQuestsComponent,
     PrettyNumberPipe,
     ProgressBarComponent,
     ZoomableContainerComponent,
     NotificationBubbleComponent,
+    TabMenuComponent,
+    TabComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,9 +6,10 @@
     "requiredAccomplishments": [
       {
         "typeKey": "special",
-        "requiredCount": 1,
-        "description":"Have a hero wear one item in each item slot.",
-        "parameters": {}
+        "requiredAmount": 1,
+        "parameters": {
+          "description":"Have a hero wear one item in each item slot."
+        }
       }
     ]
   },
@@ -18,8 +19,8 @@
     "hideDescriptionUntilCompleted": false,
     "requiredAccomplishments": [
       {
-        "typeKey": "kill-specific-monster-type",
-        "requiredCount": 20,
+        "typeKey": "defeat-specific-monster-type",
+        "requiredAmount": 20,
         "parameters": {
           "monsterTypeKey": "snake"
         }
@@ -32,8 +33,8 @@
     "hideDescriptionUntilCompleted": false,
     "requiredAccomplishments": [
       {
-        "typeKey": "kill-specific-monster-type",
-        "requiredCount": 50,
+        "typeKey": "defeat-specific-monster-type",
+        "requiredAmount": 50,
         "parameters": {
           "monsterTypeKey": "snake"
         }
@@ -46,8 +47,8 @@
     "hideDescriptionUntilCompleted": false,
     "requiredAccomplishments": [
       {
-        "typeKey": "kill-specific-monster-type",
-        "requiredCount": 20,
+        "typeKey": "defeat-specific-monster-type",
+        "requiredAmount": 20,
         "parameters": {
           "monsterTypeKey": "wolf"
         }
@@ -60,8 +61,8 @@
     "hideDescriptionUntilCompleted": false,
     "requiredAccomplishments": [
       {
-        "typeKey": "kill-specific-monster-type",
-        "requiredCount": 50,
+        "typeKey": "defeat-specific-monster-type",
+        "requiredAmount": 50,
         "parameters": {
           "monsterTypeKey": "wolf"
         }
@@ -74,22 +75,22 @@
     "hideDescriptionUntilCompleted": false,
     "requiredAccomplishments": [
       {
-        "typeKey": "kill-specific-monster-type",
-        "requiredCount": 20,
+        "typeKey": "defeat-specific-monster-type",
+        "requiredAmount": 20,
         "parameters": {
           "monsterTypeKey": "sellsword"
         }
       },
       {
-        "typeKey": "kill-specific-monster-type",
-        "requiredCount": 20,
+        "typeKey": "defeat-specific-monster-type",
+        "requiredAmount": 20,
         "parameters": {
           "monsterTypeKey": "assassin"
         }
       },
       {
-        "typeKey": "kill-specific-monster-type",
-        "requiredCount": 20,
+        "typeKey": "defeat-specific-monster-type",
+        "requiredAmount": 20,
         "parameters": {
           "monsterTypeKey": "bandit-mage"
         }

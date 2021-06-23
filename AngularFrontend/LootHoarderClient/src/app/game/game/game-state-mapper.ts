@@ -39,6 +39,10 @@ import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contrac
 import { PassiveAbilityAttribute } from "./client-representation/passive-ability-attribute";
 import { PassiveAbilityUnlockAbility } from "./client-representation/passive-ability-unlock-ability";
 import { PassiveAbilityTakeDamageOverTime } from "./client-representation/passive-ability-take-damage-over-time";
+import { GameTabReference } from "./client-representation/game-tab-reference";
+import { Accomplishment } from "./client-representation/accomplishment";
+import { Quest } from "./client-representation/quest";
+import { Achievement } from "./client-representation/achievement";
 
 @Injectable()
 export class GameStateMapper {
@@ -67,7 +71,44 @@ export class GameStateMapper {
         )
       );
 
+    const disabledGameTabs = serverGame.disabledGameTabs.map(tab => new GameTabReference(tab.parentTabKey, tab.childTabKey));
+
     const items = serverGame.items.map(item => this.mapToItem(item));
+
+    const allQuestTypes = this.assetManagerService.getAllQuestTypes();
+    const quests = allQuestTypes.map(questType => {
+      const isCompleted = serverGame.completedQuestTypeKeys.includes(questType.key);
+      const dbQuestStatus = serverGame.questTypeStatuses.find(questStatus => questStatus.typeKey === questType.key);
+      const accomplishments = questType.requiredAccomplishmentTypes.map((accomplishmentType, accomplishmentIndex) => {
+        let completedAmount = 0;
+        if (isCompleted) {
+          completedAmount = accomplishmentType.requiredAmount;
+        } else if (dbQuestStatus) {
+          completedAmount = dbQuestStatus.accomplishmentCompletedAmount[accomplishmentIndex];
+        }
+
+        return new Accomplishment(accomplishmentType, completedAmount);
+      });
+      const isAvailable = !questType.previousQuestType || serverGame.completedQuestTypeKeys.includes(questType.previousQuestType.key);
+      return new Quest(questType, accomplishments, isCompleted, isAvailable);
+    });
+
+    const allAchievementTypes = this.assetManagerService.getAllAchievementTypes();
+    const achievements = allAchievementTypes.map(achievementType => {
+      const isCompleted = serverGame.completedAchievementTypeKeys.includes(achievementType.key);
+      const dbachievementStatus = serverGame.achievementTypeStatuses.find(achievementStatus => achievementStatus.typeKey === achievementType.key);
+      const accomplishments = achievementType.requiredAccomplishmentTypes.map((accomplishmentType, accomplishmentIndex) => {
+        let completedAmount = 0;
+        if (isCompleted) {
+          completedAmount = accomplishmentType.requiredAmount;
+        } else if (dbachievementStatus) {
+          completedAmount = dbachievementStatus.accomplishmentCompletedAmount[accomplishmentIndex];
+        }
+
+        return new Accomplishment(accomplishmentType, completedAmount);
+      });
+      return new Achievement(achievementType, accomplishments, isCompleted);
+    });
 
     return new Game(
       serverGame.id,
@@ -78,7 +119,10 @@ export class GameStateMapper {
       completedAreaTypes,
       availableAreaTypes,
       allAreaTypes,
+      disabledGameTabs,
       items,
+      quests,
+      achievements,
       serverGame.maximumAmountOfHeroes
     );
   }

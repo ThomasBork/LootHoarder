@@ -1,0 +1,78 @@
+[
+  {
+    "key": "forest",
+    "name": "Forest",
+    "previousQuestKey": null,
+    "requiredAccomplishments": [
+      {
+        "typeKey": "complete-specific-area-type",
+        "requiredAmount": 1,
+        "parameters": {
+          "areaTypeKey": "forest"  
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "typeKey": "unlock-tab",
+        "parameters": {
+          "parentTabKey": "heroes",
+          "childTabKey": "passives"
+        }
+      }, 
+      {
+        "typeKey": "unlock-tab",
+        "parameters": {
+          "parentTabKey": "items",
+          "childTabKey": null
+        }
+      }
+    ],
+    "hiddenRewards": []
+  }, 
+  {
+    "key": "plains",
+    "name": "Plains",
+    "previousQuestKey": "forest",
+    "requiredAccomplishments": [
+      {
+        "typeKey": "complete-specific-area-type",
+        "requiredAmount": 1,
+        "parameters": {
+          "areaTypeKey": "plains"  
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "typeKey": "unlock-tab",
+        "parameters": {
+          "parentTabKey": "achievements",
+          "childTabKey": null
+        }
+      }
+    ],
+    "hiddenRewards": []
+  }, 
+  {
+    "key": "village",
+    "name": "Village",
+    "previousQuestKey": "plains",
+    "requiredAccomplishments": [
+      {
+        "typeKey": "complete-specific-area-type",
+        "requiredAmount": 1,
+        "parameters": {
+          "areaTypeKey": "village"  
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "typeKey": "hero-slot",
+        "parameters": {}
+      }
+    ],
+    "hiddenRewards": []
+  }
+]

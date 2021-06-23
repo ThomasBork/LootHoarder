@@ -1,0 +1,10 @@
+[
+  {
+    "typeKey": "unlock-tab",
+    "requiredParameters": ["parentTabKey", "childTabKey"]
+  },
+  {
+    "typeKey": "hero-slot",
+    "requiredParameters": []
+  }
+]

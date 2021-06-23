@@ -1,47 +1,16 @@
-.tab-menu-container {
+.tab-menus-container {
   display: flex;
   height: 100%;
-
-  .tabs-container {
-    display: flex;
-    flex-direction: column;
+  
+  .tab-menu-container {
     height: 100%;
+    width: 100%;
     flex: 1 1 0;
     overflow: hidden;
 
-    &.right-side {
+    &.right {
       max-width: 400px;
       margin-left: 10px;
-    }
-  
-    .tab-buttons {
-      display: flex;
-      
-      .tab-button {
-        margin-right: 5px;
-        background-color: #EEEEEE;
-        padding: 10px;
-        cursor: pointer;
-        user-select: none;
-        display: flex;
-        align-items: center;
-        height: 50px;
-  
-        app-notification-bubble {
-          margin-left: 5px;
-        }
-  
-        &:not(.selected) {
-          background-color: lightgrey;
-        }
-      }
-    }
-    
-    .tab-content {
-      flex: 1 1 0;
-      background-color: #EEEEEE;
-      padding: 10px;
-      overflow: hidden;
     }
   }
 }

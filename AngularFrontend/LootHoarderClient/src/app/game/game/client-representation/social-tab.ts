@@ -1,14 +1,22 @@
+import { ContractGameTabKey } from "src/loot-hoarder-contract/contract-game-tab-key";
 import { ChatMessage } from "./chat-message";
+import { GameTab } from "./game-tab";
 import { User } from "./user";
 
-export class SocialTab {
+export class SocialTab extends GameTab {
   public chatMessages: ChatMessage[];
   
   private _connectedUsers: User[];
 
   public constructor() {
+    super(undefined, ContractGameTabKey.social, 'Social');
     this.chatMessages = [];
     this._connectedUsers = [];
+    
+    this.onOpen.subscribe(() => {
+      this.chatMessages.forEach(m => m.isRead = true);
+      this.updateNotificationAmount();
+    });
   }
 
   public get connectedUsers(): User[] { return this._connectedUsers; }
@@ -18,8 +26,10 @@ export class SocialTab {
     this.sortConnectedUsers();
   }
 
-  public get amountOfUnreadMessages(): number {
-    return this.chatMessages.filter(message => !message.isRead).length;
+
+  public updateNotificationAmount(): void {
+    const amountOfUnreadMessages = this.chatMessages.filter(message => !message.isRead).length;
+    this.notificationAmount = amountOfUnreadMessages;
   }
 
   public addConnectedUser(user: User): void {

@@ -1,103 +1,44 @@
-<div class="tab-menu-container">
-  <div class="tabs-container">
-    <ul class="tab-buttons">
-      <li 
-        class="tab-button"
-        [class.selected]="isOnWorldTab"
-        (click)="goToWorldTab()"
-      >
-        World
-      </li>
-      <li 
-        class="tab-button"
-        [class.selected]="isOnHeroesTab"
-        (click)="goToHeroesTab()"
-      >
-        Heroes
-      </li>
-      <li 
-        class="tab-button"
-        [class.selected]="isOnCombatTab"
-        (click)="goToCombatTab()"
-      >
-        Combat
-      </li>
-      <li 
-        class="tab-button"
-        [class.selected]="isOnItemsTab"
-        (click)="goToItemsTab()"
-      >
-        Items
-      </li>
-      <li 
-        class="tab-button"
-        [class.selected]="isOnSettingsTab"
-        (click)="goToSettingsTab()"
-      >
-        Settings
-      </li>
-      <li
+<div class="tab-menus-container">
+  <div class="tab-menu-container left">
+    <app-tab-menu [(selectedTab)]="selectedTab">
+      <app-tab [tab]="worldTab">
+        <app-game-tab-world></app-game-tab-world>
+      </app-tab>
+      <app-tab [tab]="heroesTab">
+        <app-game-tab-heroes></app-game-tab-heroes>
+      </app-tab>
+      <app-tab [tab]="combatTab">
+        <app-game-tab-combat></app-game-tab-combat>
+      </app-tab>
+      <app-tab [tab]="itemsTab">
+        <app-game-tab-items></app-game-tab-items>
+      </app-tab>
+      <app-tab [tab]="questsTab">
+        <app-game-tab-quests></app-game-tab-quests>
+      </app-tab>
+      <app-tab [tab]="achievementsTab">
+        <app-game-tab-achievements></app-game-tab-achievements>
+      </app-tab>
+      <app-tab [tab]="settingsTab">
+        <app-game-tab-settings></app-game-tab-settings>
+      </app-tab>
+      <app-tab 
         *ngIf="!alwaysShowChat"
-        class="tab-button"
-        [class.selected]="isOnSocialTab"
-        (click)="goToSocialTab()"
+        [tab]="socialTab"
       >
-        <span>Social</span>
-        <app-notification-bubble 
-          *ngIf="amountOfUnreadMessages > 0"
-          [value]="amountOfUnreadMessages"
-        ></app-notification-bubble>
-      </li>
-    </ul>
-    
-    <div class="tab-content">
-      <app-game-tab-world
-        *ngIf="isOnWorldTab"
-      ></app-game-tab-world>
-  
-      <app-game-tab-heroes
-        *ngIf="isOnHeroesTab"
-      ></app-game-tab-heroes>
-  
-      <app-game-tab-combat
-        *ngIf="isOnCombatTab"
-      ></app-game-tab-combat>
-      
-      <app-game-tab-items
-        *ngIf="isOnItemsTab"
-      ></app-game-tab-items>
-      
-      <app-game-tab-settings
-        *ngIf="isOnSettingsTab"
-      ></app-game-tab-settings>
-  
-      <app-game-tab-social
-        *ngIf="isOnSocialTab"
-      ></app-game-tab-social>
-    </div>
+        <app-game-tab-social></app-game-tab-social>
+      </app-tab>
+    </app-tab-menu>
   </div>
 
-
-  <div 
-    *ngIf="alwaysShowChat"
-    class="tabs-container right-side"
+  <div
+    *ngIf="alwaysShowChat" 
+    class="tab-menu-container right"
   >
-    <ul class="tab-buttons">
-      <li
-        class="tab-button"
-        [class.selected]="true"
-      >
-        <span>Social</span>
-        <app-notification-bubble 
-          *ngIf="amountOfUnreadMessages > 0"
-          [value]="amountOfUnreadMessages"
-        ></app-notification-bubble>
-      </li>
-    </ul>
-    
-    <div class="tab-content">
-      <app-game-tab-social
-      ></app-game-tab-social>
-    </div>
+    <app-tab-menu>
+      <app-tab [tab]="socialTab">
+        <app-game-tab-social></app-game-tab-social>
+      </app-tab>
+    </app-tab-menu>
   </div>
 </div>

@@ -7,7 +7,10 @@
   </div>
   <div class="chat-container">
     <ul class="chat-history">
-      <li *ngFor="let chatMessage of chatMessages">
+      <li 
+        *ngFor="let chatMessage of chatMessages"
+        class="chat-message-container"
+      >
         <ng-container [ngSwitch]="chatMessage.messageType">
           <span 
             *ngSwitchCase="'user-connected'"
@@ -28,7 +31,7 @@
             *ngSwitchDefault
             class="chat-message"
             [title]="chatMessage.timeStamp | date: 'HH:mm'"
-          >{{chatMessage.userName}}: {{chatMessage.messageContent}}</span>
+          ><span class="chat-user-name">{{chatMessage.userName}}</span>: {{chatMessage.messageContent}}</span>
         </ng-container>
       </li>
     </ul>

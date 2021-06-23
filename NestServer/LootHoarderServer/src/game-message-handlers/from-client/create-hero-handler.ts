@@ -36,7 +36,7 @@ export class CreateHeroHandler implements ICommandHandler<CreateHero> {
       id: command.game.getNextHeroId(),
       typeKey: command.typeKey,
       name: command.name,
-      level: 1,
+      level: 50,
       experience: 0,
       abilities: heroAbilities,
       inventory: {

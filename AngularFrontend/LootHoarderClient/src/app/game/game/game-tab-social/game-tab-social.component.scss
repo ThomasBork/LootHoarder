@@ -26,20 +26,28 @@
       padding: 10px;
       margin-bottom: 10px;
       overflow-y: auto;
-  
-      .chat-message {
-        font-size: 14px;
-  
-        &.user-connected {
-          color: blue;
-        }
-  
-        &.user-disconnected {
-          color: blue;
-        }
 
-        &.user-accomplishment-announcement {
-          color: green;
+      .chat-message-container {
+        margin-bottom: 5px;
+  
+        .chat-message {
+          font-size: 14px;
+    
+          &.user-connected {
+            color: blue;
+          }
+    
+          &.user-disconnected {
+            color: blue;
+          }
+  
+          &.user-accomplishment-announcement {
+            color: orange;
+          }
+
+          .chat-user-name {
+            color: green;
+          }
         }
       }
     }

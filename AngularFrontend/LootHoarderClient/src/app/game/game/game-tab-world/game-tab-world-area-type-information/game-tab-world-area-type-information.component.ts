@@ -3,11 +3,11 @@ import { WebSocketService } from "src/app/game/web-socket/web-socket.service";
 import { ContractEnterAreaMessage } from "src/loot-hoarder-contract/client-actions/contract-enter-area-message";
 import { ContractGoToNextCombatMessage } from "src/loot-hoarder-contract/client-actions/contract-go-to-next-combat-message";
 import { ContractLeaveAreaMessage } from "src/loot-hoarder-contract/client-actions/contract-leave-area-message";
+import { ContractGameTabKey } from "src/loot-hoarder-contract/contract-game-tab-key";
 import { Area } from "../../client-representation/area";
 import { AreaType } from "../../client-representation/area-type";
 import { Game } from "../../client-representation/game";
 import { GameAreaType } from "../../client-representation/game-area-type";
-import { GameTabName } from "../../client-representation/game-tab-name";
 import { Hero } from "../../client-representation/hero";
 import { UIStateManager } from "../../ui-state-manager";
 
@@ -72,7 +72,7 @@ export class GameTabWorldAreaTypeInformationComponent implements OnInit {
 
   public selectArea(area: Area): void {
     this.uiStateManager.state.selectArea(area);
-    this.uiStateManager.state.selectTab(GameTabName.combat);
+    this.uiStateManager.state.selectTab(ContractGameTabKey.combat);
   }
 
   public goToNextCombat(area: Area): void {

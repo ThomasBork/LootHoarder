@@ -1,4 +1,5 @@
 export enum ContractServerMessageType {
+  achievementUpdated = 'achievement-updated',
   authenticationResponse = 'authentication-response',
   areaAdded = 'area-created',
   areaAbandoned = 'area-abandoned',
@@ -8,6 +9,7 @@ export enum ContractServerMessageType {
   chatMessageSent = 'chat-message-sent',
   chatStatus = 'chat-status',
   fullGameState = 'full-game-state',
+  gameTabUnlocked = 'game-tab-unlocked',
   heroAbilityAdded = 'hero-ability-added',
   heroAbilityRemoved = 'hero-ability-removed',
   heroAbilityValueChanged = 'hero-ability-value-changed',
@@ -15,6 +17,7 @@ export enum ContractServerMessageType {
   heroAttributeChanged = 'hero-attribute-changed',
   heroDeleted = 'hero-deleted',
   heroGainedExperience = 'hero-gained-experience',
+  heroSlotAdded = 'hero-slot-added',
   heroTookSkillNode = 'hero-took-skill-node',
   heroUnspentSkillPointsChanged = 'hero-unspent-skill-points-changed',
   itemAddedToGame = 'item-added-to-game',
@@ -22,5 +25,6 @@ export enum ContractServerMessageType {
   itemEquipped = 'item-equipped',
   itemRemovedFromGame = 'item-removed-from-game',
   itemUnequipped = 'item-unequipped',
-  multimessage = 'multimessage'
+  multimessage = 'multimessage',
+  questUpdated = 'quest-updated',
 }

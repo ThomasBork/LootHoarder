@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from "@angular/core";
+import { Subject } from "rxjs";
 
 @Component({
     selector: 'app-zoomable-container',
@@ -8,8 +9,8 @@ import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnInit, SimpleC
 export class ZoomableContainerComponent implements AfterViewInit, OnChanges {
   @ViewChild('container') private containerElementRef!: ElementRef;
 
-  @Input() public initialCenterX?: number;
-  @Input() public initialCenterY?: number;
+  @Input() public centerX?: number;
+  @Input() public centerY?: number;
   @Input() public viewPortX: number = 0;
   @Input() public viewPortY: number = 0;
   @Input() public zoom: number = 1;
@@ -17,16 +18,22 @@ export class ZoomableContainerComponent implements AfterViewInit, OnChanges {
   @Input() public minY?: number;
   @Input() public maxX?: number;
   @Input() public maxY?: number;
+  @Input() public centerChanged?: Subject<void>;
 
   public dragStartX?: number;
   public dragStartY?: number;
   
   public ngAfterViewInit(): void {
     setTimeout(() => this.setViewPortCoordinatesBasedOnCenterCoordinates(), 0);
+    if (this.centerChanged) {
+      this.centerChanged.subscribe(() => 
+        setTimeout(() => this.setViewPortCoordinatesBasedOnCenterCoordinates(), 0)
+      );
+    }
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    if (changes.initialCenterX || changes.initialCenterY) {
+    if (changes.centerX || changes.centerY) {
       setTimeout(() => this.setViewPortCoordinatesBasedOnCenterCoordinates(), 0);
     }
   }
@@ -144,7 +151,7 @@ export class ZoomableContainerComponent implements AfterViewInit, OnChanges {
   }
 
   private setViewPortCoordinatesBasedOnCenterCoordinates(): void {
-    if (this.initialCenterX && this.initialCenterY) {
+    if (this.centerX && this.centerY) {
       const containerElement = this.containerElementRef.nativeElement as HTMLElement;
       const elementWidth = containerElement.clientWidth;
       const elementHeight = containerElement.clientHeight;
@@ -152,8 +159,9 @@ export class ZoomableContainerComponent implements AfterViewInit, OnChanges {
       const viewPortWidth = elementWidth / this.zoom;
       const viewPortHeight = elementHeight / this.zoom;
 
-      this.viewPortX = -this.initialCenterX + viewPortWidth / 2;
-      this.viewPortY = -this.initialCenterY + viewPortHeight / 2;
+      this.viewPortX = -this.centerX + viewPortWidth / 2;
+      this.viewPortY = -this.centerY + viewPortHeight / 2;
+      console.log(this.viewPortX, this.viewPortY);
     }
     this.restrictAndSetValues(this.viewPortX, this.viewPortY, this.zoom);
   }
