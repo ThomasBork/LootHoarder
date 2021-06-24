@@ -1,7 +1,7 @@
 [
   {
-    "key": "special",
-    "requiredParameters": ["description"]
+    "key": "full-inventory",
+    "requiredParameters": []
   },
   {
     "key": "defeat-specific-monster-type",

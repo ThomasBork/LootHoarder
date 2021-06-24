@@ -161,7 +161,6 @@ export class ZoomableContainerComponent implements AfterViewInit, OnChanges {
 
       this.viewPortX = -this.centerX + viewPortWidth / 2;
       this.viewPortY = -this.centerY + viewPortHeight / 2;
-      console.log(this.viewPortX, this.viewPortY);
     }
     this.restrictAndSetValues(this.viewPortX, this.viewPortY, this.zoom);
   }

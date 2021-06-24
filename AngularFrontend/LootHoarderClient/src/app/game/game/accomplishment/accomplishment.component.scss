@@ -28,16 +28,18 @@
     display: flex;
     align-items: center;
 
+    .description-part {
+      margin-left: 4px;
+    }
+
     .monster-type {
       display: flex;
       align-items: center;
-      margin-left: 4px;
     }
   
     .area-type {
       display: flex;
       align-items: center;
-      margin-left: 4px;
       cursor: pointer;
   
       &:hover {

@@ -31,6 +31,7 @@ import { HeroAbility } from "./hero-ability";
 import { DbHeroAbility } from "src/raw-game-state/db-hero-ability";
 import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
 import { ContractHeroAbilityValueKey } from "src/loot-hoarder-contract/contract-hero-ability-value-key";
+import { ItemEquippedEvent } from "./item-equipped-event";
 
 export class Hero {
   public dbModel: DbHero;
@@ -48,6 +49,7 @@ export class Hero {
   public onLevelUp: Subject<number>;
   public onEvent: EventStream<ContractServerWebSocketMessage>;
   public onItemUnequipped: Subject<ItemUnequippedEvent>;
+  public onItemEquipped: Subject<ItemEquippedEvent>;
 
   private constructor(
     dbModel: DbHero,
@@ -67,6 +69,7 @@ export class Hero {
     this.onLevelUp = new Subject();
     this.onEvent = new EventStream();
     this.onItemUnequipped = new Subject();
+    this.onItemEquipped = new Subject();
     this.maximumHealthVC = this.attributes.getAttribute(ContractAttributeType.maximumHealth, []).valueContainer;
     this.maximumManaVC = this.attributes.getAttribute(ContractAttributeType.maximumMana, []).valueContainer;
     
@@ -326,6 +329,7 @@ export class Hero {
       this.onEvent.next(
         new ContractItemEquippedMessage(this.id, event.item.toContractModel(), event.position)
       );
+      this.onItemEquipped.next(event);
     });
 
     this.inventory.onItemUnequipped.subscribe(event => {

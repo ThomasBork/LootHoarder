@@ -17,6 +17,8 @@ export class Inventory {
   public onItemEquipped: Subject<ItemEquippedEvent>;
   public onItemUnequipped: Subject<ItemUnequippedEvent>;
 
+  public static readonly numberOfInventoryItemSlots = 7;
+
   private dbModel: DbInventory;
 
   private constructor(

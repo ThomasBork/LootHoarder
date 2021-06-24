@@ -15,14 +15,31 @@
       padding: 10px;
       border-radius: 5px;
 
-      .name {
-        font-size: 24px;
+      .header {
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+
+        .name {
+          font-size: 24px;
+        }
+
+        .check-mark {
+          height: 24px;
+          width: 24px;
+        }
       }
 
       .subheader {
         font-size: 20px;
         margin-top: 10px;
         margin-bottom: 5px;
+      }
+
+      .rewards {
+        .reward {
+          margin-bottom: 3px;
+        }
       }
     }
   }

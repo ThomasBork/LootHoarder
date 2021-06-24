@@ -34,6 +34,9 @@ import { Achievement } from './achievement';
 import { Combat } from './area/combat';
 import { AccomplishmentTypeDefeatMonsters } from './accomplishment-type-defeat-monsters';
 import { AccomplishmentTypeDefeatSpecificMonsterType } from './accomplishment-type-defeat-specific-monster-type';
+import { Inventory } from './inventory';
+import { AccomplishmentTypeFullInventory } from './accomplishment-type-full-inventory';
+import { ContractAchievementTypeStatus } from 'src/loot-hoarder-contract/contract-achievement-type-status';
 
 export class Game {
   public heroes: Hero[];
@@ -207,6 +210,19 @@ export class Game {
         };
       });
 
+    const completedAchievementKeys = this.achievements
+      .filter(achievement => achievement.isComplete)
+      .map(achievement => achievement.type.key);
+
+    const achievementTypeStatuses: ContractAchievementTypeStatus[] = this.achievements
+      .filter(achievement => achievement.isBegun && !achievement.isComplete)
+      .map(achievement => {
+        return {
+          typeKey: achievement.type.key,
+          accomplishmentCompletedAmount: achievement.accomplishments.map(a => a.completedAmount)
+        };
+      });
+
     const disabledGameTabs: ContractGameTab[] = this.disabledTabs.map(tab => {
       return {
         parentTabKey: tab.parentTabKey,
@@ -221,9 +237,9 @@ export class Game {
       areas: this.areas.map(a => a.toContractModel()),
       availableAreaTypeKeys: this.availableAreaTypes.map(a => a.key),
       completedAreaTypeKeys: this.completedAreaTypes.map(a => a.key),
-      completedAchievementTypeKeys: [],
+      completedAchievementTypeKeys: completedAchievementKeys,
       completedQuestTypeKeys: completedQuestKeys,
-      achievementTypeStatuses: [],
+      achievementTypeStatuses: achievementTypeStatuses,
       questTypeStatuses: questTypeStatuses,
       disabledGameTabs: disabledGameTabs,
       settings: this.settings.getUIState(),
@@ -349,6 +365,16 @@ export class Game {
     hero.onEvent.subscribe(event => this.onEvent.next(event));
 
     hero.onItemUnequipped.subscribe(event => this.addItem(event.item));
+
+    hero.onItemEquipped.subscribe(event => {
+      if (hero.inventory.getAllItems().length === Inventory.numberOfInventoryItemSlots) {
+        for(const accomplishment of this.getAllIncompleteAccomplishments()) {
+          if (accomplishment.type instanceof AccomplishmentTypeFullInventory) {
+            accomplishment.completedAmount++;
+          }
+        }
+      }
+    });
 
     hero.onLevelUp.subscribe(event => this.onHeroLevelUp.next(hero));
   }

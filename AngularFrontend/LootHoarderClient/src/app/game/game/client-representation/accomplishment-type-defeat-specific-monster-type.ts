@@ -12,8 +12,9 @@ export class AccomplishmentTypeDefeatSpecificMonsterType extends AccomplishmentT
     super(
       requiredAmount,
       [
-        new AccomplishmentDescriptionPart(AccomplishmentDescriptionPartTypeKey.string, 'Defeat a'),
-        new AccomplishmentDescriptionPart(AccomplishmentDescriptionPartTypeKey.monsterType, monsterType)
+        new AccomplishmentDescriptionPart(AccomplishmentDescriptionPartTypeKey.string, 'Defeat the'),
+        new AccomplishmentDescriptionPart(AccomplishmentDescriptionPartTypeKey.monsterType, monsterType),
+        new AccomplishmentDescriptionPart(AccomplishmentDescriptionPartTypeKey.string, 'monster'),
       ]
     );
     this.monsterType = monsterType;

@@ -35,7 +35,7 @@ import { PassiveAbilityUnlockAbility } from "./passive-ability-unlock-ability";
 import { PassiveAbilityTakeDamageOverTime } from "./passive-ability-take-damage-over-time";
 import { MonsterType } from "./monster-type";
 import { AccomplishmentTypeDefeatSpecificMonsterType } from "./accomplishment-type-defeat-specific-monster-type";
-import { AccomplishmentTypeSpecial } from "./accomplishment-type-special";
+import { AccomplishmentTypeFullInventory } from "./accomplishment-type-full-inventory";
 import { AccomplishmentTypeDefeatMonsters } from "./accomplishment-type-defeat-monsters";
 import { AccomplishmentTypeCompleteSpecificAreaType } from "./accomplishment-type-complete-specific-area-type";
 import { QuestRewardType } from "./quest-reward-type";
@@ -435,9 +435,8 @@ export class AssetManagerService {
 
   private buildAccomplishmentType(typeKey: string, parameters: any, requiredAmount: number): AccomplishmentType {
     switch(typeKey) {
-      case 'special': {
-        const description = parameters.description as string;
-        return new AccomplishmentTypeSpecial(requiredAmount, description);
+      case 'full-inventory': {
+        return new AccomplishmentTypeFullInventory(requiredAmount);
       }
       case 'defeat-specific-monster-type': {
         const monsterTypeKey = parameters.monsterTypeKey as string;

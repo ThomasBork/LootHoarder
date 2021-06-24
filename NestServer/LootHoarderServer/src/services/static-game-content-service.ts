@@ -49,7 +49,7 @@ import { AccomplishmentTypeRequiredParameters } from "src/computed-game-state/ac
 import { QuestRewardType } from "src/computed-game-state/quest-reward-type";
 import { AccomplishmentType } from "src/computed-game-state/accomplishment-type";
 import { QuestReward } from "src/computed-game-state/quest-reward";
-import { AccomplishmentTypeSpecial } from "src/computed-game-state/accomplishment-type-special";
+import { AccomplishmentTypeFullInventory } from "src/computed-game-state/accomplishment-type-full-inventory";
 import { AccomplishmentTypeDefeatSpecificMonsterType } from "src/computed-game-state/accomplishment-type-defeat-specific-monster-type";
 import { AccomplishmentTypeDefeatMonsters } from "src/computed-game-state/accomplishment-type-defeat-monsters";
 import { AccomplishmentTypeCompleteSpecificAreaType } from "src/computed-game-state/accomplishment-type-complete-specific-area-type";
@@ -576,9 +576,8 @@ export class StaticGameContentService {
     }
 
     switch(typeKey) {
-      case 'special': {
-        const description = parameters.description as string;
-        return new AccomplishmentTypeSpecial(requiredAmount, description);
+      case 'full-inventory': {
+        return new AccomplishmentTypeFullInventory(requiredAmount);
       }
       case 'defeat-specific-monster-type': {
         const monsterTypeKey = parameters.monsterTypeKey as string;

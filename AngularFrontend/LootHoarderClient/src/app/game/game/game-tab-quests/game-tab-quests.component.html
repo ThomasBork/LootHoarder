@@ -5,8 +5,14 @@
         *ngIf="quest.isAvailable"
         class="quest"
       >
-        <div class="name">{{quest.type.name}}</div>
-        <div class="subheader">Do</div>
+        <div class="header">
+          <span class="name">{{quest.type.name}}</span>
+          <img 
+            *ngIf="quest.isComplete"
+            class="check-mark"
+            src="assets/images/check-mark.png" 
+          />
+        </div>
         <ul class="accomplishments">
           <li
             *ngFor="let accomplishment of quest.accomplishments"
@@ -14,10 +20,11 @@
             <app-accomplishment [accomplishment]="accomplishment"></app-accomplishment>
           </li>
         </ul>
-        <div class="subheader">Get</div>
+        <div class="subheader">Rewards</div>
         <ul class="rewards">
           <li
             *ngFor="let reward of quest.type.rewards"
+            class="reward"
           >
             <span>{{reward.description}}</span>
           </li>

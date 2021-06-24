@@ -5,11 +5,9 @@
     "hideDescriptionUntilCompleted": false,
     "requiredAccomplishments": [
       {
-        "typeKey": "special",
+        "typeKey": "full-inventory",
         "requiredAmount": 1,
-        "parameters": {
-          "description":"Have a hero wear one item in each item slot."
-        }
+        "parameters": {}
       }
     ]
   },
