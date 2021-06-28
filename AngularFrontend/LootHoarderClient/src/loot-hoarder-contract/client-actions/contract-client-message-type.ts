@@ -1,5 +1,6 @@
 export enum ContractClientMessageType {
   createHero = 'create-hero',
+  createHeroBehavior = 'create-hero-behavior',
   deleteHero = 'delete-hero',
   enterArea = 'enter-area',
   equipItem = 'equip-item',
@@ -7,6 +8,8 @@ export enum ContractClientMessageType {
   leaveArea = 'leave-area',
   loadGame = 'load-game',
   sendChatMessage = 'send-chat-message',
+  setCurrentHeroBehavior = 'set-current-hero-behavior',
   setSetting = 'set-setting',
   takeHeroSkillNode = 'take-hero-skill-node',
+  updateHeroBehavior = 'update-hero-behavior',
 }

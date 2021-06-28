@@ -33,7 +33,8 @@ export class GameService {
       nextHeroId: 1,
       nextCombatCharacterAbilityId: 1,
       nextItemId: 1,
-      nextContinuousEffectId: 1
+      nextContinuousEffectId: 1,
+      nextHeroBehaviorId: 1,
     };
 
     const gameId = await this.dbGameRepository.insertGame(userId, initialGameState);

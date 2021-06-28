@@ -39,6 +39,7 @@ export class CreateHeroHandler implements ICommandHandler<CreateHero> {
       level: 50,
       experience: 0,
       abilities: heroAbilities,
+      behaviors: [],
       inventory: {
         leftHand: dbItem
       },

@@ -32,6 +32,7 @@ import { DbHeroAbility } from "src/raw-game-state/db-hero-ability";
 import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
 import { ContractHeroAbilityValueKey } from "src/loot-hoarder-contract/contract-hero-ability-value-key";
 import { ItemEquippedEvent } from "./item-equipped-event";
+import { CharacterBehavior } from "./character-behavior";
 
 export class Hero {
   public dbModel: DbHero;
@@ -39,6 +40,9 @@ export class Hero {
   public attributes: AttributeSet;
   public inventory: Inventory;
   public abilities: HeroAbility[];
+  public behaviors: CharacterBehavior[];
+  public currentBehavior?: CharacterBehavior;
+
   public maximumHealthVC: ValueContainer;
   public maximumManaVC: ValueContainer;
 
@@ -57,14 +61,20 @@ export class Hero {
     attributes: AttributeSet,
     inventory: Inventory,
     abilities: HeroAbility[],
+    behaviors: CharacterBehavior[],
     takenSkillTreeNodes: HeroSkillTreeNode[],
-    availableSkillTreeNodes: HeroSkillTreeNode[]
+    availableSkillTreeNodes: HeroSkillTreeNode[],
   ) {
     this.dbModel = dbModel;
     this.type = type;
     this.attributes = attributes;
     this.inventory = inventory;
     this.abilities = abilities;
+    this.behaviors = behaviors;
+
+    if (dbModel.currentBehaviorId) {
+      this.currentBehavior = this.getBehavior(dbModel.currentBehaviorId);
+    }
 
     this.onLevelUp = new Subject();
     this.onEvent = new EventStream();
@@ -121,6 +131,31 @@ export class Hero {
     const experienceMessage = new ContractHeroGainedExperienceMessage(this.id, this.level, this.experience);
     const multimessage = new ContractServerWebSocketMultimessage([...innerMessages, experienceMessage]);
     this.onEvent.next(multimessage);
+  }
+
+  public addBehavior(behavior: CharacterBehavior): void {
+    this.dbModel.behaviors.push(behavior.dbModel);
+    this.behaviors.push(behavior);
+  }
+
+  public getBehavior(behaviorId: number): CharacterBehavior {
+    const behavior = this.behaviors.find(b => b.id === behaviorId);
+    if (!behavior) {
+      throw Error (`Could not find behavior with id ${behaviorId} on hero with id ${this.id}`);
+    }
+    return behavior;
+  }
+
+  public setCurrentBehavior(behavior: CharacterBehavior | undefined): void {
+    this.currentBehavior = behavior;
+  }
+
+  public updateBehavior(behavior: CharacterBehavior): void {
+    const indexOfOldDbBehavior = this.dbModel.behaviors.findIndex(b => b.id === behavior.id);
+    this.dbModel.behaviors.splice(indexOfOldDbBehavior, 1, behavior.dbModel);
+    
+    const indexOfOldBehavior = this.behaviors.findIndex(b => b.id === behavior.id);
+    this.behaviors.splice(indexOfOldBehavior, 1, behavior);
   }
 
   public equipItem(item: Item, inventoryPosition: ContractInventoryPosition): void {
@@ -184,7 +219,7 @@ export class Hero {
       };
     });
     const abilities = this.abilities.map(ability => ability.toContractModel());
-
+    const behaviors = this.behaviors.map(behavior => behavior.toContractModel());
     return {
       id: this.id,
       typeKey: this.type.key,
@@ -201,7 +236,8 @@ export class Hero {
       unspentSkillPoints: this.unspentSkillPoints,
       takenSkillNodes: takenSkillNodes,
       availableSkillNodes: availableSkillNodes,
-      abilities: abilities
+      abilities: abilities,
+      behaviors: behaviors,
     };
   }
 
@@ -392,12 +428,14 @@ export class Hero {
     const skillTree = StaticGameContentService.instance.getHeroSkillTree();
     const takenSkillNodes = skillTree.getTakenNodesForHero(dbModel.skillNodesLocations);
     const availableSkillNodes = skillTree.getAvailableNodesForHero(dbModel.skillNodesLocations);
+    const behaviors = dbModel.behaviors.map(behavior => CharacterBehavior.load(behavior));
     const hero = new Hero(
       dbModel, 
       heroType,
       attributes,
       inventory,
       abilities,
+      behaviors,
       takenSkillNodes,
       availableSkillNodes
     );

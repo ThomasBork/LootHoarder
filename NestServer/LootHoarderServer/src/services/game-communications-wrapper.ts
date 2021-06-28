@@ -23,6 +23,10 @@ import { TakeHeroSkillNode } from "src/game-message-handlers/from-client/take-he
 import { SendChatMessage } from "src/game-message-handlers/from-client/send-chat-message";
 import { DeleteHero } from "src/game-message-handlers/from-client/delete-hero";
 import { User } from "src/computed-game-state/user";
+import { ContractCreateHeroBehaviorMessageContent } from "src/loot-hoarder-contract/client-actions/contract-create-hero-behavior-message-content";
+import { CreateHeroBehavior } from "src/game-message-handlers/from-client/create-hero-behavior";
+import { ContractUpdateHeroBehaviorMessageContent } from "src/loot-hoarder-contract/client-actions/contract-update-hero-behavior-message-content";
+import { UpdateHeroBehavior } from "src/game-message-handlers/from-client/update-hero-behavior";
 
 export class GameCommunicationsWrapper {
   public game: Game;
@@ -145,6 +149,23 @@ export class GameCommunicationsWrapper {
         this.commandBus.execute(new GoToNextCombat (
           this.game,
           area,
+        ));
+      }
+      break;
+      case ContractClientMessageType.createHeroBehavior: {
+        const data: ContractCreateHeroBehaviorMessageContent = message.data;
+        this.commandBus.execute(new CreateHeroBehavior (
+          this.game,
+          data.heroId,
+        ));
+      }
+      break;
+      case ContractClientMessageType.updateHeroBehavior: {
+        const data: ContractUpdateHeroBehaviorMessageContent = message.data;
+        this.commandBus.execute(new UpdateHeroBehavior (
+          this.game,
+          data.heroId,
+          data.behavior
         ));
       }
       break;

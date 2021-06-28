@@ -114,6 +114,10 @@ export class Game {
   public getNextContinuousEffectId(): number {
     return this.dbModel.state.nextContinuousEffectId++;
   }
+  
+  public getNextHeroBehaviorId(): number {
+    return this.dbModel.state.nextHeroBehaviorId++;
+  }
 
   public getHero(heroId: number): Hero {
     const hero = this.heroes.find(h => h.id === heroId);
