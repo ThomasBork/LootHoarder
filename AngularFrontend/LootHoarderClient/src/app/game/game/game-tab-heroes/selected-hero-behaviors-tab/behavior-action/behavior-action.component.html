@@ -1,0 +1,46 @@
+<div class="content">
+  <div class="predicate-row">
+    <img 
+      class="image" 
+      src="assets/images/question-mark.png" 
+    />
+
+    <app-behavior-predicate 
+      [hero]="hero"
+      [(predicate)]="action.predicate"
+    ></app-behavior-predicate>
+  </div>
+
+  <div class="ability-row">
+    <img 
+      src="assets/images/blink.png" 
+      class="image"
+    />
+    <div class="ability-row-content">
+      <div class="ability-container">
+        <img 
+          [src]="'assets/images/abilities/' + action.ability.type.key + '-thumbnail.png'" 
+          class="image"
+        />
+        <span>{{action.ability.type.name}}</span>
+      </div>
+
+      <app-hero-ability-picker 
+        [abilities]="hero.abilities"
+        [(selectedAbility)]="action.ability"
+        class="ability-selector"
+      ></app-hero-ability-picker>
+    </div>
+  </div>
+
+  <div class="target-row">
+    <img 
+      class="image" 
+      src="assets/images/scope.png" 
+    />
+
+    <app-behavior-target 
+      [(target)]="action.target"
+    ></app-behavior-target>
+  </div>
+</div>

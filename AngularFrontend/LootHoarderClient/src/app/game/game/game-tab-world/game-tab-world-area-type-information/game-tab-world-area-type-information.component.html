@@ -33,7 +33,6 @@
         (click)="goToNextCombat(area)"
       >Go to next combat</button>
       <button 
-        [disabled]="area.currentCombat.hasEnded ? '' : 'disabled'"
         (click)="leaveArea(area)"
       >Leave area</button>
     </div>

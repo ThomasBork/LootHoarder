@@ -1,3 +1,4 @@
+import { ContractCharacterBehaviorValue } from "src/loot-hoarder-contract/contract-character-behavior-value";
 import { ContractCharacterBehaviorValueTypeKey } from "src/loot-hoarder-contract/contract-character-behavior-value-type-key";
 import { DbCharacterBehaviorValue } from "src/raw-game-state/db-character-behavior-value";
 
@@ -7,5 +8,7 @@ export abstract class CharacterBehaviorValue {
     this.typeKey = typeKey;
   }
 
-  public abstract toContractModel(): DbCharacterBehaviorValue;
+  public abstract toContractModel(): ContractCharacterBehaviorValue;
+
+  public abstract toDbModel(): DbCharacterBehaviorValue;
 }

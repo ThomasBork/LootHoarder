@@ -1,0 +1,27 @@
+<div class="content">
+  <div>And</div>
+  <ul class="inner-predicates">
+    <li
+      *ngFor="let innerPredicate of predicate.innerPredicates"
+      class="inner-predicate-container"
+    >
+      <img 
+        src="assets/images/delete.png"
+        (click)="removeInnerPredicate(innerPredicate)"
+        class="delete button"
+      />
+
+      <app-behavior-predicate
+        [(predicate)]="innerPredicate"
+        [hero]="hero"
+        class="inner-predicate"
+      ></app-behavior-predicate>
+    </li>
+  </ul>
+
+  <img 
+    src="assets/images/plus.png"
+    (click)="addInnerPredicate()"
+    class="add button"
+  />
+</div>

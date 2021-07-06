@@ -1,0 +1,48 @@
+<div class="content">
+  <app-behavior-value-number
+    *ngIf="valueAsNumber"
+    [value]="valueAsNumber"
+    class="value"
+  ></app-behavior-value-number>
+  <app-behavior-value-attribute
+    *ngIf="valueAsAttribute"
+    [value]="valueAsAttribute"
+    class="value"
+  ></app-behavior-value-attribute>
+  <span
+    *ngIf="valueAsCurrentHealth"
+    class="value"
+  >Current health</span>
+  <span
+    *ngIf="valueAsCurrentMana"
+    class="value"
+  >Current mana</span>
+  <span
+    *ngIf="valueAsPercentageCurrentHealth"
+    class="value"
+  >Percentage current health</span>
+  <span
+    *ngIf="valueAsPercentageCurrentMana"
+    class="value"
+  >Percentage current mana</span>
+  <app-behavior-value-remaining-cooldown-of-ability
+    *ngIf="valueAsRemainingCooldownOfAbility"
+    [value]="valueAsRemainingCooldownOfAbility"
+    [hero]="hero"
+    class="value"
+  ></app-behavior-value-remaining-cooldown-of-ability>
+
+  <app-split-button 
+    [title]="''"
+    [anchorToRightSide]="true"
+    class="value-selector"
+  >
+    <app-split-button-item (click)="selectValueNumber()">Number</app-split-button-item>
+    <app-split-button-item (click)="selectValueAttribute()">Attribute</app-split-button-item>
+    <app-split-button-item (click)="selectValueCurrentHealth()">Current health</app-split-button-item>
+    <app-split-button-item (click)="selectValueCurrentMana()">Current mana</app-split-button-item>
+    <app-split-button-item (click)="selectValuePercentageCurrentHealth()">Percentage current health</app-split-button-item>
+    <app-split-button-item (click)="selectValuePercentageCurrentMana()">Percentage current mana</app-split-button-item>
+    <app-split-button-item (click)="selectValueRemainingCooldownOfAbility()">Remaining cooldown of ability</app-split-button-item>
+  </app-split-button>
+</div>

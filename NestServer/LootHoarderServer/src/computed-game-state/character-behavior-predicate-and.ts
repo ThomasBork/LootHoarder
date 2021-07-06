@@ -1,24 +1,28 @@
+import { ContractCharacterBehaviorPredicate } from "src/loot-hoarder-contract/contract-character-behavior-predicate";
 import { ContractCharacterBehaviorPredicateTypeKey } from "src/loot-hoarder-contract/contract-character-behavior-predicate-type-key";
 import { DbCharacterBehaviorPredicate } from "src/raw-game-state/db-character-behavior-predicate";
 import { CharacterBehaviorPredicate } from "./character-behavior-predicate";
 
 export class CharacterBehaviorPredicateAnd extends CharacterBehaviorPredicate {
-  public leftPredicate: CharacterBehaviorPredicate;
-  public rightPredicate: CharacterBehaviorPredicate;
+  public innerPredicates: CharacterBehaviorPredicate[];
   public constructor(
-    leftPredicate: CharacterBehaviorPredicate,
-    rightPredicate: CharacterBehaviorPredicate,
+    innerPredicates: CharacterBehaviorPredicate[],
   ) {
     super(ContractCharacterBehaviorPredicateTypeKey.and);
-    this.leftPredicate = leftPredicate;
-    this.rightPredicate = rightPredicate;
+    this.innerPredicates = innerPredicates;
   }
 
-  public toContractModel(): DbCharacterBehaviorPredicate {
+  public toContractModel(): ContractCharacterBehaviorPredicate {
     return {
       typeKey: this.typeKey,
-      leftPredicate: this.leftPredicate.toContractModel(),
-      rightPredicate: this.rightPredicate.toContractModel(),
+      innerPredicates: this.innerPredicates.map(innerPredicate => innerPredicate.toContractModel())
+    };
+  }
+
+  public toDbModel(): DbCharacterBehaviorPredicate {
+    return {
+      typeKey: this.typeKey,
+      innerPredicates: this.innerPredicates.map(innerPredicate => innerPredicate.toDbModel())
     };
   }
 }

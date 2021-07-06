@@ -14,11 +14,12 @@ import { GoToNextCombat } from "src/game-message-handlers/from-client/go-to-next
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { AbilityTypeEffectApplyContinuousEffect } from "src/computed-game-state/ability-type-effect-apply-continuous-effect";
 import { AbilityTypeEffectDealDamage } from "src/computed-game-state/ability-type-effect-deal-damage";
-import { PassiveAbilityParametersTakeDamageOverTime } from "src/computed-game-state/passive-ability-parameters-take-damage-over-time";
 import { DbContinuousEffect } from "src/raw-game-state/db-continuous-effect";
 import { ContinuousEffect } from "src/computed-game-state/area/continuous-effect";
 import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
 import { PassiveAbilityTakeDamageOverTime } from "src/computed-game-state/passive-ability-take-damage-over-time";
+import { CharacterBehaviorPredicateEvaluator } from "./character-behavior-predicate-evaluator";
+import { CharacterBehaviorTargetEvaluator } from "./character-behavior-target-evaluator";
 
 @Injectable()
 export class CombatUpdaterService implements OnApplicationBootstrap {
@@ -29,7 +30,9 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
   public constructor(
     private readonly gamesManager: GamesManager,
     private readonly randomService: RandomService,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly characterBehaviorPredicateEvaluator: CharacterBehaviorPredicateEvaluator,
+    private readonly characterBehaviorTargetEvaluator: CharacterBehaviorTargetEvaluator,
   ) {}
 
   public onApplicationBootstrap(): void {
@@ -116,39 +119,26 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
 
       // Begin using ability
       if (!character.abilityBeingUsed) {
-        const availableAbilities = character.abilities
-          .filter(ability => 
-            ability.isReady
-            && ( 
-              // Has no target or has at least one legal target
-              !ability.type.requiresTarget
-              || combat.getLegalTargets(character, ability, false).length > 0
-            )
-            && ability.manaCostVC.value < character.currentMana
-          );
+        const abilityToUseAndTarget = this.tryToChooseAbilityToUseAndTarget(area, combat, character);
 
-        if (availableAbilities.length > 0) {
+        if (abilityToUseAndTarget) {
           // Now all events in the combat will be put into this new bucket
-        combat.onCombatEvent.setUpNewEventBucket();
+          combat.onCombatEvent.setUpNewEventBucket();
+  
+          const ability = abilityToUseAndTarget.ability;
+          const target = abilityToUseAndTarget.target;
 
-          const chosenAbility = this.randomService.randomElementInArray(availableAbilities);
-          let target: CombatCharacter | undefined = undefined;
-          if (chosenAbility.type.requiresTarget) {
-            const legalTargets = combat.getLegalTargets(character, chosenAbility, false);
-            target = this.randomService.randomElementInArray(legalTargets);
-          }
-
-          character.abilityBeingUsed = chosenAbility;
-          const timeToUse = chosenAbility.timeToUseVC.value;
+          character.abilityBeingUsed = ability;
+          const timeToUse = ability.timeToUseVC.value;
           character.remainingTimeToUseAbility = timeToUse;
           character.totalTimeToUseAbility = timeToUse;
           character.targetOfAbilityBeingUsed = target;
-          const manaAfterUse = character.currentMana - chosenAbility.manaCostVC.value;
+          const manaAfterUse = character.currentMana - ability.manaCostVC.value;
           character.setCurrentMana(manaAfterUse);
-
+  
           // Stop redirecting all events and send ability used message
           const messageInnerEvents = combat.onCombatEvent.flushEventBucket();
-          const message = new ContractBegunUsingAbilityMessage(chosenAbility.id, character.id, target?.id, timeToUse, messageInnerEvents);
+          const message = new ContractBegunUsingAbilityMessage(ability.id, character.id, target?.id, timeToUse, messageInnerEvents);
           combat.onCombatEvent.next(message);
         }
       }
@@ -173,6 +163,79 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
         const message = new ContractAbilityUsedMessage(abilityToUse.id, character.id, character.targetOfAbilityBeingUsed, abilityToUse.remainingCooldown, messageInnerEvents);
         combat.onCombatEvent.next(message);
       }
+    }
+  }
+
+  private tryToChooseAbilityToUseAndTarget(
+    area: Area,
+    combat: Combat,
+    character: CombatCharacter
+  ): AbilityAndTarget | undefined {
+    const availableAbilities = character.abilities
+      .filter(ability => 
+        ability.isReady
+        && ( 
+          // Has no target or has at least one legal target
+          !ability.type.requiresTarget
+          || combat.getLegalTargets(character, ability, false).length > 0
+        )
+        && ability.manaCostVC.value < character.currentMana
+      );
+
+    if (availableAbilities.length === 0) {
+      return undefined;
+    }
+
+    if (character.behavior) {
+      for(let behaviorAction of character.behavior.prioritizedActions) {
+        const ability = character.getAbility(behaviorAction.abilityId);
+        if (!availableAbilities.includes(ability)) {
+          continue;
+        }
+
+        if (behaviorAction.predicate) {
+          const actionPredicateResult = this.characterBehaviorPredicateEvaluator.evaluate(behaviorAction.predicate, character);
+          if (!actionPredicateResult) {
+            continue;
+          }
+        }
+
+        let target: CombatCharacter | undefined = undefined;
+        if (ability.type.requiresTarget) {
+          if (!behaviorAction.target) {
+            continue;
+          }
+          const legalTargets = combat.getLegalTargets(character, ability, false);
+          const targetsFromAction = this.characterBehaviorTargetEvaluator.evaluate(behaviorAction.target, area, combat, character);
+          const possibleTargets = targetsFromAction.filter(t => legalTargets.includes(t));
+
+          if (possibleTargets.length === 0) {
+            continue;
+          }
+
+          target = this.randomService.randomElementInArray(possibleTargets);
+        }
+
+        return {
+          ability,
+          target
+        };
+      }
+
+      // No match
+      return undefined;
+    } else {
+      const ability = this.randomService.randomElementInArray(availableAbilities);
+      let target: CombatCharacter | undefined = undefined;
+      if (ability.type.requiresTarget) {
+        const legalTargets = combat.getLegalTargets(character, ability, false);
+        target = this.randomService.randomElementInArray(legalTargets);
+      }
+
+      return {
+        ability,
+        target
+      };
     }
   }
 
@@ -258,4 +321,9 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
     const resistanceMultiplier = 100 / (100 + resistance);
     return damageGiven * resistanceMultiplier;
   }
+}
+
+interface AbilityAndTarget {
+  ability: CombatCharacterAbility,
+  target: CombatCharacter | undefined
 }

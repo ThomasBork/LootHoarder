@@ -25,6 +25,9 @@ export class SelectedHeroTabMenuComponent {
   public get passivesTab(): HeroTabChildTab{
     return this.uiStateManager.state.heroesTab.passivesTab;
   }
+  public get behaviorsTab(): HeroTabChildTab{
+    return this.uiStateManager.state.heroesTab.behaviorsTab;
+  }
   public get managementTab(): HeroTabChildTab{
     return this.uiStateManager.state.heroesTab.managementTab;
   }
@@ -34,5 +37,6 @@ export class SelectedHeroTabMenuComponent {
 
   public changeTab(tab: HeroTabChildTab): void {
     this.uiStateManager.state.heroesTab.selectedTab = tab;
+    tab.onOpen.next();
   }
 }

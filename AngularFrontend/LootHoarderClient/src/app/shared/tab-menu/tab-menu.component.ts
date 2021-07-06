@@ -34,6 +34,7 @@ export class TabMenuComponent implements AfterContentInit {
 
   public ngAfterContentInit(): void {
     this.tabs = this.tabComponents.map(component => component.tab);
+    this.tabComponents.changes.subscribe(() => this.tabs = this.tabComponents.map(component => component.tab));
     if (this.selectedTab) {
       this.selectTab(this.selectedTab);
     } else {

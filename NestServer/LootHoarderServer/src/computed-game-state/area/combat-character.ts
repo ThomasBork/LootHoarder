@@ -4,6 +4,7 @@ import { ContractCombatCharacter } from 'src/loot-hoarder-contract/contract-comb
 import { ContractPassiveAbilityTypeKey } from 'src/loot-hoarder-contract/contract-passive-ability-type-key';
 import { DbCombatCharacter } from 'src/raw-game-state/db-combat-character';
 import { AttributeSet } from '../attribute-set';
+import { CharacterBehavior } from '../character-behavior';
 import { EventStream } from '../event-stream';
 import { PassiveAbility } from '../passive-ability';
 import { PassiveAbilityParametersAttribute } from '../passive-ability-parameters-attribute';
@@ -19,6 +20,7 @@ export class CombatCharacter {
   public abilities: CombatCharacterAbility[];
   public abilityBeingUsed?: CombatCharacterAbility;
   public continuousEffects: ContinuousEffect[];
+  public behavior: CharacterBehavior | undefined;
 
   public onDeath: EventStream<void>;
   public onCurrentHealthChanged: EventStream<number>;
@@ -34,12 +36,14 @@ export class CombatCharacter {
     dbModel: DbCombatCharacter,
     attributes: AttributeSet,
     abilities: CombatCharacterAbility[],
-    continuousEffects: ContinuousEffect[]
+    continuousEffects: ContinuousEffect[],
+    behavior: CharacterBehavior | undefined
   ) {
     this.dbModel = dbModel;
     this.attributes = attributes;
     this.abilities = abilities;
     this.continuousEffects = continuousEffects;
+    this.behavior = behavior;
 
     if (dbModel.idOfAbilityBeingUsed) {
       this.abilityBeingUsed = abilities.find(a => a.id === dbModel.idOfAbilityBeingUsed);
@@ -75,6 +79,14 @@ export class CombatCharacter {
   public set targetOfAbilityBeingUsed(target: CombatCharacter | undefined) {
     this.dbModel.idOfTargetOfAbilityBeingUsed = target ? target.id : undefined;
     this._targetOfAbilityBeingUsed = target;
+  }
+
+  public getAbility(abilityId: number): CombatCharacterAbility {
+    const ability = this.abilities.find(a => a.id === abilityId);
+    if (!ability) {
+      throw Error (`Ability with id ${abilityId} was not found`);
+    }
+    return ability;
   }
 
   public setCurrentHealth(value: number, shouldSendChangeEvent: boolean = true) {
@@ -225,7 +237,8 @@ export class CombatCharacter {
     const attributes = AttributeSet.load(dbModel.attributeSet);
     const abilities = dbModel.abilities.map(dbAbility => CombatCharacterAbility.load(dbAbility));
     const continuousEffects = dbModel.continuousEffects.map(dbContinuousEffect => ContinuousEffect.load(dbContinuousEffect));
-    const combatCharacter = new CombatCharacter(dbModel, attributes, abilities, continuousEffects);
+    const behavior = dbModel.behavior ? CharacterBehavior.load(dbModel.behavior) : undefined;
+    const combatCharacter = new CombatCharacter(dbModel, attributes, abilities, continuousEffects, behavior);
     return combatCharacter;
   }
 }

@@ -1,0 +1,15 @@
+.content {
+  display: flex;
+  align-items: center;
+  
+  >.image {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+  }
+
+  .ability-selector {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+}

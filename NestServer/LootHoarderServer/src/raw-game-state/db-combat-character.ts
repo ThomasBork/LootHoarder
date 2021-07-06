@@ -1,5 +1,6 @@
 import { DbAbility } from "./db-ability";
 import { DbAttributeSet } from "./db-attribute-set";
+import { DbCharacterBehavior } from "./db-character-behavior";
 import { DbContinuousEffect } from "./db-continuous-effect";
 
 export interface DbCombatCharacter {
@@ -16,4 +17,5 @@ export interface DbCombatCharacter {
   remainingTimeToUseAbility: number;
   totalTimeToUseAbility?: number;
   continuousEffects: DbContinuousEffect[];
+  behavior?: DbCharacterBehavior;
 }

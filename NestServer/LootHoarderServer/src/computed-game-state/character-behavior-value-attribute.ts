@@ -1,4 +1,5 @@
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
+import { ContractCharacterBehaviorValue } from "src/loot-hoarder-contract/contract-character-behavior-value";
 import { ContractCharacterBehaviorValueTypeKey } from "src/loot-hoarder-contract/contract-character-behavior-value-type-key";
 import { DbCharacterBehaviorValue } from "src/raw-game-state/db-character-behavior-value";
 import { CharacterBehaviorValue } from "./character-behavior-value";
@@ -12,7 +13,15 @@ export class CharacterBehaviorValueAttribute extends CharacterBehaviorValue {
     this.attributeAbilityTags = attributeAbilityTags;
   }
 
-  public toContractModel(): DbCharacterBehaviorValue {
+  public toContractModel(): ContractCharacterBehaviorValue {
+    return {
+      typeKey: this.typeKey,
+      attributeTypeKey: this.attributeType,
+      attributeAbilityTags: this.attributeAbilityTags,
+    };
+  }
+
+  public toDbModel(): DbCharacterBehaviorValue {
     return {
       typeKey: this.typeKey,
       attributeTypeKey: this.attributeType,

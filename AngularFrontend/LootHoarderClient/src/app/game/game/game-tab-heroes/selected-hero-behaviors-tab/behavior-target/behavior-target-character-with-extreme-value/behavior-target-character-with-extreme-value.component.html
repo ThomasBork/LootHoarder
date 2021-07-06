@@ -1,0 +1,20 @@
+<div class="content">
+  <span>{{text}}</span>
+
+  <app-split-button
+    [title]="''"
+    [anchorToRightSide]="true"
+    class="relation-selector"
+  >
+    <app-split-button-item
+      (click)="selectRelationLeast()"
+    >Least</app-split-button-item>
+    <app-split-button-item
+      (click)="selectRelationMost()"
+    >Most</app-split-button-item>
+  </app-split-button>
+
+  <app-behavior-value
+    [(value)]="target.value"
+  ></app-behavior-value>
+</div>

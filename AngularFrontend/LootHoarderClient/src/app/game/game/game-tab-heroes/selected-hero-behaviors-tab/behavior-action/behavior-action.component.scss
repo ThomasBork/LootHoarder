@@ -1,0 +1,70 @@
+.content {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: lightgrey;
+
+  .predicate-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .image {
+      height: 30px;
+      width: 30px;
+      margin-right: 10px;
+    }
+
+    app-behavior-predicate {
+      flex: 1 1 0;
+    }
+  }
+
+  .ability-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    >.image {
+      height: 30px;
+      width: 30px;
+      margin-right: 10px;
+    }
+
+    .ability-row-content {
+      background-color: white;
+      display: flex;
+      justify-content: space-between;
+      border: 1px solid black;
+      border-radius: 5px;
+      padding: 10px;
+      flex: 1 1 0;
+
+      .ability-container {
+        display: flex;
+        align-items: center;
+      
+        .image {
+          height: 40px;
+          width: 40px;
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+
+  .target-row {
+    display: flex;
+    align-items: center;
+
+    .image {
+      height: 30px;
+      width: 30px;
+      margin-right: 10px;
+    }
+
+    app-behavior-target {
+      flex: 1 1 0;
+    }
+  }
+}

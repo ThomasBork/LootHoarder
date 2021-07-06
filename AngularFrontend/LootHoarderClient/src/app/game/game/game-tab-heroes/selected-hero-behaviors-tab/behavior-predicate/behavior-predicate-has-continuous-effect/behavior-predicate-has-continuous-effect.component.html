@@ -1,0 +1,28 @@
+<div class="content">
+  <span>Character is affected by</span>
+
+  <img 
+    [src]="'assets/images/continuous-effects/' + continuousEffectType.key + '.png'"
+    class="image"
+  />
+  <span>{{continuousEffectType.name}}</span>
+
+  <app-split-button 
+    [title]="''"
+    [anchorToRightSide]="true"
+    class="continuous-effect-type-selector"
+  >
+    <app-split-button-item 
+      *ngFor="let continuousEffectType of allContinuousEffectTypes"
+      (click)="selectContinuousEffectType(continuousEffectType)"
+    >
+      <div class="continuous-effect-type-container">
+        <img 
+          [src]="'assets/images/continuous-effects/' + continuousEffectType.key + '.png'" 
+          class="image"
+        />
+        <span>{{continuousEffectType.name}}</span>
+      </div>
+    </app-split-button-item>
+  </app-split-button>
+</div>

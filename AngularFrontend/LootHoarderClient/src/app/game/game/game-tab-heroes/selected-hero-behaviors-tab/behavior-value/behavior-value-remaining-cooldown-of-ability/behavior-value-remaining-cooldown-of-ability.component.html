@@ -1,0 +1,15 @@
+<div class="content">
+  <span>Remaining cooldown of</span>
+
+  <img 
+    [src]="'assets/images/abilities/' + value.ability.type.key + '-thumbnail.png'"
+    class="image"
+  />
+  <span>{{value.ability.type.name}}</span>
+
+  <app-hero-ability-picker 
+    [abilities]="allAbilities"
+    [(selectedAbility)]="value.ability"
+    class="ability-selector"
+  ></app-hero-ability-picker>
+</div>

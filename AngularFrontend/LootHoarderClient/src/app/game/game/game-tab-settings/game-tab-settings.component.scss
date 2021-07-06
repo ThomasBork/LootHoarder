@@ -1,0 +1,12 @@
+.setting-container {
+  margin-bottom: 10px;
+
+  .check-box-setting {
+    display: flex;
+    align-items: center;
+  
+    app-check-box {
+      margin-right: 5px;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+<div class="content">
+  <ul class="ability-tags">
+    <li
+      *ngFor="let abilityTag of value.attributeAbilityTags"
+      class="ability-tag-container"
+    >
+      <app-ability-tag [tag]="abilityTag"></app-ability-tag>
+
+      <app-split-button
+        [title]="''"
+        [anchorToRightSide]="true"
+        class="ability-tag-selector"
+      >
+        <app-split-button-item
+          *ngFor="let availableAbilityTag of availableAbilityTags"
+          (click)="changeAbilityTag(abilityTag, availableAbilityTag)"
+        >
+          <app-ability-tag [tag]="availableAbilityTag"></app-ability-tag>
+        </app-split-button-item>
+      </app-split-button>
+    </li>
+  </ul>
+
+  <span>{{translateAttributeType(value.attributeType)}}</span>
+
+  <app-split-button
+    [title]="''"
+    [anchorToRightSide]="true"
+    class="attribute-type-selector"
+  >
+    <app-split-button-item
+      *ngFor="let attributeType of allAttributeTypes"
+      (click)="selectAttributeType(attributeType)"
+    >{{translateAttributeType(attributeType)}}</app-split-button-item>
+  </app-split-button>
+</div>

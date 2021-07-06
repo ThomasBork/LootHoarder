@@ -1,0 +1,28 @@
+.button {
+  padding: 10px 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  background-color: lightblue;
+  user-select: none;
+
+  .title {
+    margin-right: 5px;
+  }
+
+  .down-arrow {
+    border-top: 10px solid black;
+    border-bottom: 0 solid transparent;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+  }
+
+  .button-list-container {
+    position: absolute;
+    top: 100%;
+    width: max-content;
+    border: 1px solid black;
+    z-index: 10;
+  }
+}

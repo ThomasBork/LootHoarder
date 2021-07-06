@@ -1,0 +1,28 @@
+.content {
+  display: flex;
+  align-items: center;
+
+  .hero-image-and-name {
+    display: flex;
+    align-items: center;
+
+    .hero-image {
+      height: 80px;
+      width: 60px;
+    }
+  }
+
+  .hero-selector {
+    margin-left: 10px;
+
+    .hero-container {
+      display: flex;
+      align-items: center;
+      
+      .hero-image {
+        height: 80px;
+        width: 60px;
+      }
+    }
+  }
+}

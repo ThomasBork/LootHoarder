@@ -1,0 +1,17 @@
+.content {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+
+  .value {
+    align-self: center;
+    flex: 1 1 0;
+  }
+
+  .value-selector {
+    margin-left: 10px;
+  }
+}

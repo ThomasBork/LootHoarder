@@ -1,14 +1,18 @@
 <ul>
-  <li>
-    <div>
+  <li class="setting-container">
+    <div class="check-box-setting">
+      <app-check-box 
+        [(checked)]="automaticallyGoToNextCombat" 
+      ></app-check-box>
       <span>Automatically go to next combat in the area after winning a combat</span>
-      <input type="checkbox" [(ngModel)]="automaticallyGoToNextCombat" />
     </div>
   </li>
-  <li>
-    <div>
+  <li class="setting-container">
+    <div class="check-box-setting">
+      <app-check-box 
+        [(checked)]="alwaysShowChat" 
+      ></app-check-box>
       <span>Always show chat</span>
-      <input type="checkbox" [(ngModel)]="alwaysShowChat" />
     </div>
   </li>
 </ul>

@@ -1,0 +1,19 @@
+<div class="content">
+  <app-split-button 
+    [title]="''"
+    [anchorToRightSide]="true"
+  >
+    <app-split-button-item 
+      *ngFor="let ability of abilities"
+      (click)="selectAbility(ability)"
+    >
+      <div class="ability-container">
+        <img 
+          [src]="'assets/images/abilities/' + ability.type.key + '-thumbnail.png'" 
+          class="image"
+        />
+        <span>{{ability.type.name}}</span>
+      </div>
+    </app-split-button-item>
+  </app-split-button>
+</div>

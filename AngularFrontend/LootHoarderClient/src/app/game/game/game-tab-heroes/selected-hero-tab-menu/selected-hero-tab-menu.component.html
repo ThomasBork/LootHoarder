@@ -25,6 +25,12 @@
       ></app-notification-bubble>
     </li>
     <li 
+      *ngIf="behaviorsTab.isEnabled"
+      class="tab-button"
+      [class.selected]="selectedTab === behaviorsTab"
+      (click)="changeTab(behaviorsTab)"
+    >Behaviors</li>
+    <li 
       *ngIf="managementTab.isEnabled"
       class="tab-button"
       [class.selected]="selectedTab === managementTab"
@@ -47,6 +53,11 @@
       *ngIf="selectedTab === passivesTab"
       [hero]="hero"
     ></app-selected-hero-passives-tab>
+    
+    <app-selected-hero-behaviors-tab
+      *ngIf="selectedTab === behaviorsTab"
+      [hero]="hero"
+    ></app-selected-hero-behaviors-tab>
     
     <app-selected-hero-management-tab
       *ngIf="selectedTab === managementTab"

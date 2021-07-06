@@ -1,0 +1,28 @@
+.content {
+  display: flex;
+  flex-direction: column;
+
+  .button {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+  
+  .inner-predicate-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+
+    .delete {
+      margin-right: 10px;
+    }
+
+    .inner-predicate {
+      flex: 1 1 0;
+    }
+  }
+
+  .add {
+    margin-top: 10px;
+  }
+}

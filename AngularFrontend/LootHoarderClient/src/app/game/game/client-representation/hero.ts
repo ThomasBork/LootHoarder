@@ -1,6 +1,7 @@
 import { ContractInventoryPosition } from "src/loot-hoarder-contract/contract-inventory-position";
 import { AreaHero } from "./area-hero";
 import { AttributeSet } from "./attribute-set";
+import { CharacterBehavior } from "./character-behavior/character-behavior";
 import { HeroAbility } from "./hero-ability";
 import { HeroSkillTreeStatus } from "./hero-skill-tree-status";
 import { HeroType } from "./hero-type";
@@ -22,6 +23,8 @@ export class Hero {
   public unspentSkillPoints: number;
   public skillTree: HeroSkillTreeStatus;
   public abilities: HeroAbility[];
+  public behaviors: CharacterBehavior[];
+  public currentBehavior?: CharacterBehavior;
 
   public constructor(
     id: number,
@@ -37,6 +40,8 @@ export class Hero {
     unspentSkillPoints: number,
     skillTree: HeroSkillTreeStatus,
     abilities: HeroAbility[],
+    behaviors: CharacterBehavior[],
+    currentBehavior: CharacterBehavior | undefined
   ) {
     this.id = id;
     this.type = type;
@@ -51,6 +56,8 @@ export class Hero {
     this.unspentSkillPoints = unspentSkillPoints;
     this.skillTree = skillTree;
     this.abilities = abilities;
+    this.behaviors = behaviors;
+    this.currentBehavior = currentBehavior;
   }
 
   public equipItem(item: Item, inventoryPosition: ContractInventoryPosition): void {
@@ -78,5 +85,13 @@ export class Hero {
     if (index >= 0) {
       this.abilities.splice(index, 1);
     }
+  }
+
+  public getBehavior(behaviorId: number): CharacterBehavior {
+    const behavior = this.behaviors.find(b => b.id === behaviorId);
+    if (!behavior) {
+      throw Error (`Behavior with id ${behaviorId} was not found.`);
+    }
+    return behavior;
   }
 }

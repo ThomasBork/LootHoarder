@@ -141,5 +141,16 @@
       "amount": { "min": 10, "max": 30, "isInteger": true }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
+  },
+  {
+    "weight": 500,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "resistance",
+      "abilityTags": ["poison"],
+      "amount": { "min": 10, "max": 30, "isInteger": true }
+    },
+    "itemCategories": ["head", "chest", "legs", "foot"]
   }
 ]

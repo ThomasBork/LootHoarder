@@ -1,0 +1,18 @@
+.content {
+  display: flex;
+  align-items: center;
+
+  .relation-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    .relation-selector {
+      margin-left: 5px;
+    }
+  }
+}

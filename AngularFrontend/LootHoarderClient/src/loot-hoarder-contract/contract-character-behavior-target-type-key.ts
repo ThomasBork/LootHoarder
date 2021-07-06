@@ -1,5 +1,4 @@
 export enum ContractCharacterBehaviorTargetTypeKey {
-  noTarget = 'no-target',
   specificHero = 'specific-hero',
   randomCharacter = 'random-character',
   randomAlly = 'random-ally',

@@ -162,6 +162,10 @@ export class AssetManagerService {
     return itemType;
   }
 
+  public getAllContinuousEffectTypes(): ContinuousEffectType[] {
+    return [...this.continuousEffectTypes];
+  }
+
   public getContinuousEffectType(key: string): ContinuousEffectType {
     const continuousEffectType = this.continuousEffectTypes.find(x => x.key === key);
     if (!continuousEffectType) {

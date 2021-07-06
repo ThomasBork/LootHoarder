@@ -25,6 +25,14 @@ export class CharacterBehavior {
     };
   }
 
+  public toDbModel(): DbCharacterBehavior {
+    return {
+      id: this.id,
+      name: this.name,
+      prioritizedActions: this.prioritizedActions.map(action => action.toDbModel())
+    };
+  }
+
   public static load(dbModel: DbCharacterBehavior): CharacterBehavior {
     const actions = dbModel.prioritizedActions.map(action => CharacterBehaviorAction.load(action));
     return new CharacterBehavior(dbModel, actions);

@@ -1,3 +1,4 @@
+import { ContractCharacterBehaviorTarget } from "src/loot-hoarder-contract/contract-character-behavior-target";
 import { ContractCharacterBehaviorTargetTypeKey } from "src/loot-hoarder-contract/contract-character-behavior-target-type-key";
 import { DbCharacterBehaviorTarget } from "src/raw-game-state/db-character-behavior-target";
 import { CharacterBehaviorTarget } from "./character-behavior-target";
@@ -21,7 +22,7 @@ export class CharacterBehaviorTargetCharacterWithExtremeValue extends CharacterB
     this.value = value;
   }
 
-  public toContractModel(): DbCharacterBehaviorTarget {
+  public toContractModel(): ContractCharacterBehaviorTarget {
     const typeKey = this.matchLeastValue
       ? !this.canTargetAllies
         ? ContractCharacterBehaviorTargetTypeKey.enemyWithTheLeastValue
@@ -37,6 +38,25 @@ export class CharacterBehaviorTargetCharacterWithExtremeValue extends CharacterB
     return {
       typeKey: typeKey,
       value: this.value.toContractModel(),
+    };
+  }
+
+  public toDbModel(): DbCharacterBehaviorTarget {
+    const typeKey = this.matchLeastValue
+      ? !this.canTargetAllies
+        ? ContractCharacterBehaviorTargetTypeKey.enemyWithTheLeastValue
+        : !this.canTargetEnemies
+          ? ContractCharacterBehaviorTargetTypeKey.allyWithTheLeastValue
+          : ContractCharacterBehaviorTargetTypeKey.characterWithTheLeastValue
+      : !this.canTargetAllies
+        ? ContractCharacterBehaviorTargetTypeKey.enemyWithTheMostValue
+        : !this.canTargetEnemies
+          ? ContractCharacterBehaviorTargetTypeKey.allyWithTheMostValue
+          : ContractCharacterBehaviorTargetTypeKey.characterWithTheMostValue
+    
+    return {
+      typeKey: typeKey,
+      value: this.value.toDbModel(),
     };
   }
 }

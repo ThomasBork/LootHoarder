@@ -1,0 +1,25 @@
+<div class="content">
+  <app-behavior-value 
+    [(value)]="predicate.leftValue"
+    [hero]="hero"
+  ></app-behavior-value>
+
+  <span class="relation-container">
+    <span>{{translateValueRelation(predicate.valueRelation)}}</span>
+    <app-split-button
+      [title]="''"
+      [anchorToRightSide]="true"
+      class="relation-selector"
+    >
+      <app-split-button-item
+        *ngFor="let valueRelation of allPossibleValueRelations"
+        (click)="selectValueRelation(valueRelation)"
+      >{{translateValueRelation(valueRelation)}}</app-split-button-item>
+    </app-split-button>
+  </span>
+
+  <app-behavior-value 
+    [(value)]="predicate.rightValue"
+    [hero]="hero"
+  ></app-behavior-value>
+</div>

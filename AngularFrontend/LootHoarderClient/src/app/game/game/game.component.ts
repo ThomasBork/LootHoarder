@@ -10,12 +10,12 @@ import { ContractClientMessageType } from 'src/loot-hoarder-contract/client-acti
 import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-message';
 import { ContractServerMessageType } from 'src/loot-hoarder-contract/server-actions/contract-server-message-type';
 import { ContractCombatWebSocketInnerMessage } from 'src/loot-hoarder-contract/server-actions/contract-combat-web-socket-inner-message';
-import { UIState } from './client-representation/ui-state';
 import { UIStateMapper } from './ui-state-mapper';
 import { UIStateAdvancer } from './ui-state-advancer';
 import { ContractServerWebSocketMultimessageContent } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-multimessage-content';
 import { ContractHeroGainedExperienceMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-gained-experience-message-content';
 import { ContractHeroAttributeChangedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-attribute-changed-message-content';
+import { ContractHeroCurrentBehaviorChangedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-current-behavior-changed-message-content';
 import { ContractAreaAbandonedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-area-abandoned-message-content';
 import { ContractCombatStartedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-combat-started-message-content';
 import { ContractAreaTypeCompletedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-area-type-completed-message-content';
@@ -39,7 +39,7 @@ import { ContractHeroAbilityValueKey } from 'src/loot-hoarder-contract/contract-
 import { ContractGameTabUnlockedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-game-tab-unlocked-message-content';
 import { ContractQuestUpdatedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-quest-updated-message-content';
 import { ContractAchievementUpdatedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-achievement-updated-message-content';
-import { ContractHeroSlotAddedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-slot-added-message-content';
+import { ContractHeroBehaviorCreatedMessageContent } from 'src/loot-hoarder-contract/server-actions/contract-hero-behavior-created-message-content';
 
 
 @Component({
@@ -180,6 +180,24 @@ export class GameComponent implements OnInit, OnDestroy {
       case ContractServerMessageType.heroDeleted: {
         const data = message.data as ContractHeroDeletedMessageContent;
         this.uiStateManager.state.removeHero(data.heroId);
+      }
+      break;
+      case ContractServerMessageType.heroBehaviorCreated: {
+        const data = message.data as ContractHeroBehaviorCreatedMessageContent;
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
+        const behavior = this.gameStateMapper.mapCharacterBehavior(data.behavior, hero.abilities);
+        this.uiStateManager.state.addBehaviorToHero(hero, behavior);
+      }
+      break;
+      case ContractServerMessageType.heroCurrentBehaviorChanged: {
+        const data = message.data as ContractHeroCurrentBehaviorChangedMessageContent;
+        const hero = this.uiStateManager.state.game.getHero(data.heroId);
+        if (data.behaviorId) {
+          const behavior = hero.getBehavior(data.behaviorId);
+          hero.currentBehavior = behavior;
+        } else {
+          hero.currentBehavior = undefined;
+        }
       }
       break;
       case ContractServerMessageType.areaAdded: {

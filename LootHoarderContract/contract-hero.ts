@@ -19,4 +19,5 @@ export interface ContractHero {
   availableSkillNodes: ContractSkillNodeLocation[];
   abilities: ContractHeroAbility[];
   behaviors: ContractCharacterBehavior[];
+  currentBehaviorId: number | undefined;
 }

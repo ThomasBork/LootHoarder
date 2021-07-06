@@ -20,6 +20,9 @@ import { SettingsTab } from "./settings-tab";
 import { QuestRewardUnlockTab } from "./quest-reward-unlock-tab";
 import { Quest } from "./quest";
 import { Achievement } from "./achievement";
+import { WebSocketService } from "../../web-socket/web-socket.service";
+import { CharacterBehavior } from "./character-behavior/character-behavior";
+import { ContractUpdateHeroBehaviorMessage } from "src/loot-hoarder-contract/client-actions/contract-update-hero-behavior-message";
 
 export class UIState {
   public userId: number;
@@ -39,10 +42,14 @@ export class UIState {
 
   public allTabsAndChildTabs: GameTab[];
 
-  public constructor(userId: number, userName: string, game: Game) {
+  public webSocketService: WebSocketService;
+
+  public constructor(userId: number, userName: string, game: Game, webSocketService: WebSocketService) {
     this.userId = userId;
     this.userName = userName;
     this.game = game;
+
+    this.webSocketService = webSocketService;
 
     this.worldTab = new WorldTab();
     this.heroesTab = new HeroTab();
@@ -80,6 +87,28 @@ export class UIState {
     this.selectedTab = game.heroes.length === 0 ? this.heroesTab : this.worldTab;
     if (game.heroes.length === 1) {
       this.heroesTab.selectedHero = game.heroes[0];
+    }
+
+    this.game.heroes.forEach(hero => 
+      hero.behaviors.forEach(behavior => 
+        behavior.onChange.subscribe(() => this.sendUpdateBehaviorMessage(hero, behavior))))
+  }
+
+  private sendUpdateBehaviorMessage(hero: Hero, behavior: CharacterBehavior): void {
+    const message = new ContractUpdateHeroBehaviorMessage(hero.id, behavior.toContractModel());
+    this.webSocketService.send(message);
+  }
+
+  public addBehaviorToHero(hero: Hero, behavior: CharacterBehavior): void {
+    behavior.onChange.subscribe(() => this.sendUpdateBehaviorMessage(hero, behavior));
+    hero.behaviors.push(behavior);
+    if (
+      hero.behaviors.length === 1 
+      && this.selectedTab === this.heroesTab
+      && this.heroesTab.selectedTab === this.heroesTab.behaviorsTab
+      && this.heroesTab.selectedHero === hero
+    ) {
+      this.heroesTab.behaviorsTab.selectedBehavior = behavior;
     }
   }
 

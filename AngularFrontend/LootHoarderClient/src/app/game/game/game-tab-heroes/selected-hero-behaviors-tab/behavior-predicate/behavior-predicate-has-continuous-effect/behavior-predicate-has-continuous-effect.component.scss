@@ -1,0 +1,26 @@
+.content {
+  display: flex;
+  align-items: center;
+  
+  >.image {
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .continuous-effect-type-selector {
+    margin-left: 5px;
+
+    .continuous-effect-type-container {
+      display: flex;
+      align-items: center;
+
+      .image {
+        width: 40px;
+        height: 40px;
+        margin-right: 5px;
+      }
+    }
+  }
+}

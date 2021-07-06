@@ -53,11 +53,36 @@ import { GameTabQuestsComponent } from './game/game/game-tab-quests/game-tab-que
 import { TabMenuComponent } from './shared/tab-menu/tab-menu.component';
 import { TabComponent } from './shared/tab-menu/tab/tab.component';
 import { AccomplishmentComponent } from './game/game/accomplishment/accomplishment.component';
+import { SelectedHeroBehaviorsTabComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/selected-hero-behaviors-tab.component';
+import { BehaviorActionComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-action/behavior-action.component';
+import { SplitButtonComponent } from './shared/split-button/split-button.component';
+import { SplitButtonItemComponent } from './shared/split-button/split-button-item/split-button-item.component';
+import { BehaviorTargetComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-target/behavior-target.component';
+import { BehaviorTargetRandomCharacterComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-target/behavior-target-random-character/behavior-target-random-character.component';
+import { BehaviorTargetRandomCharacterMatchingPredicateComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-target/behavior-target-random-character-matching-predicate/behavior-target-random-character-matching-predicate.component';
+import { BehaviorPredicateComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-predicate/behavior-predicate.component';
+import { BehaviorPredicateAbilityReadyComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-predicate/behavior-predicate-ability-ready/behavior-predicate-ability-ready.component';
+import { HeroAbilityPickerComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/hero-ability-picker/hero-ability-picker.component';
+import { BehaviorPredicateHasContinuousEffectComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-predicate/behavior-predicate-has-continuous-effect/behavior-predicate-has-continuous-effect.component';
+import { BehaviorPredicateAndComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-predicate/behavior-predicate-and/behavior-predicate-and.component';
+import { BehaviorPredicateOrComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-predicate/behavior-predicate-or/behavior-predicate-or.component';
+import { BehaviorPredicateNotComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-predicate/behavior-predicate-not/behavior-predicate-not.component';
+import { BehaviorTargetSpecificHeroComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-target/behavior-target-specific-hero/behavior-target-specific-hero.component';
+import { BehaviorPredicateRelativeValuesComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-predicate/behavior-predicate-relative-values/behavior-predicate-relative-values.component';
+import { BehaviorValueComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-value/behavior-value.component';
+import { BehaviorValueNumberComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-value/behavior-value-number/behavior-value-number.component';
+import { BehaviorValueRemainingCooldownOfAbilityComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-value/behavior-value-remaining-cooldown-of-ability/behavior-value-remaining-cooldown-of-ability.component';
+import { BehaviorTargetCharacterWithExtremeValueComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-target/behavior-target-character-with-extreme-value/behavior-target-character-with-extreme-value.component';
+import { BehaviorValueAttributeComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-value/behavior-value-attribute/behavior-value-attribute.component';
+import { AbilityTagComponent } from './game/game/ability-tag/ability-tag.component';
+import { CheckBoxComponent } from './shared/check-box/check-box.component';
 
 @NgModule({
   declarations: [
+    AbilityTagComponent,
     AccomplishmentComponent,
     AppComponent,
+    CheckBoxComponent,
     CreateNewHeroComponent,
     LabelWithValueComponent,
     LoginComponent,
@@ -72,6 +97,7 @@ import { AccomplishmentComponent } from './game/game/accomplishment/accomplishme
     SelectedHeroAbilitiesTabComponent,
     SelectedHeroItemsTabComponent,
     SelectedHeroPassivesTabComponent,
+    SelectedHeroBehaviorsTabComponent,
     SelectedHeroManagementTabComponent,
     HeroInformationComponent,
     HeroWithItemsComponent,
@@ -93,6 +119,26 @@ import { AccomplishmentComponent } from './game/game/accomplishment/accomplishme
     NotificationBubbleComponent,
     TabMenuComponent,
     TabComponent,
+    HeroAbilityPickerComponent,
+    BehaviorActionComponent,
+    BehaviorPredicateComponent,
+    BehaviorPredicateAbilityReadyComponent,
+    BehaviorPredicateHasContinuousEffectComponent,
+    BehaviorPredicateAndComponent,
+    BehaviorPredicateOrComponent,
+    BehaviorPredicateNotComponent,
+    BehaviorPredicateRelativeValuesComponent,
+    BehaviorTargetComponent,
+    BehaviorTargetRandomCharacterComponent,
+    BehaviorTargetRandomCharacterMatchingPredicateComponent,
+    BehaviorTargetSpecificHeroComponent,
+    BehaviorTargetCharacterWithExtremeValueComponent,
+    BehaviorValueComponent,
+    BehaviorValueNumberComponent,
+    BehaviorValueRemainingCooldownOfAbilityComponent,
+    BehaviorValueAttributeComponent,
+    SplitButtonComponent,
+    SplitButtonItemComponent
   ],
   imports: [
     BrowserModule,

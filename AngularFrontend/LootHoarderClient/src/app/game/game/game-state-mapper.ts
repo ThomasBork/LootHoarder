@@ -43,6 +43,36 @@ import { GameTabReference } from "./client-representation/game-tab-reference";
 import { Accomplishment } from "./client-representation/accomplishment";
 import { Quest } from "./client-representation/quest";
 import { Achievement } from "./client-representation/achievement";
+import { ContractCharacterBehavior } from "src/loot-hoarder-contract/contract-character-behavior";
+import { CharacterBehavior } from "./client-representation/character-behavior/character-behavior";
+import { ContractCharacterBehaviorAction } from "src/loot-hoarder-contract/contract-character-behavior-action";
+import { CharacterBehaviorAction } from "./client-representation/character-behavior/character-behavior-action";
+import { ContractCharacterBehaviorPredicate } from "src/loot-hoarder-contract/contract-character-behavior-predicate";
+import { ContractCharacterBehaviorPredicateTypeKey } from "src/loot-hoarder-contract/contract-character-behavior-predicate-type-key";
+import { CharacterBehaviorPredicateNot } from "./client-representation/character-behavior/character-behavior-predicate-not";
+import { CharacterBehaviorPredicateAnd } from "./client-representation/character-behavior/character-behavior-predicate-and";
+import { CharacterBehaviorPredicateOr } from "./client-representation/character-behavior/character-behavior-predicate-or";
+import { CharacterBehaviorPredicateRelativeValues } from "./client-representation/character-behavior/character-behavior-predicate-relative-values";
+import { CharacterBehaviorPredicateAbilityReady } from "./client-representation/character-behavior/character-behavior-predicate-ability-ready";
+import { CharacterBehaviorPredicateHasContinuousEffect } from "./client-representation/character-behavior/character-behavior-predicate-has-continuous-effect";
+import { ContractCharacterBehaviorTarget } from "src/loot-hoarder-contract/contract-character-behavior-target";
+import { CharacterBehaviorPredicate } from "./client-representation/character-behavior/character-behavior-predicate";
+import { CharacterBehaviorTarget } from "./client-representation/character-behavior/character-behavior-target";
+import { ContractCharacterBehaviorTargetTypeKey } from "src/loot-hoarder-contract/contract-character-behavior-target-type-key";
+import { CharacterBehaviorTargetRandomCharacter } from "./client-representation/character-behavior/character-behavior-target-random-character";
+import { CharacterBehaviorTargetRandomCharacterMatchingPredicate } from "./client-representation/character-behavior/character-behavior-target-random-character-matching-predicate";
+import { CharacterBehaviorTargetSpecificHero } from "./client-representation/character-behavior/character-behavior-target-specific-hero";
+import { ContractCharacterBehaviorValue } from "src/loot-hoarder-contract/contract-character-behavior-value";
+import { CharacterBehaviorValue } from "./client-representation/character-behavior/character-behavior-value";
+import { ContractCharacterBehaviorValueTypeKey } from "src/loot-hoarder-contract/contract-character-behavior-value-type-key";
+import { CharacterBehaviorValueAttribute } from "./client-representation/character-behavior/character-behavior-value-attribute";
+import { CharacterBehaviorValueCurrentHealth } from "./client-representation/character-behavior/character-behavior-value-current-health";
+import { CharacterBehaviorValueCurrentMana } from "./client-representation/character-behavior/character-behavior-value-current-mana";
+import { CharacterBehaviorValuePercentageCurrentHealth } from "./client-representation/character-behavior/character-behavior-value-percentage-current-health";
+import { CharacterBehaviorValuePercentageCurrentMana } from "./client-representation/character-behavior/character-behavior-value-percentage-current-mana";
+import { CharacterBehaviorValueNumber } from "./client-representation/character-behavior/character-behavior-value-number";
+import { CharacterBehaviorValueRemainingCooldownOfAbility } from "./client-representation/character-behavior/character-behavior-value-remaining-cooldown-of-ability";
+import { CharacterBehaviorTargetCharacterWithExtremeValue } from "./client-representation/character-behavior/character-behavior-target-character-with-extreme-value";
 
 @Injectable()
 export class GameStateMapper {
@@ -141,6 +171,8 @@ export class GameStateMapper {
       skillTree.transitions
     );
     const abilities = serverHero.abilities.map(ability => this.mapToHeroAbility(ability));
+    const behaviors = serverHero.behaviors.map(behavior => this.mapCharacterBehavior(behavior, abilities));
+    const currentBehavior = behaviors.find(behavior => behavior.id === serverHero.currentBehaviorId);
 
     return new Hero (
       serverHero.id,
@@ -155,7 +187,9 @@ export class GameStateMapper {
       serverHero.cosmetics.mouthId,
       serverHero.unspentSkillPoints,
       skillTreeWithStatus,
-      abilities
+      abilities,
+      behaviors,
+      currentBehavior
     );
   }
 
@@ -343,6 +377,211 @@ export class GameStateMapper {
         return new PassiveAbilityUnlockAbility(abilityType, serverPassiveAbility.parameters);
       default: 
         throw Error (`Unhandled ability type: ${abilityType.key}`);
+    }
+  }
+
+  public mapCharacterBehavior(behavior: ContractCharacterBehavior, allHeroAbilities: HeroAbility[]): CharacterBehavior {
+    const actions = behavior.prioritizedActions.map(action => {
+      const heroAbility = allHeroAbilities.find(ability => ability.id === action.abilityId);
+      if (!heroAbility) {
+        throw Error (`Could not find the ability in the list of hero abilities when mapping to a character behavior action`);
+      }
+      return this.mapCharacterBehaviorAction(action, heroAbility, allHeroAbilities);
+    });
+    return new CharacterBehavior(behavior.id, behavior.name, actions);
+  }
+
+  public mapCharacterBehaviorAction(action: ContractCharacterBehaviorAction, heroAbility: HeroAbility, allHeroAbilities: HeroAbility[]): CharacterBehaviorAction {
+    const predicate = action.predicate ? this.mapCharacterBehaviorPredicate(action.predicate, allHeroAbilities) : undefined;
+    const target = action.target ? this.mapCharacterBehaviorTarget(action.target, allHeroAbilities) : undefined;
+    return new CharacterBehaviorAction(predicate, heroAbility, target);
+  }
+
+  public mapCharacterBehaviorPredicate(predicate: ContractCharacterBehaviorPredicate, allHeroAbilities: HeroAbility[]): CharacterBehaviorPredicate {
+    switch(predicate.typeKey) {
+      case ContractCharacterBehaviorPredicateTypeKey.not: {
+        if (!predicate.innerPredicate) {
+          throw Error (`Expected an inner predicate in a ${predicate.typeKey} predicate`);
+        }
+        const innerPredicate = this.mapCharacterBehaviorPredicate(predicate.innerPredicate, allHeroAbilities);
+        return new CharacterBehaviorPredicateNot(innerPredicate);
+      }
+      case ContractCharacterBehaviorPredicateTypeKey.and: {
+        if (!predicate.innerPredicates) {
+          throw Error (`Expected inner predicates in a ${predicate.typeKey} predicate`);
+        }
+        const innerPredicates = predicate.innerPredicates.map(innerPredicate => this.mapCharacterBehaviorPredicate(innerPredicate, allHeroAbilities));
+        return new CharacterBehaviorPredicateAnd(innerPredicates);
+      }
+      case ContractCharacterBehaviorPredicateTypeKey.or: {
+        if (!predicate.innerPredicates) {
+          throw Error (`Expected inner predicates in a ${predicate.typeKey} predicate`);
+        }
+        const innerPredicates = predicate.innerPredicates.map(innerPredicate => this.mapCharacterBehaviorPredicate(innerPredicate, allHeroAbilities));
+        return new CharacterBehaviorPredicateOr(innerPredicates);
+      }
+      case ContractCharacterBehaviorPredicateTypeKey.relativeValues: {
+        if (!predicate.leftValue) {
+          throw Error (`Expected a left value in a ${predicate.typeKey} predicate`);
+        }
+        if (!predicate.rightValue) {
+          throw Error (`Expected a right value in a ${predicate.typeKey} predicate`);
+        }
+        if (!predicate.valueRelation) {
+          throw Error (`Expected a value relation in a ${predicate.typeKey} predicate`);
+        }
+        const leftValue = this.mapCharacterBehaviorValue(predicate.leftValue, allHeroAbilities);
+        const rightValue = this.mapCharacterBehaviorValue(predicate.rightValue, allHeroAbilities);
+        return new CharacterBehaviorPredicateRelativeValues(leftValue, rightValue, predicate.valueRelation);
+      }
+      case ContractCharacterBehaviorPredicateTypeKey.abilityReady: {
+        if (!predicate.abilityId) {
+          throw Error (`Expected an ability id in a ${predicate.typeKey} predicate`);
+        }
+        const heroAbility = allHeroAbilities.find(ability => ability.id === predicate.abilityId);
+        if (!heroAbility) {
+          throw Error (`Could not find the ability in the list of hero abilities when mapping to an ability ready character behavior predicate`);
+        }
+        return new CharacterBehaviorPredicateAbilityReady(heroAbility);
+      }
+      case ContractCharacterBehaviorPredicateTypeKey.hasContinuousEffect: {
+        if (!predicate.continuousEffectTypeKey) {
+          throw Error (`Expected an continuous effect type key in a ${predicate.typeKey} predicate`);
+        }
+        const continuousEffectType = this.assetManagerService.getContinuousEffectType(predicate.continuousEffectTypeKey);
+        return new CharacterBehaviorPredicateHasContinuousEffect(continuousEffectType);
+      }
+      default: 
+        throw Error (`Unhandled behavior action predicate type: ${predicate.typeKey}`);
+    }
+  }
+
+  public mapCharacterBehaviorTarget(target: ContractCharacterBehaviorTarget, allHeroAbilities: HeroAbility[]): CharacterBehaviorTarget {
+    switch(target.typeKey) {
+      case ContractCharacterBehaviorTargetTypeKey.randomAlly: {
+        return new CharacterBehaviorTargetRandomCharacter(true, false);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.randomEnemy: {
+        return new CharacterBehaviorTargetRandomCharacter(false, true);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.randomCharacter: {
+        return new CharacterBehaviorTargetRandomCharacter(true, true);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.randomAllyMatchingPredicate: {
+        if (!target.predicate) {
+          throw Error (`Expected a predicate in a ${target.typeKey} value`);
+        }
+        const predicate = this.mapCharacterBehaviorPredicate(target.predicate, allHeroAbilities);
+        return new CharacterBehaviorTargetRandomCharacterMatchingPredicate(true, false, predicate);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.randomEnemyMatchingPredicate: {
+        if (!target.predicate) {
+          throw Error (`Expected a predicate in a ${target.typeKey} value`);
+        }
+        const predicate = this.mapCharacterBehaviorPredicate(target.predicate, allHeroAbilities);
+        return new CharacterBehaviorTargetRandomCharacterMatchingPredicate(false, true, predicate);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.randomCharacterMatchingPredicate: {
+        if (!target.predicate) {
+          throw Error (`Expected a predicate in a ${target.typeKey} value`);
+        }
+        const predicate = this.mapCharacterBehaviorPredicate(target.predicate, allHeroAbilities);
+        return new CharacterBehaviorTargetRandomCharacterMatchingPredicate(true, true, predicate);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.specificHero: {
+        if (!target.heroId) {
+          throw Error (`Expected a hero id in a ${target.typeKey} value`);
+        }
+        return new CharacterBehaviorTargetSpecificHero(target.heroId);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.allyWithTheLeastValue: {
+        if (!target.value) {
+          throw Error (`Expected a value in a ${target.typeKey} value`);
+        }
+        const value = this.mapCharacterBehaviorValue(target.value, allHeroAbilities);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(true, false, true, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.allyWithTheMostValue: {
+        if (!target.value) {
+          throw Error (`Expected a value in a ${target.typeKey} value`);
+        }
+        const value = this.mapCharacterBehaviorValue(target.value, allHeroAbilities);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(true, false, false, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.enemyWithTheLeastValue: {
+        if (!target.value) {
+          throw Error (`Expected a value in a ${target.typeKey} value`);
+        }
+        const value = this.mapCharacterBehaviorValue(target.value, allHeroAbilities);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(false, true, true, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.enemyWithTheMostValue: {
+        if (!target.value) {
+          throw Error (`Expected a value in a ${target.typeKey} value`);
+        }
+        const value = this.mapCharacterBehaviorValue(target.value, allHeroAbilities);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(false, true, false, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.characterWithTheLeastValue: {
+        if (!target.value) {
+          throw Error (`Expected a value in a ${target.typeKey} value`);
+        }
+        const value = this.mapCharacterBehaviorValue(target.value, allHeroAbilities);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(true, true, true, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.characterWithTheMostValue: {
+        if (!target.value) {
+          throw Error (`Expected a value in a ${target.typeKey} value`);
+        }
+        const value = this.mapCharacterBehaviorValue(target.value, allHeroAbilities);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(true, true, false, value);
+      }
+      default: 
+        throw Error (`Unhandled behavior action target type: ${target.typeKey}`);
+    }
+  }
+
+  public mapCharacterBehaviorValue(value: ContractCharacterBehaviorValue, allHeroAbilities: HeroAbility[]): CharacterBehaviorValue {
+    switch(value.typeKey) {
+      case ContractCharacterBehaviorValueTypeKey.attribute: {
+        if (!value.attributeTypeKey) {
+          throw Error (`Expected an attribute type key in a ${value.typeKey} value`);
+        }
+        if (!value.attributeAbilityTags) {
+          throw Error (`Expected attribute ability tags in a ${value.typeKey} value`);
+        }
+        return new CharacterBehaviorValueAttribute(value.attributeTypeKey, value.attributeAbilityTags);
+      }
+      case ContractCharacterBehaviorValueTypeKey.currentHealth: {
+        return new CharacterBehaviorValueCurrentHealth();
+      }
+      case ContractCharacterBehaviorValueTypeKey.currentMana: {
+        return new CharacterBehaviorValueCurrentMana();
+      }
+      case ContractCharacterBehaviorValueTypeKey.percentageCurrentHealth: {
+        return new CharacterBehaviorValuePercentageCurrentHealth();
+      }
+      case ContractCharacterBehaviorValueTypeKey.percentageCurrentMana: {
+        return new CharacterBehaviorValuePercentageCurrentMana();
+      }
+      case ContractCharacterBehaviorValueTypeKey.number: {
+        if (!value.number) {
+          throw Error (`Expected a number in a ${value.typeKey} value`);
+        }
+        return new CharacterBehaviorValueNumber(value.number);
+      }
+      case ContractCharacterBehaviorValueTypeKey.remainingCooldownOfAbility: {
+        if (!value.abilityId) {
+          throw Error (`Expected an ability id in a ${value.typeKey} value`);
+        }
+        const heroAbility = allHeroAbilities.find(ability => ability.id === value.abilityId);
+        if (!heroAbility) {
+          throw Error (`Could not find the ability in the list of hero abilities when mapping to a remaining cooldown of ability behavior value`);
+        }
+        return new CharacterBehaviorValueRemainingCooldownOfAbility(heroAbility);
+      }
+      default: 
+        throw Error (`Unhandled behavior value type: ${value.typeKey}`);
     }
   }
 }

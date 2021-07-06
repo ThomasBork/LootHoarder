@@ -30,17 +30,26 @@ import { join } from 'path';
 import { TakeHeroSkillNodeHandler } from './game-message-handlers/from-client/take-hero-skill-node-handler';
 import { SendChatMessageHandler } from './game-message-handlers/from-client/send-chat-message-handler';
 import { DeleteHeroHandler } from './game-message-handlers/from-client/delete-hero-handler';
+import { CreateHeroBehaviorHandler } from './game-message-handlers/from-client/create-hero-behavior-handler';
+import { UpdateHeroBehaviorHandler } from './game-message-handlers/from-client/update-hero-behavior-handler';
+import { SetCurrentHeroBehaviorHandler } from './game-message-handlers/from-client/set-current-hero-behavior-handler';
+import { CharacterBehaviorValueEvaluator } from './services/character-behavior-value-evaluator';
+import { CharacterBehaviorPredicateEvaluator } from './services/character-behavior-predicate-evaluator';
+import { CharacterBehaviorTargetEvaluator } from './services/character-behavior-target-evaluator';
 
 export const CommandHandlers = [
   CreateHeroHandler,
+  CreateHeroBehaviorHandler,
   DeleteHeroHandler,
   EnterAreaTypeHandler, 
   EquipItemHandler,
   GoToNextCombatHandler,
   LeaveAreaCombatHandler,
   SendChatMessageHandler,
+  SetCurrentHeroBehaviorHandler,
   SetSettingHandler,
   TakeHeroSkillNodeHandler,
+  UpdateHeroBehaviorHandler,
 ];
 
 @Module({
@@ -59,6 +68,9 @@ export const CommandHandlers = [
   providers: [
     AppGateway,
     AuthService,
+    CharacterBehaviorPredicateEvaluator,
+    CharacterBehaviorTargetEvaluator,
+    CharacterBehaviorValueEvaluator,
     CombatUpdaterService,
     ConnectionsManager,
     DbGameRepository,

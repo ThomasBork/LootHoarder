@@ -1,0 +1,18 @@
+<span 
+  (click)="isOpen = !isOpen"
+  class="button"
+>
+  <span 
+    *ngIf="title"
+    class="title"
+  >{{title}}</span>
+  <span class="down-arrow"></span>
+  <div
+    *ngIf="isOpen"
+    [style.left]="anchorToRightSide ? undefined : '0'"
+    [style.right]="anchorToRightSide ? '0' : undefined"
+    class="button-list-container"
+  >
+    <ng-content></ng-content>
+  </div>
+</span>

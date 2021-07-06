@@ -1,3 +1,4 @@
+import { ContractCharacterBehaviorTarget } from "src/loot-hoarder-contract/contract-character-behavior-target";
 import { ContractCharacterBehaviorTargetTypeKey } from "src/loot-hoarder-contract/contract-character-behavior-target-type-key";
 import { DbCharacterBehaviorTarget } from "src/raw-game-state/db-character-behavior-target";
 import { CharacterBehaviorPredicate } from "./character-behavior-predicate";
@@ -18,12 +19,25 @@ export class CharacterBehaviorTargetRandomCharacterMatchingPredicate extends Cha
     this.predicate = predicate;
   }
 
-  public toContractModel(): DbCharacterBehaviorTarget {
+  public toContractModel(): ContractCharacterBehaviorTarget {
     const typeKey = !this.canTargetAllies
-      ? ContractCharacterBehaviorTargetTypeKey.randomEnemy
+      ? ContractCharacterBehaviorTargetTypeKey.randomEnemyMatchingPredicate
       : !this.canTargetEnemies
-        ? ContractCharacterBehaviorTargetTypeKey.randomAlly
-        : ContractCharacterBehaviorTargetTypeKey.randomCharacter;
+        ? ContractCharacterBehaviorTargetTypeKey.randomAllyMatchingPredicate
+        : ContractCharacterBehaviorTargetTypeKey.randomCharacterMatchingPredicate;
+    
+    return {
+      typeKey: typeKey,
+      predicate: this.predicate.toContractModel()
+    };
+  }
+
+  public toDbModel(): DbCharacterBehaviorTarget {
+    const typeKey = !this.canTargetAllies
+      ? ContractCharacterBehaviorTargetTypeKey.randomEnemyMatchingPredicate
+      : !this.canTargetEnemies
+        ? ContractCharacterBehaviorTargetTypeKey.randomAllyMatchingPredicate
+        : ContractCharacterBehaviorTargetTypeKey.randomCharacterMatchingPredicate;
     
     return {
       typeKey: typeKey,

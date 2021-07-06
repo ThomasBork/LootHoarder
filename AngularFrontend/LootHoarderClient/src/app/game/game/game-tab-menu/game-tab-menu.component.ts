@@ -45,5 +45,6 @@ export class GameTabMenuComponent {
   }
   public set selectedTab(tab: GameTab) {
     this.uiStateManager.state.selectedTab = tab;
+    tab.onOpen.next();
   }
 }

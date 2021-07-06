@@ -1,0 +1,22 @@
+<div class="content">
+  <div class="hero-image-and-name">
+    <app-hero-with-items class="hero-image" [hero]="hero"></app-hero-with-items>
+    <span>{{hero.name}}</span>
+  </div>
+
+  <app-split-button 
+    [title]="''"
+    [anchorToRightSide]="true"
+    class="hero-selector"
+  >
+    <app-split-button-item 
+      *ngFor="let otherHero of heroes"
+      (click)="selectHero(otherHero)"
+    >
+      <div class="hero-container">
+        <app-hero-with-items class="hero-image" [hero]="otherHero"></app-hero-with-items>
+        <span>{{otherHero.name}}</span>
+      </div>
+    </app-split-button-item>
+  </app-split-button>
+</div>

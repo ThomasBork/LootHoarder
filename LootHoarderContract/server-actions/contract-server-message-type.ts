@@ -16,6 +16,7 @@ export enum ContractServerMessageType {
   heroAdded = 'hero-added',
   heroAttributeChanged = 'hero-attribute-changed',
   heroBehaviorCreated = 'hero-behavior-created',
+  heroCurrentBehaviorChanged = 'hero-current-behavior-changed',
   heroDeleted = 'hero-deleted',
   heroGainedExperience = 'hero-gained-experience',
   heroSlotAdded = 'hero-slot-added',

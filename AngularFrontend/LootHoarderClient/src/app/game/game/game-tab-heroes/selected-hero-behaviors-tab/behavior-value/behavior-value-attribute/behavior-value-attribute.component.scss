@@ -1,0 +1,20 @@
+.content {
+  display: flex;
+  align-items: center;
+  
+  >.image {
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .ability-tag-selector {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  .attribute-type-selector {
+    margin-left: 5px;
+  }
+}

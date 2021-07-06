@@ -1,0 +1,15 @@
+<div class="content">
+  <img 
+    [src]="'assets/images/abilities/' + ability.type.key + '-thumbnail.png'"
+    class="image"
+  />
+  <span>{{ability.type.name}}</span>
+
+  <app-hero-ability-picker 
+    [abilities]="allAbilities"
+    [(selectedAbility)]="predicate.ability"
+    class="ability-selector"
+  ></app-hero-ability-picker>
+
+  <span>is ready</span>
+</div>

@@ -1,0 +1,64 @@
+<div class="content">
+  <div class="left-container">
+    <ul class="behaviors">
+      <li class="behavior default">
+        <app-check-box 
+          class="check-box" 
+          [checked]="!currentBehavior"
+          [disabled]="!currentBehavior"
+          (checkedChange)="setCurrentBehavior(undefined)"
+          (click)="stopEventPropagation($event)"
+        ></app-check-box>
+        <span>Default behavior</span>
+      </li>
+      <li 
+        *ngFor="let behavior of behaviors"
+        [class.selected]="behavior === selectedBehavior"
+        (click)="selectBehavior(behavior)"
+        class="behavior"
+      >
+        <app-check-box 
+          class="check-box" 
+          [checked]="currentBehavior === behavior"
+          (checkedChange)="handleBehaviorCheckBoxCheckedChange(behavior, $event)"
+          (click)="stopEventPropagation($event)"
+        ></app-check-box>
+        <span>{{behavior.name}}</span>
+      </li>
+    </ul>
+    <div 
+      class="add-behavior-button"
+      (click)="createBehavior()"
+    >Create new custom behavior</div>
+  </div>
+  <div class="right-container">
+    <div *ngIf="selectedBehavior">
+      <div class="title">{{selectedBehavior.name}}</div>
+      <ul class="actions">
+        <li 
+          *ngFor="let action of selectedBehavior.prioritizedActions"
+          class="action"
+        >
+          <app-behavior-action 
+            [hero]="hero"
+            [action]="action"
+          ></app-behavior-action>
+        </li>
+      </ul>
+      <app-split-button [title]="'Add action'">
+        <app-split-button-item 
+          *ngFor="let ability of hero.abilities"
+          (click)="addAction(selectedBehavior, ability)"
+        >
+          <div class="ability-container">
+            <img 
+              [src]="'assets/images/abilities/' + ability.type.key + '-thumbnail.png'" 
+              class="image"
+            />
+            <span>{{ability.type.name}}</span>
+          </div>
+        </app-split-button-item>
+      </app-split-button>
+    </div>
+  </div>
+</div>

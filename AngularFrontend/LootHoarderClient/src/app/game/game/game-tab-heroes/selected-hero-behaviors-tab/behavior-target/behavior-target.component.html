@@ -1,0 +1,46 @@
+<div class="content">
+  <span 
+    *ngIf="!target"
+    class="target"
+  >
+    (No target)
+  </span>
+  <app-behavior-target-random-character 
+    *ngIf="targetAsRandomCharacter"
+    [target]="targetAsRandomCharacter"
+    class="target"
+  ></app-behavior-target-random-character>
+  <app-behavior-target-random-character-matching-predicate 
+    *ngIf="targetAsRandomCharacterMatchingPredicate"
+    [target]="targetAsRandomCharacterMatchingPredicate"
+    class="target"
+  ></app-behavior-target-random-character-matching-predicate>
+  <app-behavior-target-specific-hero 
+    *ngIf="targetAsSpecificHero"
+    [target]="targetAsSpecificHero"
+    class="target"
+  ></app-behavior-target-specific-hero>
+  <app-behavior-target-character-with-extreme-value 
+    *ngIf="targetAsCharacterWithExtremeValue"
+    [target]="targetAsCharacterWithExtremeValue"
+    class="target"
+  ></app-behavior-target-character-with-extreme-value>
+
+  <app-split-button 
+    [title]="''"
+    [anchorToRightSide]="true"
+    class="target-selector"
+  >
+    <app-split-button-item (click)="selectTargetNoTarget()">No target</app-split-button-item>
+    <app-split-button-item (click)="selectTargetSpecificHero()">Specific hero</app-split-button-item>
+    <app-split-button-item (click)="selectTargetRandomAlly()">Random ally</app-split-button-item>
+    <app-split-button-item (click)="selectTargetRandomEnemy()">Random enemy</app-split-button-item>
+    <app-split-button-item (click)="selectTargetRandomCharacter()">Random character</app-split-button-item>
+    <app-split-button-item (click)="selectTargetRandomAllyMatchingPredicate()">Random ally matching predicate</app-split-button-item>
+    <app-split-button-item (click)="selectTargetRandomEnemyMatchingPredicate()">Random enemy matching predicate</app-split-button-item>
+    <app-split-button-item (click)="selectTargetRandomCharacterMatchingPredicate()">Random character matching predicate</app-split-button-item>
+    <app-split-button-item (click)="selectTargetAllyWithExtremeValue()">Ally with extreme value</app-split-button-item>
+    <app-split-button-item (click)="selectTargetEnemyWithExtremeValue()">Enemy with extreme value</app-split-button-item>
+    <app-split-button-item (click)="selectTargetCharacterWithExtremeValue()">Character with extreme value</app-split-button-item>
+  </app-split-button>
+</div>

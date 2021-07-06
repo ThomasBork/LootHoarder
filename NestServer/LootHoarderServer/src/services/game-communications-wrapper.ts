@@ -27,6 +27,8 @@ import { ContractCreateHeroBehaviorMessageContent } from "src/loot-hoarder-contr
 import { CreateHeroBehavior } from "src/game-message-handlers/from-client/create-hero-behavior";
 import { ContractUpdateHeroBehaviorMessageContent } from "src/loot-hoarder-contract/client-actions/contract-update-hero-behavior-message-content";
 import { UpdateHeroBehavior } from "src/game-message-handlers/from-client/update-hero-behavior";
+import { ContractSetCurrentHeroBehaviorMessageContent } from "src/loot-hoarder-contract/client-actions/contract-set-current-hero-behavior-message-content";
+import { SetCurrentHeroBehavior } from "src/game-message-handlers/from-client/set-current-hero-behavior";
 
 export class GameCommunicationsWrapper {
   public game: Game;
@@ -166,6 +168,15 @@ export class GameCommunicationsWrapper {
           this.game,
           data.heroId,
           data.behavior
+        ));
+      }
+      break;
+      case ContractClientMessageType.setCurrentHeroBehavior: {
+        const data: ContractSetCurrentHeroBehaviorMessageContent = message.data;
+        this.commandBus.execute(new SetCurrentHeroBehavior (
+          this.game,
+          data.heroId,
+          data.behaviorId
         ));
       }
       break;

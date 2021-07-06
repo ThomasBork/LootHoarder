@@ -1,0 +1,57 @@
+<div class="content">
+  <span 
+    *ngIf="!predicate"
+    class="predicate"
+  >
+    (Always)
+  </span>
+  <app-behavior-predicate-and 
+    *ngIf="predicateAsAnd"
+    [predicate]="predicateAsAnd"
+    [hero]="hero"
+    class="predicate"
+  ></app-behavior-predicate-and>
+  <app-behavior-predicate-or 
+    *ngIf="predicateAsOr"
+    [predicate]="predicateAsOr"
+    [hero]="hero"
+    class="predicate"
+  ></app-behavior-predicate-or>
+  <app-behavior-predicate-not 
+    *ngIf="predicateAsNot"
+    [predicate]="predicateAsNot"
+    [hero]="hero"
+    class="predicate"
+  ></app-behavior-predicate-not>
+  <app-behavior-predicate-ability-ready 
+    *ngIf="predicateAsAbilityReady"
+    [predicate]="predicateAsAbilityReady"
+    [hero]="hero"
+    class="predicate"
+  ></app-behavior-predicate-ability-ready>
+  <app-behavior-predicate-has-continuous-effect 
+    *ngIf="predicateAsHasContinuousEffect"
+    [predicate]="predicateAsHasContinuousEffect"
+    class="predicate"
+  ></app-behavior-predicate-has-continuous-effect>
+  <app-behavior-predicate-relative-values 
+    *ngIf="predicateAsRelativeValues"
+    [predicate]="predicateAsRelativeValues"
+    [hero]="hero"
+    class="predicate"
+  ></app-behavior-predicate-relative-values>
+
+  <app-split-button 
+    [title]="''"
+    [anchorToRightSide]="true"
+    class="predicate-selector"
+  >
+    <app-split-button-item (click)="selectPredicateNoPredicate()">Always</app-split-button-item>
+    <app-split-button-item (click)="selectPredicateAnd()">And</app-split-button-item>
+    <app-split-button-item (click)="selectPredicateOr()">Or</app-split-button-item>
+    <app-split-button-item (click)="selectPredicateNot()">Not</app-split-button-item>
+    <app-split-button-item (click)="selectPredicateAbilityReady()">Ability ready</app-split-button-item>
+    <app-split-button-item (click)="selectPredicateHasContinuousEffect()">Has continuous effect</app-split-button-item>
+    <app-split-button-item (click)="selectPredicateRelativeValues()">Relative values</app-split-button-item>
+  </app-split-button>
+</div>

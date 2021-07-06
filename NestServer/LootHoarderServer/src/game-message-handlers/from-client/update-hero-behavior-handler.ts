@@ -45,8 +45,7 @@ export class UpdateHeroBehaviorHandler implements ICommandHandler<UpdateHeroBeha
       abilityId: predicate.abilityId,
       continuousEffectTypeKey: predicate.continuousEffectTypeKey,
       innerPredicate: predicate.innerPredicate,
-      leftPredicate: predicate.leftPredicate,
-      rightPredicate: predicate.rightPredicate,
+      innerPredicates: predicate.innerPredicates?.map(innerPredicate => this.mapPredicate(innerPredicate)),
       leftValue: predicate.leftValue,
       rightValue: predicate.rightValue
     };

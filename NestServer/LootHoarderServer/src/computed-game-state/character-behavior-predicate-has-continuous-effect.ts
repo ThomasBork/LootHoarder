@@ -1,3 +1,4 @@
+import { ContractCharacterBehaviorPredicate } from "src/loot-hoarder-contract/contract-character-behavior-predicate";
 import { ContractCharacterBehaviorPredicateTypeKey } from "src/loot-hoarder-contract/contract-character-behavior-predicate-type-key";
 import { DbCharacterBehaviorPredicate } from "src/raw-game-state/db-character-behavior-predicate";
 import { ContinuousEffectType } from "./area/continuous-effect-type";
@@ -12,7 +13,14 @@ export class CharacterBehaviorPredicateHasContinuousEffect extends CharacterBeha
     this.continuousEffectType = continuousEffectType;
   }
   
-  public toContractModel(): DbCharacterBehaviorPredicate {
+  public toContractModel(): ContractCharacterBehaviorPredicate {
+    return {
+      typeKey: this.typeKey,
+      continuousEffectTypeKey: this.continuousEffectType.key
+    };
+  }
+  
+  public toDbModel(): DbCharacterBehaviorPredicate {
     return {
       typeKey: this.typeKey,
       continuousEffectTypeKey: this.continuousEffectType.key

@@ -1,8 +1,13 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { Area } from "src/computed-game-state/area/area";
+import { Hero } from "src/computed-game-state/hero";
 import { DbAbility } from "src/raw-game-state/db-ability";
 import { DbArea } from "src/raw-game-state/db-area";
 import { DbAreaHero } from "src/raw-game-state/db-area-hero";
+import { DbCharacterBehavior } from "src/raw-game-state/db-character-behavior";
+import { DbCharacterBehaviorPredicate } from "src/raw-game-state/db-character-behavior-predicate";
+import { DbCharacterBehaviorTarget } from "src/raw-game-state/db-character-behavior-target";
+import { DbCharacterBehaviorValue } from "src/raw-game-state/db-character-behavior-value";
 import { DbCombat } from "src/raw-game-state/db-combat";
 import { DbCombatCharacter } from "src/raw-game-state/db-combat-character";
 import { MonsterSpawnerService } from "src/services/monster-spawner-service";
@@ -41,13 +46,18 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
       if (!hero) {
         throw Error (`Hero with id: '${heroId}' does not exist.`);
       }
+      const abilityIdsMap = new Map<number, number>();
+      
       const dbAbilities: DbAbility[] = hero.abilities.map(ability => {
-        return {
+        const dbAbility = {
           id: command.game.getNextCombatCharacterAbilityId(),
           typeKey: ability.type.key,
           remainingCooldown: 0
         };
+        abilityIdsMap.set(ability.id, dbAbility.id);
+        return dbAbility;
       });
+
       const dbCombatCharacter: DbCombatCharacter = {
         id: index + 1,
         typeKey: hero.type.key,
@@ -60,7 +70,8 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
         abilities: dbAbilities,
         idOfAbilityBeingUsed: undefined,
         remainingTimeToUseAbility: 0,
-        continuousEffects: []
+        continuousEffects: [],
+        behavior: this.buildDbBehavior(hero, abilityIdsMap)
       };
       return dbCombatCharacter;
     });
@@ -98,5 +109,65 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
     const area = Area.load(dbArea);
 
     command.game.addArea(area);
+  }
+
+  private buildDbBehavior(hero: Hero, abilityIdsMap: Map<number, number>): DbCharacterBehavior | undefined {
+    if (!hero.currentBehavior) {
+      return undefined;
+    }
+
+    const getNewAbilityId = (oldAbilityId: number) => {
+      const newId = abilityIdsMap.get(oldAbilityId);
+      if (newId === undefined) {
+        throw Error (`Ability with id ${oldAbilityId} not found`);
+      }
+      return newId;
+    };
+
+    return {
+      id: hero.currentBehavior.id,
+      name: hero.currentBehavior.name,
+      prioritizedActions: hero.currentBehavior.prioritizedActions.map(action => {
+        const predicate = action.predicate ? this.buildDbBehaviorPredicate(action.predicate.toDbModel(), getNewAbilityId) : undefined;
+        const target = action.target ? this.buildDbBehaviorTarget(action.target.toDbModel(), getNewAbilityId) : undefined;
+        return {
+          abilityId: getNewAbilityId(action.abilityId),
+          predicate: predicate,
+          target: target
+        };
+      })
+    }
+  }
+
+  private buildDbBehaviorPredicate(predicate: DbCharacterBehaviorPredicate, abilityIdMapper: (oldAbilityId: number) => number): DbCharacterBehaviorPredicate {
+    return {
+      typeKey: predicate.typeKey,
+      abilityId: predicate.abilityId ? abilityIdMapper(predicate.abilityId) : undefined,
+      continuousEffectTypeKey: predicate.continuousEffectTypeKey,
+      innerPredicate: predicate.innerPredicate ? this.buildDbBehaviorPredicate(predicate.innerPredicate, abilityIdMapper) : undefined,
+      innerPredicates: predicate.innerPredicates?.map(innerPredicate => this.buildDbBehaviorPredicate(innerPredicate, abilityIdMapper)),
+      leftValue: predicate.leftValue ? this.buildDbBehaviorValue(predicate.leftValue, abilityIdMapper) : undefined,
+      rightValue: predicate.rightValue ? this.buildDbBehaviorValue(predicate.rightValue, abilityIdMapper) : undefined,
+      valueRelation: predicate.valueRelation
+    };
+  }
+
+  private buildDbBehaviorTarget(target: DbCharacterBehaviorTarget, abilityIdMapper: (oldAbilityId: number) => number): DbCharacterBehaviorTarget {
+    return {
+      typeKey: target.typeKey,
+      heroId: target.heroId,
+      predicate: target.predicate ? this.buildDbBehaviorPredicate(target.predicate, abilityIdMapper) : undefined,
+      value: target.value ? this.buildDbBehaviorValue(target.value, abilityIdMapper) : undefined
+    };
+  }
+
+  private buildDbBehaviorValue(value: DbCharacterBehaviorValue, abilityIdMapper: (oldAbilityId: number) => number): DbCharacterBehaviorValue {
+    return {
+      typeKey: value.typeKey,
+      abilityId: value.abilityId ? abilityIdMapper(value.abilityId) : undefined,
+      attributeAbilityTags: value.attributeAbilityTags,
+      attributeTypeKey: value.attributeTypeKey,
+      number: value.number
+    };
   }
 }

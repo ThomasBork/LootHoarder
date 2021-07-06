@@ -15,7 +15,7 @@ import { CharacterBehaviorPredicateNot } from "./character-behavior-predicate-no
 import { CharacterBehaviorPredicateOr } from "./character-behavior-predicate-or";
 import { CharacterBehaviorPredicateRelativeValues } from "./character-behavior-predicate-relative-values";
 import { CharacterBehaviorTarget } from "./character-behavior-target";
-import { CharacterBehaviorTargetNoTarget } from "./character-behavior-target-no-target";
+import { CharacterBehaviorTargetCharacterWithExtremeValue } from "./character-behavior-target-character-with-extreme-value";
 import { CharacterBehaviorTargetRandomCharacter } from "./character-behavior-target-random-character";
 import { CharacterBehaviorTargetRandomCharacterMatchingPredicate } from "./character-behavior-target-random-character-matching-predicate";
 import { CharacterBehaviorTargetSpecificHero } from "./character-behavior-target-specific-hero";
@@ -51,6 +51,14 @@ export class CharacterBehaviorAction {
     };
   }
 
+  public toDbModel(): DbCharacterBehaviorAction {
+    return {
+      predicate: this.predicate?.toDbModel(),
+      abilityId: this.abilityId,
+      target: this.target?.toDbModel()
+    };
+  }
+
   public static load(dbModel: DbCharacterBehaviorAction): CharacterBehaviorAction {
     const predicate = dbModel.predicate ? this.loadPredicate(dbModel.predicate) : undefined;
     const target = dbModel.target ? this.loadTarget(dbModel.target) : undefined;
@@ -67,26 +75,18 @@ export class CharacterBehaviorAction {
         return new CharacterBehaviorPredicateNot(innerPredicate);
       }
       case ContractCharacterBehaviorPredicateTypeKey.and: {
-        if (!dbModel.leftPredicate) {
-          throw Error (`Expected an left predicate in a ${dbModel.typeKey} predicate`);
+        if (!dbModel.innerPredicates) {
+          throw Error (`Expected inner predicates in a ${dbModel.typeKey} predicate`);
         }
-        if (!dbModel.rightPredicate) {
-          throw Error (`Expected an right predicate in a ${dbModel.typeKey} predicate`);
-        }
-        const leftPredicate = this.loadPredicate(dbModel.leftPredicate);
-        const rightPredicate = this.loadPredicate(dbModel.rightPredicate);
-        return new CharacterBehaviorPredicateAnd(leftPredicate, rightPredicate);
+        const innerPredicates = dbModel.innerPredicates.map(innerPredicate => this.loadPredicate(innerPredicate));
+        return new CharacterBehaviorPredicateAnd(innerPredicates);
       }
       case ContractCharacterBehaviorPredicateTypeKey.or: {
-        if (!dbModel.leftPredicate) {
-          throw Error (`Expected an left predicate in a ${dbModel.typeKey} predicate`);
+        if (!dbModel.innerPredicates) {
+          throw Error (`Expected inner predicates in a ${dbModel.typeKey} predicate`);
         }
-        if (!dbModel.rightPredicate) {
-          throw Error (`Expected an right predicate in a ${dbModel.typeKey} predicate`);
-        }
-        const leftPredicate = this.loadPredicate(dbModel.leftPredicate);
-        const rightPredicate = this.loadPredicate(dbModel.rightPredicate);
-        return new CharacterBehaviorPredicateOr(leftPredicate, rightPredicate);
+        const innerPredicates = dbModel.innerPredicates.map(innerPredicate => this.loadPredicate(innerPredicate));
+        return new CharacterBehaviorPredicateOr(innerPredicates);
       }
       case ContractCharacterBehaviorPredicateTypeKey.relativeValues: {
         if (!dbModel.leftValue) {
@@ -95,9 +95,12 @@ export class CharacterBehaviorAction {
         if (!dbModel.rightValue) {
           throw Error (`Expected an right Value in a ${dbModel.typeKey} predicate`);
         }
+        if (!dbModel.valueRelation) {
+          throw Error (`Expected a value relation in a ${dbModel.typeKey} predicate`);
+        }
         const leftValue = this.loadValue(dbModel.leftValue);
         const rightValue = this.loadValue(dbModel.rightValue);
-        return new CharacterBehaviorPredicateRelativeValues(leftValue, rightValue);
+        return new CharacterBehaviorPredicateRelativeValues(leftValue, rightValue, dbModel.valueRelation);
       }
       case ContractCharacterBehaviorPredicateTypeKey.abilityReady: {
         if (!dbModel.abilityId) {
@@ -119,9 +122,6 @@ export class CharacterBehaviorAction {
 
   private static loadTarget(dbModel: DbCharacterBehaviorTarget): CharacterBehaviorTarget {
     switch(dbModel.typeKey) {
-      case ContractCharacterBehaviorTargetTypeKey.noTarget: {
-        return new CharacterBehaviorTargetNoTarget();
-      }
       case ContractCharacterBehaviorTargetTypeKey.randomAlly: {
         return new CharacterBehaviorTargetRandomCharacter(true, false);
       }
@@ -158,6 +158,48 @@ export class CharacterBehaviorAction {
         }
         return new CharacterBehaviorTargetSpecificHero(dbModel.heroId);
       }
+      case ContractCharacterBehaviorTargetTypeKey.allyWithTheLeastValue: {
+        if (!dbModel.value) {
+          throw Error (`Expected a value in a ${dbModel.typeKey} value`);
+        }
+        const value = this.loadValue(dbModel.value);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(true, false, true, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.allyWithTheMostValue: {
+        if (!dbModel.value) {
+          throw Error (`Expected a value in a ${dbModel.typeKey} value`);
+        }
+        const value = this.loadValue(dbModel.value);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(true, false, false, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.enemyWithTheLeastValue: {
+        if (!dbModel.value) {
+          throw Error (`Expected a value in a ${dbModel.typeKey} value`);
+        }
+        const value = this.loadValue(dbModel.value);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(false, true, true, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.enemyWithTheMostValue: {
+        if (!dbModel.value) {
+          throw Error (`Expected a value in a ${dbModel.typeKey} value`);
+        }
+        const value = this.loadValue(dbModel.value);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(false, true, false, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.characterWithTheLeastValue: {
+        if (!dbModel.value) {
+          throw Error (`Expected a value in a ${dbModel.typeKey} value`);
+        }
+        const value = this.loadValue(dbModel.value);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(true, true, true, value);
+      }
+      case ContractCharacterBehaviorTargetTypeKey.characterWithTheMostValue: {
+        if (!dbModel.value) {
+          throw Error (`Expected a value in a ${dbModel.typeKey} value`);
+        }
+        const value = this.loadValue(dbModel.value);
+        return new CharacterBehaviorTargetCharacterWithExtremeValue(true, true, false, value);
+      }
       default: 
         throw Error (`Unhandled behavior action target type: ${dbModel.typeKey}`);
     }
@@ -187,7 +229,7 @@ export class CharacterBehaviorAction {
         return new CharacterBehaviorValuePercentageCurrentMana();
       }
       case ContractCharacterBehaviorValueTypeKey.number: {
-        if (!dbModel.number) {
+        if (dbModel.number === undefined) {
           throw Error (`Expected a number in a ${dbModel.typeKey} value`);
         }
         return new CharacterBehaviorValueNumber(dbModel.number);

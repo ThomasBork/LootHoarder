@@ -7,6 +7,7 @@ import { ContractHeroAbilityRemovedMessage } from "src/loot-hoarder-contract/ser
 import { ContractHeroGainedExperienceMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-gained-experience-message";
 import { ContractHeroTookSkillNodeMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-took-skill-node-message";
 import { ContractHeroUnspentSkillPointsChangedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-unspent-skill-points-changed-message";
+import { ContractHeroCurrentBehaviorChangedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-current-behavior-changed-message";
 import { ContractHeroAttributeChangedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-attribute-changed-message";
 import { ContractItemEquippedMessage } from "src/loot-hoarder-contract/server-actions/contract-item-equipped-message";
 import { ContractItemUnequippedMessage } from "src/loot-hoarder-contract/server-actions/contract-item-unequipped-message";
@@ -33,6 +34,7 @@ import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contrac
 import { ContractHeroAbilityValueKey } from "src/loot-hoarder-contract/contract-hero-ability-value-key";
 import { ItemEquippedEvent } from "./item-equipped-event";
 import { CharacterBehavior } from "./character-behavior";
+import { ContractHeroBehaviorCreatedMessage } from "src/loot-hoarder-contract/server-actions/contract-hero-behavior-created-message";
 
 export class Hero {
   public dbModel: DbHero;
@@ -136,6 +138,9 @@ export class Hero {
   public addBehavior(behavior: CharacterBehavior): void {
     this.dbModel.behaviors.push(behavior.dbModel);
     this.behaviors.push(behavior);
+    
+    const message = new ContractHeroBehaviorCreatedMessage(this.id, behavior.toContractModel());
+    this.onEvent.next(message);
   }
 
   public getBehavior(behaviorId: number): CharacterBehavior {
@@ -147,7 +152,10 @@ export class Hero {
   }
 
   public setCurrentBehavior(behavior: CharacterBehavior | undefined): void {
+    this.dbModel.currentBehaviorId = behavior?.id;
     this.currentBehavior = behavior;
+    const message = new ContractHeroCurrentBehaviorChangedMessage(this.id, behavior?.id);
+    this.onEvent.next(message);
   }
 
   public updateBehavior(behavior: CharacterBehavior): void {
@@ -156,6 +164,10 @@ export class Hero {
     
     const indexOfOldBehavior = this.behaviors.findIndex(b => b.id === behavior.id);
     this.behaviors.splice(indexOfOldBehavior, 1, behavior);
+
+    if (this.currentBehavior?.id === behavior.id) {
+      this.setCurrentBehavior(behavior);
+    }
   }
 
   public equipItem(item: Item, inventoryPosition: ContractInventoryPosition): void {
@@ -238,6 +250,7 @@ export class Hero {
       availableSkillNodes: availableSkillNodes,
       abilities: abilities,
       behaviors: behaviors,
+      currentBehaviorId: this.currentBehavior?.id,
     };
   }
 
