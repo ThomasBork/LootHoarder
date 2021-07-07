@@ -1,8 +1,10 @@
-import { ContractPassiveAbility } from "./contract-passive-ability";
+import { ContractItemPassiveAbility } from "./contract-item-passive-ability";
 
 export interface ContractItem {
   id: number;
   typeKey: string;
-  innateAbilities: ContractPassiveAbility[];
-  additionalAbilities: ContractPassiveAbility[];
+  innateAbilities: ContractItemPassiveAbility[];
+  additionalAbilities: ContractItemPassiveAbility[];
+  level: number;
+  remainingCraftPotential: number;
 }

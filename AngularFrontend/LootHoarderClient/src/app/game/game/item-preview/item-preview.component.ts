@@ -1,7 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { Item } from "../client-representation/item";
-import { PassiveAbility } from "../client-representation/passive-ability";
+import { ItemPassiveAbility } from "../client-representation/item-passive-ability";
 
 @Component({
   selector: 'app-item-preview',
@@ -12,7 +11,7 @@ export class ItemPreviewComponent {
   @Input()
   public item!: Item;
 
-  public getAbilityText(ability: PassiveAbility): string {
-    return ability.description;
+  public getAbilityText(itemAbility: ItemPassiveAbility): string {
+    return `${itemAbility.ability.description}`;
   }
 }

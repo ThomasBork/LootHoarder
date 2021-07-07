@@ -1,12 +1,12 @@
 [
   {
-    "weight": 1000,
+    "weight": 2000,
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
       "attributeType": "power",
       "abilityTags": ["attack"],
-      "amount": { "min": 10, "max": 20, "isInteger": true }
+      "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon"]
   },
@@ -16,8 +16,41 @@
     "parameters": {
       "isAdditive": true,
       "attributeType": "power",
+      "abilityTags": ["fire"],
+      "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
+    },
+    "itemCategories": ["weapon", "head"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "power",
+      "abilityTags": ["lightning"],
+      "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
+    },
+    "itemCategories": ["weapon", "head"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "power",
+      "abilityTags": ["poison"],
+      "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
+    },
+    "itemCategories": ["weapon", "head"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "power",
       "abilityTags": ["spell"],
-      "amount": { "min": 10, "max": 20, "isInteger": true }
+      "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon", "head"]
   },
@@ -28,7 +61,7 @@
       "isAdditive": true,
       "attributeType": "cooldown-speed",
       "abilityTags": ["attack"],
-      "amount": { "min": 10, "max": 20, "isInteger": true }
+      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon", "legs", "foot"]
   },
@@ -39,7 +72,7 @@
       "isAdditive": true,
       "attributeType": "cooldown-speed",
       "abilityTags": ["spell"],
-      "amount": { "min": 10, "max": 20, "isInteger": true }
+      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon", "head", "foot"]
   },
@@ -50,7 +83,7 @@
       "isAdditive": true,
       "attributeType": "use-speed",
       "abilityTags": ["attack"],
-      "amount": { "min": 10, "max": 20, "isInteger": true }
+      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon", "legs"]
   },
@@ -61,7 +94,7 @@
       "isAdditive": true,
       "attributeType": "use-speed",
       "abilityTags": ["spell"],
-      "amount": { "min": 10, "max": 20, "isInteger": true }
+      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon", "head"]
   },
@@ -72,7 +105,7 @@
       "isAdditive": true,
       "attributeType": "maximum-health",
       "abilityTags": [],
-      "amount": { "min": 100, "max": 400, "isInteger": true }
+      "amount": { "min": 100, "max": 130, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
@@ -83,7 +116,7 @@
       "isAdditive": true,
       "attributeType": "maximum-mana",
       "abilityTags": [],
-      "amount": { "min": 50, "max": 200, "isInteger": true }
+      "amount": { "min": 50, "max": 65, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
@@ -94,7 +127,7 @@
       "isAdditive": true,
       "attributeType": "resistance",
       "abilityTags": ["physical"],
-      "amount": { "min": 10, "max": 30, "isInteger": true }
+      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
@@ -105,7 +138,7 @@
       "isAdditive": true,
       "attributeType": "resistance",
       "abilityTags": ["elemental"],
-      "amount": { "min": 5, "max": 15, "isInteger": true }
+      "amount": { "min": 5, "max": 6, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon", "head", "chest", "legs", "foot"]
   },
@@ -116,7 +149,7 @@
       "isAdditive": true,
       "attributeType": "resistance",
       "abilityTags": ["fire"],
-      "amount": { "min": 10, "max": 30, "isInteger": true }
+      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
@@ -127,7 +160,7 @@
       "isAdditive": true,
       "attributeType": "resistance",
       "abilityTags": ["cold"],
-      "amount": { "min": 10, "max": 30, "isInteger": true }
+      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
@@ -138,7 +171,7 @@
       "isAdditive": true,
       "attributeType": "resistance",
       "abilityTags": ["lightning"],
-      "amount": { "min": 10, "max": 30, "isInteger": true }
+      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
@@ -149,7 +182,7 @@
       "isAdditive": true,
       "attributeType": "resistance",
       "abilityTags": ["poison"],
-      "amount": { "min": 10, "max": 30, "isInteger": true }
+      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
   }

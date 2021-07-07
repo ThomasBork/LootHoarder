@@ -1,8 +1,9 @@
-import { DbPassiveAbility } from "./db-passive-ability";
+import { DbItemPassiveAbility } from "./db-item-passive-ability";
 
 export interface DbItem {
   id: number;
+  level: number;
   typeKey: string;
-  innateAbilities: DbPassiveAbility[];
-  additionalAbilities: DbPassiveAbility[];
+  innateAbilities: DbItemPassiveAbility[];
+  additionalAbilities: DbItemPassiveAbility[];
 }

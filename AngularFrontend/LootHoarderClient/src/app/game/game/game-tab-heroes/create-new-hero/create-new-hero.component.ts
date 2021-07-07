@@ -146,7 +146,9 @@ export class CreateNewHeroComponent implements OnInit {
       -1, 
       this.temporaryHero.type.startingWeaponType,
       [],
-      []
+      [],
+      1,
+      0
     );
     this.temporaryHero.equipItem(startingItem, ContractInventoryPosition.leftHand);
   }

@@ -19,13 +19,6 @@
           "parentTabKey": "heroes",
           "childTabKey": "passives"
         }
-      }, 
-      {
-        "typeKey": "unlock-tab",
-        "parameters": {
-          "parentTabKey": "items",
-          "childTabKey": null
-        }
       }
     ],
     "hiddenRewards": []

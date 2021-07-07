@@ -461,7 +461,7 @@ export class StaticGameContentService {
           for(const key of Object.keys(ability.parameters)) {
             let value = (ability.parameters as any)[key];
             if (value.hasOwnProperty("min")) {
-              value = new ValueRange(value.min, value.max, value.isInteger);
+              value = new ValueRange(value.min, value.max, value.isInteger, value.levelScaling);
             }
             typedParameters[key] = value;
           }
@@ -478,7 +478,7 @@ export class StaticGameContentService {
       for(const key of Object.keys(rollRecipe.parameters)) {
         let value = (rollRecipe.parameters as any)[key];
         if (value && typeof value === 'object' && value.hasOwnProperty("min")) {
-          value = new ValueRange(value.min, value.max, value.isInteger);
+          value = new ValueRange(value.min, value.max, value.isInteger, value.levelScaling);
         }
         typedParameters[key] = value;
       }

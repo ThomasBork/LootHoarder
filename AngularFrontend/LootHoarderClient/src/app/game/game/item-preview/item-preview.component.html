@@ -1,13 +1,27 @@
 <div class="container">
-  <span class="item-name">{{item.type.name}}</span>
+  <div class="header">
+    <span class="item-name">{{item.type.name}}</span>
+    <span class="level-container">
+      <img class="image" src="assets/images/star.png" />
+      <span class="text">{{item.level}}</span>
+    </span>
+  </div>
   <hr>
   <ul>
     <li *ngFor="let ability of item.innateAbilities">
       {{getAbilityText(ability)}}
     </li>
     <hr>
-    <li *ngFor="let ability of item.additionalAbilities">
-      {{getAbilityText(ability)}}
+    <li 
+      *ngFor="let ability of item.additionalAbilities"
+      class="ability-line"
+    >
+      <span class="text">{{getAbilityText(ability)}}</span>
+      <img 
+        *ngIf="ability.level === item.level"
+        class="star" 
+        src="assets/images/star.png" 
+      />
     </li>
   </ul>
 </div>

@@ -73,6 +73,8 @@ import { CharacterBehaviorValuePercentageCurrentMana } from "./client-representa
 import { CharacterBehaviorValueNumber } from "./client-representation/character-behavior/character-behavior-value-number";
 import { CharacterBehaviorValueRemainingCooldownOfAbility } from "./client-representation/character-behavior/character-behavior-value-remaining-cooldown-of-ability";
 import { CharacterBehaviorTargetCharacterWithExtremeValue } from "./client-representation/character-behavior/character-behavior-target-character-with-extreme-value";
+import { ContractItemPassiveAbility } from "src/loot-hoarder-contract/contract-item-passive-ability";
+import { ItemPassiveAbility } from "./client-representation/item-passive-ability";
 
 @Injectable()
 export class GameStateMapper {
@@ -361,8 +363,17 @@ export class GameStateMapper {
     return new Item (
       serverItem.id,
       this.assetManagerService.getItemType(serverItem.typeKey),
-      serverItem.innateAbilities.map(ability => this.mapToPassiveAbility(ability)),
-      serverItem.additionalAbilities.map(ability => this.mapToPassiveAbility(ability))
+      serverItem.innateAbilities.map(ability => this.mapToItemPassiveAbility(ability)),
+      serverItem.additionalAbilities.map(ability => this.mapToItemPassiveAbility(ability)),
+      serverItem.level,
+      serverItem.remainingCraftPotential
+    );
+  }
+
+  public mapToItemPassiveAbility(serverItemPassiveAbility: ContractItemPassiveAbility): ItemPassiveAbility {
+    return new ItemPassiveAbility (
+      serverItemPassiveAbility.level, 
+      this.mapToPassiveAbility(serverItemPassiveAbility.ability)
     );
   }
 
