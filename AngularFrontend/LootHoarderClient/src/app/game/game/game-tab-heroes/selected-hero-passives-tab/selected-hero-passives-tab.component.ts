@@ -88,6 +88,14 @@ export class SelectedHeroPassivesTabComponent {
   }
 
   public takeSkillNode(nodeWithStatus: HeroSkillTreeNodeStatus): void {
+    if (!nodeWithStatus.isAvailable || nodeWithStatus.isTaken) {
+      return;
+    }
+
+    if (this.hero.unspentSkillPoints === 0) {
+      return;
+    }
+
     const message = new ContractTakeHeroSkillNodeMessage(
       this.hero.id, 
       nodeWithStatus.node.x, 
