@@ -530,8 +530,8 @@
     ]
   },
   {
-    "key": "leeching-strike",
-    "name": "Leeching Strike",
+    "key": "reap",
+    "name": "Reap",
     "tags": ["physical", "heal", "attack"],
     "inheritedTags": ["attack"],
     "manaCost": 10,

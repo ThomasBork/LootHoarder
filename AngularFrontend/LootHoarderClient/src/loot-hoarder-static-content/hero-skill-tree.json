@@ -4580,7 +4580,7 @@
         {
           "typeKey": "unlock-ability",
           "data": {
-            "abilityTypeKey": "leeching-strike"
+            "abilityTypeKey": "reap"
           }
         }
       ]
