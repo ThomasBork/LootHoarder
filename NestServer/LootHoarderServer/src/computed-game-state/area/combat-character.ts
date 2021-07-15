@@ -168,6 +168,10 @@ export class CombatCharacter {
       }
       this.setUpAbilityValueContainer(ability.type.tags, ability.useSpeedVC, ContractAttributeType.useSpeed);
       this.setUpAbilityValueContainer(ability.type.tags, ability.cooldownSpeedVC, ContractAttributeType.cooldownSpeed);
+      this.setUpAbilityValueContainer(ability.type.tags, ability.criticalStrikeMultiplierVC, ContractAttributeType.criticalStrikeMultiplier);
+
+      const criticalStrikeChanceCombinedAttribute = this.attributes.getAttribute(ContractAttributeType.criticalStrikeChance, ability.type.tags);
+      ability.criticalStrikeChanceVC.setMultiplicativeValueContainer(criticalStrikeChanceCombinedAttribute.valueContainer, value => value / 100);
     }
   }
 
@@ -207,6 +211,10 @@ export class CombatCharacter {
           ability.damageTakenEverySecondVC.setMultiplicativeValueContainer(combinedResistanceAttribute.valueContainer, value => 100 / ( 100 + value));
         }
         break;
+        case ContractPassiveAbilityTypeKey.removeOnDamageTaken: {
+          // This is handled by the combat updater service.
+        }
+        break;
         default: throw Error (`Unhandled ability type for combat character: ${ability.type.key}`);
       }
     }
@@ -226,6 +234,10 @@ export class CombatCharacter {
         break;
         case ContractPassiveAbilityTypeKey.takeDamageOverTime: {
           // This has no immediate effect. It is applied every tick.
+        }
+        break;
+        case ContractPassiveAbilityTypeKey.removeOnDamageTaken: {
+          // This has no immediate effect. It is checked when taking damage.
         }
         break;
         default: throw Error (`Unhandled ability type for combat character: ${ability.type.key}`);

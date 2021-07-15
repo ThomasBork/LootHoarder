@@ -18,7 +18,7 @@
     >
       <span class="text">{{getAbilityText(ability)}}</span>
       <img 
-        *ngIf="ability.level === item.level"
+        *ngIf="ability.level === item.level && item.level > 1"
         class="star" 
         src="assets/images/star.png" 
       />

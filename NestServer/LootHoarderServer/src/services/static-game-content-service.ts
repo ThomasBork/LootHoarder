@@ -56,6 +56,10 @@ import { AccomplishmentTypeCompleteSpecificAreaType } from "src/computed-game-st
 import { QuestRewardUnlockTab } from "src/computed-game-state/quest-reward-unlock-tab";
 import { QuestRewardHeroSlot } from "src/computed-game-state/quest-reward-hero-slot";
 import { ContractGameTabKey } from "src/loot-hoarder-contract/contract-game-tab-key";
+import { AbilityTypeEffectRecoverMana } from "src/computed-game-state/ability-type-effect-recover-mana";
+import { AbilityTypeEffectRecoverHealth } from "src/computed-game-state/ability-type-effect-recover-health";
+import { AbilityTypeEffectRemoveSpecificContinuousEffectType } from "src/computed-game-state/ability-type-effect-remove-specific-continuous-effect-type";
+import { AbilityTypeEffectRemoveSpecificContinuousEffectTypeParameters } from "src/computed-game-state/ability-type-effect-remove-specific-continuous-effect-type-parameters";
 
 @Injectable()
 export class StaticGameContentService {
@@ -227,7 +231,6 @@ export class StaticGameContentService {
       new AbilityType(
         abilityType.key, 
         abilityType.name, 
-        abilityType.description, 
         abilityType.tags,
         abilityType.inheritedTags,
         abilityType.manaCost,
@@ -269,6 +272,34 @@ export class StaticGameContentService {
                 parameters
               );
             }
+            case 'recover-mana': {
+              const parameters = effect.parameters;
+              return new AbilityTypeEffectRecoverMana(
+                effectType,
+                tags,
+                target,
+                parameters
+              );
+            }
+            case 'recover-health': {
+              const parameters = effect.parameters;
+              return new AbilityTypeEffectRecoverHealth(
+                effectType,
+                tags,
+                target,
+                parameters
+              );
+            }
+            case 'remove-specific-continuous-effect-type': {
+              const continuousEffectType = this.getContinuousEffectType(effect.parameters.continuousEffectTypeKey);
+              const parameters = new AbilityTypeEffectRemoveSpecificContinuousEffectTypeParameters(continuousEffectType);
+              return new AbilityTypeEffectRemoveSpecificContinuousEffectType(
+                effectType,
+                tags,
+                target,
+                parameters
+              );
+            }
             default:
               throw Error (`The ability type effect has no implementation.`);
           }
@@ -277,50 +308,30 @@ export class StaticGameContentService {
     );
   }
 
-  private loadAttributeSetFromCoreAttributes(coreAttributes: {
-    maximumHealth?: number;
-    maximumMana?: number;
-    attackPower?: number;
-    spellPower?: number;
-    attackUseSpeed?: number;
-    spellUseSpeed?: number;
-    attackCooldownSpeed?: number;
-    spellCooldownSpeed?: number;
-    physicalResistance?: number;
-    elementalResistance?: number;
-  }): AttributeValueSet {
-    const attributeValueContainers: AttributeValueContainer[] = [];
-    if (coreAttributes.maximumHealth) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.maximumHealth, [], coreAttributes.maximumHealth));
-    }
-    if (coreAttributes.maximumMana) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.maximumMana, [], coreAttributes.maximumMana));
-    }
-    if (coreAttributes.attackPower) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.power, ["attack"], coreAttributes.attackPower));
-    }
-    if (coreAttributes.spellPower) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.power, ["spell"], coreAttributes.spellPower));
-    }
-    if (coreAttributes.attackUseSpeed) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.useSpeed, ["attack"], coreAttributes.attackUseSpeed));
-    }
-    if (coreAttributes.spellUseSpeed) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.useSpeed, ["spell"], coreAttributes.spellUseSpeed));
-    }
-    if (coreAttributes.attackCooldownSpeed) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.cooldownSpeed, ["attack"], coreAttributes.attackCooldownSpeed));
-    }
-    if (coreAttributes.spellCooldownSpeed) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.cooldownSpeed, ["spell"], coreAttributes.spellCooldownSpeed));
-    }
-    if (coreAttributes.physicalResistance) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.resistance, ["physical"], coreAttributes.physicalResistance));
-    }
-    if (coreAttributes.elementalResistance) {
-      attributeValueContainers.push(new AttributeValueContainer(ContractAttributeType.resistance, ["elemental"], coreAttributes.elementalResistance));
-    }
-    const attributeSet = new AttributeValueSet(attributeValueContainers);
+  private getBaseAttributeValueContainers(): AttributeValueContainer[] {
+    return [
+      new AttributeValueContainer(ContractAttributeType.cooldownSpeed, [], 100),
+      new AttributeValueContainer(ContractAttributeType.criticalStrikeChance, [], 100),
+      new AttributeValueContainer(ContractAttributeType.criticalStrikeMultiplier, [], 150),
+      new AttributeValueContainer(ContractAttributeType.damageTaken, [], 100),
+      new AttributeValueContainer(ContractAttributeType.experienceGain, [], 100),
+      new AttributeValueContainer(ContractAttributeType.itemDropChance, [], 100),
+      new AttributeValueContainer(ContractAttributeType.power, [], 100),
+      new AttributeValueContainer(ContractAttributeType.useSpeed, [], 100)
+    ];
+  }
+
+  private getPerLevelAttributeValueContainers(): AttributeValueContainer[] {
+    return [
+    ];
+  }
+
+  private loadAttributeSetFromAttributeTuple(attributeTuples: [string[], ContractAttributeType, number][], baseAttributeValueContainers: AttributeValueContainer[]): AttributeValueSet {
+    const specificAttributeValueContainers = attributeTuples.map(tuple => 
+      new AttributeValueContainer(tuple[1], tuple[0], tuple[2])
+    );
+    const combinedAttributeValueContainers = baseAttributeValueContainers.concat(specificAttributeValueContainers);
+    const attributeSet = new AttributeValueSet(combinedAttributeValueContainers);
     return attributeSet;
   }
 
@@ -362,8 +373,8 @@ export class StaticGameContentService {
   private loadHeroTypes(): void {
     this.heroTypes = HeroTypes.map(heroType => 
       {
-        const baseAttributes = this.loadAttributeSetFromCoreAttributes(heroType.baseAttributes);
-        const attributesPerLevel = this.loadAttributeSetFromCoreAttributes(heroType.attributesPerLevel);
+        const baseAttributes = this.loadAttributeSetFromAttributeTuple(heroType.baseAttributes as any, this.getBaseAttributeValueContainers());
+        const attributesPerLevel = this.loadAttributeSetFromAttributeTuple(heroType.attributesPerLevel as any, this.getPerLevelAttributeValueContainers());
         const startItemType = this.getItemType(heroType.startingWeaponType);
         return new HeroType(
           heroType.key,
@@ -382,8 +393,8 @@ export class StaticGameContentService {
   private loadMonsterTypes(): void {
     this.monsterTypes = MonsterTypes.map(monsterType => 
       {
-        const baseAttributes = this.loadAttributeSetFromCoreAttributes(monsterType.baseAttributes);
-        const attributesPerLevel = this.loadAttributeSetFromCoreAttributes(monsterType.attributesPerLevel);
+        const baseAttributes = this.loadAttributeSetFromAttributeTuple(monsterType.baseAttributes as any, this.getBaseAttributeValueContainers());
+        const attributesPerLevel = this.loadAttributeSetFromAttributeTuple(monsterType.attributesPerLevel as any, this.getPerLevelAttributeValueContainers());
         return new MonsterType(
           monsterType.key,
           monsterType.name,

@@ -69,6 +69,9 @@ export class UIStateAdvancer {
         }
 
         if (character.remainingTimeToUseAbility > 0) {
+          if (character.abilityBeingUsed?.type.key === 'lightning-bolt') {
+            var a = 1;
+          }
           character.remainingTimeToUseAbility -= tickSize;
           if (character.remainingTimeToUseAbility < 0) {
             character.remainingTimeToUseAbility = 0;

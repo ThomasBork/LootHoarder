@@ -13,7 +13,7 @@ import { CombatCharacter } from "./client-representation/combat-character";
 import { Game } from "./client-representation/game";
 import { Hero } from "./client-representation/hero";
 import { Loot } from "./client-representation/loot";
-import { AssetManagerService } from "./client-representation/asset-manager.service";
+import { AssetManagerService } from "./asset-manager.service";
 import { GameAreaType } from "./client-representation/game-area-type";
 import { AreaType } from "./client-representation/area-type";
 import { AttributeSet } from "./client-representation/attribute-set";
@@ -75,6 +75,7 @@ import { CharacterBehaviorValueRemainingCooldownOfAbility } from "./client-repre
 import { CharacterBehaviorTargetCharacterWithExtremeValue } from "./client-representation/character-behavior/character-behavior-target-character-with-extreme-value";
 import { ContractItemPassiveAbility } from "src/loot-hoarder-contract/contract-item-passive-ability";
 import { ItemPassiveAbility } from "./client-representation/item-passive-ability";
+import { PassiveAbilityRemoveOnTakingDamage } from "./client-representation/passive-ability-remove-on-taking-damage";
 
 @Injectable()
 export class GameStateMapper {
@@ -386,6 +387,8 @@ export class GameStateMapper {
         return new PassiveAbilityTakeDamageOverTime(abilityType, serverPassiveAbility.parameters, serverPassiveAbility.parameters.damagePerSecond);
       case ContractPassiveAbilityTypeKey.unlockAbility:
         return new PassiveAbilityUnlockAbility(abilityType, serverPassiveAbility.parameters);
+      case ContractPassiveAbilityTypeKey.removeOnDamageTaken:
+        return new PassiveAbilityRemoveOnTakingDamage(abilityType, serverPassiveAbility.parameters);
       default: 
         throw Error (`Unhandled ability type: ${abilityType.key}`);
     }

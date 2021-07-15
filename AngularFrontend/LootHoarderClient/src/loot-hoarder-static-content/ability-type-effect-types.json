@@ -6,5 +6,17 @@
   {
     "key": "apply-continuous-effect",
     "parameters": ["continuousEffectTypeKey", "duration", "abilityParameters"]
+  },
+  {
+    "key": "recover-mana",
+    "parameters": ["baseAmount"]
+  },
+  {
+    "key": "recover-health",
+    "parameters": ["baseAmount"]
+  },
+  {
+    "key": "remove-specific-continuous-effect-type",
+    "parameters": ["continuousEffectTypeKey"]
   }
 ]

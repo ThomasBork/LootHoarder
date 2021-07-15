@@ -4,18 +4,10 @@
       *ngFor="let ability of hero.abilities"
       class="ability"
     >
-      <span 
-        class="image-container"
-        (click)="toggleIsEnabled(ability)"
-      >
+      <span class="image-container">
         <img 
           class="image"
-          [src]="'assets/images/abilities/' + ability.type.key + '-thumbnail.png'"
-        />
-        <img 
-          *ngIf="ability.isEnabled"
-          class="enabled-check-mark"
-          src="assets/images/check-mark.png"
+          [src]="'assets/images/abilities/' + ability.type.key + '.png'"
         />
       </span>
       <span class="text-container">
@@ -32,7 +24,7 @@
             <li
               *ngFor="let effect of ability.effects"
               class="description-line"
-            >{{effect.description}}</li>
+            >{{getAbilityEffectDescription(effect)}}</li>
           </ul>
         </span>
         <span class="details">

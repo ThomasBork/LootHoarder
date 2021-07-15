@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { AbilityType } from "./ability-type";
-import { HeroType } from "./hero-type";
+import { AbilityType } from "./client-representation/ability-type";
+import { HeroType } from "./client-representation/hero-type";
 import HeroTypes from 'src/loot-hoarder-static-content/hero-types.json';
 import MonsterTypes from 'src/loot-hoarder-static-content/monster-types.json';
 import AbilityTypeEffectTypes from 'src/loot-hoarder-static-content/ability-type-effect-types.json';
@@ -14,38 +14,46 @@ import HeroSkillTreeJson from 'src/loot-hoarder-static-content/hero-skill-tree.j
 import QuestRewardTypes from "src/loot-hoarder-static-content/quest-reward-types.json";
 import QuestTypes from "src/loot-hoarder-static-content/quest-types.json";
 import AchievementTypes from "src/loot-hoarder-static-content/achievement-types.json";
-import { AreaType } from "./area-type";
-import { ItemType } from "./item-type";
+import { AreaType } from "./client-representation/area-type";
+import { ItemType } from "./client-representation/item-type";
 import { ContractItemCategory } from "src/loot-hoarder-contract/contract-item-category";
-import { PassiveAbilityType } from "./passive-ability-type";
-import { HeroSkillTree } from "./hero-skill-tree";
-import { SkillTreeTransition } from "./skill-tree-transition";
-import { HeroSkillTreeNode } from "./hero-skill-tree-node";
-import { HeroSkillTreeStartingNode } from "./hero-skill-tree-starting-node";
-import { ContinuousEffectType } from "./continuous-effect-type";
-import { AbilityTypeEffectApplyContinuousEffectParameters } from "./ability-type-effect-apply-continuous-effect-parameters";
-import { AbilityTypeEffectApplyContinuousEffect } from "./ability-type-effect-apply-continuous-effect";
-import { AbilityTypeEffectDealDamage } from "./ability-type-effect-deal-damage";
-import { AbilityTypeEffectDealDamageParameters } from "./ability-type-effect-deal-damage-parameters";
-import { AbilityTypeEffectType } from "./ability-type-effect-type";
-import { ContinuousEffectTypeAbilityRecipe } from "./continuous-effect-type-ability-recipe";
+import { PassiveAbilityType } from "./client-representation/passive-ability-type";
+import { HeroSkillTree } from "./client-representation/hero-skill-tree";
+import { SkillTreeTransition } from "./client-representation/skill-tree-transition";
+import { HeroSkillTreeNode } from "./client-representation/hero-skill-tree-node";
+import { HeroSkillTreeStartingNode } from "./client-representation/hero-skill-tree-starting-node";
+import { ContinuousEffectType } from "./client-representation/continuous-effect-type";
+import { AbilityTypeEffectApplyContinuousEffectParameters } from "./client-representation/ability-type-effect-apply-continuous-effect-parameters";
+import { AbilityTypeEffectApplyContinuousEffect } from "./client-representation/ability-type-effect-apply-continuous-effect";
+import { AbilityTypeEffectDealDamage } from "./client-representation/ability-type-effect-deal-damage";
+import { AbilityTypeEffectDealDamageParameters } from "./client-representation/ability-type-effect-deal-damage-parameters";
+import { AbilityTypeEffectType } from "./client-representation/ability-type-effect-type";
+import { ContinuousEffectTypeAbilityRecipe } from "./client-representation/continuous-effect-type-ability-recipe";
 import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contract-passive-ability-type-key";
-import { PassiveAbilityAttribute } from "./passive-ability-attribute";
-import { PassiveAbilityUnlockAbility } from "./passive-ability-unlock-ability";
-import { PassiveAbilityTakeDamageOverTime } from "./passive-ability-take-damage-over-time";
-import { MonsterType } from "./monster-type";
-import { AccomplishmentTypeDefeatSpecificMonsterType } from "./accomplishment-type-defeat-specific-monster-type";
-import { AccomplishmentTypeFullInventory } from "./accomplishment-type-full-inventory";
-import { AccomplishmentTypeDefeatMonsters } from "./accomplishment-type-defeat-monsters";
-import { AccomplishmentTypeCompleteSpecificAreaType } from "./accomplishment-type-complete-specific-area-type";
-import { QuestRewardType } from "./quest-reward-type";
-import { QuestType } from "./quest-type";
-import { AchievementType } from "./achievement-type";
-import { AccomplishmentType } from "./accomplishment-type";
-import { QuestReward } from "./quest-reward";
+import { PassiveAbilityAttribute } from "./client-representation/passive-ability-attribute";
+import { PassiveAbilityUnlockAbility } from "./client-representation/passive-ability-unlock-ability";
+import { PassiveAbilityTakeDamageOverTime } from "./client-representation/passive-ability-take-damage-over-time";
+import { MonsterType } from "./client-representation/monster-type";
+import { AccomplishmentTypeDefeatSpecificMonsterType } from "./client-representation/accomplishment-type-defeat-specific-monster-type";
+import { AccomplishmentTypeFullInventory } from "./client-representation/accomplishment-type-full-inventory";
+import { AccomplishmentTypeDefeatMonsters } from "./client-representation/accomplishment-type-defeat-monsters";
+import { AccomplishmentTypeCompleteSpecificAreaType } from "./client-representation/accomplishment-type-complete-specific-area-type";
+import { QuestRewardType } from "./client-representation/quest-reward-type";
+import { QuestType } from "./client-representation/quest-type";
+import { AchievementType } from "./client-representation/achievement-type";
+import { AccomplishmentType } from "./client-representation/accomplishment-type";
+import { QuestReward } from "./client-representation/quest-reward";
 import { ContractGameTabKey } from "src/loot-hoarder-contract/contract-game-tab-key";
-import { QuestRewardUnlockTab } from "./quest-reward-unlock-tab";
-import { QuestRewardHeroSlot } from "./quest-reward-hero-slot";
+import { QuestRewardUnlockTab } from "./client-representation/quest-reward-unlock-tab";
+import { QuestRewardHeroSlot } from "./client-representation/quest-reward-hero-slot";
+import { AbilityTypeEffectRecoverManaParameters } from "./client-representation/ability-type-effect-recover-mana-parameters";
+import { AbilityTypeEffectRecoverMana } from "./client-representation/ability-type-effect-recover-mana";
+import { AbilityTypeEffectRecoverHealthParameters } from "./client-representation/ability-type-effect-recover-health-parameters";
+import { AbilityTypeEffectRecoverHealth } from "./client-representation/ability-type-effect-recover-health";
+import { PassiveAbilityRemoveOnTakingDamage } from "./client-representation/passive-ability-remove-on-taking-damage";
+import { AbilityTypeEffectRemoveSpecificContinuousEffectTypeParameters } from "./client-representation/ability-type-effect-remove-specific-continuous-effect-type-parameters";
+import { AbilityTypeEffectRemoveSpecificContinuousEffectType } from "./client-representation/ability-type-effect-remove-specific-continuous-effect-type";
+import { PassiveAbilityParametersUnlockAbility } from "./client-representation/passive-ability-parameters-unlock-ability";
 
 @Injectable()
 export class AssetManagerService {
@@ -252,6 +260,36 @@ export class AssetManagerService {
               parameters
             );
           }
+          case 'recover-mana': {
+            const parameters = new AbilityTypeEffectRecoverManaParameters(effect.parameters.baseAmount);
+            return new AbilityTypeEffectRecoverMana(
+              effectType,
+              tags,
+              target,
+              parameters
+            );
+          }
+          case 'recover-health': {
+            const parameters = new AbilityTypeEffectRecoverHealthParameters(effect.parameters.baseAmount);
+            return new AbilityTypeEffectRecoverHealth(
+              effectType,
+              tags,
+              target,
+              parameters
+            );
+          }
+          case 'remove-specific-continuous-effect-type': {
+            const continuousEffectType = this.getContinuousEffectType(effect.parameters.continuousEffectTypeKey);
+            const parameters = new AbilityTypeEffectRemoveSpecificContinuousEffectTypeParameters(
+              continuousEffectType
+            );
+            return new AbilityTypeEffectRemoveSpecificContinuousEffectType(
+              effectType,
+              tags,
+              target,
+              parameters
+            );
+          }
           default:
             throw Error (`The ability type effect has no implementation.`);
         }
@@ -259,9 +297,12 @@ export class AssetManagerService {
 
       return new AbilityType(
         abilityType.key, 
-        abilityType.name, 
-        abilityType.description, 
+        abilityType.name,
         abilityType.tags,
+        abilityType.manaCost,
+        abilityType.timeToUse,
+        abilityType.cooldown,
+        abilityType.criticalStrikeChance,
         effects
       );
     });
@@ -348,14 +389,19 @@ export class AssetManagerService {
       
       const abilities = (node.abilities as any)
         .map((ability: any) => {
-          const abilityType = this.getPassiveAbilityType(ability.typeKey);
+          const passiveAbilityType = this.getPassiveAbilityType(ability.typeKey);
           switch(ability.typeKey) {
             case ContractPassiveAbilityTypeKey.attribute:
-              return new PassiveAbilityAttribute(abilityType, ability.data);
+              return new PassiveAbilityAttribute(passiveAbilityType, ability.data);
             case ContractPassiveAbilityTypeKey.takeDamageOverTime:
-              return new PassiveAbilityTakeDamageOverTime(abilityType, ability.data, ability.data.damagePerSecond);
-            case ContractPassiveAbilityTypeKey.unlockAbility:
-              return new PassiveAbilityUnlockAbility(abilityType, ability.data);
+              return new PassiveAbilityTakeDamageOverTime(passiveAbilityType, ability.data, ability.data.damagePerSecond);
+            case ContractPassiveAbilityTypeKey.unlockAbility: {
+              const abilityType = this.getAbilityType(ability.data.abilityTypeKey);
+              const parameters = new PassiveAbilityParametersUnlockAbility(abilityType);
+              return new PassiveAbilityUnlockAbility(passiveAbilityType, parameters);
+            }
+            case ContractPassiveAbilityTypeKey.removeOnDamageTaken:
+              return new PassiveAbilityRemoveOnTakingDamage(passiveAbilityType, ability.data);
             default: 
               throw Error (`Unhandled ability type: ${ability.typeKey}`);
           }

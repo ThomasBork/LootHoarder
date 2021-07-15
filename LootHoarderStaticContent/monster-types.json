@@ -3,150 +3,126 @@
     "key": "snake",
     "name": "Snake",
     "abilityTypes": ["basic-attack", "cobra-strike"],
-    "baseAttributes": {
-      "maximumHealth": 200,
-      "maximumMana": 100,
-      "attackPower": 50,
-      "spellPower": 50,
-      "attackUseSpeed": 150,
-      "spellUseSpeed": 100,
-      "attackCooldownSpeed": 150,
-      "spellCooldownSpeed": 100,
-      "physicalResistance": 0,
-      "elementalResistance": 50
-    },
-    "attributesPerLevel": {
-      "maximumHealth": 20,
-      "maximumMana": 10,
-      "attackPower": 5,
-      "spellPower": 5,
-      "physicalResistance": 0,
-      "elementalResistance": 5
-    }
+    "baseAttributes": [
+      [[], "maximum-health", 200],
+      [[], "maximum-mana", 100],
+      [["attack"], "power", -50],
+      [["attack"], "use-speed", 50],
+      [["attack"], "cooldown-speed", 50],
+      [["attack"], "critical-strike-chance", 100],
+      [["attack"], "critical-strike-multiplier", 150],
+      [["physical"], "resistance", 20],
+      [["elemental"], "resistance", 100]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 20],
+      [[], "maximum-mana", 10],
+      [["attack"], "power", 5],
+      [["physical"], "resistance", 2],
+      [["elemental"], "resistance", 10]
+    ]
   },
   {
     "key": "wolf",
     "name": "Wolf",
     "abilityTypes": ["basic-attack"],
-    "baseAttributes": {
-      "maximumHealth": 400,
-      "maximumMana": 50,
-      "attackPower": 100,
-      "spellPower": 50,
-      "attackUseSpeed": 100,
-      "spellUseSpeed": 50,
-      "attackCooldownSpeed": 100,
-      "spellCooldownSpeed": 100,
-      "physicalResistance": 50,
-      "elementalResistance": 0
-    },
-    "attributesPerLevel": {
-      "maximumHealth": 50,
-      "maximumMana": 5,
-      "attackPower": 10,
-      "spellPower": 5,
-      "physicalResistance": 5,
-      "elementalResistance": 5
-    }
+    "baseAttributes": [
+      [[], "maximum-health", 400],
+      [[], "maximum-mana", 50],
+      [["physical"], "resistance", 50],
+      [["elemental"], "resistance", 20]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 50],
+      [[], "maximum-mana", 5],
+      [["attack"], "power", 10],
+      [["physical"], "resistance", 5],
+      [["elemental"], "resistance", 2]
+    ]
   },
   {
     "key": "moth",
     "name": "Moth",
     "abilityTypes": ["basic-attack", "contamination"],
-    "baseAttributes": {
-      "maximumHealth": 250,
-      "maximumMana": 50,
-      "attackPower": 30,
-      "spellPower": 100,
-      "attackUseSpeed": 50,
-      "spellUseSpeed": 100,
-      "attackCooldownSpeed": 100,
-      "spellCooldownSpeed": 50,
-      "physicalResistance": 50,
-      "elementalResistance": 50
-    },
-    "attributesPerLevel": {
-      "maximumHealth": 30,
-      "maximumMana": 5,
-      "attackPower": 3,
-      "spellPower": 10,
-      "physicalResistance": 5,
-      "elementalResistance": 0
-    }
+    "baseAttributes": [
+      [[], "maximum-health", 250],
+      [[], "maximum-mana", 150],
+      [["attack"], "power", -70],
+      [["attack"], "use-speed", -50],
+      [["spell"], "cooldown-speed", -50],
+      [["physical"], "resistance", 50],
+      [["elemental"], "resistance", 50]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 30],
+      [[], "maximum-mana", 20],
+      [["attack"], "power", 3],
+      [["spell"], "power", 10],
+      [["physical"], "resistance", 5],
+      [["elemental"], "resistance", 5]
+    ]
   },
   {
     "key": "sellsword",
     "name": "Sellsword",
     "abilityTypes": ["basic-attack", "flame-slash"],
-    "baseAttributes": {
-      "maximumHealth": 400,
-      "maximumMana": 50,
-      "attackPower": 100,
-      "spellPower": 100,
-      "attackUseSpeed": 100,
-      "spellUseSpeed": 100,
-      "attackCooldownSpeed": 100,
-      "spellCooldownSpeed": 100,
-      "physicalResistance": 50,
-      "elementalResistance": 50
-    },
-    "attributesPerLevel": {
-      "maximumHealth": 50,
-      "maximumMana": 5,
-      "attackPower": 10,
-      "spellPower": 10,
-      "physicalResistance": 5,
-      "elementalResistance": 5
-    }
+    "baseAttributes": [
+      [[], "maximum-health", 400],
+      [[], "maximum-mana", 50],
+      [["physical"], "resistance", 50],
+      [["elemental"], "resistance", 50]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 50],
+      [[], "maximum-mana", 5],
+      [["attack"], "power", 10],
+      [["spell"], "power", 10],
+      [["physical"], "resistance", 5],
+      [["elemental"], "resistance", 5]
+    ]
   },
   {
     "key": "assassin",
     "name": "Assassin",
     "abilityTypes": ["basic-attack", "cobra-strike"],
-    "baseAttributes": {
-      "maximumHealth": 350,
-      "maximumMana": 50,
-      "attackPower": 100,
-      "spellPower": 100,
-      "attackUseSpeed": 200,
-      "spellUseSpeed": 100,
-      "attackCooldownSpeed": 200,
-      "spellCooldownSpeed": 100,
-      "physicalResistance": 50,
-      "elementalResistance": 50
-    },
-    "attributesPerLevel": {
-      "maximumHealth": 50,
-      "maximumMana": 5,
-      "attackPower": 20,
-      "spellPower": 10,
-      "physicalResistance": 5,
-      "elementalResistance": 5
-    }
+    "baseAttributes": [
+      [[], "maximum-health", 350],
+      [[], "maximum-mana", 50],
+      [["attack"], "use-speed", 100],
+      [["attack"], "cooldown-speed", 100],
+      [["attack"], "critical-strike-chance", 200],
+      [["attack"], "critical-strike-multiplier", 150],
+      [["physical"], "resistance", 50],
+      [["elemental"], "resistance", 50]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 50],
+      [[], "maximum-mana", 5],
+      [["attack"], "power", 20],
+      [["spell"], "power", 10],
+      [["physical"], "resistance", 2],
+      [["elemental"], "resistance", 5]
+    ]
   },
   {
     "key": "bandit-mage",
     "name": "Bandit Mage",
     "abilityTypes": ["basic-attack", "lightning-bolt"],
-    "baseAttributes": {
-      "maximumHealth": 300,
-      "maximumMana": 50,
-      "attackPower": 100,
-      "spellPower": 100,
-      "attackUseSpeed": 100,
-      "spellUseSpeed": 100,
-      "attackCooldownSpeed": 100,
-      "spellCooldownSpeed": 100,
-      "physicalResistance": 50,
-      "elementalResistance": 50
-    },
-    "attributesPerLevel": {
-      "maximumHealth": 40,
-      "maximumMana": 5,
-      "attackPower": 10,
-      "spellPower": 10,
-      "physicalResistance": 5,
-      "elementalResistance": 5
-    }
+    "baseAttributes": [
+      [[], "maximum-health", 300],
+      [[], "maximum-mana", 150],
+      [["spell"], "critical-strike-chance", 100],
+      [["spell"], "critical-strike-multiplier", 50],
+      [["physical"], "resistance", 50],
+      [["elemental"], "resistance", 50]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 40],
+      [[], "maximum-mana", 15],
+      [["attack"], "power", 10],
+      [["spell"], "power", 10],
+      [["physical"], "resistance", 5],
+      [["elemental"], "resistance", 5]
+    ]
   }
 ]

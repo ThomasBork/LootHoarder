@@ -5,7 +5,7 @@ import { ContractHero } from 'src/loot-hoarder-contract/contract-hero';
 import { WebSocketService } from '../web-socket/web-socket.service';
 import { CombatMessageHandler } from './combat-message-handler';
 import { GameStateMapper } from './game-state-mapper';
-import { AssetManagerService } from './client-representation/asset-manager.service';
+import { AssetManagerService } from './asset-manager.service';
 import { ContractClientMessageType } from 'src/loot-hoarder-contract/client-actions/contract-client-message-type';
 import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server-actions/contract-server-web-socket-message';
 import { ContractServerMessageType } from 'src/loot-hoarder-contract/server-actions/contract-server-message-type';

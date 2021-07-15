@@ -7,296 +7,818 @@
       "toY": 0
     },
     {
-      "fromX": 0,
+      "fromX": 1,
       "fromY": 0,
+      "toX": 1,
+      "toY": 1
+    },
+    {
+      "fromX": 1,
+      "fromY": 1,
+      "toX": 0,
+      "toY": 1
+    },
+    {
+      "fromX": 0,
+      "fromY": 1,
+      "toX": -1,
+      "toY": 1
+    },
+    {
+      "fromX": -1,
+      "fromY": 1,
       "toX": -1,
       "toY": 0
     },
     {
       "fromX": -1,
       "fromY": 0,
+      "toX": 0,
+      "toY": 0
+    },
+    {
+      "fromX": 0,
+      "fromY": 1,
+      "toX": 0,
+      "toY": 2
+    },
+    {
+      "fromX": 0,
+      "fromY": 2,
+      "toX": 0,
+      "toY": 3
+    },
+    {
+      "fromX": 1,
+      "fromY": 5,
+      "toX": 0,
+      "toY": 5
+    },
+    {
+      "fromX": 0,
+      "fromY": 5,
+      "toX": -1,
+      "toY": 5
+    },
+    {
+      "fromX": 1,
+      "fromY": 5,
+      "toX": 2,
+      "toY": 5
+    },
+    {
+      "fromX": 2,
+      "fromY": 5,
+      "toX": 2,
+      "toY": 4
+    },
+    {
+      "fromX": 2,
+      "fromY": 4,
+      "toX": 2,
+      "toY": 3
+    },
+    {
+      "fromX": 2,
+      "fromY": 3,
+      "toX": 2,
+      "toY": 2
+    },
+    {
+      "fromX": 2,
+      "fromY": 2,
+      "toX": 2,
+      "toY": 1
+    },
+    {
+      "fromX": 2,
+      "fromY": 1,
+      "toX": 1,
+      "toY": 1
+    },
+    {
+      "fromX": 2,
+      "fromY": 1,
+      "toX": 2,
+      "toY": 0
+    },
+    {
+      "fromX": 2,
+      "fromY": 0,
+      "toX": 1,
+      "toY": 0
+    },
+    {
+      "fromX": 2,
+      "fromY": 1,
+      "toX": 3,
+      "toY": 1
+    },
+    {
+      "fromX": 3,
+      "fromY": 1,
+      "toX": 4,
+      "toY": 1
+    },
+    {
+      "fromX": 4,
+      "fromY": 1,
+      "toX": 5,
+      "toY": 1
+    },
+    {
+      "fromX": 5,
+      "fromY": 1,
+      "toX": 6,
+      "toY": 1
+    },
+    {
+      "fromX": -1,
+      "fromY": 5,
+      "toX": -2,
+      "toY": 5
+    },
+    {
+      "fromX": -2,
+      "fromY": 5,
+      "toX": -2,
+      "toY": 4
+    },
+    {
+      "fromX": -1,
+      "fromY": 1,
+      "toX": -2,
+      "toY": 1
+    },
+    {
+      "fromX": -2,
+      "fromY": 1,
+      "toX": -2,
+      "toY": 2
+    },
+    {
+      "fromX": -2,
+      "fromY": 2,
+      "toX": -2,
+      "toY": 3
+    },
+    {
+      "fromX": -2,
+      "fromY": 3,
+      "toX": -2,
+      "toY": 4
+    },
+    {
+      "fromX": -2,
+      "fromY": 1,
       "toX": -2,
       "toY": 0
     },
     {
       "fromX": -2,
       "fromY": 0,
+      "toX": -1,
+      "toY": 0
+    },
+    {
+      "fromX": 2,
+      "fromY": 0,
+      "toX": 2,
+      "toY": -1
+    },
+    {
+      "fromX": 2,
+      "fromY": -1,
+      "toX": 1,
+      "toY": -1
+    },
+    {
+      "fromX": 1,
+      "fromY": -1,
+      "toX": 1,
+      "toY": 0
+    },
+    {
+      "fromX": 2,
+      "fromY": -1,
+      "toX": 3,
+      "toY": -1
+    },
+    {
+      "fromX": 3,
+      "fromY": -1,
+      "toX": 4,
+      "toY": -1
+    },
+    {
+      "fromX": 4,
+      "fromY": -1,
+      "toX": 5,
+      "toY": -1
+    },
+    {
+      "fromX": 5,
+      "fromY": -1,
+      "toX": 5,
+      "toY": -2
+    },
+    {
+      "fromX": 5,
+      "fromY": -2,
+      "toX": 5,
+      "toY": -3
+    },
+    {
+      "fromX": 6,
+      "fromY": 1,
+      "toX": 6,
+      "toY": 2
+    },
+    {
+      "fromX": 6,
+      "fromY": 2,
+      "toX": 6,
+      "toY": 3
+    },
+    {
+      "fromX": 6,
+      "fromY": 3,
+      "toX": 6,
+      "toY": 4
+    },
+    {
+      "fromX": 6,
+      "fromY": 3,
+      "toX": 5,
+      "toY": 3
+    },
+    {
+      "fromX": 5,
+      "fromY": 3,
+      "toX": 4,
+      "toY": 3
+    },
+    {
+      "fromX": 4,
+      "fromY": 3,
+      "toX": 4,
+      "toY": 4
+    },
+    {
+      "fromX": 6,
+      "fromY": 3,
+      "toX": 7,
+      "toY": 3
+    },
+    {
+      "fromX": 7,
+      "fromY": 3,
+      "toX": 8,
+      "toY": 3
+    },
+    {
+      "fromX": 8,
+      "fromY": 3,
+      "toX": 8,
+      "toY": 4
+    },
+    {
+      "fromX": 8,
+      "fromY": 4,
+      "toX": 8,
+      "toY": 5
+    },
+    {
+      "fromX": 8,
+      "fromY": 5,
+      "toX": 7,
+      "toY": 5
+    },
+    {
+      "fromX": 4,
+      "fromY": 4,
+      "toX": 4,
+      "toY": 5
+    },
+    {
+      "fromX": 4,
+      "fromY": 5,
+      "toX": 5,
+      "toY": 5
+    },
+    {
+      "fromX": 5,
+      "fromY": 5,
+      "toX": 6,
+      "toY": 5
+    },
+    {
+      "fromX": 6,
+      "fromY": 4,
+      "toX": 6,
+      "toY": 5
+    },
+    {
+      "fromX": 6,
+      "fromY": 5,
+      "toX": 7,
+      "toY": 5
+    },
+    {
+      "fromX": 0,
+      "fromY": -1,
+      "toX": 1,
+      "toY": -1
+    },
+    {
+      "fromX": 0,
+      "fromY": -1,
+      "toX": 0,
+      "toY": -2
+    },
+    {
+      "fromX": 0,
+      "fromY": -1,
+      "toX": -1,
+      "toY": -1
+    },
+    {
+      "fromX": -1,
+      "fromY": -1,
+      "toX": -1,
+      "toY": 0
+    },
+    {
+      "fromX": -1,
+      "fromY": -1,
+      "toX": -2,
+      "toY": -1
+    },
+    {
+      "fromX": -2,
+      "fromY": 0,
+      "toX": -2,
+      "toY": -1
+    },
+    {
+      "fromX": 0,
+      "fromY": -2,
+      "toX": 0,
+      "toY": -3
+    },
+    {
+      "fromX": 0,
+      "fromY": -3,
+      "toX": 1,
+      "toY": -3
+    },
+    {
+      "fromX": 1,
+      "fromY": -3,
+      "toX": 2,
+      "toY": -3
+    },
+    {
+      "fromX": 2,
+      "fromY": -3,
+      "toX": 3,
+      "toY": -3
+    },
+    {
+      "fromX": 3,
+      "fromY": -3,
+      "toX": 3,
+      "toY": -4
+    },
+    {
+      "fromX": 0,
+      "fromY": -3,
+      "toX": 0,
+      "toY": -4
+    },
+    {
+      "fromX": 0,
+      "fromY": -4,
+      "toX": 0,
+      "toY": -5
+    },
+    {
+      "fromX": 0,
+      "fromY": -5,
+      "toX": -1,
+      "toY": -5
+    },
+    {
+      "fromX": -1,
+      "fromY": -5,
+      "toX": -1,
+      "toY": -6
+    },
+    {
+      "fromX": -1,
+      "fromY": -6,
+      "toX": -1,
+      "toY": -7
+    },
+    {
+      "fromX": -1,
+      "fromY": -7,
+      "toX": 0,
+      "toY": -7
+    },
+    {
+      "fromX": 0,
+      "fromY": -7,
+      "toX": 1,
+      "toY": -7
+    },
+    {
+      "fromX": 1,
+      "fromY": -7,
+      "toX": 1,
+      "toY": -6
+    },
+    {
+      "fromX": 1,
+      "fromY": -6,
+      "toX": 1,
+      "toY": -5
+    },
+    {
+      "fromX": 1,
+      "fromY": -5,
+      "toX": 0,
+      "toY": -5
+    },
+    {
+      "fromX": 1,
+      "fromY": -6,
+      "toX": 2,
+      "toY": -6
+    },
+    {
+      "fromX": 2,
+      "fromY": -6,
+      "toX": 3,
+      "toY": -6
+    },
+    {
+      "fromX": 3,
+      "fromY": -6,
+      "toX": 4,
+      "toY": -6
+    },
+    {
+      "fromX": 3,
+      "fromY": -6,
+      "toX": 3,
+      "toY": -7
+    },
+    {
+      "fromX": 3,
+      "fromY": -7,
+      "toX": 3,
+      "toY": -8
+    },
+    {
+      "fromX": 3,
+      "fromY": -8,
+      "toX": 3,
+      "toY": -9
+    },
+    {
+      "fromX": 3,
+      "fromY": -9,
+      "toX": 2,
+      "toY": -9
+    },
+    {
+      "fromX": 4,
+      "fromY": -6,
+      "toX": 5,
+      "toY": -6
+    },
+    {
+      "fromX": 0,
+      "fromY": -7,
+      "toX": 0,
+      "toY": -8
+    },
+    {
+      "fromX": 0,
+      "fromY": -8,
+      "toX": 0,
+      "toY": -9
+    },
+    {
+      "fromX": 0,
+      "fromY": -9,
+      "toX": 0,
+      "toY": -10
+    },
+    {
+      "fromX": 0,
+      "fromY": -9,
+      "toX": -1,
+      "toY": -9
+    },
+    {
+      "fromX": -1,
+      "fromY": -9,
+      "toX": -2,
+      "toY": -9
+    },
+    {
+      "fromX": -2,
+      "fromY": -9,
       "toX": -3,
-      "toY": 0
+      "toY": -9
     },
     {
-      "fromX": 1,
-      "fromY": 0,
-      "toX": 2,
-      "toY": 0
-    },
-    {
-      "fromX": 2,
-      "fromY": 0,
-      "toX": 3,
-      "toY": 0
-    },
-    {
-      "fromX": 3,
-      "fromY": 0,
-      "toX": 4,
-      "toY": 0
-    },
-    {
-      "fromX": 1,
-      "fromY": 0,
-      "toX": 1,
-      "toY": 1
-    },
-    {
-      "fromX": 1,
-      "fromY": 1,
-      "toX": 1,
-      "toY": 2
-    },
-    {
-      "fromX": 1,
-      "fromY": 2,
-      "toX": 1,
-      "toY": 3
-    },
-    {
-      "fromX": 1,
-      "fromY": 3,
-      "toX": 2,
-      "toY": 3
-    },
-    {
-      "fromX": 2,
-      "fromY": 3,
-      "toX": 3,
-      "toY": 3
-    },
-    {
-      "fromX": 3,
-      "fromY": 3,
-      "toX": 3,
-      "toY": 4
-    },
-    {
-      "fromX": 3,
-      "fromY": 4,
-      "toX": 3,
-      "toY": 5
-    },
-    {
-      "fromX": 3,
-      "fromY": 5,
-      "toX": 2,
-      "toY": 5
-    },
-    {
-      "fromX": 2,
-      "fromY": 5,
-      "toX": 1,
-      "toY": 5
-    },
-    {
-      "fromX": 1,
-      "fromY": 5,
-      "toX": 1,
-      "toY": 4
-    },
-    {
-      "fromX": 1,
-      "fromY": 4,
-      "toX": 1,
-      "toY": 3
-    },
-    {
-      "fromX": 4,
-      "fromY": 0,
-      "toX": 4,
-      "toY": 1
-    },
-    {
-      "fromX": 4,
-      "fromY": 1,
-      "toX": 4,
-      "toY": 2
-    },
-    {
-      "fromX": 4,
-      "fromY": 2,
-      "toX": 4,
-      "toY": 3
-    },
-    {
-      "fromX": 4,
-      "fromY": 3,
-      "toX": 5,
-      "toY": 3
-    },
-    {
-      "fromX": 5,
-      "fromY": 3,
-      "toX": 6,
-      "toY": 3
-    },
-    {
-      "fromX": 6,
-      "fromY": 2,
-      "toX": 6,
-      "toY": 3
-    },
-    {
-      "fromX": 6,
-      "fromY": 2,
-      "toX": 6,
-      "toY": 1
+      "fromX": -3,
+      "fromY": -9,
+      "toX": -3,
+      "toY": -8
     },
     {
       "fromX": 6,
       "fromY": 1,
-      "toX": 5,
+      "toX": 7,
       "toY": 1
     },
     {
-      "fromX": 5,
+      "fromX": 7,
       "fromY": 1,
-      "toX": 4,
-      "toY": 1
+      "toX": 7,
+      "toY": 0
     },
     {
-      "fromX": 0,
+      "fromX": 7,
       "fromY": 0,
-      "toX": 0,
+      "toX": 7,
       "toY": -1
     },
     {
-      "fromX": 0,
+      "fromX": 7,
       "fromY": -1,
-      "toX": 0,
+      "toX": 7,
       "toY": -2
     },
     {
-      "fromX": 0,
+      "fromX": 7,
       "fromY": -2,
-      "toX": -1,
-      "toY": -2
-    },
-    {
-      "fromX": -1,
-      "fromY": -2,
-      "toX": -1,
+      "toX": 7,
       "toY": -3
     },
     {
-      "fromX": -1,
+      "fromX": 5,
       "fromY": -3,
-      "toX": -1,
+      "toX": 5,
       "toY": -4
     },
     {
-      "fromX": -1,
+      "fromX": 5,
       "fromY": -4,
-      "toX": 0,
-      "toY": -4
-    },
-    {
-      "fromX": 0,
-      "fromY": -4,
-      "toX": 1,
-      "toY": -4
-    },
-    {
-      "fromX": 1,
-      "fromY": -4,
-      "toX": 1,
-      "toY": -3
-    },
-    {
-      "fromX": 1,
-      "fromY": -3,
-      "toX": 1,
-      "toY": -2
-    },
-    {
-      "fromX": 1,
-      "fromY": -2,
-      "toX": 0,
-      "toY": -2
-    },
-    {
-      "fromX": 4,
-      "fromY": 0,
-      "toX": 4,
-      "toY": -1
-    },
-    {
-      "fromX": 4,
-      "fromY": -1,
-      "toX": 4,
-      "toY": -2
-    },
-    {
-      "fromX": 4,
-      "fromY": -2,
-      "toX": 4,
-      "toY": -3
-    },
-    {
-      "fromX": 4,
-      "fromY": -3,
-      "toX": 4,
-      "toY": -4
-    },
-    {
-      "fromX": 4,
-      "fromY": -4,
-      "toX": 4,
+      "toX": 5,
       "toY": -5
     },
     {
-      "fromX": 0,
+      "fromX": 5,
+      "fromY": -5,
+      "toX": 5,
+      "toY": -6
+    },
+    {
+      "fromX": 7,
+      "fromY": -3,
+      "toX": 7,
+      "toY": -4
+    },
+    {
+      "fromX": 7,
       "fromY": -4,
-      "toX": 0,
+      "toX": 6,
+      "toY": -4
+    },
+    {
+      "fromX": 6,
+      "fromY": -4,
+      "toX": 5,
+      "toY": -4
+    },
+    {
+      "fromX": 5,
+      "fromY": -5,
+      "toX": 6,
       "toY": -5
     },
     {
+      "fromX": 6,
+      "fromY": -4,
+      "toX": 6,
+      "toY": -5
+    },
+    {
+      "fromX": 6,
+      "fromY": -5,
+      "toX": 6,
+      "toY": -6
+    },
+    {
+      "fromX": 6,
+      "fromY": -6,
+      "toX": 6,
+      "toY": -7
+    },
+    {
+      "fromX": 5,
+      "fromY": -6,
+      "toX": 5,
+      "toY": -7
+    },
+    {
+      "fromX": 5,
+      "fromY": -7,
+      "toX": 6,
+      "toY": -7
+    },
+    {
       "fromX": 0,
-      "fromY": -5,
+      "fromY": -10,
       "toX": 0,
-      "toY": -6
+      "toY": -11
     },
     {
-      "fromX": 4,
-      "fromY": -5,
-      "toX": 4,
-      "toY": -6
+      "fromX": 0,
+      "fromY": -11,
+      "toX": -1,
+      "toY": -11
     },
     {
-      "fromX": 4,
-      "fromY": -6,
-      "toX": 3,
-      "toY": -6
-    },
-    {
-      "fromX": 3,
-      "fromY": -6,
-      "toX": 2,
-      "toY": -6
-    },
-    {
-      "fromX": 2,
-      "fromY": -6,
+      "fromX": 0,
+      "fromY": -11,
       "toX": 1,
-      "toY": -6
+      "toY": -11
+    },
+    {
+      "fromX": -1,
+      "fromY": -11,
+      "toX": -1,
+      "toY": -12
+    },
+    {
+      "fromX": -1,
+      "fromY": -12,
+      "toX": 0,
+      "toY": -12
+    },
+    {
+      "fromX": 0,
+      "fromY": -12,
+      "toX": 1,
+      "toY": -12
     },
     {
       "fromX": 1,
+      "fromY": -12,
+      "toX": 1,
+      "toY": -11
+    },
+    {
+      "fromX": -1,
       "fromY": -6,
-      "toX": 0,
+      "toX": -2,
+      "toY": -6
+    },
+    {
+      "fromX": -2,
+      "fromY": -6,
+      "toX": -3,
       "toY": -6
     },
     {
       "fromX": -3,
-      "fromY": 0,
+      "fromY": -6,
+      "toX": -3,
+      "toY": -7
+    },
+    {
+      "fromX": -3,
+      "fromY": -7,
+      "toX": -3,
+      "toY": -8
+    },
+    {
+      "fromX": 0,
+      "fromY": -9,
+      "toX": 1,
+      "toY": -9
+    },
+    {
+      "fromX": 1,
+      "fromY": -9,
+      "toX": 2,
+      "toY": -9
+    },
+    {
+      "fromX": 3,
+      "fromY": -6,
+      "toX": 3,
+      "toY": -5
+    },
+    {
+      "fromX": 3,
+      "fromY": -5,
+      "toX": 3,
+      "toY": -4
+    },
+    {
+      "fromX": 0,
+      "fromY": -3,
+      "toX": -1,
+      "toY": -3
+    },
+    {
+      "fromX": -1,
+      "fromY": -3,
+      "toX": -2,
+      "toY": -3
+    },
+    {
+      "fromX": -2,
+      "fromY": -3,
+      "toX": -3,
+      "toY": -3
+    },
+    {
+      "fromX": -3,
+      "fromY": -3,
+      "toX": -3,
+      "toY": -4
+    },
+    {
+      "fromX": -3,
+      "fromY": -4,
+      "toX": -3,
+      "toY": -5
+    },
+    {
+      "fromX": -3,
+      "fromY": -5,
+      "toX": -3,
+      "toY": -6
+    },
+    {
+      "fromX": -3,
+      "fromY": -6,
+      "toX": -4,
+      "toY": -6
+    },
+    {
+      "fromX": -4,
+      "fromY": -6,
+      "toX": -5,
+      "toY": -6
+    },
+    {
+      "fromX": -5,
+      "fromY": -6,
+      "toX": -5,
+      "toY": -7
+    },
+    {
+      "fromX": -5,
+      "fromY": -7,
+      "toX": -6,
+      "toY": -7
+    },
+    {
+      "fromX": -6,
+      "fromY": -7,
+      "toX": -6,
+      "toY": -6
+    },
+    {
+      "fromX": -6,
+      "fromY": -6,
+      "toX": -6,
+      "toY": -5
+    },
+    {
+      "fromX": -6,
+      "fromY": -5,
+      "toX": -5,
+      "toY": -5
+    },
+    {
+      "fromX": -5,
+      "fromY": -5,
+      "toX": -5,
+      "toY": -6
+    },
+    {
+      "fromX": -2,
+      "fromY": 1,
       "toX": -3,
       "toY": 1
     },
@@ -315,38 +837,1424 @@
     {
       "fromX": -5,
       "fromY": 1,
-      "toX": -5,
+      "toX": -6,
+      "toY": 1
+    },
+    {
+      "fromX": -6,
+      "fromY": 1,
+      "toX": -7,
+      "toY": 1
+    },
+    {
+      "fromX": -7,
+      "fromY": 1,
+      "toX": -7,
+      "toY": 0
+    },
+    {
+      "fromX": -7,
+      "fromY": 0,
+      "toX": -7,
+      "toY": -1
+    },
+    {
+      "fromX": -7,
+      "fromY": -1,
+      "toX": -7,
+      "toY": -2
+    },
+    {
+      "fromX": -7,
+      "fromY": -2,
+      "toX": -7,
+      "toY": -3
+    },
+    {
+      "fromX": -6,
+      "fromY": 1,
+      "toX": -6,
       "toY": 2
     },
     {
-      "fromX": -5,
-      "fromY": 2,
+      "fromX": -2,
+      "fromY": -1,
+      "toX": -3,
+      "toY": -1
+    },
+    {
+      "fromX": -3,
+      "fromY": -1,
+      "toX": -4,
+      "toY": -1
+    },
+    {
+      "fromX": -4,
+      "fromY": -1,
       "toX": -5,
-      "toY": 3
+      "toY": -1
     },
     {
       "fromX": -5,
+      "fromY": -1,
+      "toX": -5,
+      "toY": -2
+    },
+    {
+      "fromX": -5,
+      "fromY": -2,
+      "toX": -5,
+      "toY": -3
+    },
+    {
+      "fromX": -6,
+      "fromY": 2,
+      "toX": -6,
+      "toY": 3
+    },
+    {
+      "fromX": -6,
       "fromY": 3,
+      "toX": -7,
+      "toY": 3
+    },
+    {
+      "fromX": -7,
+      "fromY": 3,
+      "toX": -8,
+      "toY": 3
+    },
+    {
+      "fromX": -8,
+      "fromY": 3,
+      "toX": -8,
+      "toY": 4
+    },
+    {
+      "fromX": -8,
+      "fromY": 4,
+      "toX": -8,
+      "toY": 5
+    },
+    {
+      "fromX": -8,
+      "fromY": 5,
+      "toX": -7,
+      "toY": 5
+    },
+    {
+      "fromX": -7,
+      "fromY": 5,
+      "toX": -6,
+      "toY": 5
+    },
+    {
+      "fromX": -6,
+      "fromY": 5,
+      "toX": -5,
+      "toY": 5
+    },
+    {
+      "fromX": -5,
+      "fromY": 5,
+      "toX": -4,
+      "toY": 5
+    },
+    {
+      "fromX": -4,
+      "fromY": 5,
+      "toX": -4,
+      "toY": 4
+    },
+    {
+      "fromX": -4,
+      "fromY": 4,
       "toX": -4,
       "toY": 3
     },
     {
       "fromX": -4,
       "fromY": 3,
-      "toX": -3,
+      "toX": -5,
       "toY": 3
     },
     {
-      "fromX": -3,
+      "fromX": -5,
       "fromY": 3,
-      "toX": -3,
+      "toX": -6,
+      "toY": 3
+    },
+    {
+      "fromX": -6,
+      "fromY": 3,
+      "toX": -6,
+      "toY": 4
+    },
+    {
+      "fromX": -6,
+      "fromY": 4,
+      "toX": -6,
+      "toY": 5
+    },
+    {
+      "fromX": -7,
+      "fromY": 0,
+      "toX": -8,
+      "toY": 0
+    },
+    {
+      "fromX": -8,
+      "fromY": 0,
+      "toX": -9,
+      "toY": 0
+    },
+    {
+      "fromX": -9,
+      "fromY": 0,
+      "toX": -9,
+      "toY": 1
+    },
+    {
+      "fromX": -9,
+      "fromY": 1,
+      "toX": -9,
       "toY": 2
     },
     {
-      "fromX": -3,
+      "fromX": -9,
       "fromY": 2,
-      "toX": -3,
+      "toX": -10,
+      "toY": 2
+    },
+    {
+      "fromX": -10,
+      "fromY": 2,
+      "toX": -11,
+      "toY": 2
+    },
+    {
+      "fromX": -11,
+      "fromY": 2,
+      "toX": -11,
       "toY": 1
+    },
+    {
+      "fromX": -11,
+      "fromY": 1,
+      "toX": -11,
+      "toY": 0
+    },
+    {
+      "fromX": -9,
+      "fromY": 0,
+      "toX": -10,
+      "toY": 0
+    },
+    {
+      "fromX": -10,
+      "fromY": 0,
+      "toX": -11,
+      "toY": 0
+    },
+    {
+      "fromX": -9,
+      "fromY": 0,
+      "toX": -9,
+      "toY": -1
+    },
+    {
+      "fromX": -9,
+      "fromY": -1,
+      "toX": -9,
+      "toY": -2
+    },
+    {
+      "fromX": -9,
+      "fromY": -2,
+      "toX": -10,
+      "toY": -2
+    },
+    {
+      "fromX": -10,
+      "fromY": -2,
+      "toX": -11,
+      "toY": -2
+    },
+    {
+      "fromX": -11,
+      "fromY": -2,
+      "toX": -11,
+      "toY": -1
+    },
+    {
+      "fromX": -11,
+      "fromY": -1,
+      "toX": -11,
+      "toY": 0
+    },
+    {
+      "fromX": -5,
+      "fromY": -5,
+      "toX": -5,
+      "toY": -4
+    },
+    {
+      "fromX": -5,
+      "fromY": -4,
+      "toX": -5,
+      "toY": -3
+    },
+    {
+      "fromX": -5,
+      "fromY": -4,
+      "toX": -6,
+      "toY": -4
+    },
+    {
+      "fromX": -6,
+      "fromY": -4,
+      "toX": -6,
+      "toY": -5
+    },
+    {
+      "fromX": -6,
+      "fromY": -4,
+      "toX": -7,
+      "toY": -4
+    },
+    {
+      "fromX": -7,
+      "fromY": -4,
+      "toX": -7,
+      "toY": -3
+    },
+    {
+      "fromX": -7,
+      "fromY": -4,
+      "toX": -7,
+      "toY": -5
+    },
+    {
+      "fromX": -7,
+      "fromY": -5,
+      "toX": -6,
+      "toY": -5
+    },
+    {
+      "fromX": -7,
+      "fromY": -4,
+      "toX": -8,
+      "toY": -4
+    },
+    {
+      "fromX": -8,
+      "fromY": -4,
+      "toX": -9,
+      "toY": -4
+    },
+    {
+      "fromX": -9,
+      "fromY": -4,
+      "toX": -10,
+      "toY": -4
+    },
+    {
+      "fromX": -10,
+      "fromY": -4,
+      "toX": -11,
+      "toY": -4
+    },
+    {
+      "fromX": -11,
+      "fromY": -4,
+      "toX": -11,
+      "toY": -5
+    },
+    {
+      "fromX": -11,
+      "fromY": -5,
+      "toX": -11,
+      "toY": -6
+    },
+    {
+      "fromX": -11,
+      "fromY": -6,
+      "toX": -11,
+      "toY": -7
+    },
+    {
+      "fromX": -11,
+      "fromY": -7,
+      "toX": -11,
+      "toY": -8
+    },
+    {
+      "fromX": -11,
+      "fromY": -8,
+      "toX": -10,
+      "toY": -8
+    },
+    {
+      "fromX": -10,
+      "fromY": -8,
+      "toX": -9,
+      "toY": -8
+    },
+    {
+      "fromX": -9,
+      "fromY": -8,
+      "toX": -8,
+      "toY": -8
+    },
+    {
+      "fromX": -8,
+      "fromY": -8,
+      "toX": -7,
+      "toY": -8
+    },
+    {
+      "fromX": -7,
+      "fromY": -8,
+      "toX": -7,
+      "toY": -7
+    },
+    {
+      "fromX": -7,
+      "fromY": -7,
+      "toX": -6,
+      "toY": -7
+    },
+    {
+      "fromX": -7,
+      "fromY": -8,
+      "toX": -6,
+      "toY": -8
+    },
+    {
+      "fromX": -6,
+      "fromY": -8,
+      "toX": -5,
+      "toY": -8
+    },
+    {
+      "fromX": -5,
+      "fromY": -8,
+      "toX": -5,
+      "toY": -7
+    },
+    {
+      "fromX": -6,
+      "fromY": -7,
+      "toX": -6,
+      "toY": -8
+    },
+    {
+      "fromX": -7,
+      "fromY": -7,
+      "toX": -7,
+      "toY": -6
+    },
+    {
+      "fromX": -7,
+      "fromY": -6,
+      "toX": -7,
+      "toY": -5
+    },
+    {
+      "fromX": -7,
+      "fromY": -6,
+      "toX": -8,
+      "toY": -6
+    },
+    {
+      "fromX": -8,
+      "fromY": -6,
+      "toX": -9,
+      "toY": -6
+    },
+    {
+      "fromX": -5,
+      "fromY": -8,
+      "toX": -5,
+      "toY": -9
+    },
+    {
+      "fromX": -5,
+      "fromY": -9,
+      "toX": -5,
+      "toY": -10
+    },
+    {
+      "fromX": -5,
+      "fromY": -10,
+      "toX": -5,
+      "toY": -11
+    },
+    {
+      "fromX": -5,
+      "fromY": -11,
+      "toX": -4,
+      "toY": -11
+    },
+    {
+      "fromX": -4,
+      "fromY": -11,
+      "toX": -3,
+      "toY": -11
+    },
+    {
+      "fromX": -7,
+      "fromY": -8,
+      "toX": -7,
+      "toY": -9
+    },
+    {
+      "fromX": -7,
+      "fromY": -9,
+      "toX": -7,
+      "toY": -10
+    },
+    {
+      "fromX": -7,
+      "fromY": -10,
+      "toX": -7,
+      "toY": -11
+    },
+    {
+      "fromX": -7,
+      "fromY": -11,
+      "toX": -7,
+      "toY": -12
+    },
+    {
+      "fromX": -7,
+      "fromY": -12,
+      "toX": -7,
+      "toY": -13
+    },
+    {
+      "fromX": -7,
+      "fromY": -13,
+      "toX": -6,
+      "toY": -13
+    },
+    {
+      "fromX": -6,
+      "fromY": -13,
+      "toX": -5,
+      "toY": -13
+    },
+    {
+      "fromX": -5,
+      "fromY": -13,
+      "toX": -4,
+      "toY": -13
+    },
+    {
+      "fromX": -4,
+      "fromY": -13,
+      "toX": -3,
+      "toY": -13
+    },
+    {
+      "fromX": -7,
+      "fromY": -12,
+      "toX": -8,
+      "toY": -12
+    },
+    {
+      "fromX": -8,
+      "fromY": -12,
+      "toX": -9,
+      "toY": -12
+    },
+    {
+      "fromX": -9,
+      "fromY": -12,
+      "toX": -10,
+      "toY": -12
+    },
+    {
+      "fromX": -10,
+      "fromY": -12,
+      "toX": -11,
+      "toY": -12
+    },
+    {
+      "fromX": -9,
+      "fromY": -12,
+      "toX": -9,
+      "toY": -13
+    },
+    {
+      "fromX": -9,
+      "fromY": -13,
+      "toX": -9,
+      "toY": -14
+    },
+    {
+      "fromX": -9,
+      "fromY": -14,
+      "toX": -10,
+      "toY": -14
+    },
+    {
+      "fromX": -10,
+      "fromY": -14,
+      "toX": -11,
+      "toY": -14
+    },
+    {
+      "fromX": -11,
+      "fromY": -14,
+      "toX": -11,
+      "toY": -13
+    },
+    {
+      "fromX": -11,
+      "fromY": -13,
+      "toX": -11,
+      "toY": -12
+    },
+    {
+      "fromX": -9,
+      "fromY": -12,
+      "toX": -9,
+      "toY": -11
+    },
+    {
+      "fromX": -9,
+      "fromY": -11,
+      "toX": -9,
+      "toY": -10
+    },
+    {
+      "fromX": -9,
+      "fromY": -10,
+      "toX": -10,
+      "toY": -10
+    },
+    {
+      "fromX": -10,
+      "fromY": -10,
+      "toX": -11,
+      "toY": -10
+    },
+    {
+      "fromX": -11,
+      "fromY": -10,
+      "toX": -11,
+      "toY": -11
+    },
+    {
+      "fromX": -11,
+      "fromY": -11,
+      "toX": -11,
+      "toY": -12
+    },
+    {
+      "fromX": -6,
+      "fromY": -13,
+      "toX": -6,
+      "toY": -14
+    },
+    {
+      "fromX": -6,
+      "fromY": -14,
+      "toX": -6,
+      "toY": -15
+    },
+    {
+      "fromX": -6,
+      "fromY": -15,
+      "toX": -6,
+      "toY": -16
+    },
+    {
+      "fromX": -6,
+      "fromY": -16,
+      "toX": -6,
+      "toY": -17
+    },
+    {
+      "fromX": -6,
+      "fromY": -17,
+      "toX": -7,
+      "toY": -17
+    },
+    {
+      "fromX": -7,
+      "fromY": -17,
+      "toX": -8,
+      "toY": -17
+    },
+    {
+      "fromX": -8,
+      "fromY": -17,
+      "toX": -8,
+      "toY": -16
+    },
+    {
+      "fromX": -8,
+      "fromY": -16,
+      "toX": -8,
+      "toY": -15
+    },
+    {
+      "fromX": -8,
+      "fromY": -15,
+      "toX": -7,
+      "toY": -15
+    },
+    {
+      "fromX": -7,
+      "fromY": -15,
+      "toX": -6,
+      "toY": -15
+    },
+    {
+      "fromX": -6,
+      "fromY": -15,
+      "toX": -5,
+      "toY": -15
+    },
+    {
+      "fromX": -5,
+      "fromY": -15,
+      "toX": -4,
+      "toY": -15
+    },
+    {
+      "fromX": -4,
+      "fromY": -15,
+      "toX": -4,
+      "toY": -16
+    },
+    {
+      "fromX": -4,
+      "fromY": -16,
+      "toX": -4,
+      "toY": -17
+    },
+    {
+      "fromX": -4,
+      "fromY": -17,
+      "toX": -5,
+      "toY": -17
+    },
+    {
+      "fromX": -5,
+      "fromY": -17,
+      "toX": -6,
+      "toY": -17
+    },
+    {
+      "fromX": -3,
+      "fromY": -11,
+      "toX": -2,
+      "toY": -11
+    },
+    {
+      "fromX": -2,
+      "fromY": -11,
+      "toX": -1,
+      "toY": -11
+    },
+    {
+      "fromX": -2,
+      "fromY": -11,
+      "toX": -2,
+      "toY": -12
+    },
+    {
+      "fromX": -2,
+      "fromY": -12,
+      "toX": -2,
+      "toY": -13
+    },
+    {
+      "fromX": -2,
+      "fromY": -12,
+      "toX": -1,
+      "toY": -12
+    },
+    {
+      "fromX": -2,
+      "fromY": -13,
+      "toX": -3,
+      "toY": -13
+    },
+    {
+      "fromX": -2,
+      "fromY": -13,
+      "toX": -1,
+      "toY": -13
+    },
+    {
+      "fromX": -1,
+      "fromY": -13,
+      "toX": -1,
+      "toY": -12
+    },
+    {
+      "fromX": -2,
+      "fromY": -13,
+      "toX": -2,
+      "toY": -14
+    },
+    {
+      "fromX": -2,
+      "fromY": -14,
+      "toX": -2,
+      "toY": -15
+    },
+    {
+      "fromX": -2,
+      "fromY": -15,
+      "toX": -2,
+      "toY": -16
+    },
+    {
+      "fromX": -2,
+      "fromY": -16,
+      "toX": -2,
+      "toY": -17
+    },
+    {
+      "fromX": -2,
+      "fromY": -17,
+      "toX": -1,
+      "toY": -17
+    },
+    {
+      "fromX": -1,
+      "fromY": -17,
+      "toX": 0,
+      "toY": -17
+    },
+    {
+      "fromX": 0,
+      "fromY": -17,
+      "toX": 1,
+      "toY": -17
+    },
+    {
+      "fromX": 1,
+      "fromY": -17,
+      "toX": 2,
+      "toY": -17
+    },
+    {
+      "fromX": 2,
+      "fromY": -17,
+      "toX": 2,
+      "toY": -16
+    },
+    {
+      "fromX": 2,
+      "fromY": -16,
+      "toX": 2,
+      "toY": -15
+    },
+    {
+      "fromX": 2,
+      "fromY": -15,
+      "toX": 2,
+      "toY": -14
+    },
+    {
+      "fromX": 2,
+      "fromY": -14,
+      "toX": 2,
+      "toY": -13
+    },
+    {
+      "fromX": 2,
+      "fromY": -13,
+      "toX": 1,
+      "toY": -13
+    },
+    {
+      "fromX": 2,
+      "fromY": -13,
+      "toX": 2,
+      "toY": -12
+    },
+    {
+      "fromX": 2,
+      "fromY": -12,
+      "toX": 2,
+      "toY": -11
+    },
+    {
+      "fromX": 2,
+      "fromY": -11,
+      "toX": 1,
+      "toY": -11
+    },
+    {
+      "fromX": 2,
+      "fromY": -12,
+      "toX": 1,
+      "toY": -12
+    },
+    {
+      "fromX": 1,
+      "fromY": -12,
+      "toX": 1,
+      "toY": -13
+    },
+    {
+      "fromX": -1,
+      "fromY": -13,
+      "toX": 0,
+      "toY": -13
+    },
+    {
+      "fromX": 1,
+      "fromY": -13,
+      "toX": 0,
+      "toY": -13
+    },
+    {
+      "fromX": 0,
+      "fromY": -13,
+      "toX": 0,
+      "toY": -14
+    },
+    {
+      "fromX": 0,
+      "fromY": -14,
+      "toX": 0,
+      "toY": -15
+    },
+    {
+      "fromX": 2,
+      "fromY": -11,
+      "toX": 3,
+      "toY": -11
+    },
+    {
+      "fromX": 3,
+      "fromY": -11,
+      "toX": 4,
+      "toY": -11
+    },
+    {
+      "fromX": 4,
+      "fromY": -11,
+      "toX": 5,
+      "toY": -11
+    },
+    {
+      "fromX": 5,
+      "fromY": -11,
+      "toX": 5,
+      "toY": -10
+    },
+    {
+      "fromX": 5,
+      "fromY": -10,
+      "toX": 5,
+      "toY": -9
+    },
+    {
+      "fromX": 2,
+      "fromY": -13,
+      "toX": 3,
+      "toY": -13
+    },
+    {
+      "fromX": 3,
+      "fromY": -13,
+      "toX": 4,
+      "toY": -13
+    },
+    {
+      "fromX": 4,
+      "fromY": -13,
+      "toX": 5,
+      "toY": -13
+    },
+    {
+      "fromX": 5,
+      "fromY": -13,
+      "toX": 6,
+      "toY": -13
+    },
+    {
+      "fromX": 6,
+      "fromY": -13,
+      "toX": 7,
+      "toY": -13
+    },
+    {
+      "fromX": 7,
+      "fromY": -13,
+      "toX": 7,
+      "toY": -12
+    },
+    {
+      "fromX": 7,
+      "fromY": -12,
+      "toX": 7,
+      "toY": -11
+    },
+    {
+      "fromX": 7,
+      "fromY": -11,
+      "toX": 7,
+      "toY": -10
+    },
+    {
+      "fromX": 6,
+      "fromY": -13,
+      "toX": 6,
+      "toY": -14
+    },
+    {
+      "fromX": 6,
+      "fromY": -14,
+      "toX": 6,
+      "toY": -15
+    },
+    {
+      "fromX": 6,
+      "fromY": -15,
+      "toX": 6,
+      "toY": -16
+    },
+    {
+      "fromX": 6,
+      "fromY": -16,
+      "toX": 6,
+      "toY": -17
+    },
+    {
+      "fromX": 6,
+      "fromY": -17,
+      "toX": 5,
+      "toY": -17
+    },
+    {
+      "fromX": 5,
+      "fromY": -17,
+      "toX": 4,
+      "toY": -17
+    },
+    {
+      "fromX": 4,
+      "fromY": -17,
+      "toX": 4,
+      "toY": -16
+    },
+    {
+      "fromX": 4,
+      "fromY": -16,
+      "toX": 4,
+      "toY": -15
+    },
+    {
+      "fromX": 4,
+      "fromY": -15,
+      "toX": 5,
+      "toY": -15
+    },
+    {
+      "fromX": 5,
+      "fromY": -15,
+      "toX": 6,
+      "toY": -15
+    },
+    {
+      "fromX": 6,
+      "fromY": -15,
+      "toX": 7,
+      "toY": -15
+    },
+    {
+      "fromX": 7,
+      "fromY": -15,
+      "toX": 8,
+      "toY": -15
+    },
+    {
+      "fromX": 8,
+      "fromY": -15,
+      "toX": 8,
+      "toY": -16
+    },
+    {
+      "fromX": 8,
+      "fromY": -16,
+      "toX": 8,
+      "toY": -17
+    },
+    {
+      "fromX": 8,
+      "fromY": -17,
+      "toX": 7,
+      "toY": -17
+    },
+    {
+      "fromX": 7,
+      "fromY": -17,
+      "toX": 6,
+      "toY": -17
+    },
+    {
+      "fromX": 7,
+      "fromY": -12,
+      "toX": 8,
+      "toY": -12
+    },
+    {
+      "fromX": 8,
+      "fromY": -12,
+      "toX": 9,
+      "toY": -12
+    },
+    {
+      "fromX": 9,
+      "fromY": -12,
+      "toX": 9,
+      "toY": -13
+    },
+    {
+      "fromX": 9,
+      "fromY": -13,
+      "toX": 9,
+      "toY": -14
+    },
+    {
+      "fromX": 9,
+      "fromY": -14,
+      "toX": 10,
+      "toY": -14
+    },
+    {
+      "fromX": 10,
+      "fromY": -14,
+      "toX": 11,
+      "toY": -14
+    },
+    {
+      "fromX": 11,
+      "fromY": -14,
+      "toX": 11,
+      "toY": -13
+    },
+    {
+      "fromX": 11,
+      "fromY": -13,
+      "toX": 11,
+      "toY": -12
+    },
+    {
+      "fromX": 11,
+      "fromY": -12,
+      "toX": 11,
+      "toY": -11
+    },
+    {
+      "fromX": 11,
+      "fromY": -11,
+      "toX": 11,
+      "toY": -10
+    },
+    {
+      "fromX": 11,
+      "fromY": -10,
+      "toX": 10,
+      "toY": -10
+    },
+    {
+      "fromX": 10,
+      "fromY": -10,
+      "toX": 9,
+      "toY": -10
+    },
+    {
+      "fromX": 9,
+      "fromY": -10,
+      "toX": 9,
+      "toY": -11
+    },
+    {
+      "fromX": 9,
+      "fromY": -11,
+      "toX": 9,
+      "toY": -12
+    },
+    {
+      "fromX": 9,
+      "fromY": -12,
+      "toX": 10,
+      "toY": -12
+    },
+    {
+      "fromX": 10,
+      "fromY": -12,
+      "toX": 11,
+      "toY": -12
+    },
+    {
+      "fromX": 7,
+      "fromY": -10,
+      "toX": 7,
+      "toY": -9
+    },
+    {
+      "fromX": 7,
+      "fromY": -4,
+      "toX": 7,
+      "toY": -5
+    },
+    {
+      "fromX": 7,
+      "fromY": -5,
+      "toX": 6,
+      "toY": -5
+    },
+    {
+      "fromX": 5,
+      "fromY": -7,
+      "toX": 5,
+      "toY": -8
+    },
+    {
+      "fromX": 5,
+      "fromY": -8,
+      "toX": 5,
+      "toY": -9
+    },
+    {
+      "fromX": 5,
+      "fromY": -8,
+      "toX": 6,
+      "toY": -8
+    },
+    {
+      "fromX": 6,
+      "fromY": -8,
+      "toX": 6,
+      "toY": -7
+    },
+    {
+      "fromX": 6,
+      "fromY": -8,
+      "toX": 7,
+      "toY": -8
+    },
+    {
+      "fromX": 7,
+      "fromY": -8,
+      "toX": 7,
+      "toY": -9
+    },
+    {
+      "fromX": 7,
+      "fromY": -8,
+      "toX": 7,
+      "toY": -7
+    },
+    {
+      "fromX": 7,
+      "fromY": -7,
+      "toX": 6,
+      "toY": -7
+    },
+    {
+      "fromX": 7,
+      "fromY": -8,
+      "toX": 8,
+      "toY": -8
+    },
+    {
+      "fromX": 8,
+      "fromY": -8,
+      "toX": 9,
+      "toY": -8
+    },
+    {
+      "fromX": 9,
+      "fromY": -8,
+      "toX": 10,
+      "toY": -8
+    },
+    {
+      "fromX": 10,
+      "fromY": -8,
+      "toX": 11,
+      "toY": -8
+    },
+    {
+      "fromX": 11,
+      "fromY": -8,
+      "toX": 11,
+      "toY": -7
+    },
+    {
+      "fromX": 11,
+      "fromY": -7,
+      "toX": 11,
+      "toY": -6
+    },
+    {
+      "fromX": 11,
+      "fromY": -6,
+      "toX": 11,
+      "toY": -5
+    },
+    {
+      "fromX": 11,
+      "fromY": -5,
+      "toX": 11,
+      "toY": -4
+    },
+    {
+      "fromX": 11,
+      "fromY": -4,
+      "toX": 10,
+      "toY": -4
+    },
+    {
+      "fromX": 10,
+      "fromY": -4,
+      "toX": 9,
+      "toY": -4
+    },
+    {
+      "fromX": 9,
+      "fromY": -4,
+      "toX": 8,
+      "toY": -4
+    },
+    {
+      "fromX": 8,
+      "fromY": -4,
+      "toX": 7,
+      "toY": -4
+    },
+    {
+      "fromX": 7,
+      "fromY": -5,
+      "toX": 7,
+      "toY": -6
+    },
+    {
+      "fromX": 7,
+      "fromY": -6,
+      "toX": 7,
+      "toY": -7
+    },
+    {
+      "fromX": 7,
+      "fromY": -6,
+      "toX": 8,
+      "toY": -6
+    },
+    {
+      "fromX": 8,
+      "fromY": -6,
+      "toX": 9,
+      "toY": -6
+    },
+    {
+      "fromX": 7,
+      "fromY": 0,
+      "toX": 8,
+      "toY": 0
+    },
+    {
+      "fromX": 8,
+      "fromY": 0,
+      "toX": 9,
+      "toY": 0
+    },
+    {
+      "fromX": 9,
+      "fromY": 0,
+      "toX": 9,
+      "toY": 1
+    },
+    {
+      "fromX": 9,
+      "fromY": 1,
+      "toX": 9,
+      "toY": 2
+    },
+    {
+      "fromX": 9,
+      "fromY": 2,
+      "toX": 10,
+      "toY": 2
+    },
+    {
+      "fromX": 10,
+      "fromY": 2,
+      "toX": 11,
+      "toY": 2
+    },
+    {
+      "fromX": 11,
+      "fromY": 2,
+      "toX": 11,
+      "toY": 1
+    },
+    {
+      "fromX": 11,
+      "fromY": 1,
+      "toX": 11,
+      "toY": 0
+    },
+    {
+      "fromX": 11,
+      "fromY": 0,
+      "toX": 10,
+      "toY": 0
+    },
+    {
+      "fromX": 10,
+      "fromY": 0,
+      "toX": 9,
+      "toY": 0
+    },
+    {
+      "fromX": 9,
+      "fromY": 0,
+      "toX": 9,
+      "toY": -1
+    },
+    {
+      "fromX": 9,
+      "fromY": -1,
+      "toX": 9,
+      "toY": -2
+    },
+    {
+      "fromX": 9,
+      "fromY": -2,
+      "toX": 10,
+      "toY": -2
+    },
+    {
+      "fromX": 10,
+      "fromY": -2,
+      "toX": 11,
+      "toY": -2
+    },
+    {
+      "fromX": 11,
+      "fromY": -2,
+      "toX": 11,
+      "toY": -1
+    },
+    {
+      "fromX": 11,
+      "fromY": -1,
+      "toX": 11,
+      "toY": 0
     }
   ],
   "nodes": [
@@ -366,17 +2274,60 @@
     {
       "x": 1,
       "y": 0,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "war-cry"
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": 1,
       "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
           }
         }
       ]
@@ -384,131 +2335,18 @@
     {
       "x": -1,
       "y": 0,
-      "size": 2,
+      "size": 3,
       "abilities": [
         {
-          "typeKey": "attribute",
+          "typeKey": "unlock-ability",
           "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "physical"
-            ],
-            "amount": 10
+            "abilityTypeKey": "armor-smash"
           }
         }
       ]
     },
     {
-      "x": -2,
-      "y": 0,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "physical"
-            ],
-            "amount": 10
-          }
-        }
-      ]
-    },
-    {
-      "x": -3,
-      "y": 0,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "physical"
-            ],
-            "amount": 10
-          }
-        }
-      ]
-    },
-    {
-      "x": 2,
-      "y": 0,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
-          }
-        }
-      ]
-    },
-    {
-      "x": 3,
-      "y": 0,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
-          }
-        }
-      ]
-    },
-    {
-      "x": 4,
-      "y": 0,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
-          }
-        }
-      ]
-    },
-    {
-      "x": 1,
-      "y": 1,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
-          }
-        }
-      ]
-    },
-    {
-      "x": 1,
+      "x": 0,
       "y": 2,
       "size": 2,
       "abilities": [
@@ -516,119 +2354,25 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
           }
         }
       ]
     },
     {
-      "x": 1,
+      "x": 0,
       "y": 3,
-      "size": 3,
-      "abilities": [
-        {
-          "typeKey": "unlock-ability",
-          "data": {
-            "abilityTypeKey": "flame-slash"
-          }
-        }
-      ]
-    },
-    {
-      "x": 2,
-      "y": 3,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "fire",
-              "attack"
-            ],
-            "amount": 20
-          }
-        }
-      ]
-    },
-    {
-      "x": 3,
-      "y": 3,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "fire",
-              "attack"
-            ],
-            "amount": 20
-          }
-        }
-      ]
-    },
-    {
-      "x": 3,
-      "y": 4,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "fire",
-              "attack"
-            ],
-            "amount": 20
-          }
-        }
-      ]
-    },
-    {
-      "x": 3,
-      "y": 5,
       "size": 3,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": false,
-            "attributeType": "power",
-            "abilityTags": [
-              "fire",
-              "attack"
-            ],
-            "amount": 1.5
-          }
-        }
-      ]
-    },
-    {
-      "x": 2,
-      "y": 5,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "fire",
-              "attack"
-            ],
-            "amount": 20
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 1.2
           }
         }
       ]
@@ -642,62 +2386,6 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "fire",
-              "attack"
-            ],
-            "amount": 20
-          }
-        }
-      ]
-    },
-    {
-      "x": 1,
-      "y": 4,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "fire",
-              "attack"
-            ],
-            "amount": 20
-          }
-        }
-      ]
-    },
-    {
-      "x": 4,
-      "y": 1,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "power",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
-          }
-        }
-      ]
-    },
-    {
-      "x": 4,
-      "y": 2,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
             "attributeType": "cooldown-speed",
             "abilityTags": [
               "attack"
@@ -708,44 +2396,8 @@
       ]
     },
     {
-      "x": 4,
-      "y": 3,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "cooldown-speed",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
-          }
-        }
-      ]
-    },
-    {
-      "x": 5,
-      "y": 3,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "cooldown-speed",
-            "abilityTags": [
-              "attack"
-            ],
-            "amount": 10
-          }
-        }
-      ]
-    },
-    {
-      "x": 6,
-      "y": 3,
+      "x": 0,
+      "y": 5,
       "size": 3,
       "abilities": [
         {
@@ -762,8 +2414,8 @@
       ]
     },
     {
-      "x": 6,
-      "y": 2,
+      "x": -1,
+      "y": 5,
       "size": 2,
       "abilities": [
         {
@@ -780,7 +2432,77 @@
       ]
     },
     {
-      "x": 6,
+      "x": 2,
+      "y": 5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "crushing-blow"
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": 4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical",
+              "attack"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical",
+              "attack"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical",
+              "attack"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
       "y": 1,
       "size": 2,
       "abilities": [
@@ -788,7 +2510,63 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "cooldown-speed",
+            "attributeType": "power",
+            "abilityTags": [
+              "physical",
+              "attack"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical",
+              "attack"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "critical-strike-chance",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "critical-strike-chance",
             "abilityTags": [
               "attack"
             ],
@@ -806,6 +2584,318 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
+            "attributeType": "critical-strike-chance",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "critical-strike-chance",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": 5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "sweep"
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": 4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical",
+              "attack"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": 2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical",
+              "attack"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical",
+              "attack"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
             "attributeType": "cooldown-speed",
             "abilityTags": [
               "attack"
@@ -816,6 +2906,181 @@
       ]
     },
     {
+      "x": 4,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": 4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": 5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": 5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": 5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "frenzy"
+          }
+        }
+      ]
+    },
+    {
       "x": 0,
       "y": -1,
       "size": 2,
@@ -849,118 +3114,6 @@
     },
     {
       "x": -1,
-      "y": -2,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "maximum-health",
-            "abilityTags": [],
-            "amount": 200
-          }
-        }
-      ]
-    },
-    {
-      "x": -1,
-      "y": -3,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "maximum-health",
-            "abilityTags": [],
-            "amount": 200
-          }
-        }
-      ]
-    },
-    {
-      "x": -1,
-      "y": -4,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "maximum-health",
-            "abilityTags": [],
-            "amount": 200
-          }
-        }
-      ]
-    },
-    {
-      "x": 0,
-      "y": -4,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "maximum-health",
-            "abilityTags": [],
-            "amount": 200
-          }
-        }
-      ]
-    },
-    {
-      "x": 1,
-      "y": -4,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "maximum-health",
-            "abilityTags": [],
-            "amount": 200
-          }
-        }
-      ]
-    },
-    {
-      "x": 1,
-      "y": -3,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "maximum-health",
-            "abilityTags": [],
-            "amount": 200
-          }
-        }
-      ]
-    },
-    {
-      "x": 1,
-      "y": -2,
-      "size": 2,
-      "abilities": [
-        {
-          "typeKey": "attribute",
-          "data": {
-            "isAdditive": true,
-            "attributeType": "maximum-health",
-            "abilityTags": [],
-            "amount": 200
-          }
-        }
-      ]
-    },
-    {
-      "x": 4,
       "y": -1,
       "size": 2,
       "abilities": [
@@ -969,15 +3122,17 @@
           "data": {
             "isAdditive": true,
             "attributeType": "power",
-            "abilityTags": [],
-            "amount": 6
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
           }
         }
       ]
     },
     {
-      "x": 4,
-      "y": -2,
+      "x": -2,
+      "y": -1,
       "size": 2,
       "abilities": [
         {
@@ -985,14 +3140,16 @@
           "data": {
             "isAdditive": true,
             "attributeType": "power",
-            "abilityTags": [],
-            "amount": 6
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
           }
         }
       ]
     },
     {
-      "x": 4,
+      "x": 0,
       "y": -3,
       "size": 2,
       "abilities": [
@@ -1000,15 +3157,60 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "maximum-health",
             "abilityTags": [],
-            "amount": 6
+            "amount": 200
           }
         }
       ]
     },
     {
-      "x": 4,
+      "x": 1,
+      "y": -3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -3,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "dominating-slash"
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
       "y": -4,
       "size": 2,
       "abilities": [
@@ -1016,25 +3218,25 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "maximum-health",
             "abilityTags": [],
-            "amount": 6
+            "amount": 200
           }
         }
       ]
     },
     {
-      "x": 4,
-      "y": -5,
+      "x": 0,
+      "y": -4,
       "size": 2,
       "abilities": [
         {
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "maximum-health",
             "abilityTags": [],
-            "amount": 6
+            "amount": 200
           }
         }
       ]
@@ -1056,21 +3258,608 @@
       ]
     },
     {
+      "x": -1,
+      "y": -5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
       "x": 0,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -9,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "water-ray"
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -9,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -9,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -10,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -9,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": -9,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -9,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "cleanse"
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 1,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "critical-strike-chance",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "critical-strike-chance",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "critical-strike-chance",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "critical-strike-chance",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "critical-strike-chance",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": -5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "static-strike"
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
       "y": -6,
       "size": 2,
       "abilities": [
         {
           "typeKey": "heroTypeStartPosition",
           "data": {
-            "heroTypeKey": "wizard"
+            "heroTypeKey": "rogue"
           }
         }
       ]
     },
     {
-      "x": 4,
-      "y": -6,
+      "x": 6,
+      "y": -7,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "cobra-strike"
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "spell"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -11,
       "size": 2,
       "abilities": [
         {
@@ -1087,8 +3876,2566 @@
       ]
     },
     {
-      "x": 3,
+      "x": -1,
+      "y": -12,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "fire-ball"
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "heroTypeStartPosition",
+          "data": {
+            "heroTypeKey": "shaman"
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -12,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "lightning-bolt"
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
       "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -9,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": -3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -3,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-health",
+            "abilityTags": [],
+            "amount": 200
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "heal"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -7,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "healing-touch"
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "heroTypeStartPosition",
+          "data": {
+            "heroTypeKey": "paladin"
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "flame-strike"
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 18
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": 1,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "physical"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": 2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 6
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "lightning"
+            ],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 6
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "lightning"
+            ],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": 4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": 5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": 5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": 5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "leeching-strike"
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": 5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "lightning"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": 5,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "lightning"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": 4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "lightning"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "lightning"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": 3,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "lightning"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": 4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 6
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "lightning"
+            ],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 8
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 8
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": 2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -10,
+      "y": 2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": 2,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "righteous-blast"
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": 0,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 1.2
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -10,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 8
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 18
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 18
+          }
+        }
+      ]
+    },
+    {
+      "x": -10,
+      "y": -2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 18
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -2,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "flame-slash"
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 18
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 18
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 18
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "attack"
+            ],
+            "amount": 18
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -10,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -4,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -6,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "holy-nova"
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -8,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -10,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "heal"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "heal"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "heal"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "heal"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -6,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "fire"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -9,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -10,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -9,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -10,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -13,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -3,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "mana"
+            ],
+            "amount": 6
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "mana"
+            ],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "mana"
+            ],
+            "amount": 6
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "mana"
+            ],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": -10,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "mana"
+            ],
+            "amount": 6
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "mana"
+            ],
+            "amount": 6
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -12,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "mana"
+            ],
+            "amount": 1.2
+          }
+        },
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "mana"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-mana",
+            "abilityTags": [],
+            "amount": 25
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -14,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-mana",
+            "abilityTags": [],
+            "amount": 25
+          }
+        }
+      ]
+    },
+    {
+      "x": -10,
+      "y": -14,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-mana",
+            "abilityTags": [],
+            "amount": 25
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -14,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "focus"
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-mana",
+            "abilityTags": [],
+            "amount": 25
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-mana",
+            "abilityTags": [],
+            "amount": 25
+          }
+        }
+      ]
+    },
+    {
+      "x": -9,
+      "y": -10,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-mana",
+            "abilityTags": [],
+            "amount": 25
+          }
+        }
+      ]
+    },
+    {
+      "x": -10,
+      "y": -10,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-mana",
+            "abilityTags": [],
+            "amount": 25
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -10,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "soul-conduit"
+          }
+        }
+      ]
+    },
+    {
+      "x": -11,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "maximum-mana",
+            "abilityTags": [],
+            "amount": 25
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -14,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 8
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 8
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -16,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 8
+          }
+        }
+      ]
+    },
+    {
+      "x": -6,
+      "y": -17,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -17,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "fire",
+              "spell"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": -17,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "fire-blast"
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": -16,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "fire",
+              "spell"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -8,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "fire",
+              "spell"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -7,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "fire",
+              "spell"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 8
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 8
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": -16,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 8
+          }
+        }
+      ]
+    },
+    {
+      "x": -4,
+      "y": -17,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "mass-slow"
+          }
+        }
+      ]
+    },
+    {
+      "x": -5,
+      "y": -17,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 8
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "spell"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "spell"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "spell"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "fire",
+              "spell"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": -14,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": -16,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": -2,
+      "y": -17,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": -1,
+      "y": -17,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -17,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "chain-lightning"
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -17,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -17,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -16,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -14,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 2,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 1,
+      "y": -13,
       "size": 2,
       "abilities": [
         {
@@ -1106,7 +6453,7 @@
     },
     {
       "x": 2,
-      "y": -6,
+      "y": -12,
       "size": 2,
       "abilities": [
         {
@@ -1123,8 +6470,8 @@
       ]
     },
     {
-      "x": 1,
-      "y": -6,
+      "x": 2,
+      "y": -11,
       "size": 2,
       "abilities": [
         {
@@ -1141,21 +6488,782 @@
       ]
     },
     {
-      "x": -3,
-      "y": 1,
+      "x": 0,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -14,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 0,
+      "y": -15,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "elemental"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -10,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -9,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 3,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -13,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -10,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": -14,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": -16,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 6,
+      "y": -17,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -17,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -17,
       "size": 3,
       "abilities": [
         {
           "typeKey": "unlock-ability",
           "data": {
-            "abilityTypeKey": "cobra-strike"
+            "abilityTypeKey": "tidal-wave"
           }
         }
       ]
     },
     {
-      "x": -4,
-      "y": 1,
+      "x": 4,
+      "y": -16,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 4,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": -15,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": -16,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "cooldown-speed",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": -17,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "syphon-mind"
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -17,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "cold"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -14,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": -14,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": -14,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "flash-heal"
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": -13,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": -12,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": -10,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "haste"
+          }
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": -10,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -10,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -11,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": -12,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "use-speed",
+            "abilityTags": [],
+            "amount": 5
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -9,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "resistance",
+            "abilityTags": [
+              "spell"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -5,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "attack"
+            ],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 5,
+      "y": -8,
       "size": 2,
       "abilities": [
         {
@@ -1172,8 +7280,8 @@
       ]
     },
     {
-      "x": -5,
-      "y": 1,
+      "x": 6,
+      "y": -8,
       "size": 2,
       "abilities": [
         {
@@ -1190,8 +7298,8 @@
       ]
     },
     {
-      "x": -5,
-      "y": 2,
+      "x": 7,
+      "y": -8,
       "size": 2,
       "abilities": [
         {
@@ -1208,8 +7316,80 @@
       ]
     },
     {
-      "x": -5,
-      "y": 3,
+      "x": 7,
+      "y": -7,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": -8,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": -8,
       "size": 3,
       "abilities": [
         {
@@ -1220,14 +7400,14 @@
             "abilityTags": [
               "poison"
             ],
-            "amount": 1.5
+            "amount": 1.2
           }
         }
       ]
     },
     {
-      "x": -4,
-      "y": 3,
+      "x": 11,
+      "y": -7,
       "size": 2,
       "abilities": [
         {
@@ -1244,8 +7424,21 @@
       ]
     },
     {
-      "x": -3,
-      "y": 3,
+      "x": 11,
+      "y": -6,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "contamination"
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": -5,
       "size": 2,
       "abilities": [
         {
@@ -1262,7 +7455,184 @@
       ]
     },
     {
-      "x": -3,
+      "x": 11,
+      "y": -4,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": -4,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "poison"
+            ],
+            "amount": 15
+          }
+        }
+      ]
+    },
+    {
+      "x": 7,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "item-drop-chance",
+            "abilityTags": [],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": -6,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "item-drop-chance",
+            "abilityTags": [],
+            "amount": 10
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -6,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "item-drop-chance",
+            "abilityTags": [],
+            "amount": 50
+          }
+        }
+      ]
+    },
+    {
+      "x": 8,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
       "y": 2,
       "size": 2,
       "abilities": [
@@ -1272,9 +7642,188 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "elemental",
+              "attack"
             ],
-            "amount": 15
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": 2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": 2,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "aqua-blade"
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": 1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": 0,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": false,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": 0,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 9,
+      "y": -2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 10,
+      "y": -2,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": -2,
+      "size": 3,
+      "abilities": [
+        {
+          "typeKey": "unlock-ability",
+          "data": {
+            "abilityTypeKey": "sonic-strike"
+          }
+        }
+      ]
+    },
+    {
+      "x": 11,
+      "y": -1,
+      "size": 2,
+      "abilities": [
+        {
+          "typeKey": "attribute",
+          "data": {
+            "isAdditive": true,
+            "attributeType": "power",
+            "abilityTags": [
+              "elemental",
+              "attack"
+            ],
+            "amount": 12
           }
         }
       ]

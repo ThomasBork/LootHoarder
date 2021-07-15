@@ -13,6 +13,7 @@ export class CombatCharacterAbility {
   public cooldownVC: ValueContainer;
   public manaCostVC: ValueContainer;
   public criticalStrikeChanceVC: ValueContainer;
+  public criticalStrikeMultiplierVC: ValueContainer;
   public timeToUseVC: ValueContainer;
   
   private dbModel: DbAbility;
@@ -30,6 +31,7 @@ export class CombatCharacterAbility {
     this.cooldownSpeedVC = new ValueContainer(0);
     this.manaCostVC = new ValueContainer(type.manaCost);
     this.criticalStrikeChanceVC = new ValueContainer(type.criticalStrikeChance);
+    this.criticalStrikeMultiplierVC = new ValueContainer(0);
 
     this.timeToUseVC = new ValueContainer(type.timeToUse);
     // Use speed should never reach 0 except during setup.

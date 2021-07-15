@@ -54,7 +54,7 @@
         >
           <img 
             class="thumbnail"
-            [src]="'assets/images/abilities/' + ability.type.key + '-thumbnail.png'" 
+            [src]="'assets/images/abilities/' + ability.type.key + '.png'" 
           />
   
           <div 
@@ -79,15 +79,10 @@
           </div>
   
           <div class="ability-description">
-            <div>{{ability.type.name}}</div>
-            <ul class="ability-tags">
-              <li
-                *ngFor="let tag of ability.type.tags" 
-                class="ability-tag"
-                [style.background-color]="getAbilityTagColor(tag)"
-              >{{getTranslatedAbilityTag(tag)}}</li>
-            </ul>
-            <div>{{ability.type.description}}</div>
+            <app-ability-type-preview 
+              [abilityType]="ability.type"
+              class="ability-type-preview"
+            ></app-ability-type-preview>
           </div>
         </div>
       </li>

@@ -16,8 +16,8 @@
       {
         "typeKey": "unlock-tab",
         "parameters": {
-          "parentTabKey": "heroes",
-          "childTabKey": "passives"
+          "parentTabKey": "achievements",
+          "childTabKey": null
         }
       }
     ],
@@ -37,13 +37,6 @@
       }
     ],
     "rewards": [
-      {
-        "typeKey": "unlock-tab",
-        "parameters": {
-          "parentTabKey": "achievements",
-          "childTabKey": null
-        }
-      }
     ],
     "hiddenRewards": []
   }, 

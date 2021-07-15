@@ -1,0 +1,36 @@
+<div class="content">
+  <span class="text-container">
+    <span class="name-and-description">
+      <div class="name">{{abilityType.name}}</div>
+      <ul class="tags">
+        <li *ngFor="let tag of abilityType.tags">
+          <app-ability-tag [tag]="tag"></app-ability-tag>
+        </li>
+      </ul>
+      <ul>
+        <li
+          *ngFor="let effect of abilityType.effects"
+          class="description-line"
+        >{{getAbilityTypeEffectDescription(effect)}}</li>
+      </ul>
+    </span>
+    <span class="details">
+      <div class="label-and-value">
+        <span class="label">Mana cost</span>
+        <span>{{abilityType.manaCost | prettyNumber}}</span>
+      </div>
+      <div class="label-and-value">
+        <span class="label">Time to use</span>
+        <span>{{getNumberInSeconds(abilityType.timeToUse)}}s</span>
+      </div>
+      <div class="label-and-value">
+        <span class="label">Cooldown</span>
+        <span>{{getNumberInSeconds(abilityType.cooldown)}}s</span>
+      </div>
+      <div class="label-and-value">
+        <span class="label">Critical strike chance</span>
+        <span>{{getNumberInPercent(abilityType.criticalStrikeChance)}}%</span>
+      </div>
+    </span>
+  </span>
+</div>

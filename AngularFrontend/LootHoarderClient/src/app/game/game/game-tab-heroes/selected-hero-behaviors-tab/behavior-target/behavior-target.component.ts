@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AssetManagerService } from '../../../client-representation/asset-manager.service';
+import { AssetManagerService } from '../../../asset-manager.service';
 import { CharacterBehaviorPredicateHasContinuousEffect } from '../../../client-representation/character-behavior/character-behavior-predicate-has-continuous-effect';
 import { CharacterBehaviorTarget } from '../../../client-representation/character-behavior/character-behavior-target';
 import { CharacterBehaviorTargetCharacterWithExtremeValue } from '../../../client-representation/character-behavior/character-behavior-target-character-with-extreme-value';

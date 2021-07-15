@@ -3,46 +3,74 @@
     "key": "berserker",
     "name": "Berserker",
     "description": "Uses brute force to defeat the enemies.",
-    "abilityTypes": ["basic-attack", "armor-smash"],
-    "baseAttributes": {
-      "maximumHealth": 1000,
-      "maximumMana": 500,
-      "attackPower": 125,
-      "spellPower": 100,
-      "attackUseSpeed": 100,
-      "spellUseSpeed": 100,
-      "attackCooldownSpeed": 100,
-      "spellCooldownSpeed": 100
-    },
-    "attributesPerLevel": {
-      "maximumHealth": 100,
-      "maximumMana": 50,
-      "attackPower": 12,
-      "spellPower": 10
-    },
+    "abilityTypes": ["basic-attack"],
+    "baseAttributes": [
+      [[], "maximum-health", 1000],
+      [[], "maximum-mana", 600],
+      [["attack"], "power", 25]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 100],
+      [[], "maximum-mana", 60],
+      [["attack"], "power", 12],
+      [["spell"], "power", 10]
+    ],
     "startingWeaponType": "longsword"
   },
   {
-    "key": "wizard",
-    "name": "Wizard",
-    "description": "Uses magic to defeat the enemies.",
-    "abilityTypes": ["basic-attack", "lightning-bolt"],
-    "baseAttributes": {
-      "maximumHealth": 800,
-      "maximumMana": 800,
-      "attackPower": 100,
-      "spellPower": 125,
-      "attackUseSpeed": 100,
-      "spellUseSpeed": 100,
-      "attackCooldownSpeed": 100,
-      "spellCooldownSpeed": 100
-    },
-    "attributesPerLevel": {
-      "maximumHealth": 80,
-      "maximumMana": 80,
-      "attackPower": 10,
-      "spellPower": 12
-    },
+    "key": "shaman",
+    "name": "Shaman",
+    "description": "Uses elemental magic to defeat the enemies.",
+    "abilityTypes": ["basic-attack"],
+    "baseAttributes": [
+      [[], "maximum-health", 800],
+      [[], "maximum-mana", 800],
+      [["spell"], "power", 25]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 80],
+      [[], "maximum-mana", 80],
+      [["attack"], "power", 10],
+      [["spell"], "power", 12]
+    ],
     "startingWeaponType": "magic-wand"
+  },
+  {
+    "key": "rogue",
+    "name": "Rogue",
+    "description": "Uses elemental attacks and poison to defeat the enemies.",
+    "abilityTypes": ["basic-attack"],
+    "baseAttributes": [
+      [[], "maximum-health", 800],
+      [[], "maximum-mana", 800],
+      [["attack"], "power", 15],
+      [["spell"], "power", 15]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 80],
+      [[], "maximum-mana", 80],
+      [["attack"], "power", 12],
+      [["spell"], "power", 12]
+    ],
+    "startingWeaponType": "skinning-knife"
+  },
+  {
+    "key": "paladin",
+    "name": "Paladin",
+    "description": "Uses fire and healing to defeat the enemies.",
+    "abilityTypes": ["basic-attack"],
+    "baseAttributes": [
+      [[], "maximum-health", 1000],
+      [[], "maximum-mana", 600],
+      [["attack"], "power", 15],
+      [["spell"], "power", 15]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 100],
+      [[], "maximum-mana", 60],
+      [["attack"], "power", 12],
+      [["spell"], "power", 12]
+    ],
+    "startingWeaponType": "longsword"
   }
 ]

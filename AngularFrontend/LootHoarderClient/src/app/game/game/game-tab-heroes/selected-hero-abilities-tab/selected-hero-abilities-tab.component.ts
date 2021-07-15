@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { AbilityTagService } from 'src/app/shared/ability-tag.service';
 import { NumberPrinter } from 'src/app/shared/number-printer';
+import { AbilityTextService } from '../../ability-text-service';
+import { AbilityEffect } from '../../client-representation/ability-effect';
 import { Hero } from '../../client-representation/hero';
 import { HeroAbility } from '../../client-representation/hero-ability';
 
@@ -14,8 +16,13 @@ export class SelectedHeroAbilitiesTabComponent {
   public hero!: Hero;
 
   public constructor(
-    private readonly abilityTagService: AbilityTagService
+    private readonly abilityTagService: AbilityTagService,
+    private readonly abilityTextService: AbilityTextService
   ) { }
+
+  public getAbilityEffectDescription(effect: AbilityEffect): string {
+    return this.abilityTextService.getAbilityEffectDescription(effect);
+  }
 
   public getAbilityTagColor(tag: string): string {
     return this.abilityTagService.getColor(tag);

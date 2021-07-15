@@ -23,6 +23,13 @@ export class CreateHeroHandler implements ICommandHandler<CreateHero> {
     const skillTreeStartingNode = this.staticGameContentService
       .getHeroSkillTree()
       .getHeroTypeStartingPosition(command.typeKey);
+    const startingNodeNeighborLocations = skillTreeStartingNode.neighborNodes
+      .map(node => { 
+        return { x: node.x, y: node.y }; 
+      });
+    const startingSkillNodeLocations = [
+        { x: skillTreeStartingNode.x, y: skillTreeStartingNode.y }
+      ].concat(startingNodeNeighborLocations);
 
     const heroAbilities: DbHeroAbility[] = heroType.abilityTypes.map((abilityType, index) => {
       return {
@@ -48,12 +55,7 @@ export class CreateHeroHandler implements ICommandHandler<CreateHero> {
         noseId: command.noseId,
         mouthId: command.mouthId
       },
-      skillNodesLocations: [
-        {
-          x: skillTreeStartingNode.x,
-          y: skillTreeStartingNode.y
-        }
-      ],
+      skillNodesLocations: startingSkillNodeLocations,
       nextAbilityId: heroAbilities.length + 1
     };
 

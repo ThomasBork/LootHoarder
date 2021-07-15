@@ -1,9 +1,9 @@
+import { AbilityTargetScheme } from "./ability-target-scheme";
 import { AbilityTypeEffect } from "./ability-type-effect";
 
 export class AbilityType {
   public key: string;
   public name: string;
-  public description: string;
   public tags: string[];
   public inheritedTags: string[];
   public manaCost: number;
@@ -15,7 +15,6 @@ export class AbilityType {
   public constructor(
     key: string,
     name: string,
-    description: string,
     tags: string[],
     inheritedTags: string[],
     manaCost: number,
@@ -26,7 +25,6 @@ export class AbilityType {
   ) {
     this.key = key;
     this.name = name;
-    this.description = description;
     this.tags = tags;
     this.inheritedTags = inheritedTags;
     this.manaCost = manaCost;
@@ -37,7 +35,7 @@ export class AbilityType {
   }
 
   public get requiresTarget(): boolean {
-    return this.effects.every(effect => effect.requiresTarget);
+    return this.effects.some(effect => effect.requiresTarget);
   }
 
   public get canTargetAllies(): boolean {

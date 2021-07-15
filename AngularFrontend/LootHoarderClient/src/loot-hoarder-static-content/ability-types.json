@@ -2,7 +2,6 @@
   {
     "key": "basic-attack",
     "name": "Basic Attack",
-    "description": "Deals physical damage to a single target.",
     "tags": ["physical", "attack"],
     "inheritedTags": ["attack"],
     "manaCost": 0,
@@ -17,13 +16,20 @@
         "parameters": {
           "baseAmount": 5
         }
+      },
+      {
+        "key": "recover-mana",
+        "target": "self",
+        "tags": ["mana"],
+        "parameters": {
+          "baseAmount": 1
+        }
       }
     ]
   },
   {
     "key": "armor-smash",
     "name": "Armor Smash",
-    "description": "Deals physical damage to a single target and reduces its physical resistance for some time.",
     "tags": ["physical", "attack", "debuff"],
     "inheritedTags": ["attack"],
     "manaCost": 10,
@@ -52,14 +58,135 @@
     ]
   },
   {
+    "key": "crushing-blow",
+    "name": "Crushing Blow",
+    "tags": ["physical", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 10,
+    "timeToUse": 4000,
+    "cooldown": 12000,
+    "criticalStrikeChance": 0.1,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["physical"],
+        "parameters": {
+          "baseAmount": 35
+        }
+      }
+    ]
+  },
+  {
+    "key": "static-strike",
+    "name": "Static Strike",
+    "tags": ["lightning", "elemental", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 10,
+    "timeToUse": 900,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0.1,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["lightning", "elemental"],
+        "parameters": {
+          "baseAmount": 11
+        }
+      }
+    ]
+  },
+  {
+    "key": "sonic-strike",
+    "name": "Sonic Strike",
+    "tags": ["lightning", "elemental", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 10,
+    "timeToUse": 500,
+    "cooldown": 20000,
+    "criticalStrikeChance": 0.1,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["lightning", "elemental"],
+        "parameters": {
+          "baseAmount": 14
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "any-enemy",
+        "tags": ["debuff"],
+        "parameters": {
+          "continuousEffectTypeKey": "slowed",
+          "duration": 10000,
+          "abilityParameters": [{}, {}]
+        }
+      }
+    ]
+  },
+  {
+    "key": "dominating-slash",
+    "name": "Dominating Slash",
+    "tags": ["physical", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 20,
+    "timeToUse": 2500,
+    "cooldown": 30000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "all-enemies",
+        "tags": ["physical"],
+        "parameters": {
+          "baseAmount": 28
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "all-enemies",
+        "tags": ["debuff"],
+        "parameters": {
+          "continuousEffectTypeKey": "slowed",
+          "duration": 10000,
+          "abilityParameters": [{}, {}]
+        }
+      }
+    ]
+  },
+  {
+    "key": "war-cry",
+    "name": "War Cry",
+    "tags": ["spell", "buff"],
+    "inheritedTags": ["spell"],
+    "manaCost": 10,
+    "timeToUse": 1000,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0,
+    "effects": [
+      {
+        "key": "apply-continuous-effect",
+        "target": "all-allies",
+        "tags": ["buff"],
+        "parameters": {
+          "continuousEffectTypeKey": "berserk",
+          "duration": 5000,
+          "abilityParameters": [{}]
+        }
+      }
+    ]
+  },
+  {
     "key": "flame-slash",
     "name": "Flame Slash",
-    "description": "Deals fire damage to a all enemies.",
     "tags": ["fire", "elemental", "attack"],
     "inheritedTags": ["attack"],
-    "manaCost": 8,
+    "manaCost": 12,
     "timeToUse": 1500,
-    "cooldown": 6000,
+    "cooldown": 11000,
     "criticalStrikeChance": 0.05,
     "effects": [
       {
@@ -67,7 +194,27 @@
         "target": "all-enemies",
         "tags": ["fire", "elemental"],
         "parameters": {
-          "baseAmount": 10
+          "baseAmount": 11
+        }
+      }
+    ]
+  },
+  {
+    "key": "flame-strike",
+    "name": "Flame Strike",
+    "tags": ["fire", "elemental", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 10,
+    "timeToUse": 1000,
+    "cooldown": 8000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["fire", "elemental"],
+        "parameters": {
+          "baseAmount": 13
         }
       }
     ]
@@ -75,7 +222,6 @@
   {
     "key": "cobra-strike",
     "name": "Cobra Strike",
-    "description": "Deals physical damage to an enemy with a 50% chance to apply poisoned on hit.",
     "tags": ["physical", "poison", "attack"],
     "inheritedTags": ["attack"],
     "manaCost": 8,
@@ -110,13 +256,12 @@
   {
     "key": "contamination",
     "name": "Contamination",
-    "description": "Deals poison damage and applies poisoned to all enemies.",
     "tags": ["poison", "spell"],
     "inheritedTags": ["spell"],
     "manaCost": 20,
     "timeToUse": 2000,
     "cooldown": 10000,
-    "criticalStrikeChance": 0.1,
+    "criticalStrikeChance": 0.05,
     "effects": [
       {
         "key": "deal-damage",
@@ -143,10 +288,103 @@
     ]
   },
   {
+    "key": "mass-slow",
+    "name": "Mass Slow",
+    "tags": ["debuff", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 10,
+    "timeToUse": 1500,
+    "cooldown": 15000,
+    "criticalStrikeChance": 0,
+    "effects": [
+      {
+        "key": "apply-continuous-effect",
+        "target": "all-enemies",
+        "tags": ["debuff"],
+        "parameters": {
+          "continuousEffectTypeKey": "slowed",
+          "duration": 10000,
+          "abilityParameters": [{}, {}]
+        }
+      }
+    ]
+  },
+  {
+    "key": "haste",
+    "name": "Haste",
+    "tags": ["buff", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 10,
+    "timeToUse": 1000,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0,
+    "effects": [
+      {
+        "key": "apply-continuous-effect",
+        "target": "any-ally",
+        "tags": ["buff"],
+        "parameters": {
+          "continuousEffectTypeKey": "accelerated",
+          "duration": 10000,
+          "abilityParameters": [{}, {}]
+        }
+      }
+    ]
+  },
+  {
+    "key": "frenzy",
+    "name": "Frenzy",
+    "tags": ["buff", "physical", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 10,
+    "timeToUse": 1000,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["physical"],
+        "parameters": {
+          "baseAmount": 10
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "self",
+        "tags": ["buff"],
+        "parameters": {
+          "continuousEffectTypeKey": "accelerated",
+          "duration": 10000,
+          "abilityParameters": [{}, {}]
+        }
+      }
+    ]
+  },
+  {
+    "key": "sweep",
+    "name": "Sweep",
+    "tags": ["physical", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 13,
+    "timeToUse": 2000,
+    "cooldown": 15000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "all-enemies",
+        "tags": ["physical"],
+        "parameters": {
+          "baseAmount": 12
+        }
+      }
+    ]
+  },
+  {
     "key": "lightning-bolt",
     "name": "Lightning Bolt",
-    "description": "Deals lightning damage to a single target.",
-    "tags": ["lightning", "elemental"],
+    "tags": ["lightning", "elemental", "spell"],
     "inheritedTags": ["spell"],
     "manaCost": 5,
     "timeToUse": 500,
@@ -158,7 +396,384 @@
         "target": "any-enemy",
         "tags": ["lightning", "elemental"],
         "parameters": {
+          "baseAmount": 15
+        }
+      }
+    ]
+  },
+  {
+    "key": "chain-lightning",
+    "name": "Chain Lightning",
+    "tags": ["lightning", "elemental", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 8,
+    "timeToUse": 1000,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0.10,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "all-enemies",
+        "tags": ["lightning", "elemental"],
+        "parameters": {
+          "baseAmount": 12
+        }
+      }
+    ]
+  },
+  {
+    "key": "fire-blast",
+    "name": "Fire Blast",
+    "tags": ["fire", "elemental", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 15,
+    "timeToUse": 1500,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "all-enemies",
+        "tags": ["fire", "elemental"],
+        "parameters": {
+          "baseAmount": 15
+        }
+      }
+    ]
+  },
+  {
+    "key": "fire-ball",
+    "name": "Fire Ball",
+    "tags": ["fire", "elemental", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 7,
+    "timeToUse": 900,
+    "cooldown": 9000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["fire", "elemental"],
+        "parameters": {
+          "baseAmount": 13
+        }
+      }
+    ]
+  },
+  {
+    "key": "healing-touch",
+    "name": "Healing Touch",
+    "tags": ["heal", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 5,
+    "timeToUse": 1000,
+    "cooldown": 5000,
+    "criticalStrikeChance": 0,
+    "effects": [
+      {
+        "key": "recover-health",
+        "target": "any-ally",
+        "tags": ["heal"],
+        "parameters": {
+          "baseAmount": 5
+        }
+      }
+    ]
+  },
+  {
+    "key": "flash-heal",
+    "name": "Flash Heal",
+    "tags": ["heal", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 20,
+    "timeToUse": 0,
+    "cooldown": 25000,
+    "criticalStrikeChance": 0,
+    "effects": [
+      {
+        "key": "recover-health",
+        "target": "any-ally",
+        "tags": ["heal"],
+        "parameters": {
+          "baseAmount": 15
+        }
+      }
+    ]
+  },
+  {
+    "key": "holy-nova",
+    "name": "Holy Nova",
+    "tags": ["fire", "elemental", "heal", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 20,
+    "timeToUse": 2500,
+    "cooldown": 20000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "all-enemies",
+        "tags": ["fire", "elemental"],
+        "parameters": {
+          "baseAmount": 8
+        }
+      },
+      {
+        "key": "recover-health",
+        "target": "all-allies",
+        "tags": ["heal"],
+        "parameters": {
+          "baseAmount": 8
+        }
+      }
+    ]
+  },
+  {
+    "key": "leeching-strike",
+    "name": "Leeching Strike",
+    "tags": ["physical", "heal", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 10,
+    "timeToUse": 1500,
+    "cooldown": 10000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["physical"],
+        "parameters": {
+          "baseAmount": 12
+        }
+      },
+      {
+        "key": "recover-health",
+        "target": "self",
+        "tags": ["heal"],
+        "parameters": {
           "baseAmount": 10
+        }
+      }
+    ]
+  },
+  {
+    "key": "righteous-blast",
+    "name": "Righteous Blast",
+    "tags": ["fire", "elemental", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 30,
+    "timeToUse": 3000,
+    "cooldown": 20000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "all",
+        "tags": ["fire", "elemental"],
+        "parameters": {
+          "baseAmount": 25
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "all",
+        "tags": ["fire", "debuff"],
+        "parameters": {
+          "continuousEffectTypeKey": "burning",
+          "duration": 10000,
+          "abilityParameters": [
+            {
+              "damagePerSecond": 4
+            }, 
+            {}
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "key": "tidal-wave",
+    "name": "Tidal Wave",
+    "tags": ["cold", "elemental", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 15,
+    "timeToUse": 2000,
+    "cooldown": 20000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "all-enemies",
+        "tags": ["cold", "elemental"],
+        "parameters": {
+          "baseAmount": 8
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "all",
+        "tags": ["cold", "debuff"],
+        "parameters": {
+          "continuousEffectTypeKey": "wet",
+          "duration": 10000,
+          "abilityParameters": [{}, {}, {}]
+        }
+      }
+    ]
+  },
+  {
+    "key": "water-ray",
+    "name": "Water Ray",
+    "tags": ["cold", "elemental", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 4,
+    "timeToUse": 500,
+    "cooldown": 2000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["cold", "elemental"],
+        "parameters": {
+          "baseAmount": 3
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "any-enemy",
+        "tags": ["cold", "debuff"],
+        "parameters": {
+          "continuousEffectTypeKey": "wet",
+          "duration": 10000,
+          "abilityParameters": [{}, {}, {}]
+        }
+      }
+    ]
+  },
+  {
+    "key": "aqua-blade",
+    "name": "Aqua Blade",
+    "tags": ["cold", "elemental", "attack"],
+    "inheritedTags": ["attack"],
+    "manaCost": 2,
+    "timeToUse": 1000,
+    "cooldown": 5000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["cold", "elemental"],
+        "parameters": {
+          "baseAmount": 8
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "any-enemy",
+        "tags": ["cold", "debuff"],
+        "parameters": {
+          "continuousEffectTypeKey": "wet",
+          "duration": 10000,
+          "abilityParameters": [{}, {}, {}]
+        }
+      }
+    ]
+  },
+  {
+    "key": "syphon-mind",
+    "name": "Syphon Mind",
+    "tags": ["mana", "cold", "elemental", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 0,
+    "timeToUse": 1000,
+    "cooldown": 12000,
+    "criticalStrikeChance": 0.05,
+    "effects": [
+      {
+        "key": "deal-damage",
+        "target": "any-enemy",
+        "tags": ["cold", "elemental"],
+        "parameters": {
+          "baseAmount": 4
+        }
+      },
+      {
+        "key": "recover-mana",
+        "target": "self",
+        "tags": ["mana"],
+        "parameters": {
+          "baseAmount": 10
+        }
+      }
+    ]
+  },
+  {
+    "key": "soul-conduit",
+    "name": "Soul Conduit",
+    "tags": ["mana", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 10,
+    "timeToUse": 1000,
+    "cooldown": 8000,
+    "criticalStrikeChance": 0,
+    "effects": [
+      {
+        "key": "recover-mana",
+        "target": "any-ally",
+        "tags": ["mana"],
+        "parameters": {
+          "baseAmount": 10
+        }
+      }
+    ]
+  },
+  {
+    "key": "focus",
+    "name": "Focus",
+    "tags": ["mana", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 0,
+    "timeToUse": 3000,
+    "cooldown": 5000,
+    "criticalStrikeChance": 0,
+    "effects": [
+      {
+        "key": "recover-mana",
+        "target": "self",
+        "tags": ["mana"],
+        "parameters": {
+          "baseAmount": 20
+        }
+      }
+    ]
+  },
+  {
+    "key": "cleanse",
+    "name": "Cleanse",
+    "tags": ["heal", "spell"],
+    "inheritedTags": ["spell"],
+    "manaCost": 10,
+    "timeToUse": 2000,
+    "cooldown": 8000,
+    "criticalStrikeChance": 0,
+    "effects": [
+      {
+        "key": "recover-health",
+        "target": "any-ally",
+        "tags": ["heal"],
+        "parameters": {
+          "baseAmount": 12
+        }
+      },
+      {
+        "key": "remove-specific-continuous-effect-type",
+        "target": "any-ally",
+        "tags": [],
+        "parameters": {
+          "continuousEffectTypeKey": "poisoned"
         }
       }
     ]

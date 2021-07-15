@@ -13,6 +13,7 @@ import { AreaType } from "./area-type";
 import { Combat } from "./combat";
 import { Loot } from "./loot";
 import { GamesManager } from "src/services/games-manager";
+import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 
 export class Area {
   public dbModel: DbArea;
@@ -97,15 +98,29 @@ export class Area {
     for(const winningCharacter of winningTeam) {
       const areaHero = this.heroes.find(h => h.combatCharacter.id === winningCharacter.id);
       if (areaHero) {
-        const totalExperience = losingTeam
+        const experienceGiven = losingTeam
           .map(losingCharacter => 40 + this.type.level * 10)
           .reduce((exp1, exp2) => exp1 + exp2, 0);
-        areaHero.hero.giveExperience(totalExperience);
+        const experienceGainMultiplier = areaHero.hero.attributes.getAttribute(ContractAttributeType.experienceGain, []).valueContainer.value / 100;
+        const experienceReceived = experienceGainMultiplier * experienceGiven;
+        areaHero.hero.giveExperience(experienceReceived);
       }
     }
     if (combat.didTeam1Win) {
       const game = GamesManager.instance.getGameFromArea(this);
-      const items = [ItemSpawnerService.instance.spawnItem(game, this.type.level)];
+      const baseItemDropCount = 1;
+      const itemDropCountMultiplier = this.heroes
+        .map(areaHero => areaHero.hero.attributes.getAttribute(ContractAttributeType.itemDropChance, []).valueContainer.value / 100)
+        .reduce((idc1, idc2) => idc1 * idc2, 1);
+      const guaranteedItemDropCount = Math.floor(baseItemDropCount * itemDropCountMultiplier);
+      const additionalDropChance = (baseItemDropCount * itemDropCountMultiplier) - guaranteedItemDropCount;
+      const didAdditionalItemDrop = Math.random() < additionalDropChance;
+      const actualItemDropCount = guaranteedItemDropCount + (didAdditionalItemDrop ? 1 : 0);
+      const items: Item[] = [];
+      for(let i = 0; i<actualItemDropCount; i++) {
+        items.push(ItemSpawnerService.instance.spawnItem(game, this.type.level));
+      }
+
       items.forEach(item => this.addItemToLoot(item));
     }
     this.onCombatComplete.next(combat);

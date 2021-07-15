@@ -90,19 +90,19 @@
       <div>{{selectedHeroType.description}}</div>
       <div class="ability-types-container">
         <div class="header">Starting Abilities</div>
-        <ul>
+        <ul class="abilities">
           <li
             *ngFor="let abilityType of selectedHeroType.abilityTypes"
             class="ability-container"
           >
             <img 
               class="image"
-              [src]="'assets/images/abilities/' + abilityType.key + '-thumbnail.png'" 
+              [src]="'assets/images/abilities/' + abilityType.key + '.png'" 
             />
-            <span class="text-container">
-              <div class="name">{{abilityType.name}}</div>
-              <div class="description">{{abilityType.description}}</div>
-            </span>
+            <app-ability-type-preview 
+              [abilityType]="abilityType"
+              class="ability-type-preview"
+            ></app-ability-type-preview>
           </li>
         </ul>
       </div>

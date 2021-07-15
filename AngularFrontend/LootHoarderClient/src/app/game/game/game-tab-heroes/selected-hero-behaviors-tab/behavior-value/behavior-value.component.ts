@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ContractAttributeType } from 'src/loot-hoarder-contract/contract-attribute-type';
-import { AssetManagerService } from '../../../client-representation/asset-manager.service';
+import { AssetManagerService } from '../../../asset-manager.service';
 import { CharacterBehaviorValue } from '../../../client-representation/character-behavior/character-behavior-value';
 import { CharacterBehaviorValueAttribute } from '../../../client-representation/character-behavior/character-behavior-value-attribute';
 import { CharacterBehaviorValueCurrentHealth } from '../../../client-representation/character-behavior/character-behavior-value-current-health';

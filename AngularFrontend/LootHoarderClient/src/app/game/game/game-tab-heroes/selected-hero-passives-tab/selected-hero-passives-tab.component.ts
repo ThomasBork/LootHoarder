@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { WebSocketService } from 'src/app/game/web-socket/web-socket.service';
 import { ContractTakeHeroSkillNodeMessage } from 'src/loot-hoarder-contract/client-actions/contract-take-hero-skill-node-message';
-import { AssetManagerService } from '../../client-representation/asset-manager.service';
+import { AssetManagerService } from '../../asset-manager.service';
 import { Hero } from '../../client-representation/hero';
 import { HeroSkillTree } from '../../client-representation/hero-skill-tree';
 import { HeroSkillTreeNode } from '../../client-representation/hero-skill-tree-node';
 import { HeroSkillTreeNodeStatus } from '../../client-representation/hero-skill-tree-node-status';
 import { HeroSkillTreeStartingNode } from '../../client-representation/hero-skill-tree-starting-node';
+import { PassiveAbilityUnlockAbility } from '../../client-representation/passive-ability-unlock-ability';
 import { SkillTreeTransition } from '../../client-representation/skill-tree-transition';
 
 @Component({
@@ -27,7 +28,7 @@ export class SelectedHeroPassivesTabComponent {
   public readonly size3NodeDiameter = 120;
   public readonly size2NodeMargin = 40;
   public readonly transitionWidth = 15;
-  public readonly skillTreePadding = 200;
+  public readonly skillTreePadding = 500;
 
   public constructor(
     private readonly assetManagerService: AssetManagerService,
@@ -56,6 +57,7 @@ export class SelectedHeroPassivesTabComponent {
       this.maxNodeYInPixels = this.getCellTop(maxNodeY) + this.size2NodeDiameter;
   }
 
+  
   public get gridCellSize(): number { 
     return this.size2NodeDiameter + this.size2NodeMargin;
   }
@@ -70,6 +72,19 @@ export class SelectedHeroPassivesTabComponent {
     const centerY = this.getCellTop(this.hero.type.heroSkillTreeStartingNode.y)
       + this.size2NodeDiameter / 2;
     return centerY;
+  }
+
+  public getNodeAsUnlockSkillAbility(nodeWithStatus: HeroSkillTreeNodeStatus): PassiveAbilityUnlockAbility | undefined {
+    if (
+      nodeWithStatus.node.passiveAbilities.length === 1
+    ) {
+      const nodeAbility = nodeWithStatus.node.passiveAbilities[0];
+      if (nodeAbility instanceof PassiveAbilityUnlockAbility) {
+        return nodeAbility;
+      }
+    }
+
+    return undefined;
   }
 
   public takeSkillNode(nodeWithStatus: HeroSkillTreeNodeStatus): void {

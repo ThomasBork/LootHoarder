@@ -44,6 +44,12 @@ export class AbilityTypeEffectApplyContinuousEffectParameters {
   }
 
   private validateInput(): void {
+    const recipeAmount = this.continuousEffectType.abilityRecipes.length;
+    const parametersAmount = this.additionalAbilityParameters.length;
+    if (recipeAmount !== parametersAmount) {
+      throw Error (`The continuous effect type ${this.continuousEffectType.key} has ${recipeAmount} ability recipes, but ${parametersAmount} parameters were provided.`);
+    }
+
     for(let i = 0; i<this.continuousEffectType.abilityRecipes.length; i++) {
       const recipe = this.continuousEffectType.abilityRecipes[i];
       const additionalParameters = this.additionalAbilityParameters[i];

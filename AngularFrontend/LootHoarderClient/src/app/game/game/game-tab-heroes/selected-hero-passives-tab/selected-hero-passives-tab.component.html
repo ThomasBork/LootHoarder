@@ -41,6 +41,18 @@
               *ngFor="let abilityDescription of node.abilityDescriptions"
             >{{ abilityDescription }}</li>
           </ul>
+          <div
+            *ngIf="getNodeAsUnlockSkillAbility(node)"
+            class="unlock-skill-preview"
+          >
+            <img 
+              [src]="'assets/images/abilities/' + getNodeAsUnlockSkillAbility(node).parameters.abilityType.key + '.png'"
+              class="image"
+            />
+            <app-ability-type-preview
+              [abilityType]="getNodeAsUnlockSkillAbility(node).parameters.abilityType"
+            ></app-ability-type-preview>
+          </div>
         </div>
       </div>
     </div>

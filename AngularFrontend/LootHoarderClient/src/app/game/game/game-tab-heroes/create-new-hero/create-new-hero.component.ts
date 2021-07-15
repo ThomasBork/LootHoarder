@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { WebSocketService } from 'src/app/game/web-socket/web-socket.service';
-import { AssetManagerService } from '../../client-representation/asset-manager.service';
+import { AssetManagerService } from '../../asset-manager.service';
 import { HeroType } from '../../client-representation/hero-type';
 import { ContractCreateHeroMessage } from 'src/loot-hoarder-contract/client-actions/contract-create-hero-message'
 import { Hero } from '../../client-representation/hero';

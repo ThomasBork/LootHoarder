@@ -11,7 +11,10 @@ export class AbilityTagService {
       case "spell": return 'purple';
       case "physical": return 'grey';
       case "attack": return 'grey';
-      default: return 'white';
+      case "heal": return 'green';
+      case "mana": return 'blue';
+      case "cold": return 'aqua';
+      default: return 'grey';
     }
   }
 

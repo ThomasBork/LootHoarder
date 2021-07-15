@@ -60,7 +60,6 @@
   
     .hero-type-information-container {
       flex: 1 1 0;
-      max-width: 400px;
     
       .header {
         font-size: 24px;
@@ -70,26 +69,28 @@
       .ability-types-container {
         margin-top: 15px;
         width: 100%;
-    
-        .ability-container {
-          display: flex;
-          margin-bottom: 5px;
-    
-          .image {
-            flex: 0 0 70px;
-            width: 70px;
-            height: 70px;
-            border: 3px solid black;
+
+        .abilities {
+          width: max-content;
+
+          .ability-container {
+            display: flex;
+            margin-bottom: 5px;
             border-radius: 10px;
-            margin-right: 5px;
-          }
-    
-          .text-container {
-            flex: 1 1 0;
-    
-            .name {
-              font-size: 20px;
-              margin-bottom: 5px;
+            background-color: white;
+            padding: 10px;
+      
+            .image {
+              flex: 0 0 70px;
+              width: 70px;
+              height: 70px;
+              border: 3px solid black;
+              border-radius: 10px;
+              margin-right: 5px;
+            }
+
+            .ability-type-preview {
+              flex: 1 1 auto;
             }
           }
         }

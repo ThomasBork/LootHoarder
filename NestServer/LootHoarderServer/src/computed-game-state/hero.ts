@@ -88,8 +88,8 @@ export class Hero {
     this.takenSkillTreeNodes = takenSkillTreeNodes;
     this.availableSkillTreeNodes = availableSkillTreeNodes;
     this.totalSkillPointsVC = new ValueContainer();
-    this.totalSkillPointsVC.setAdditiveModifier(this, this.level);
-    this.onLevelUp.subscribe(newLevel => this.totalSkillPointsVC.setAdditiveModifier(this, this.level));
+    this.totalSkillPointsVC.setAdditiveModifier(this, this.level * 3);
+    this.onLevelUp.subscribe(newLevel => this.totalSkillPointsVC.setAdditiveModifier(this, this.level * 3));
     this.onLevelUp.subscribe(newLevel => {
       const message = new ContractHeroUnspentSkillPointsChangedMessage(this.id, this.unspentSkillPoints);
       this.onEvent.next(message);
@@ -100,8 +100,8 @@ export class Hero {
     for(const typeAttributePerLevelValueContainer of this.type.attributesPerLevel.attributeValueContainers) {
       const attributeFromLevelValueContainer = new ValueContainer();
       attributeFromLevelValueContainer.setAdditiveValueContainer(typeAttributePerLevelValueContainer.valueContainer);
-      attributeFromLevelValueContainer.setMultiplicativeModifier(this, this.level);
-      this.onLevelUp.subscribe(newLevel => attributeFromLevelValueContainer.setMultiplicativeModifier(this, newLevel));
+      attributeFromLevelValueContainer.setMultiplicativeModifier(this, this.level - 1);
+      this.onLevelUp.subscribe(newLevel => attributeFromLevelValueContainer.setMultiplicativeModifier(this, newLevel - 1));
       const combinedAttribute = this.attributes.getAttribute(typeAttributePerLevelValueContainer.attributeType, typeAttributePerLevelValueContainer.abilityTags);
       combinedAttribute.additiveValueContainer.setAdditiveValueContainer(attributeFromLevelValueContainer);
     }
@@ -292,7 +292,7 @@ export class Hero {
           if (!(ability.parameters instanceof PassiveAbilityParametersUnlockAbility)) {
             throw Error ('Expected unlock ability ability to have unlock ability ability parameters.');
           }
-          const abilityType = StaticGameContentService.instance.getAbilityType(ability.parameters.abilityTypeKey);
+          const abilityType = ability.parameters.abilityType;
           if (!this.abilities.some(ability => ability.type === abilityType)) {
             const abilityId = this.getNextAbilityId();
             const dbHeroAbility: DbHeroAbility = {
@@ -332,7 +332,7 @@ export class Hero {
           if (!(ability.parameters instanceof PassiveAbilityParametersUnlockAbility)) {
             throw Error ('Expected unlock ability ability to have unlock ability ability parameters.');
           }
-          const abilityType = StaticGameContentService.instance.getAbilityType(ability.parameters.abilityTypeKey);
+          const abilityType = ability.parameters.abilityType;
           const foundIndex = this.abilities.findIndex(ability => ability.type === abilityType);
           if (foundIndex < 0) {
             throw Error (`Tried to remove the ability type ${abilityType.key}, but it could not be found.`);
@@ -405,10 +405,15 @@ export class Hero {
     }
     this.setUpAbilityValueContainer(ability.type.tags, ability.useSpeedVC, ContractAttributeType.useSpeed);
     this.setUpAbilityValueContainer(ability.type.tags, ability.cooldownSpeedVC, ContractAttributeType.cooldownSpeed);
+    this.setUpAbilityValueContainer(ability.type.tags, ability.criticalStrikeMultiplierVC, ContractAttributeType.criticalStrikeMultiplier);
+
+    const criticalStrikeChanceCombinedAttribute = this.attributes.getAttribute(ContractAttributeType.criticalStrikeChance, ability.type.tags);
+    ability.criticalStrikeChanceVC.setMultiplicativeValueContainer(criticalStrikeChanceCombinedAttribute.valueContainer, value => value / 100);
 
     this.subscribeToHeroAbilityValueChange(ability.cooldownVC, ability.id, ContractHeroAbilityValueKey.cooldown, undefined);
     this.subscribeToHeroAbilityValueChange(ability.cooldownSpeedVC, ability.id, ContractHeroAbilityValueKey.cooldownSpeed, undefined);
     this.subscribeToHeroAbilityValueChange(ability.criticalStrikeChanceVC, ability.id, ContractHeroAbilityValueKey.criticalStrikeChance, undefined);
+    this.subscribeToHeroAbilityValueChange(ability.criticalStrikeMultiplierVC, ability.id, ContractHeroAbilityValueKey.criticalStrikeMultiplier, undefined);
     this.subscribeToHeroAbilityValueChange(ability.manaCostVC, ability.id, ContractHeroAbilityValueKey.manaCost, undefined);
     this.subscribeToHeroAbilityValueChange(ability.timeToUseVC, ability.id, ContractHeroAbilityValueKey.timeToUse, undefined);
     this.subscribeToHeroAbilityValueChange(ability.useSpeedVC, ability.id, ContractHeroAbilityValueKey.useSpeed, undefined);

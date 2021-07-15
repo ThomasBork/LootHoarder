@@ -15,6 +15,28 @@
     ]
   },
   {
+    "key": "burning",
+    "isUnique": false,
+    "name": "Burning",
+    "abilities": [
+      {
+        "typeKey": "take-damage-over-time",
+        "parameters": {
+          "abilityTags": ["fire"],
+          "damagePerSecond": null
+        },
+        "requiredDataParameters": ["damagePerSecond"]
+      },
+      {
+        "typeKey": "remove-on-damage-taken",
+        "parameters": {
+          "abilityTags": ["cold"]
+        },
+        "requiredDataParameters": []
+      }
+    ]
+  },
+  {
     "key": "vulnerable",
     "isUnique": true,
     "name": "Vulnerable",
@@ -32,9 +54,9 @@
     ]
   },
   {
-    "key": "strong",
+    "key": "berserk",
     "isUnique": true,
-    "name": "Strong",
+    "name": "Berserk",
     "abilities": [
       {
         "typeKey": "attribute",
@@ -43,6 +65,94 @@
           "attributeType": "power", 
           "abilityTags": ["attack"], 
           "amount": 1.5
+        },
+        "requiredDataParameters": []
+      }
+    ]
+  },
+  {
+    "key": "accelerated",
+    "isUnique": true,
+    "name": "Accelerated",
+    "abilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "use-speed", 
+          "abilityTags": [], 
+          "amount": 1.5
+        },
+        "requiredDataParameters": []
+      },
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "cooldown-speed", 
+          "abilityTags": [], 
+          "amount": 1.5
+        },
+        "requiredDataParameters": []
+      }
+    ]
+  },
+  {
+    "key": "slowed",
+    "isUnique": true,
+    "name": "Slowed",
+    "abilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "use-speed", 
+          "abilityTags": [], 
+          "amount": 0.67
+        },
+        "requiredDataParameters": []
+      },
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "cooldown-speed", 
+          "abilityTags": [], 
+          "amount": 0.67
+        },
+        "requiredDataParameters": []
+      }
+    ]
+  },
+  {
+    "key": "wet",
+    "isUnique": true,
+    "name": "Wet",
+    "abilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "damage-taken", 
+          "abilityTags": ["lightning"], 
+          "amount": 1.5
+        },
+        "requiredDataParameters": []
+      },
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": false,
+          "attributeType": "damage-taken", 
+          "abilityTags": ["fire"], 
+          "amount": 0.67
+        },
+        "requiredDataParameters": []
+      },
+      {
+        "typeKey": "remove-on-damage-taken",
+        "parameters": {
+          "abilityTags": ["fire"]
         },
         "requiredDataParameters": []
       }

@@ -15,7 +15,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { GameService } from './game/service/game.service';
 import { WebSocketService } from './game/web-socket/web-socket.service';
 import { LabelWithValueComponent } from './shared/label-with-value/label-with-value.component';
-import { AssetManagerService } from './game/game/client-representation/asset-manager.service';
+import { AssetManagerService } from './game/game/asset-manager.service';
 import { GameTabMenuComponent } from './game/game/game-tab-menu/game-tab-menu.component';
 import { GameTabHeroesComponent } from './game/game/game-tab-heroes/game-tab-heroes.component';
 import { CreateNewHeroComponent } from './game/game/game-tab-heroes/create-new-hero/create-new-hero.component';
@@ -76,10 +76,13 @@ import { BehaviorTargetCharacterWithExtremeValueComponent } from './game/game/ga
 import { BehaviorValueAttributeComponent } from './game/game/game-tab-heroes/selected-hero-behaviors-tab/behavior-value/behavior-value-attribute/behavior-value-attribute.component';
 import { AbilityTagComponent } from './game/game/ability-tag/ability-tag.component';
 import { CheckBoxComponent } from './shared/check-box/check-box.component';
+import { AbilityTextService } from './game/game/ability-text-service';
+import { AbilityTypePreviewComponent } from './game/game/ability-type-preview/ability-type-preview.component';
 
 @NgModule({
   declarations: [
     AbilityTagComponent,
+    AbilityTypePreviewComponent,
     AccomplishmentComponent,
     AppComponent,
     CheckBoxComponent,
@@ -148,6 +151,7 @@ import { CheckBoxComponent } from './shared/check-box/check-box.component';
   ],
   providers: [
     AbilityTagService,
+    AbilityTextService,
     AssetManagerService,
     AuthGuard,
     AuthService,

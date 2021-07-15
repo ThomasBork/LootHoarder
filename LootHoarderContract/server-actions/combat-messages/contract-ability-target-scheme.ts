@@ -5,5 +5,6 @@ export enum ContractAbilityTargetScheme {
   any = 'any',
   anyAlly = 'any-ally',
   anyEnemy = 'any-enemy',
-  none = 'none'
+  none = 'none',
+  self = 'self'
 }

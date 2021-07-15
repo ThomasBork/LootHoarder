@@ -20,6 +20,10 @@ import { ContractPassiveAbilityTypeKey } from "src/loot-hoarder-contract/contrac
 import { PassiveAbilityTakeDamageOverTime } from "src/computed-game-state/passive-ability-take-damage-over-time";
 import { CharacterBehaviorPredicateEvaluator } from "./character-behavior-predicate-evaluator";
 import { CharacterBehaviorTargetEvaluator } from "./character-behavior-target-evaluator";
+import { AbilityTypeEffectRecoverMana } from "src/computed-game-state/ability-type-effect-recover-mana";
+import { AbilityTypeEffectRecoverHealth } from "src/computed-game-state/ability-type-effect-recover-health";
+import { PassiveAbilityParametersRemoveOnDamageTaken } from "src/computed-game-state/passive-ability-parameters-remove-on-damage-taken";
+import { AbilityTypeEffectRemoveSpecificContinuousEffectType } from "src/computed-game-state/ability-type-effect-remove-specific-continuous-effect-type";
 
 @Injectable()
 export class CombatUpdaterService implements OnApplicationBootstrap {
@@ -80,9 +84,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
               ? this.tickFrequencyInMilliseconds
               : continuousEffect.timeRemaining;
             const damageTaken = continuousEffectAbility.damageTakenEverySecondVC.value * timeTakingDamage / 1000;
-            const healthAfterDamageTaken = character.currentHealth - damageTaken;
-            // Do not send this update. The client is responsible for updating this.
-            character.setCurrentHealth(healthAfterDamageTaken, false);
+            this.takeDamage(damageTaken, character, continuousEffectAbility.parameters.abilityTags, false);
           }
         }
 
@@ -268,6 +270,10 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
             effectedCharacters.push(...enemies);
           }
           break;
+          case AbilityTargetScheme.self: {
+            effectedCharacters.push(usingCharacter);
+          }
+          break;
         }
       }
 
@@ -298,14 +304,42 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
         damageGiven *= effect.powerVC.value / 100;
 
         if (isCriticalStrike) {
-          const criticalStrikeDamageMultiplier = 1.5;
+          const criticalStrikeDamageMultiplier = ability.criticalStrikeMultiplierVC.value / 100;
           damageGiven *= criticalStrikeDamageMultiplier;
         }
 
         for(const characterTakingDamage of effectedCharacters) {
           const damageTaken = this.calculateDamageTaken(damageGiven, characterTakingDamage, effect.typeEffect.tags);
-          const healthAfterDamageTaken = characterTakingDamage.currentHealth - damageTaken;
-          characterTakingDamage.setCurrentHealth(healthAfterDamageTaken);
+          this.takeDamage(damageTaken, characterTakingDamage, effect.typeEffect.tags, true);
+        }
+      } else if (effect.typeEffect instanceof AbilityTypeEffectRecoverMana) {
+        const baseAmount = effect.typeEffect.parameters.baseAmount;
+
+        let manaGiven = baseAmount;
+
+        for(const effectedCharacter of effectedCharacters) {
+          const manaReceived = manaGiven;
+          const currentManaAfterReceiving = effectedCharacter.currentMana + manaReceived;
+          effectedCharacter.setCurrentMana(currentManaAfterReceiving);
+        }
+      } else if (effect.typeEffect instanceof AbilityTypeEffectRecoverHealth) {
+        const baseAmount = effect.typeEffect.parameters.baseAmount;
+
+        let healthGiven = baseAmount;
+
+        for(const effectedCharacter of effectedCharacters) {
+          const healthReceived = healthGiven;
+          const currentHealthAfterReceiving = effectedCharacter.currentHealth + healthReceived;
+          effectedCharacter.setCurrentHealth(currentHealthAfterReceiving);
+        }
+      } else if (effect.typeEffect instanceof AbilityTypeEffectRemoveSpecificContinuousEffectType) {
+        const continuousEffectType = effect.typeEffect.parameters.continuousEffectType;
+
+        for(const effectedCharacter of effectedCharacters) {
+          const continuousEffectsToRemove = effectedCharacter.continuousEffects.filter(effect => effect.type === continuousEffectType);
+          for(const continuousEffectToRemove of continuousEffectsToRemove) {
+            effectedCharacter.removeContinuousEffect(continuousEffectToRemove);
+          }
         }
       } else {
         throw Error (`Unhandled ability effect type: ${effect.typeEffect.type.key}`);
@@ -319,7 +353,41 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
     const resistanceCombinedAttribute = characterTakingDamage.attributes.getAttribute(ContractAttributeType.resistance, abilityTags);
     const resistance = resistanceCombinedAttribute.valueContainer.value;
     const resistanceMultiplier = 100 / (100 + resistance);
-    return damageGiven * resistanceMultiplier;
+
+    const damageTakenAttribute = characterTakingDamage.attributes.getAttribute(ContractAttributeType.damageTaken, abilityTags);
+    const damageTaken = damageTakenAttribute.valueContainer.value;
+    const damageTakenMultiplier = damageTaken / 100;
+
+    return damageGiven * resistanceMultiplier * damageTakenMultiplier;
+  }
+
+  private takeDamage (
+    damageTaken: number, 
+    characterTakingDamage: CombatCharacter, 
+    abilityTags: string[], 
+    shouldSendHealthChangeEvent: boolean
+  ): void {
+    const healthAfterDamageTaken = characterTakingDamage.currentHealth - damageTaken;
+    characterTakingDamage.setCurrentHealth(healthAfterDamageTaken, shouldSendHealthChangeEvent);
+
+    const continuousEffectsToRemove: ContinuousEffect[] = [];
+    for (const continuousEffect of characterTakingDamage.continuousEffects) {
+      for (const ability of continuousEffect.abilities) {
+        if (
+          ability.type.key === ContractPassiveAbilityTypeKey.removeOnDamageTaken
+          && ability.parameters instanceof PassiveAbilityParametersRemoveOnDamageTaken
+        ) {
+          const isMatchingAbilityTags = ability.parameters.abilityTags.every(tag => abilityTags.includes(tag));
+          if (isMatchingAbilityTags) {
+            continuousEffectsToRemove.push(continuousEffect);
+            break;
+          }
+        }
+      }
+    }
+    for (const continuousEffectToRemove of continuousEffectsToRemove) {
+      characterTakingDamage.removeContinuousEffect(continuousEffectToRemove);
+    }
   }
 }
 

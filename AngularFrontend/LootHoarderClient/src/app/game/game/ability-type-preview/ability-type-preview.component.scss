@@ -1,0 +1,42 @@
+.content {
+  
+  .text-container {
+    display: flex;
+    justify-content: space-between;
+
+    .name-and-description {
+      margin-right: 10px;
+
+      .name {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .tags {
+        display: flex;
+        margin-bottom: 5px;
+
+        app-ability-tag {
+          margin-right: 5px;
+        }
+      }
+
+      .description-line {
+        max-width: 400px;
+        margin-top: 5px;
+      }
+    }
+
+    .details {
+      .label-and-value {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+
+        .label {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}

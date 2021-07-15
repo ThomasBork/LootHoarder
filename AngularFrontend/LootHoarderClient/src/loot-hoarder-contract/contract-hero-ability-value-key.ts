@@ -5,5 +5,6 @@ export enum ContractHeroAbilityValueKey {
   cooldown = 'cooldown',
   manaCost = 'manaCost',
   criticalStrikeChance = 'criticalStrikeChance',
+  criticalStrikeMultiplier = 'criticalStrikeMultiplier',
   timeToUse = 'timeToUse',
 }

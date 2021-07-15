@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AssetManagerService } from 'src/app/game/game/client-representation/asset-manager.service';
+import { AssetManagerService } from 'src/app/game/game/asset-manager.service';
 import { CharacterBehaviorPredicate } from 'src/app/game/game/client-representation/character-behavior/character-behavior-predicate';
 import { CharacterBehaviorPredicateAnd } from 'src/app/game/game/client-representation/character-behavior/character-behavior-predicate-and';
 import { CharacterBehaviorPredicateHasContinuousEffect } from 'src/app/game/game/client-representation/character-behavior/character-behavior-predicate-has-continuous-effect';

@@ -4,6 +4,7 @@ import { DbPassiveAbility } from "src/raw-game-state/db-passive-ability";
 import { StaticGameContentService } from "src/services/static-game-content-service";
 import { PassiveAbility } from "./passive-ability";
 import { PassiveAbilityParametersAttribute } from "./passive-ability-parameters-attribute";
+import { PassiveAbilityParametersRemoveOnDamageTaken } from "./passive-ability-parameters-remove-on-damage-taken";
 import { PassiveAbilityParametersUnlockAbility } from "./passive-ability-parameters-unlock-ability";
 import { PassiveAbilityTakeDamageOverTime } from "./passive-ability-take-damage-over-time";
 
@@ -23,17 +24,27 @@ export class PassiveAbilityLoader {
         return ability;
       }
       case ContractPassiveAbilityTypeKey.unlockAbility: {
-        const abilityType = StaticGameContentService.instance.getPassiveAbilityType(dbModel.typeKey);
+        const passiveAbilityType = StaticGameContentService.instance.getPassiveAbilityType(dbModel.typeKey);
+        const abilityTypeKey = PassiveAbilityLoader.expectString(dbModel.parameters.abilityTypeKey);
+        const abilityType = StaticGameContentService.instance.getAbilityType(abilityTypeKey);
 
-        const abilityParameters = new PassiveAbilityParametersUnlockAbility(
-          PassiveAbilityLoader.expectString(dbModel.parameters.abilityTypeKey)
-        );
+        const abilityParameters = new PassiveAbilityParametersUnlockAbility(abilityType);
     
-        const ability = new PassiveAbility(dbModel, abilityType, abilityParameters);
+        const ability = new PassiveAbility(dbModel, passiveAbilityType, abilityParameters);
         return ability;
       }
       case ContractPassiveAbilityTypeKey.takeDamageOverTime: {
         const ability = PassiveAbilityTakeDamageOverTime.load(dbModel);
+        return ability;
+      }
+      case ContractPassiveAbilityTypeKey.removeOnDamageTaken: {
+        const abilityType = StaticGameContentService.instance.getPassiveAbilityType(dbModel.typeKey);
+
+        const abilityParameters = new PassiveAbilityParametersRemoveOnDamageTaken(
+          PassiveAbilityLoader.expectStringArray(dbModel.parameters.abilityTags)
+        );
+    
+        const ability = new PassiveAbility(dbModel, abilityType, abilityParameters);
         return ability;
       }
       default: 

@@ -44,7 +44,7 @@
     "itemCategories": ["weapon", "head"]
   },
   {
-    "weight": 1000,
+    "weight": 2000,
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
@@ -53,6 +53,17 @@
       "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon", "head"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "power",
+      "abilityTags": ["heal"],
+      "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
+    },
+    "itemCategories": ["weapon", "head", "chest"]
   },
   {
     "weight": 1000,
@@ -132,7 +143,7 @@
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
   {
-    "weight": 500,
+    "weight": 1000,
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
@@ -143,7 +154,7 @@
     "itemCategories": ["weapon", "head", "chest", "legs", "foot"]
   },
   {
-    "weight": 500,
+    "weight": 1000,
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
@@ -154,7 +165,7 @@
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
   {
-    "weight": 500,
+    "weight": 1000,
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
@@ -165,7 +176,7 @@
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
   {
-    "weight": 500,
+    "weight": 1000,
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
@@ -176,7 +187,7 @@
     "itemCategories": ["head", "chest", "legs", "foot"]
   },
   {
-    "weight": 500,
+    "weight": 1000,
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
@@ -185,5 +196,71 @@
       "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "experience-gain",
+      "abilityTags": [],
+      "amount": { "min": 5, "max": 7, "isInteger": true, "levelScaling": 1.00 }
+    },
+    "itemCategories": ["weapon", "head", "chest", "legs", "foot"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "item-drop-chance",
+      "abilityTags": [],
+      "amount": { "min": 5, "max": 7, "isInteger": true, "levelScaling": 1.00 }
+    },
+    "itemCategories": ["weapon", "head", "chest", "legs", "foot"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "critical-strike-chance",
+      "abilityTags": [],
+      "amount": { "min": 8, "max": 10, "isInteger": true, "levelScaling": 1.00 }
+    },
+    "itemCategories": ["head", "legs", "foot"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "critical-strike-multiplier",
+      "abilityTags": [],
+      "amount": { "min": 8, "max": 10, "isInteger": true, "levelScaling": 1.02 }
+    },
+    "itemCategories": ["head", "legs", "foot"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "critical-strike-chance",
+      "abilityTags": [],
+      "amount": { "min": 10, "max": 13, "isInteger": true, "levelScaling": 1.00 }
+    },
+    "itemCategories": ["weapon"]
+  },
+  {
+    "weight": 1000,
+    "typeKey": "attribute",
+    "parameters": {
+      "isAdditive": true,
+      "attributeType": "critical-strike-multiplier",
+      "abilityTags": [],
+      "amount": { "min": 10, "max": 13, "isInteger": true, "levelScaling": 1.02 }
+    },
+    "itemCategories": ["weapon"]
   }
 ]

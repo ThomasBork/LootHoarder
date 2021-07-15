@@ -11,11 +11,9 @@ export class AttributeSet {
   public onCombinedAttributeAdded: Subject<CombinedAttributeValueContainer>;
   
   private combinedAttributes: CombinedAttributeValueContainer[];
-  private multiplicativeModifiers: Map<any, number>;
   
   public constructor(attributes: CombinedAttributeValueContainer[] = []) {
     this.combinedAttributes = [];
-    this.multiplicativeModifiers = new Map();
     this.onCombinedAttributeAdded = new Subject();
 
     this.onChange = new Subject();

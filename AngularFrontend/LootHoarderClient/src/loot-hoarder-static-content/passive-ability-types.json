@@ -20,5 +20,11 @@
       "abilityTags",
       "damagePerSecond"
     ]
+  },
+  {
+    "key": "remove-on-damage-taken",
+    "parameters": [
+      "abilityTags"
+    ]
   }
 ]

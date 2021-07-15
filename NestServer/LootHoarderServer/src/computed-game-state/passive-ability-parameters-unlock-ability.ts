@@ -1,11 +1,12 @@
+import { AbilityType } from "./ability-type";
 import { PassiveAbilityParameters } from "./passive-ability-parameters";
 
 export class PassiveAbilityParametersUnlockAbility extends PassiveAbilityParameters {
-  public abilityTypeKey: string;
+  public abilityType: AbilityType;
   public constructor(
-    abilityTypeKey: string
+    abilityType: AbilityType
   ) {
     super();
-    this.abilityTypeKey = abilityTypeKey;
+    this.abilityType = abilityType;
   }
 }
