@@ -120,11 +120,11 @@ export class Combat {
       character.onDeath.subscribe(() => {
         this.updateHasEnded();
       })
-      character.onCurrentHealthChanged.subscribe(newCurrentHealth => {
-        this.onCombatEvent.next(new ContractCombatCharacterCurrentHealthChangedMessage(character.id, newCurrentHealth));
+      character.onCurrentHealthChanged.subscribe(changeEvent => {
+        this.onCombatEvent.next(new ContractCombatCharacterCurrentHealthChangedMessage(character.id, changeEvent.previousValue, changeEvent.newValue));
       });
-      character.onCurrentManaChanged.subscribe(newCurrentMana => {
-        this.onCombatEvent.next(new ContractCombatCharacterCurrentManaChangedMessage(character.id, newCurrentMana));
+      character.onCurrentManaChanged.subscribe(changeEvent => {
+        this.onCombatEvent.next(new ContractCombatCharacterCurrentManaChangedMessage(character.id, changeEvent.previousValue, changeEvent.newValue));
       });
       character.onContinuousEffectAdded.subscribe(continuousEffect => {
         const message = new ContractContinuousEffectAddedMessage(

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AbilityTagTranslator } from 'src/app/shared/ability-tag-translator';
 import { CombatCharacter } from '../../../client-representation/combat-character';
 import { CombatCharacterAbility } from '../../../client-representation/combat-character-ability';
+import { CombatCharacterFloatingNumber } from '../../../client-representation/combat-character-floating-number';
 
 @Component({
   selector: 'app-combat-character',
@@ -50,5 +51,13 @@ export class CombatCharacterComponent {
 
   public getTranslatedAbilityTag(tag: string): string {
     return AbilityTagTranslator.translate(tag);
+  }
+
+  public getOpacity(floatingNumber: CombatCharacterFloatingNumber): number {
+    const percentageTimeLeft = floatingNumber.durationLeft / floatingNumber.totalDuration;
+    if (percentageTimeLeft > 0.5) {
+      return 1;
+    }
+    return percentageTimeLeft / 0.5;
   }
 }

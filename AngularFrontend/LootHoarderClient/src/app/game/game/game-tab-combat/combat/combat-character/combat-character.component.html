@@ -1,5 +1,5 @@
 <div class="character">
-  <div>{{character.name}}</div>
+  <div class="name">{{character.name}}</div>
 
   <app-progress-bar
     [minimumValue]="0"
@@ -39,6 +39,17 @@
           [src]="getImagePath()"
         />
       </ng-container>
+
+      
+      <div
+        *ngFor="let floatingNumber of character.floatingNumbers"
+        class="floating-number"
+        [class.damage-taken]="floatingNumber.isDamage"
+        [class.health-restored]="!floatingNumber.isDamage"
+        [style.left]="floatingNumber.x + '%'"
+        [style.top]="floatingNumber.y + '%'"
+        [style.opacity]="getOpacity(floatingNumber)"
+      >{{floatingNumber.number | prettyNumber}}</div>
     </div>
 
     <ul

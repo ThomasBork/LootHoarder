@@ -91,12 +91,20 @@ export class CombatMessageHandler {
 
   private handleCharacterCurrentHealthChanged(combat: Combat, data: ContractCombatCharacterCurrentHealthChangedMessageContent): void {
     const characterId = data.characterId;
+    const previousCurrentHealth = data.previousCurrentHealth;
     const newCurrentHealth = data.newCurrentHealth;
     const character = combat.team1.concat(combat.team2).find(c => c.id === characterId);
     if (!character) {
       throw Error (`Character with id: ${characterId} was not found in combat with id: ${combat.id}`);
     }
     character.currentHealth = newCurrentHealth;
+    if (previousCurrentHealth > newCurrentHealth) {
+      const damageTaken = previousCurrentHealth - newCurrentHealth;
+      character.showDamageTaken(damageTaken);
+    } else {
+      const healthRestored = newCurrentHealth - previousCurrentHealth;
+      character.showHealthRestored(healthRestored);
+    }
   }
 
   private handleCharacterCurrentManaChanged(combat: Combat, data: ContractCombatCharacterCurrentManaChangedMessageContent): void {

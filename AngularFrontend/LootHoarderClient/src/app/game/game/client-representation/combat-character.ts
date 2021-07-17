@@ -1,6 +1,8 @@
+import { Subject } from "rxjs";
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
 import { AttributeSet } from "./attribute-set";
 import { CombatCharacterAbility } from "./combat-character-ability";
+import { CombatCharacterFloatingNumber } from "./combat-character-floating-number";
 import { ContinuousEffect } from "./continuous-effect";
 import { Hero } from "./hero";
 
@@ -19,6 +21,8 @@ export class CombatCharacter {
   public targetOfAbilityBeingUsed?: CombatCharacter;
   public continuousEffects: ContinuousEffect[];
   public hero?: Hero;
+
+  public floatingNumbers: CombatCharacterFloatingNumber[];
 
   public constructor(
     id: number,
@@ -46,6 +50,8 @@ export class CombatCharacter {
     this.totalTimeToUseAbility = totalTimeToUseAbility;
     this.abilityBeingUsed = abilityBeingUsed;
     this.continuousEffects = continuousEffects;
+
+    this.floatingNumbers = [];
   }
 
   public get maximumHealth(): number {
@@ -76,5 +82,31 @@ export class CombatCharacter {
 
   public removeContinuousEffect(continuousEffect: ContinuousEffect): void {
     this.continuousEffects = this.continuousEffects.filter(c => c != continuousEffect)
+  }
+
+  public showDamageTaken(damageTaken: number): void {
+    const floatingNumber = this.buildFloatingNumber(damageTaken, true);
+    this.floatingNumbers.push(floatingNumber);
+  }
+
+  public showHealthRestored(healthRestored: number): void {
+    const floatingNumber = this.buildFloatingNumber(healthRestored, false);
+    this.floatingNumbers.push(floatingNumber);
+  }
+
+  private buildFloatingNumber(number: number, isDamage: boolean): CombatCharacterFloatingNumber {
+    const x = 20 + Math.random() * 40;
+    const y = 20 + Math.random() * 40;
+    const duration = 3000;
+
+    const floatingNumber = new CombatCharacterFloatingNumber(
+      number,
+      isDamage,
+      x,
+      y,
+      duration,
+      duration
+    );
+    return floatingNumber;
   }
 }

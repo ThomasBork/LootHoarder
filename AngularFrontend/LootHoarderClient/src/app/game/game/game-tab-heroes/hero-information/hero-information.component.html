@@ -1,12 +1,12 @@
 <div *ngFor="let attribute of hero.attributes.attributes">
   <app-label-with-value
-  *ngIf="attribute.additiveValue !== 0"
-    [label]="getLabel(attribute, true)"
+    *ngIf="attribute.additiveValue !== 0"
+    [label]="getLabel(attribute)"
     [value]="attribute.additiveValue | prettyNumber: 0"
   ></app-label-with-value>
   <app-label-with-value
     *ngIf="attribute.multiplicativeValue !== 1"
-    [label]="getLabel(attribute, false)"
-    [value]="attribute.multiplicativeValue | prettyNumber: 2"
+    [label]="getLabel(attribute)"
+    [value]="getMultiplicativeValue(attribute)"
   ></app-label-with-value>
 </div>

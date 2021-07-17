@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { CombatCharacterFloatingNumber } from "./client-representation/combat-character-floating-number";
 import { PassiveAbilityTakeDamageOverTime } from "./client-representation/passive-ability-take-damage-over-time";
 import { UIState } from "./client-representation/ui-state";
 
@@ -49,6 +50,18 @@ export class UIStateAdvancer {
       }
       
       const allCharacters = combat.getAllCharacters();
+      // Floating numbers
+      for (const character of allCharacters) {
+        const floatingNumbersToRemove: CombatCharacterFloatingNumber[] = [];
+        for (const floatingNumber of character.floatingNumbers) {
+          floatingNumber.durationLeft -= tickSize;
+          if (floatingNumber.durationLeft < 0) {
+            floatingNumbersToRemove.push(floatingNumber);
+          }
+        }
+        character.floatingNumbers = character.floatingNumbers.filter(f => !floatingNumbersToRemove.includes(f));
+      }
+      // Continuous effects
       for (const character of allCharacters) {
         if (!character.isAlive) {
           continue;
@@ -63,15 +76,13 @@ export class UIStateAdvancer {
           }
         }
       }
+      // Cooldown & time to use
       for (const character of allCharacters) {
         if (!character.isAlive) {
           continue;
         }
 
         if (character.remainingTimeToUseAbility > 0) {
-          if (character.abilityBeingUsed?.type.key === 'lightning-bolt') {
-            var a = 1;
-          }
           character.remainingTimeToUseAbility -= tickSize;
           if (character.remainingTimeToUseAbility < 0) {
             character.remainingTimeToUseAbility = 0;

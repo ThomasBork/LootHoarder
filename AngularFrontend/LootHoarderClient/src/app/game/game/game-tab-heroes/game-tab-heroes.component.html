@@ -17,7 +17,17 @@
         <span class="hero-information-container">
           <div class="header">
             <span class="name">{{hero.name}}</span>
-            <span class="level">Level {{hero.level}}</span>
+            <span class="level-container">
+              <div class="level">Level {{hero.level}}</div>
+              <app-progress-bar
+                [value]="hero.experience"
+                [minimumValue]="0"
+                [maximumValue]="hero.experienceRequiredForNextLevel"
+                [backgroundColor]="'black'"
+                [barColor]="'purple'"
+                [height]="'5px'"
+              ></app-progress-bar>
+            </span>
           </div>
           <div class="hero-type">{{hero.type.name}}</div>
         </span>

@@ -60,6 +60,10 @@ export class Hero {
     this.currentBehavior = currentBehavior;
   }
 
+  public get experienceRequiredForNextLevel(): number {
+    return Math.pow(this.level, 1.5) * 100;
+  }
+
   public equipItem(item: Item, inventoryPosition: ContractInventoryPosition): void {
     this.inventory.setItemAtPosition(item, inventoryPosition);
   }

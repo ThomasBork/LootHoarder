@@ -5,11 +5,12 @@ import { ContractCombatMessageType } from "./contract-combat-message-type";
 export class ContractCombatCharacterCurrentHealthChangedMessage 
   extends ContractCombatWebSocketInnerMessage<ContractCombatCharacterCurrentHealthChangedMessageContent> 
 {
-  public constructor(characterId: number, newCurrentHealth: number) {
+  public constructor(characterId: number, previousCurrentHealth: number, newCurrentHealth: number) {
     super(
       ContractCombatMessageType.combatCharacterCurrentHealthChanged, 
       { 
         characterId, 
+        previousCurrentHealth,
         newCurrentHealth 
       }
     );

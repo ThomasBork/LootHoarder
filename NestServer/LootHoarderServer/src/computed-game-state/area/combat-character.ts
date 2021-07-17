@@ -9,6 +9,7 @@ import { EventStream } from '../event-stream';
 import { PassiveAbility } from '../passive-ability';
 import { PassiveAbilityParametersAttribute } from '../passive-ability-parameters-attribute';
 import { PassiveAbilityTakeDamageOverTime } from '../passive-ability-take-damage-over-time';
+import { ValueChangeEvent } from '../value-change-event';
 import { ValueContainer } from '../value-container';
 import { CombatCharacterAbility } from './combat-character-ability';
 import { ContinuousEffect } from './continuous-effect';
@@ -23,8 +24,8 @@ export class CombatCharacter {
   public behavior: CharacterBehavior | undefined;
 
   public onDeath: EventStream<void>;
-  public onCurrentHealthChanged: EventStream<number>;
-  public onCurrentManaChanged: EventStream<number>;
+  public onCurrentHealthChanged: EventStream<ValueChangeEvent<number>>;
+  public onCurrentManaChanged: EventStream<ValueChangeEvent<number>>;
   public onContinuousEffectAdded: EventStream<ContinuousEffect>;
   public onContinuousEffectRemoved: EventStream<ContinuousEffect>;
   public maximumHealthVC: ValueContainer;
@@ -97,9 +98,13 @@ export class CombatCharacter {
       value = this.maximumHealthVC.value;
     }
     if (this.dbModel.currentHealth !== value) {
+      const previousValue = this.dbModel.currentHealth;
       this.dbModel.currentHealth = value;
       if (shouldSendChangeEvent) {
-        this.onCurrentHealthChanged.next(value);
+        this.onCurrentHealthChanged.next({
+          previousValue: previousValue,
+          newValue: value
+        });
       }
       if (this.dbModel.currentHealth === 0) {
         this.onDeath.next();
@@ -115,9 +120,13 @@ export class CombatCharacter {
       value = this.maximumManaVC.value;
     }
     if (this.dbModel.currentMana !== value) {
+      const previousValue = this.dbModel.currentMana;
       this.dbModel.currentMana = value;
       if (shouldSendChangeEvent) {
-        this.onCurrentManaChanged.next(value);
+        this.onCurrentManaChanged.next({
+          previousValue: previousValue,
+          newValue: value
+        });
       }
     }
   }
