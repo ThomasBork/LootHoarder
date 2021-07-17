@@ -1,4 +1,12 @@
 [
   ["forest", "plains"],
-  ["plains", "village"]
+  ["plains", "village"],
+  ["village", "mountain-cave"],
+  ["mountain-cave", "mountaintop-nest"],
+  ["village", "bridge"],
+  ["bridge", "castle"],
+  ["village", "shipyard"],
+  ["shipyard", "treacherous-waters"],
+  ["treacherous-waters", "beach"],
+  ["beach", "jungle"]
 ]

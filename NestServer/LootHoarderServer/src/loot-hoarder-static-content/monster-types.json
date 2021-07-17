@@ -27,10 +27,10 @@
     "name": "Wolf",
     "abilityTypes": ["basic-attack"],
     "baseAttributes": [
-      [[], "maximum-health", 400],
+      [[], "maximum-health", 300],
       [[], "maximum-mana", 50],
       [["physical"], "resistance", 50],
-      [["elemental"], "resistance", 20]
+      [["elemental"], "resistance", 10]
     ],
     "attributesPerLevel": [
       [[], "maximum-health", 50],
@@ -50,8 +50,8 @@
       [["attack"], "power", -70],
       [["attack"], "use-speed", -50],
       [["spell"], "cooldown-speed", -50],
-      [["physical"], "resistance", 50],
-      [["elemental"], "resistance", 50]
+      [["physical"], "resistance", 20],
+      [["elemental"], "resistance", 20]
     ],
     "attributesPerLevel": [
       [[], "maximum-health", 30],
@@ -123,6 +123,340 @@
       [["spell"], "power", 10],
       [["physical"], "resistance", 5],
       [["elemental"], "resistance", 5]
+    ]
+  },
+  {
+    "key": "bat",
+    "name": "Bat",
+    "abilityTypes": ["basic-attack", "lightning-bolt", "sonic-strike", "frenzy"],
+    "baseAttributes": [
+      [[], "maximum-health", 300],
+      [[], "maximum-mana", 150],
+      [[], "use-speed", 20],
+      [[], "cooldown-speed", 20],
+      [[], "critical-strike-chance", 100],
+      [[], "critical-strike-multiplier", 100],
+      [["physical"], "resistance", 50],
+      [["elemental"], "resistance", 50]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 20],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 10],
+      [["elemental"], "resistance", 10]
+    ]
+  },
+  {
+    "key": "dwight-the-dwarf",
+    "name": "Dwight, the Dwarf",
+    "abilityTypes": ["basic-attack", "sweep", "crushing-blow"],
+    "baseAttributes": [
+      [[], "maximum-health", 500],
+      [[], "maximum-mana", 150],
+      [[], "use-speed", -50],
+      [[], "power", 30],
+      [[], "critical-strike-chance", 100],
+      [[], "critical-strike-multiplier", 100],
+      [["physical"], "resistance", 150],
+      [["elemental"], "resistance", 150]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 40],
+      [[], "maximum-mana", 10],
+      [[], "power", 15],
+      [["physical"], "resistance", 30],
+      [["elemental"], "resistance", 30]
+    ]
+  },
+  {
+    "key": "drakeling",
+    "name": "Drakeling",
+    "abilityTypes": ["basic-attack", "fire-ball", "flame-strike"],
+    "baseAttributes": [
+      [[], "maximum-health", 300],
+      [[], "maximum-mana", 150],
+      [["physical"], "resistance", 100],
+      [["elemental"], "resistance", 100],
+      [["fire"], "resistance", 200]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 40],
+      [[], "maximum-mana", 12],
+      [[], "power", 12],
+      [["physical"], "resistance", 20],
+      [["elemental"], "resistance", 20],
+      [["fire"], "resistance", 40]
+    ]
+  },
+  {
+    "key": "dragon",
+    "name": "Dragon",
+    "abilityTypes": ["focus", "flame-slash", "holy-nova", "righteous-blast"],
+    "baseAttributes": [
+      [[], "maximum-health", 600],
+      [[], "maximum-mana", 200],
+      [[], "use-speed", 10],
+      [["physical"], "resistance", 100],
+      [["elemental"], "resistance", 100],
+      [["fire"], "resistance", 200]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 50],
+      [[], "maximum-mana", 15],
+      [[], "power", 12],
+      [[], "use-speed", 2],
+      [["physical"], "resistance", 20],
+      [["elemental"], "resistance", 20],
+      [["fire"], "resistance", 40]
+    ]
+  },
+  {
+    "key": "troll-warrior",
+    "name": "Troll Warrior",
+    "abilityTypes": ["basic-attack", "aqua-blade", "dominating-slash"],
+    "baseAttributes": [
+      [[], "maximum-health", 400],
+      [[], "maximum-mana", 100],
+      [["attack"], "cooldown-speed", 20],
+      [["physical"], "resistance", 100],
+      [["elemental"], "resistance", 150]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 40],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 20],
+      [["elemental"], "resistance", 30]
+    ]
+  },
+  {
+    "key": "troll-shaman",
+    "name": "Troll Shaman",
+    "abilityTypes": ["basic-attack", "chain-lightning", "haste", "cleanse"],
+    "baseAttributes": [
+      [[], "maximum-health", 300],
+      [[], "maximum-mana", 150],
+      [["spell"], "cooldown-speed", 50],
+      [["physical"], "resistance", 100],
+      [["elemental"], "resistance", 150]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 30],
+      [[], "maximum-mana", 10],
+      [["spell"], "power", 10],
+      [["physical"], "resistance", 20],
+      [["elemental"], "resistance", 30]
+    ]
+  },
+  {
+    "key": "black-knight",
+    "name": "Black Knight",
+    "abilityTypes": ["basic-attack", "reap", "armor-smash", "frenzy"],
+    "baseAttributes": [
+      [[], "maximum-health", 400],
+      [[], "maximum-mana", 100],
+      [["attack"], "use-speed", 50],
+      [["attack"], "cooldown-speed", 50],
+      [["physical"], "resistance", 150],
+      [["elemental"], "resistance", 100]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 40],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 30],
+      [["elemental"], "resistance", 20]
+    ]
+  },
+  {
+    "key": "archmage",
+    "name": "Archmage",
+    "abilityTypes": ["basic-attack", "sonic-strike", "syphon-mind", "tidal-wave", "chain-lightning", "flash-heal"],
+    "baseAttributes": [
+      [[], "maximum-health", 450],
+      [[], "maximum-mana", 200],
+      [["spell"], "use-speed", 50],
+      [["spell"], "cooldown-speed", 50],
+      [["physical"], "resistance", 30],
+      [["elemental"], "resistance", 150]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 40],
+      [[], "maximum-mana", 10],
+      [[], "power", 15],
+      [["physical"], "resistance", 5],
+      [["elemental"], "resistance", 30]
+    ]
+  },
+  {
+    "key": "parrot",
+    "name": "Parrot",
+    "abilityTypes": ["basic-attack", "haste", "water-ray", "war-cry"],
+    "baseAttributes": [
+      [[], "maximum-health", 250],
+      [[], "maximum-mana", 100],
+      [[], "use-speed", 50],
+      [["physical"], "resistance", 50],
+      [["elemental"], "resistance", 50]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 30],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 5],
+      [["elemental"], "resistance", 5]
+    ]
+  },
+  {
+    "key": "pirate-captain",
+    "name": "Pirate Captain",
+    "abilityTypes": ["basic-attack", "war-cry", "dominating-slash"],
+    "baseAttributes": [
+      [[], "maximum-health", 400],
+      [[], "maximum-mana", 100],
+      [["physical"], "resistance", 100],
+      [["elemental"], "resistance", 100]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 40],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 10],
+      [["elemental"], "resistance", 10]
+    ]
+  },
+  {
+    "key": "deckhand",
+    "name": "Deckhand",
+    "abilityTypes": ["basic-attack", "sweep", "flame-strike", "aqua-blade", "static-strike"],
+    "baseAttributes": [
+      [[], "maximum-health", 350],
+      [[], "maximum-mana", 100],
+      [["physical"], "resistance", 100],
+      [["elemental"], "resistance", 100]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 35],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 10],
+      [["elemental"], "resistance", 10]
+    ]
+  },
+  {
+    "key": "lightning-serpent",
+    "name": "Lightning Serpent",
+    "abilityTypes": ["basic-attack", "sonic-strike", "static-strike", "chain-lightning"],
+    "baseAttributes": [
+      [[], "maximum-health", 350],
+      [[], "maximum-mana", 100],
+      [["physical"], "resistance", 100],
+      [["elemental"], "resistance", 100]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 35],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 10],
+      [["elemental"], "resistance", 10]
+    ]
+  },
+  {
+    "key": "water-serpent",
+    "name": "Water Serpent",
+    "abilityTypes": ["basic-attack", "aqua-blade", "tidal-wave"],
+    "baseAttributes": [
+      [[], "maximum-health", 350],
+      [[], "maximum-mana", 100],
+      [["physical"], "resistance", 100],
+      [["elemental"], "resistance", 100]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 35],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 10],
+      [["elemental"], "resistance", 10]
+    ]
+  },
+  {
+    "key": "tortoise",
+    "name": "Tortoise",
+    "abilityTypes": ["basic-attack", "water-ray", "cleanse", "mass-slow"],
+    "baseAttributes": [
+      [[], "maximum-health", 500],
+      [[], "maximum-mana", 100],
+      [[], "use-speed", -30],
+      [["physical"], "resistance", 200],
+      [["elemental"], "resistance", 100]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 50],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 20],
+      [["elemental"], "resistance", 10]
+    ]
+  },
+  {
+    "key": "starfish",
+    "name": "Starfish",
+    "abilityTypes": ["basic-attack", "contamination", "healing-touch"],
+    "baseAttributes": [
+      [[], "maximum-health", 300],
+      [[], "maximum-mana", 100],
+      [[], "use-speed", 50],
+      [["physical"], "resistance", 50],
+      [["elemental"], "resistance", 50]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 30],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 5],
+      [["elemental"], "resistance", 5]
+    ]
+  },
+  {
+    "key": "triceratops",
+    "name": "Triceratops",
+    "abilityTypes": ["basic-attack", "crushing-blow", "armor-smash", "dominating-slash"],
+    "baseAttributes": [
+      [[], "maximum-health", 500],
+      [[], "maximum-mana", 150],
+      [[], "power", 50],
+      [["physical"], "resistance", 150],
+      [["elemental"], "resistance", 100]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 50],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [["physical"], "resistance", 15],
+      [["elemental"], "resistance", 10]
+    ]
+  },
+  {
+    "key": "velociraptor",
+    "name": "Velociraptor",
+    "abilityTypes": ["basic-attack", "frenzy", "cobra-strike", "reap"],
+    "baseAttributes": [
+      [[], "maximum-health", 400],
+      [[], "maximum-mana", 150],
+      [[], "use-speed", 50],
+      [[], "cooldown-speed", 50],
+      [["physical"], "resistance", 100],
+      [["elemental"], "resistance", 100]
+    ],
+    "attributesPerLevel": [
+      [[], "maximum-health", 50],
+      [[], "maximum-mana", 10],
+      [[], "power", 10],
+      [[], "use-speed", 2],
+      [[], "cooldown-speed", 2],
+      [["physical"], "resistance", 10],
+      [["elemental"], "resistance", 10]
     ]
   }
 ]

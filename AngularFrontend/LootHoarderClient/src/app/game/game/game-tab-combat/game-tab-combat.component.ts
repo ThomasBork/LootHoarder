@@ -12,7 +12,6 @@ import { UIStateManager } from '../ui-state-manager';
   styleUrls: ['./game-tab-combat.component.scss']
 })
 export class GameTabCombatComponent implements OnInit {
-
   public constructor(
     private readonly webSocketService: WebSocketService,
     private readonly uiStateManager: UIStateManager
@@ -41,6 +40,14 @@ export class GameTabCombatComponent implements OnInit {
     if (this.areas.length > 0) {
       this.selectArea(this.areas[0]);
     }
+  }
+
+  public getEndOfCombatText(): string {
+    if (this.selectedArea?.currentCombat.didTeam1Win) {
+      return 'Your party has won the encounter!';
+    }
+    
+    return 'Your party has been whiped out!';
   }
 
   public selectArea(area: Area): void {

@@ -160,5 +160,349 @@
         ]
       }
     ]
+  },
+  {
+    "key": "mountain-cave",
+    "name": "Mountain Cave",
+    "description": "Faint sounds of metalworking comes from the cave.",
+    "level": 7,
+    "x": 825,
+    "y": 140,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 3,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "bat"
+              }
+            ]
+          },
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "bat"
+              },
+              {
+                "typeKey": "bat"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "repetitionAmount": 1,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "dwight-the-dwarf"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "mountaintop-roost",
+    "name": "Mountaintop Nest",
+    "description": "You see tiny bursts of flames coming from the mountain peaks.",
+    "level": 25,
+    "x": 875,
+    "y": -85,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 1,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "dragonling"
+              },
+              {
+                "typeKey": "dragonling"
+              },
+              {
+                "typeKey": "dragonling"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "repetitionAmount": 1,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "dragon"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "bridge",
+    "name": "Bridge",
+    "description": "The bridge leads the way to the castle.",
+    "level": 10,
+    "x": 1225,
+    "y": 220,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 2,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "troll-warrior"
+              },
+              {
+                "typeKey": "troll-warrior"
+              }
+            ]
+          },
+          {
+            "weight": 1000,
+            "monsters": [
+              {
+                "typeKey": "troll-warrior"
+              },
+              {
+                "typeKey": "troll-shaman"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "castle",
+    "name": "Castle",
+    "description": "The royal guard protects the high mage.",
+    "level": 15,
+    "x": 1425,
+    "y": 100,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 2,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "black-knight"
+              },
+              {
+                "typeKey": "black-knight"
+              }
+            ]
+          },
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "black-knight"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "repetitionAmount": 1,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "archmage"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "shipyard",
+    "name": "Shipyard",
+    "description": "Pirates live here.",
+    "level": 11,
+    "x": 1125,
+    "y": 580,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 3,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "deckhand"
+              },
+              {
+                "typeKey": "deckhand"
+              },
+              {
+                "typeKey": "parrot"
+              }
+            ]
+          },
+          {
+            "weight": 1000,
+            "monsters": [
+              {
+                "typeKey": "deckhand"
+              },
+              {
+                "typeKey": "deckhand"
+              },
+              {
+                "typeKey": "pirate-captain"
+              }
+            ]
+          },
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "deckhand"
+              },
+              {
+                "typeKey": "pirate-captain"
+              },
+              {
+                "typeKey": "parrot"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "treacherous-waters",
+    "name": "Treacherous Waters",
+    "description": "Many ships have been lost here.",
+    "level": 15,
+    "x": 1445,
+    "y": 1000,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 3,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "lightning-serpent"
+              },
+              {
+                "typeKey": "water-serpent"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "beach",
+    "name": "Beach",
+    "description": "Just an ordinary beach.",
+    "level": 15,
+    "x": 2185,
+    "y": 950,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 3,
+        "encounters": [
+          {
+            "weight": 1000,
+            "monsters": [
+              {
+                "typeKey": "tortoise"
+              },
+              {
+                "typeKey": "starfish"
+              }
+            ]
+          },
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "tortoise"
+              },
+              {
+                "typeKey": "tortoise"
+              }
+            ]
+          },
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "starfish"
+              },
+              {
+                "typeKey": "starfish"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "key": "jungle",
+    "name": "Jungle",
+    "description": "A deep jungle with strange creatures.",
+    "level": 20,
+    "x": 2485,
+    "y": 750,
+    "repeatedEncounters": [
+      {
+        "repetitionAmount": 5,
+        "encounters": [
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "velociraptor"
+              },
+              {
+                "typeKey": "velociraptor"
+              },
+              {
+                "typeKey": "velociraptor"
+              }
+            ]
+          },
+          {
+            "weight": 500,
+            "monsters": [
+              {
+                "typeKey": "triceratops"
+              },
+              {
+                "typeKey": "triceratops"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]

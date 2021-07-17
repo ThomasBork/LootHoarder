@@ -11,4 +11,25 @@ export class HeroSkillTree {
     this.nodes = nodes;
     this.transitions = transitions;
   }
+
+  public getNeighborNodes(node: HeroSkillTreeNode): HeroSkillTreeNode[] {
+    return this.nodes
+      .filter(n => 
+        this.transitions.some(t => 
+          (
+            t.fromX === node.x
+            && t.fromY === node.y
+            && t.toX === n.x
+            && t.toY === n.y
+          )
+          || 
+          (
+            t.fromX === n.x
+            && t.fromY === n.y
+            && t.toX === node.x
+            && t.toY === node.y
+          )
+        )
+      );
+  }
 }

@@ -9,6 +9,8 @@ import { Inventory } from '../../client-representation/inventory';
 import { Item } from '../../client-representation/item';
 import { ContractInventoryPosition } from 'src/loot-hoarder-contract/contract-inventory-position';
 import { HeroSkillTreeStatus } from '../../client-representation/hero-skill-tree-status';
+import { AbilityType } from '../../client-representation/ability-type';
+import { PassiveAbilityUnlockAbility } from '../../client-representation/passive-ability-unlock-ability';
 
 @Component({
   selector: 'app-create-new-hero',
@@ -33,6 +35,7 @@ export class CreateNewHeroComponent implements OnInit {
   public mouthCount: number = 6;
 
   public temporaryHero!: Hero;
+  public temporaryHeroStartingAbilityTypes!: AbilityType[];
 
   private selectedHeroTypeIndex!: number;
 
@@ -140,8 +143,9 @@ export class CreateNewHeroComponent implements OnInit {
   }
 
   private updatedSelectedHeroType(): void {
-    this.selectedHeroType = this.heroTypes[this.selectedHeroTypeIndex];
-    this.temporaryHero.type = this.selectedHeroType;
+    const heroType = this.heroTypes[this.selectedHeroTypeIndex];
+    this.selectedHeroType = heroType;
+    this.temporaryHero.type = heroType;
     const startingItem = new Item(
       -1, 
       this.temporaryHero.type.startingWeaponType,
@@ -151,6 +155,19 @@ export class CreateNewHeroComponent implements OnInit {
       0
     );
     this.temporaryHero.equipItem(startingItem, ContractInventoryPosition.leftHand);
+
+    const startingAbilities = [...heroType.abilityTypes];
+    const heroSkillTree = this.assetManagerService.getHeroSkillTree();
+    const startingSkillNodeNeighbors = heroSkillTree.getNeighborNodes(heroType.heroSkillTreeStartingNode);
+    for(let neighborNode of startingSkillNodeNeighbors) {
+      for (let passiveAbility of neighborNode.passiveAbilities) {
+        if (passiveAbility instanceof PassiveAbilityUnlockAbility) {
+          startingAbilities.push(passiveAbility.parameters.abilityType);
+          break;
+        }
+      }
+    }
+    this.temporaryHeroStartingAbilityTypes = startingAbilities;
   }
 
   private initializeTemporaryHero(): void {
