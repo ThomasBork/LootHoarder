@@ -61,7 +61,7 @@ export class Hero {
   }
 
   public get experienceRequiredForNextLevel(): number {
-    return Math.pow(this.level, 1.5) * 100;
+    return Math.pow(this.level, 1.25) * 100;
   }
 
   public equipItem(item: Item, inventoryPosition: ContractInventoryPosition): void {

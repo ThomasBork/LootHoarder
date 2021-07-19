@@ -100,7 +100,7 @@ export class Area {
       const areaHero = this.heroes.find(h => h.combatCharacter.id === winningCharacter.id);
       if (areaHero) {
         const experienceGiven = losingTeam
-          .map(losingCharacter => 40 + this.type.level * 10)
+          .map(losingCharacter => 30 + this.type.level * 20)
           .reduce((exp1, exp2) => exp1 + exp2, 0);
         const experienceGainMultiplier = areaHero.hero.attributes.getAttribute(ContractAttributeType.experienceGain, []).valueContainer.value / 100;
         const experienceReceived = experienceGainMultiplier * experienceGiven;
