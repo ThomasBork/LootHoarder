@@ -51,8 +51,8 @@ export class Game {
   public achievements: Achievement[];
   public disabledTabs: GameTab[];
   public maximumAmountOfHeroes: number;
+  public dbModel: DbGame;
   
-  private dbModel: DbGame;
   private areaSubscriptions: Map<Area, Subscription[]>;
 
   private constructor(
@@ -90,6 +90,7 @@ export class Game {
   public get id(): number { return this.dbModel.id; }
   public get userId(): number { return this.dbModel.userId; }
   public get createdAt(): Date { return this.dbModel.createdAt; }
+  public get gold(): number { return this.dbModel.state.gold; }
   
   public getNextHeroId(): number {
     return this.dbModel.state.nextHeroId++;
@@ -180,10 +181,15 @@ export class Game {
   }
 
   public removeItem(itemId: number): void {
-    const itemIndex = this.items.findIndex(i => i.id === itemId);
-    if (itemIndex >= 0) {
-      this.items.splice(itemIndex, 1);
-      this.onEvent.next(new ContractItemRemovedFromGameMessage(itemId));
+    const dbItemIndex = this.dbModel.state.items.findIndex(i => i.id === itemId);
+    if (dbItemIndex >= 0) {
+      this.dbModel.state.items.splice(dbItemIndex, 1);
+
+      const itemIndex = this.items.findIndex(i => i.id === itemId);
+      if (itemIndex >= 0) {
+        this.items.splice(itemIndex, 1);
+        this.onEvent.next(new ContractItemRemovedFromGameMessage(itemId));
+      }
     }
   }
 
@@ -248,7 +254,8 @@ export class Game {
       disabledGameTabs: disabledGameTabs,
       settings: this.settings.getUIState(),
       items: this.items.map(item => item.toContractModel()),
-      maximumAmountOfHeroes: this.maximumAmountOfHeroes
+      maximumAmountOfHeroes: this.maximumAmountOfHeroes,
+      gold: this.gold
     };
   }
 
@@ -385,10 +392,22 @@ export class Game {
 
   private setUpEventListenersForQuest(quest: Quest): void {
     quest.onUpdate.subscribe(() => {
+      const accomplishmentCompletedAmount = quest.accomplishments.map(a => a.completedAmount);
+
+      const dbQuest = this.dbModel.state.questTypeStatuses.find(q => q.typeKey === quest.type.key);
+      if (dbQuest) {
+        dbQuest.accomplishmentCompletedAmount = accomplishmentCompletedAmount;
+      } else {
+        const newDbQuest = {
+          typeKey: quest.type.key,
+          accomplishmentCompletedAmount: accomplishmentCompletedAmount
+        };
+        this.dbModel.state.questTypeStatuses.push(newDbQuest);
+      }
+
       if (quest.isComplete) {
         this.applyQuestRewards(quest);
       }
-      const accomplishmentCompletedAmount = quest.accomplishments.map(a => a.completedAmount);
       const message = new ContractQuestUpdatedMessage(quest.type.key, accomplishmentCompletedAmount, quest.isComplete);
       this.onEvent.next(message);
     });
@@ -397,6 +416,18 @@ export class Game {
   private setUpEventListenersForAchievement(achievement: Achievement): void {
     achievement.onUpdate.subscribe(() => {
       const accomplishmentCompletedAmount = achievement.accomplishments.map(a => a.completedAmount);
+
+      const dbAchievement = this.dbModel.state.achievementTypeStatuses.find(a => a.typeKey === achievement.type.key);
+      if (dbAchievement) {
+        dbAchievement.accomplishmentCompletedAmount = accomplishmentCompletedAmount;
+      } else {
+        const newDbAchievement = {
+          typeKey: achievement.type.key,
+          accomplishmentCompletedAmount: accomplishmentCompletedAmount
+        };
+        this.dbModel.state.achievementTypeStatuses.push(newDbAchievement);
+      }
+      
       const message = new ContractAchievementUpdatedMessage(achievement.type.key, accomplishmentCompletedAmount, achievement.isComplete);
       this.onEvent.next(message);
     });
@@ -437,7 +468,7 @@ export class Game {
     const heroes = dbModel.state.heroes.map(dbHero => Hero.load(dbHero));
     const completedAreaTypes = dbModel.state.completedAreaTypes.map(cat => StaticGameContentService.instance.getAreaType(cat));
 
-    const areas = dbModel.state.areas.map(dbArea => Area.load(dbArea));
+    const areas = dbModel.state.areas.map(dbArea => Area.load(dbArea, heroes));
     const items = dbModel.state.items.map(dbItem => Item.load(dbItem));
     const allQuestTypes = StaticGameContentService.instance.getAllQuestTypes();
     const quests = allQuestTypes.map(questType => {

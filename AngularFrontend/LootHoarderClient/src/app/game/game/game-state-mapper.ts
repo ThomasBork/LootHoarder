@@ -156,7 +156,8 @@ export class GameStateMapper {
       items,
       quests,
       achievements,
-      serverGame.maximumAmountOfHeroes
+      serverGame.maximumAmountOfHeroes,
+      serverGame.gold
     );
   }
 
@@ -209,6 +210,7 @@ export class GameStateMapper {
       serverHeroAbility.cooldown,
       serverHeroAbility.manaCost,
       serverHeroAbility.criticalStrikeChance,
+      serverHeroAbility.criticalStrikeMultiplier,
       serverHeroAbility.timeToUse
     );
   }

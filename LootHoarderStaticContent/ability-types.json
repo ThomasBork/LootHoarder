@@ -243,10 +243,10 @@
         "tags": ["poison", "debuff"],
         "parameters": {
           "continuousEffectTypeKey": "poisoned",
-          "duration": 10000,
+          "duration": 5000,
           "abilityParameters": [
             {
-              "damagePerSecond": 5
+              "damagePerSecond": 2
             }
           ]
         }
@@ -268,7 +268,7 @@
         "target": "all-enemies",
         "tags": ["poison"],
         "parameters": {
-          "baseAmount": 15
+          "baseAmount": 10
         }
       },
       {
@@ -280,7 +280,7 @@
           "duration": 10000,
           "abilityParameters": [
             {
-              "damagePerSecond": 5
+              "damagePerSecond": 4
             }
           ]
         }

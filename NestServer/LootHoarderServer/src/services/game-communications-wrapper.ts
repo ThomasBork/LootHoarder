@@ -29,21 +29,25 @@ import { ContractUpdateHeroBehaviorMessageContent } from "src/loot-hoarder-contr
 import { UpdateHeroBehavior } from "src/game-message-handlers/from-client/update-hero-behavior";
 import { ContractSetCurrentHeroBehaviorMessageContent } from "src/loot-hoarder-contract/client-actions/contract-set-current-hero-behavior-message-content";
 import { SetCurrentHeroBehavior } from "src/game-message-handlers/from-client/set-current-hero-behavior";
+import { DbGameRepository } from "src/persistence/db-game-repository";
 
 export class GameCommunicationsWrapper {
   public game: Game;
   private logger: Logger = new Logger('GameCommunicationsWrapper');
   private connection: Connection;
   private commandBus: CommandBus;
+  private dbGameRepository: DbGameRepository;
 
   public constructor(
     game: Game,
     commandBus: CommandBus,
-    connection: Connection
+    connection: Connection,
+    dbGameRepository: DbGameRepository
   ) {
     this.game = game;
     this.commandBus = commandBus;
     this.connection = connection;
+    this.dbGameRepository = dbGameRepository;
     
     this.setUpConnectionEventListeners(connection);
     this.setUpGameEventListeners(game);
@@ -192,6 +196,8 @@ export class GameCommunicationsWrapper {
       default:
         throw Error (`Unknown message type from client: '${message.typeKey}'`);
     }
+
+    this.dbGameRepository.updateGameState(this.game.id, this.game.dbModel.state);
   }
 
   private expectProperty(dataObject: any, propertyKey: string): any {

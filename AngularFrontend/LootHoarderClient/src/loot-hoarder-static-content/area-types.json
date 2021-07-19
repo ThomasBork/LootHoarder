@@ -14,39 +14,6 @@
             "weight": 1000,
             "monsters": [
               {
-                "typeKey": "snake"
-              },
-              {
-                "typeKey": "moth"
-              }
-            ]
-          },
-          {
-            "weight": 1000,
-            "monsters": [
-              {
-                "typeKey": "wolf"
-              },
-              {
-                "typeKey": "snake"
-              }
-            ]
-          },
-          {
-            "weight": 1000,
-            "monsters": [
-              {
-                "typeKey": "wolf"
-              },
-              {
-                "typeKey": "moth"
-              }
-            ]
-          },
-          {
-            "weight": 1000,
-            "monsters": [
-              {
                 "typeKey": "wolf"
               }
             ]
@@ -86,26 +53,15 @@
             "weight": 500,
             "monsters": [
               {
-                "typeKey": "bandit-mage"
+                "typeKey": "sellsword"
               },
               {
-                "typeKey": "bandit-mage"
+                "typeKey": "sellsword"
               }
             ]
           },
           {
             "weight": 500,
-            "monsters": [
-              {
-                "typeKey": "sellsword"
-              },
-              {
-                "typeKey": "sellsword"
-              }
-            ]
-          },
-          {
-            "weight": 1000,
             "monsters": [
               {
                 "typeKey": "assassin"
@@ -121,8 +77,8 @@
     "name": "Village",
     "description": "Also contains scary bandits.",
     "level": 5,
-    "x": 800,
-    "y": 400,
+    "x": 770,
+    "y": 325,
     "repeatedEncounters": [
       {
         "repetitionAmount": 4,
@@ -209,7 +165,7 @@
     ]
   },
   {
-    "key": "mountaintop-roost",
+    "key": "mountaintop-nest",
     "name": "Mountaintop Nest",
     "description": "You see tiny bursts of flames coming from the mountain peaks.",
     "level": 25,
@@ -223,13 +179,13 @@
             "weight": 500,
             "monsters": [
               {
-                "typeKey": "dragonling"
+                "typeKey": "drakeling"
               },
               {
-                "typeKey": "dragonling"
+                "typeKey": "drakeling"
               },
               {
-                "typeKey": "dragonling"
+                "typeKey": "drakeling"
               }
             ]
           }

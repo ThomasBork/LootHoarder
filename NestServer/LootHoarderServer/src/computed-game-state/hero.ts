@@ -189,6 +189,10 @@ export class Hero {
     }
 
     this.onEvent.setUpNewEventBucket();
+    this.dbModel.skillNodesLocations.push({
+      x: node.x,
+      y: node.y
+    });
     const nodeIndex = this.availableSkillTreeNodes.indexOf(node);
     this.availableSkillTreeNodes.splice(nodeIndex, 1);
     this.takenSkillTreeNodes.push(node);

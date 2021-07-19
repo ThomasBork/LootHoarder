@@ -52,6 +52,7 @@ export class HeroAbility {
       cooldown: this.cooldownVC.value,
       cooldownSpeed: this.cooldownSpeedVC.value,
       criticalStrikeChance: this.criticalStrikeChanceVC.value,
+      criticalStrikeMultiplier: this.criticalStrikeMultiplierVC.value,
       manaCost: this.manaCostVC.value,
       timeToUse: this.timeToUseVC.value,
       useSpeed: this.useSpeedVC.value,

@@ -21,7 +21,8 @@ export class Game {
   public quests: Quest[];
   public achievements: Achievement[];
   public maximumAmountOfHeroes: number;
-  public disabledGameTabs: GameTabReference[]
+  public disabledGameTabs: GameTabReference[];
+  public gold: number;
 
   public constructor(
     id: number,
@@ -37,6 +38,7 @@ export class Game {
     quests: Quest[],
     achievements: Achievement[],
     maximumAmountOfHeroes: number,
+    gold: number,
   ) {
     this.id = id;
     this.createdAt = createdAt;
@@ -51,6 +53,7 @@ export class Game {
     this.quests = quests;
     this.achievements = achievements;
     this.maximumAmountOfHeroes = maximumAmountOfHeroes;
+    this.gold = gold;
   }
 
   public getHero(id: number): Hero {

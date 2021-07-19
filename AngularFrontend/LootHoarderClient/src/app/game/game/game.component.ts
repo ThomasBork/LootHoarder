@@ -281,6 +281,9 @@ export class GameComponent implements OnInit, OnDestroy {
             case ContractHeroAbilityValueKey.useSpeed:
               ability.useSpeed = data.newValue;
               break;
+            case ContractHeroAbilityValueKey.criticalStrikeMultiplier:
+              ability.criticalStrikeMultiplier = data.newValue;
+              break;
             default:
               throw Error (`Unhandled hero ability value key: ${data.valueKey}`);
           }

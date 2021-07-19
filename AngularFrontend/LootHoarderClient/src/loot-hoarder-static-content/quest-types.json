@@ -60,5 +60,71 @@
       }
     ],
     "hiddenRewards": []
+  }, 
+  {
+    "key": "mountain-cave",
+    "name": "Mountain Cave",
+    "previousQuestKey": "village",
+    "requiredAccomplishments": [
+      {
+        "typeKey": "complete-specific-area-type",
+        "requiredAmount": 1,
+        "parameters": {
+          "areaTypeKey": "mountain-cave"  
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "typeKey": "unlock-tab",
+        "parameters": {
+          "parentTabKey": "heroes",
+          "childTabKey": "behaviors"
+        }
+      }
+    ],
+    "hiddenRewards": []
+  }, 
+  {
+    "key": "beach",
+    "name": "Beach",
+    "previousQuestKey": "village",
+    "requiredAccomplishments": [
+      {
+        "typeKey": "complete-specific-area-type",
+        "requiredAmount": 1,
+        "parameters": {
+          "areaTypeKey": "beach"  
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "typeKey": "hero-slot",
+        "parameters": {}
+      }
+    ],
+    "hiddenRewards": []
+  }, 
+  {
+    "key": "mountaintop-nest",
+    "name": "Mountaintop Nest",
+    "previousQuestKey": "mountain-cave",
+    "requiredAccomplishments": [
+      {
+        "typeKey": "complete-specific-area-type",
+        "requiredAmount": 1,
+        "parameters": {
+          "areaTypeKey": "mountaintop-nest"  
+        }
+      }
+    ],
+    "rewards": [
+      {
+        "typeKey": "hero-slot",
+        "parameters": {}
+      }
+    ],
+    "hiddenRewards": []
   }
 ]

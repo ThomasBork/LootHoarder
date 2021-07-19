@@ -11,6 +11,7 @@ export class HeroAbility {
   public cooldown: number;
   public manaCost: number;
   public criticalStrikeChance: number;
+  public criticalStrikeMultiplier: number;
   public timeToUse: number;
 
   public constructor(
@@ -23,6 +24,7 @@ export class HeroAbility {
     cooldown: number,
     manaCost: number,
     criticalStrikeChance: number,
+    criticalStrikeMultiplier: number,
     timeToUse: number,
   ) {
     this.id = id;
@@ -34,6 +36,7 @@ export class HeroAbility {
     this.cooldown = cooldown;
     this.manaCost = manaCost;
     this.criticalStrikeChance = criticalStrikeChance;
+    this.criticalStrikeMultiplier = criticalStrikeMultiplier;
     this.timeToUse = timeToUse;
   }
 }

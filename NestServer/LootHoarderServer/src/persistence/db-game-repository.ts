@@ -36,6 +36,60 @@ export class DbGameRepository {
     return gameId;
   }
 
+  public async updateGameState(gameId: number, gameState: DbGameState): Promise<void> {
+    const con = await this.dbQueryHelper.createConnection();
+
+    const query = `
+      UPDATE game
+        SET state = @state
+      WHERE
+        id = @gameId
+    `;
+
+    const jsonState = JSON.stringify(gameState);
+
+    const parameters = {
+      gameId,
+      state: jsonState
+    };
+
+    const queryWithParameterValues = this.dbQueryHelper.buildQuery(query, parameters);
+
+    return con.query(queryWithParameterValues);
+  }
+
+  public async fetchAllGames(): Promise<DbGame[]> {
+    const con = await this.dbQueryHelper.createConnection();
+
+    const query = `
+      SELECT id, user_id, created_at, state
+      FROM game
+    `;
+
+    const result = await con.query(query);
+
+    con.end();
+
+    const games: DbGame[] = [];
+
+    for(let i = 0; i<result.length; i++) {
+      const resultRow = result[i];
+
+      const jsonState = JSON.parse(resultRow['state']);
+  
+      const game: DbGame = {
+        id: resultRow['id'],
+        userId: resultRow['user_id'],
+        createdAt: resultRow['created_at'],
+        state: jsonState,
+      };
+
+      games.push(game);
+    }
+
+    return games;
+  }
+
   public async fetchGamesForOverview(userId: number): Promise<GameForOverview[]> {
     const con = await this.dbQueryHelper.createConnection();
 

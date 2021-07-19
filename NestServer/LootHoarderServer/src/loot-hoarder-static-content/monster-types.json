@@ -194,7 +194,7 @@
     "name": "Dragon",
     "abilityTypes": ["focus", "flame-slash", "holy-nova", "righteous-blast"],
     "baseAttributes": [
-      [[], "maximum-health", 600],
+      [[], "maximum-health", 1000],
       [[], "maximum-mana", 200],
       [[], "use-speed", 10],
       [["physical"], "resistance", 100],
@@ -202,10 +202,11 @@
       [["fire"], "resistance", 200]
     ],
     "attributesPerLevel": [
-      [[], "maximum-health", 50],
+      [[], "maximum-health", 75],
       [[], "maximum-mana", 15],
-      [[], "power", 12],
+      [[], "power", 15],
       [[], "use-speed", 2],
+      [[], "cooldown-speed", 2],
       [["physical"], "resistance", 20],
       [["elemental"], "resistance", 20],
       [["fire"], "resistance", 40]

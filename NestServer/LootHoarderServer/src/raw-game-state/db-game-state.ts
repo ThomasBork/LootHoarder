@@ -22,4 +22,5 @@ export interface DbGameState {
   nextContinuousEffectId: number;
   nextHeroBehaviorId: number;
   settings: DbGameSettings;
+  gold: number;
 }

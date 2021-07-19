@@ -1,5 +1,26 @@
 [
   {
+    "key": "axe",
+    "name": "Axe",
+    "category": "weapon",
+    "image": {
+      "fixtureLeft": 85,
+      "fixtureTop": 95,
+      "widthInPercent": 55
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "power",
+          "abilityTags": ["attack"],
+          "amount": 50
+        }
+      }
+    ]
+  },
+  {
     "key": "longsword",
     "name": "Longsword",
     "category": "weapon",
@@ -15,7 +36,46 @@
           "isAdditive": true,
           "attributeType": "power",
           "abilityTags": ["attack"],
-          "amount": 50
+          "amount": 30
+        }
+      },
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "power",
+          "abilityTags": ["elemental", "attack"],
+          "amount": 30
+        }
+      }
+    ]
+  },
+  {
+    "key": "spear",
+    "name": "Spear",
+    "category": "weapon",
+    "image": {
+      "fixtureLeft": 65,
+      "fixtureTop": 60,
+      "widthInPercent": 55
+    },
+    "innateAbilities": [
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "power",
+          "abilityTags": ["attack"],
+          "amount": 40
+        }
+      },
+      {
+        "typeKey": "attribute",
+        "parameters": {
+          "isAdditive": true,
+          "attributeType": "power",
+          "abilityTags": ["spell"],
+          "amount": 40
         }
       }
     ]
@@ -36,7 +96,7 @@
           "isAdditive": true,
           "attributeType": "power",
           "abilityTags": ["spell"],
-          "amount": 40
+          "amount": 30
         }
       },
       {
@@ -45,7 +105,7 @@
           "isAdditive": false,
           "attributeType": "use-speed",
           "abilityTags": ["spell"],
-          "amount": 1.5
+          "amount": 1.4
         }
       }
     ]

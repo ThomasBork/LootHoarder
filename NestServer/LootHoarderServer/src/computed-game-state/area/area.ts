@@ -14,6 +14,7 @@ import { Combat } from "./combat";
 import { Loot } from "./loot";
 import { GamesManager } from "src/services/games-manager";
 import { ContractAttributeType } from "src/loot-hoarder-contract/contract-attribute-type";
+import { Hero } from "../hero";
 
 export class Area {
   public dbModel: DbArea;
@@ -137,16 +138,20 @@ export class Area {
     this.onEvent.next(new ContractItemDroppedInAreaMessage(this.id, item.toContractModel()));
   }
 
-  public static load(dbModel: DbArea): Area {
+  public static load(dbModel: DbArea, heroes: Hero[]): Area {
     const areaType = StaticGameContentService.instance.getAreaType(dbModel.typeKey);
     const currentCombat = Combat.load(dbModel.currentCombat);
     const allCombatCharacters = [...currentCombat.team1, ...currentCombat.team2];
-    const areaHeroes = dbModel.heroes.map(dbHero => {
-      const combatCharacter = allCombatCharacters.find(c => c.id === dbHero.combatCharacterId);
+    const areaHeroes = dbModel.heroes.map(dbAreaHero => {
+      const combatCharacter = allCombatCharacters.find(c => c.id === dbAreaHero.combatCharacterId);
       if (!combatCharacter) {
-        throw Error (`Combat character with id: ${dbHero.combatCharacterId} is not in this combat.`);
+        throw Error (`Combat character with id: ${dbAreaHero.combatCharacterId} is not in this combat.`);
       }
-      return AreaHero.load(dbHero, combatCharacter);
+      const hero = heroes.find(h => h.id === dbAreaHero.heroId);
+      if (!hero) {
+        throw Error (`Hero not found. HeroId: ${dbAreaHero.heroId}`);
+      }
+      return AreaHero.load(dbAreaHero, combatCharacter, hero);
     });
     const loot = Loot.load(dbModel.loot);
     const area = new Area(dbModel, areaType, areaHeroes, currentCombat, loot);

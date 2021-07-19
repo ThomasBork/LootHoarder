@@ -15,7 +15,7 @@
       [["attack"], "power", 12],
       [["spell"], "power", 10]
     ],
-    "startingWeaponType": "longsword"
+    "startingWeaponType": "axe"
   },
   {
     "key": "shaman",
@@ -33,7 +33,7 @@
       [["attack"], "power", 10],
       [["spell"], "power", 12]
     ],
-    "startingWeaponType": "magic-wand"
+    "startingWeaponType": "spear"
   },
   {
     "key": "rogue",

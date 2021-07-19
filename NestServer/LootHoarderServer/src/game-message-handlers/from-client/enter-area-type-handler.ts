@@ -106,7 +106,7 @@ export class EnterAreaTypeHandler implements ICommandHandler<EnterAreaType> {
       }
     };
 
-    const area = Area.load(dbArea);
+    const area = Area.load(dbArea, game.heroes);
 
     command.game.addArea(area);
   }

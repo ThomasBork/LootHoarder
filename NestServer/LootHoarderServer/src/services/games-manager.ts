@@ -8,6 +8,7 @@ import { ContractServerWebSocketMessage } from 'src/loot-hoarder-contract/server
 import { Area } from 'src/computed-game-state/area/area';
 import { ContractChatMessageSentMessage } from 'src/loot-hoarder-contract/server-actions/contract-chat-message-sent-message';
 import { ContractServerChatMessageType } from 'src/loot-hoarder-contract/server-actions/contract-server-chat-message-type';
+import { DbGameRepository } from 'src/persistence/db-game-repository';
 
 @Injectable()
 export class GamesManager {
@@ -16,7 +17,10 @@ export class GamesManager {
 
   private static _instance: GamesManager;
 
-  public constructor(private readonly commandBus: CommandBus) {
+  public constructor(
+    private readonly commandBus: CommandBus,
+    private readonly dbGameRepository: DbGameRepository
+  ) {
     GamesManager._instance = this;
   }
 
@@ -29,7 +33,7 @@ export class GamesManager {
   }
 
   public addGame(game: Game, connection: Connection): GameCommunicationsWrapper {
-    const wrapper = new GameCommunicationsWrapper(game, this.commandBus, connection);
+    const wrapper = new GameCommunicationsWrapper(game, this.commandBus, connection, this.dbGameRepository);
     this.gameCommunicationsWrappers.push(wrapper);
     game.onHeroLevelUp.subscribe(hero => {
       const isOnlyHeroAtThisLevel = this.gameCommunicationsWrappers.every(otherWrapper =>

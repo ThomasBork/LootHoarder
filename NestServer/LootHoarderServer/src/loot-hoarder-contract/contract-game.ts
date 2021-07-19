@@ -21,4 +21,5 @@ export interface ContractGame {
   items: ContractItem[];
   disabledGameTabs: ContractGameTab[];
   maximumAmountOfHeroes: number;
+  gold: number;
 }

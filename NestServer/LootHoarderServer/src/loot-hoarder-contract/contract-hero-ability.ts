@@ -9,6 +9,7 @@ export interface ContractHeroAbility {
   cooldown: number;
   manaCost: number;
   criticalStrikeChance: number;
+  criticalStrikeMultiplier: number;
   timeToUse: number;
   effects: ContractAbilityEffect[];
 }

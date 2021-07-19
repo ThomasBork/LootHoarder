@@ -31,12 +31,7 @@ export class AreaHero {
     };
   }
 
-  public static load(dbModel: DbAreaHero, combatCharacter: CombatCharacter): AreaHero {
-    const gamesManager = GamesManager.instance;
-    const hero = gamesManager.getHero(dbModel.gameId, dbModel.heroId);
-    if (!hero) {
-      throw Error (`Hero not found. GameId: ${dbModel.gameId}, HeroId: ${dbModel.heroId}`);
-    }
+  public static load(dbModel: DbAreaHero, combatCharacter: CombatCharacter, hero: Hero): AreaHero {
     const areaHero = new AreaHero(dbModel, hero, combatCharacter);
     return areaHero;
   }
