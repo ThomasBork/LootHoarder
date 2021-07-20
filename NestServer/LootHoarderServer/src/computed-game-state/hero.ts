@@ -124,7 +124,7 @@ export class Hero {
     this.onEvent.setUpNewEventBucket();
     let experienceRequiredForNextLevel = this.getExperienceRequiredForNextLevel();
     this.dbModel.experience += experience;
-    while(this.dbModel.experience > experienceRequiredForNextLevel) {
+    while(this.dbModel.experience >= experienceRequiredForNextLevel) {
       this.dbModel.experience -= experienceRequiredForNextLevel;
       this.levelUp();
       experienceRequiredForNextLevel = this.getExperienceRequiredForNextLevel();

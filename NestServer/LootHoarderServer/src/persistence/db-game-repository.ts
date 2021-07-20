@@ -55,7 +55,9 @@ export class DbGameRepository {
 
     const queryWithParameterValues = this.dbQueryHelper.buildQuery(query, parameters);
 
-    return con.query(queryWithParameterValues);
+    await con.query(queryWithParameterValues);
+
+    con.end();
   }
 
   public async fetchAllGames(): Promise<DbGame[]> {
