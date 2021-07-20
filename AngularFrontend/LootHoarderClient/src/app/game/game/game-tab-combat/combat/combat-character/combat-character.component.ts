@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AbilityTagTranslator } from 'src/app/shared/ability-tag-translator';
+import { AbilityTagService } from 'src/app/shared/ability-tag.service';
 import { CombatCharacter } from '../../../client-representation/combat-character';
 import { CombatCharacterAbility } from '../../../client-representation/combat-character-ability';
 import { CombatCharacterFloatingNumber } from '../../../client-representation/combat-character-floating-number';
@@ -14,6 +15,8 @@ export class CombatCharacterComponent {
   public character!: CombatCharacter;
   @Input()
   public isTeam1!: boolean;
+
+  public constructor(private readonly abilityTagService: AbilityTagService) {}
 
   public getImagePath(): string {
     return `assets/images/combat-character/${this.character.typeKey}.png`;
@@ -38,19 +41,11 @@ export class CombatCharacterComponent {
   }
 
   public getAbilityTagColor(tag: string): string {
-    switch (tag) {
-      case "lightning": return 'yellow';
-      case "poison": return 'green';
-      case "elemental": return 'purple';
-      case "spell": return 'purple';
-      case "physical": return 'grey';
-      case "attack": return 'grey';
-      default: return 'white';
-    }
+    return this.abilityTagService.getColor(tag);
   }
 
   public getTranslatedAbilityTag(tag: string): string {
-    return AbilityTagTranslator.translate(tag);
+    return this.abilityTagService.translate(tag);
   }
 
   public getOpacity(floatingNumber: CombatCharacterFloatingNumber): number {

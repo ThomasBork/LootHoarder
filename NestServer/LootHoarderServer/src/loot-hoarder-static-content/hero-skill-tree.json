@@ -3815,9 +3815,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7272,9 +7272,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7290,9 +7290,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7308,9 +7308,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7326,9 +7326,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7344,9 +7344,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7362,9 +7362,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7380,9 +7380,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7398,7 +7398,7 @@
             "isAdditive": false,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
             "amount": 1.2
           }
@@ -7416,9 +7416,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7447,9 +7447,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7465,7 +7465,7 @@
             "isAdditive": false,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
             "amount": 1.2
           }
@@ -7483,9 +7483,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7501,9 +7501,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]
@@ -7519,9 +7519,9 @@
             "isAdditive": true,
             "attributeType": "power",
             "abilityTags": [
-              "poison"
+              "physical"
             ],
-            "amount": 15
+            "amount": 12
           }
         }
       ]

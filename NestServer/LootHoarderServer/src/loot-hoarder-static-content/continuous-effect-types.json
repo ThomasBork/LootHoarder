@@ -7,7 +7,7 @@
       {
         "typeKey": "take-damage-over-time",
         "parameters": {
-          "abilityTags": ["poison"],
+          "abilityTags": ["physical"],
           "damagePerSecond": null
         },
         "requiredDataParameters": ["damagePerSecond"]

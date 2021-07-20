@@ -23,7 +23,6 @@ export class BehaviorValueAttributeComponent implements OnInit {
     this.allAttributeTypes = Object.values(ContractAttributeType);
 
     this.allAbilityTags = [
-      'poison',
       'fire',
       'lightning',
       'physical',

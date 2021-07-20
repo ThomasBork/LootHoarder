@@ -6,7 +6,6 @@ export class AbilityTagService {
     switch (abilityTag) {
       case "lightning": return 'yellow';
       case "fire": return 'orange';
-      case "poison": return 'green';
       case "elemental": return 'purple';
       case "spell": return 'purple';
       case "physical": return 'grey';

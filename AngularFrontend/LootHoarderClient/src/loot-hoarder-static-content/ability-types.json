@@ -222,7 +222,7 @@
   {
     "key": "cobra-strike",
     "name": "Cobra Strike",
-    "tags": ["physical", "poison", "attack"],
+    "tags": ["physical", "attack"],
     "inheritedTags": ["attack"],
     "manaCost": 8,
     "timeToUse": 1000,
@@ -240,13 +240,13 @@
       {
         "key": "apply-continuous-effect",
         "target": "any-enemy",
-        "tags": ["poison", "debuff"],
+        "tags": ["physical", "debuff"],
         "parameters": {
           "continuousEffectTypeKey": "poisoned",
           "duration": 5000,
           "abilityParameters": [
             {
-              "damagePerSecond": 2
+              "damagePerSecond": 1
             }
           ]
         }
@@ -256,7 +256,7 @@
   {
     "key": "contamination",
     "name": "Contamination",
-    "tags": ["poison", "spell"],
+    "tags": ["physical", "spell"],
     "inheritedTags": ["spell"],
     "manaCost": 20,
     "timeToUse": 2000,
@@ -266,7 +266,7 @@
       {
         "key": "deal-damage",
         "target": "all-enemies",
-        "tags": ["poison"],
+        "tags": ["physical"],
         "parameters": {
           "baseAmount": 10
         }
@@ -274,13 +274,13 @@
       {
         "key": "apply-continuous-effect",
         "target": "all-enemies",
-        "tags": ["poison", "debuff"],
+        "tags": ["physical", "debuff"],
         "parameters": {
           "continuousEffectTypeKey": "poisoned",
           "duration": 10000,
           "abilityParameters": [
             {
-              "damagePerSecond": 4
+              "damagePerSecond": 2
             }
           ]
         }

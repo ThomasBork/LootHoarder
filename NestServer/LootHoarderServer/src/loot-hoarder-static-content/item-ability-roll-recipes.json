@@ -38,7 +38,7 @@
     "parameters": {
       "isAdditive": true,
       "attributeType": "power",
-      "abilityTags": ["poison"],
+      "abilityTags": ["physical"],
       "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon", "head"]
@@ -182,17 +182,6 @@
       "isAdditive": true,
       "attributeType": "resistance",
       "abilityTags": ["lightning"],
-      "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
-    },
-    "itemCategories": ["head", "chest", "legs", "foot"]
-  },
-  {
-    "weight": 1000,
-    "typeKey": "attribute",
-    "parameters": {
-      "isAdditive": true,
-      "attributeType": "resistance",
-      "abilityTags": ["poison"],
       "amount": { "min": 10, "max": 12, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["head", "chest", "legs", "foot"]
