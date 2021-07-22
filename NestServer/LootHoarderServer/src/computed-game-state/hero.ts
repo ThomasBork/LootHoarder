@@ -403,9 +403,9 @@ export class Hero {
   private setUpAbilityValueContainersForAbility(ability: HeroAbility): void {
     for(let effectIndex = 0; effectIndex < ability.effects.length; effectIndex++) {
       const effect = ability.effects[effectIndex];
-      this.setUpAbilityValueContainer(effect.abilityTypeEffect.tags, effect.powerVC, ContractAttributeType.power);
+      this.setUpAbilityValueContainer(effect.abilityTypeEffect.tags, effect.damageEffectVC, ContractAttributeType.damageEffect);
 
-      this.subscribeToHeroAbilityValueChange(effect.powerVC, ability.id, ContractHeroAbilityValueKey.power, effectIndex);
+      this.subscribeToHeroAbilityValueChange(effect.damageEffectVC, ability.id, ContractHeroAbilityValueKey.damageEffect, effectIndex);
     }
     this.setUpAbilityValueContainer(ability.type.tags, ability.useSpeedVC, ContractAttributeType.useSpeed);
     this.setUpAbilityValueContainer(ability.type.tags, ability.cooldownSpeedVC, ContractAttributeType.cooldownSpeed);

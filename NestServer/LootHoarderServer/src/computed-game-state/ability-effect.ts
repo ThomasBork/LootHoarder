@@ -6,7 +6,7 @@ import { ValueContainer } from "./value-container";
 export class AbilityEffect {
   public abilityType: AbilityType;
   public abilityTypeEffect: AbilityTypeEffect;
-  public powerVC: ValueContainer;
+  public damageEffectVC: ValueContainer;
 
   public constructor(
     abilityType: AbilityType,
@@ -15,7 +15,7 @@ export class AbilityEffect {
     this.abilityType = abilityType;
     this.abilityTypeEffect = abilityTypeEffect;
 
-    this.powerVC = new ValueContainer(0);
+    this.damageEffectVC = new ValueContainer(0);
   }
 
   public toContractModel(): ContractAbilityEffect {
@@ -23,7 +23,7 @@ export class AbilityEffect {
     return {
       abilityTypeKey: this.abilityType.key,
       abilityTypeEffectTypeIndex: abilityTypeEffectTypeIndex,
-      power: this.powerVC.value
+      damageEffect: this.damageEffectVC.value
     };
   }
 }

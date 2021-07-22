@@ -1,5 +1,5 @@
 export enum ContractHeroAbilityValueKey {
-  power = 'power',
+  damageEffect = 'damageEffect',
   useSpeed = 'useSpeed',
   cooldownSpeed = 'cooldownSpeed',
   cooldown = 'cooldown',

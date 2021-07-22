@@ -257,10 +257,10 @@ export class GameComponent implements OnInit, OnDestroy {
         const ability = hero.getAbility(data.abilityId);
         if (data.effectIndex !== undefined) {
           const effect = ability.effects[data.effectIndex];
-          if (data.valueKey !== ContractHeroAbilityValueKey.power) {
-            throw Error (`Expected value key to be ${ContractHeroAbilityValueKey.power}`);
+          if (data.valueKey !== ContractHeroAbilityValueKey.damageEffect) {
+            throw Error (`Expected value key to be ${ContractHeroAbilityValueKey.damageEffect}`);
           }
-          effect.power = data.newValue;
+          effect.damageEffect = data.newValue;
         } else {
           switch (data.valueKey) {
             case ContractHeroAbilityValueKey.cooldown:

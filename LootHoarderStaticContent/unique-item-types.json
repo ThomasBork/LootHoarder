@@ -14,7 +14,7 @@
         "typeKey": "attribute",
         "parameters": {
           "isAdditive": true,
-          "attributeType": "power",
+          "attributeType": "damage-effect",
           "abilityTags": ["attack"],
           "amount": 10
         }

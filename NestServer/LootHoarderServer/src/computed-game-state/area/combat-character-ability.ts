@@ -58,7 +58,7 @@ export class CombatCharacterAbility {
     this.dbModel.remainingCooldown = this.cooldownVC.value;
   }
 
-  public getUIState(): ContractCombatCharacterAbility {
+  public toContractModel(): ContractCombatCharacterAbility {
     return {
       id: this.dbModel.id,
       typeKey: this.dbModel.typeKey,

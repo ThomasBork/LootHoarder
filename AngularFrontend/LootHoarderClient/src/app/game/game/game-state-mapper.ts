@@ -221,7 +221,7 @@ export class GameStateMapper {
     return new AbilityEffect(
       abilityType,
       abilityTypeEffect,
-      serverAbilityEffect.power
+      serverAbilityEffect.damageEffect
     );
   }
 

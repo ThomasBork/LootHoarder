@@ -4,7 +4,7 @@
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
-      "attributeType": "power",
+      "attributeType": "damage-effect",
       "abilityTags": ["attack"],
       "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
@@ -15,7 +15,7 @@
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
-      "attributeType": "power",
+      "attributeType": "damage-effect",
       "abilityTags": ["fire"],
       "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
@@ -26,7 +26,7 @@
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
-      "attributeType": "power",
+      "attributeType": "damage-effect",
       "abilityTags": ["lightning"],
       "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
@@ -37,7 +37,7 @@
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
-      "attributeType": "power",
+      "attributeType": "damage-effect",
       "abilityTags": ["physical"],
       "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
@@ -48,7 +48,7 @@
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
-      "attributeType": "power",
+      "attributeType": "damage-effect",
       "abilityTags": ["spell"],
       "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
@@ -59,8 +59,8 @@
     "typeKey": "attribute",
     "parameters": {
       "isAdditive": true,
-      "attributeType": "power",
-      "abilityTags": ["heal"],
+      "attributeType": "health-recovery-effect",
+      "abilityTags": [],
       "amount": { "min": 10, "max": 20, "isInteger": true, "levelScaling": 1.05 }
     },
     "itemCategories": ["weapon", "head", "chest"]

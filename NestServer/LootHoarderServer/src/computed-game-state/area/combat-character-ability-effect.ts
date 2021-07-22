@@ -3,13 +3,17 @@ import { ValueContainer } from "../value-container";
 
 export class CombatCharacterAbilityEffect {
   public typeEffect: AbilityTypeEffect;
-  public powerVC: ValueContainer;
+  public damageEffectVC: ValueContainer;
+  public healthRecoveryEffectVC: ValueContainer;
+  public manaRecoveryEffectVC: ValueContainer;
 
   public constructor(
     typeEffect: AbilityTypeEffect
   ) {
     this.typeEffect = typeEffect;
 
-    this.powerVC = new ValueContainer(0);
+    this.damageEffectVC = new ValueContainer(0);
+    this.healthRecoveryEffectVC = new ValueContainer(0);
+    this.manaRecoveryEffectVC = new ValueContainer(0);
   }
 }

@@ -161,7 +161,7 @@ export class CombatCharacter {
       name: this.dbModel.name,
       controllingUserId: this.dbModel.controllingUserId,
       attributes: this.attributes.toContractModel(),
-      abilities: this.abilities.map(ability => ability.getUIState()),
+      abilities: this.abilities.map(ability => ability.toContractModel()),
       remainingTimeToUseAbility: this.remainingTimeToUseAbility,
       totalTimeToUseAbility: this.totalTimeToUseAbility,
       idOfAbilityBeingUsed: this.dbModel.idOfAbilityBeingUsed,
@@ -173,7 +173,9 @@ export class CombatCharacter {
   private setUpAbilityValueContainers(): void {
     for(const ability of this.abilities) {
       for(const effect of ability.effects) {
-        this.setUpAbilityValueContainer(effect.typeEffect.tags, effect.powerVC, ContractAttributeType.power);
+        this.setUpAbilityValueContainer(effect.typeEffect.tags, effect.damageEffectVC, ContractAttributeType.damageEffect);
+        this.setUpAbilityValueContainer(effect.typeEffect.tags, effect.healthRecoveryEffectVC, ContractAttributeType.healthRecoveryEffect);
+        this.setUpAbilityValueContainer(effect.typeEffect.tags, effect.manaRecoveryEffectVC, ContractAttributeType.manaRecoveryEffect);
       }
       this.setUpAbilityValueContainer(ability.type.tags, ability.useSpeedVC, ContractAttributeType.useSpeed);
       this.setUpAbilityValueContainer(ability.type.tags, ability.cooldownSpeedVC, ContractAttributeType.cooldownSpeed);

@@ -569,22 +569,45 @@
     "effects": [
       {
         "key": "deal-damage",
-        "target": "all",
+        "target": "all-enemies",
         "tags": ["fire", "elemental"],
         "parameters": {
           "baseAmount": 25
         }
       },
       {
+        "key": "deal-damage",
+        "target": "self",
+        "tags": ["fire", "elemental"],
+        "parameters": {
+          "baseAmount": 10
+        }
+      },
+      {
         "key": "apply-continuous-effect",
-        "target": "all",
-        "tags": ["fire", "debuff"],
+        "target": "all-enemies",
+        "tags": ["fire", "elemental", "debuff"],
         "parameters": {
           "continuousEffectTypeKey": "burning",
           "duration": 10000,
           "abilityParameters": [
             {
-              "damagePerSecond": 4
+              "damagePerSecond": 5
+            }, 
+            {}
+          ]
+        }
+      },
+      {
+        "key": "apply-continuous-effect",
+        "target": "self",
+        "tags": ["fire", "elemental", "debuff"],
+        "parameters": {
+          "continuousEffectTypeKey": "burning",
+          "duration": 10000,
+          "abilityParameters": [
+            {
+              "damagePerSecond": 2
             }, 
             {}
           ]

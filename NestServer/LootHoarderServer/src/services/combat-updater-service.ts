@@ -289,7 +289,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
 
           for(const dbPassiveAbility of dbContinuousEffect.abilities) {
             if (dbPassiveAbility.typeKey === ContractPassiveAbilityTypeKey.takeDamageOverTime) {
-              (dbPassiveAbility.parameters.damagePerSecond as number) *= effect.powerVC.value / 100;
+              (dbPassiveAbility.parameters.damagePerSecond as number) *= effect.damageEffectVC.value / 100;
             }
           }
 
@@ -301,7 +301,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
 
         let damageGiven = baseAmount;
 
-        damageGiven *= effect.powerVC.value / 100;
+        damageGiven *= effect.damageEffectVC.value / 100;
 
         if (isCriticalStrike) {
           const criticalStrikeDamageMultiplier = ability.criticalStrikeMultiplierVC.value / 100;
@@ -315,7 +315,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
       } else if (effect.typeEffect instanceof AbilityTypeEffectRecoverMana) {
         const baseAmount = effect.typeEffect.parameters.baseAmount;
 
-        let manaGiven = baseAmount;
+        let manaGiven = baseAmount * effect.manaRecoveryEffectVC.value / 100;
 
         for(const effectedCharacter of effectedCharacters) {
           const manaReceived = manaGiven;
@@ -325,7 +325,7 @@ export class CombatUpdaterService implements OnApplicationBootstrap {
       } else if (effect.typeEffect instanceof AbilityTypeEffectRecoverHealth) {
         const baseAmount = effect.typeEffect.parameters.baseAmount;
 
-        let healthGiven = baseAmount;
+        let healthGiven = baseAmount * effect.healthRecoveryEffectVC.value / 100;
 
         for(const effectedCharacter of effectedCharacters) {
           const healthReceived = healthGiven;

@@ -35,9 +35,9 @@ export class AbilityTextService {
 
   public getAbilityEffectDescription(effect: AbilityEffect): string {
     if (effect.abilityTypeEffect instanceof AbilityTypeEffectDealDamage) {
-      return this.getDealDamageDescription(effect.abilityTypeEffect, effect.power);
+      return this.getDealDamageDescription(effect.abilityTypeEffect, effect.damageEffect);
     } else if (effect.abilityTypeEffect instanceof AbilityTypeEffectApplyContinuousEffect) {
-      return this.getApplyContinuousEffectDescription(effect.abilityTypeEffect, effect.power);
+      return this.getApplyContinuousEffectDescription(effect.abilityTypeEffect, effect.damageEffect);
     } else if (effect.abilityTypeEffect instanceof AbilityTypeEffectRecoverMana) {
       return this.getRecoverManaDescription(effect.abilityTypeEffect);
     } else if (effect.abilityTypeEffect instanceof AbilityTypeEffectRecoverHealth) {
@@ -49,8 +49,8 @@ export class AbilityTextService {
     }
   }
 
-  private getDealDamageDescription(effect: AbilityTypeEffectDealDamage, characterPower: number): string {
-    const damageAmount = effect.parameters.baseAmount * (characterPower / 100);
+  private getDealDamageDescription(effect: AbilityTypeEffectDealDamage, characterDamageEffect: number): string {
+    const damageAmount = effect.parameters.baseAmount * (characterDamageEffect / 100);
     const tags = effect.tags
       .map(tag => AbilityTagTranslator.translate(tag))
       .join(' ');
@@ -63,7 +63,7 @@ export class AbilityTextService {
     return description;
   }
 
-  private getApplyContinuousEffectDescription(effect: AbilityTypeEffectApplyContinuousEffect, characterPower: number): string {
+  private getApplyContinuousEffectDescription(effect: AbilityTypeEffectApplyContinuousEffect, characterDamageEffect: number): string {
     const abilityTypeEffect = effect;
     const continuousEffectType = effect.parameters.continuousEffectType;
     const continuousEffectTypeName = continuousEffectType.name;
@@ -76,7 +76,7 @@ export class AbilityTextService {
         return this.getContinuousEffectAbilityRecipeDescription(
           recipe,
           additionalAbilityParameters,
-          characterPower
+          characterDamageEffect
         );
       });
 
@@ -126,18 +126,18 @@ export class AbilityTextService {
   private getContinuousEffectAbilityRecipeDescription(
     recipe: ContinuousEffectTypeAbilityRecipe, 
     additionalAbilityParameters: { [keys: string]: string | boolean | number | string[] },
-    power: number
+    damageEffect: number
   ): string {
     switch(recipe.passiveAbilityType.key) {
       case ContractPassiveAbilityTypeKey.takeDamageOverTime: {
         const abilityTags = recipe.parameters.abilityTags as string[];
-        const damagePerSecondBeforePower = additionalAbilityParameters.damagePerSecond as number;
+        const damagePerSecondBeforeDamageEffect = additionalAbilityParameters.damagePerSecond as number;
 
         const tagsWithSpaces = abilityTags
           .map(tag => AbilityTagTranslator.translate(tag))
           .join(' ');
         
-        const damagePerSecondGiven = damagePerSecondBeforePower * power / 100;
+        const damagePerSecondGiven = damagePerSecondBeforeDamageEffect * damageEffect / 100;
         const damagePerSecondGivenText = NumberPrinter.printFloorOnNthDecimal(damagePerSecondGiven, 0);
         const damageText = `${damagePerSecondGivenText}${tagsWithSpaces.length > 0 ? ' ' + tagsWithSpaces  : ''}`;
         const description = `deals ${damageText} damage per second`;

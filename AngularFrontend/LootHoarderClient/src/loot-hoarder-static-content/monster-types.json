@@ -6,7 +6,7 @@
     "baseAttributes": [
       [[], "maximum-health", 200],
       [[], "maximum-mana", 100],
-      [["attack"], "power", -50],
+      [["attack"], "damage-effect", -50],
       [["attack"], "use-speed", 50],
       [["attack"], "cooldown-speed", 50],
       [["attack"], "critical-strike-chance", 100],
@@ -17,7 +17,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 20],
       [[], "maximum-mana", 10],
-      [["attack"], "power", 5],
+      [["attack"], "damage-effect", 5],
       [["physical"], "resistance", 2],
       [["elemental"], "resistance", 10]
     ]
@@ -35,7 +35,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 50],
       [[], "maximum-mana", 5],
-      [["attack"], "power", 10],
+      [["attack"], "damage-effect", 10],
       [["physical"], "resistance", 5],
       [["elemental"], "resistance", 2]
     ]
@@ -47,7 +47,7 @@
     "baseAttributes": [
       [[], "maximum-health", 250],
       [[], "maximum-mana", 150],
-      [["attack"], "power", -70],
+      [["attack"], "damage-effect", -70],
       [["attack"], "use-speed", -50],
       [["spell"], "cooldown-speed", -50],
       [["physical"], "resistance", 20],
@@ -56,8 +56,8 @@
     "attributesPerLevel": [
       [[], "maximum-health", 30],
       [[], "maximum-mana", 20],
-      [["attack"], "power", 3],
-      [["spell"], "power", 10],
+      [["attack"], "damage-effect", 3],
+      [["spell"], "damage-effect", 10],
       [["physical"], "resistance", 5],
       [["elemental"], "resistance", 5]
     ]
@@ -75,8 +75,8 @@
     "attributesPerLevel": [
       [[], "maximum-health", 50],
       [[], "maximum-mana", 5],
-      [["attack"], "power", 10],
-      [["spell"], "power", 10],
+      [["attack"], "damage-effect", 10],
+      [["spell"], "damage-effect", 10],
       [["physical"], "resistance", 5],
       [["elemental"], "resistance", 5]
     ]
@@ -98,8 +98,8 @@
     "attributesPerLevel": [
       [[], "maximum-health", 50],
       [[], "maximum-mana", 5],
-      [["attack"], "power", 20],
-      [["spell"], "power", 10],
+      [["attack"], "damage-effect", 20],
+      [["spell"], "damage-effect", 10],
       [["physical"], "resistance", 2],
       [["elemental"], "resistance", 5]
     ]
@@ -119,8 +119,8 @@
     "attributesPerLevel": [
       [[], "maximum-health", 40],
       [[], "maximum-mana", 15],
-      [["attack"], "power", 10],
-      [["spell"], "power", 10],
+      [["attack"], "damage-effect", 10],
+      [["spell"], "damage-effect", 10],
       [["physical"], "resistance", 5],
       [["elemental"], "resistance", 5]
     ]
@@ -142,7 +142,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 20],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 10],
       [["elemental"], "resistance", 10]
     ]
@@ -155,7 +155,7 @@
       [[], "maximum-health", 500],
       [[], "maximum-mana", 150],
       [[], "use-speed", -50],
-      [[], "power", 30],
+      [[], "damage-effect", 30],
       [[], "critical-strike-chance", 100],
       [[], "critical-strike-multiplier", 100],
       [["physical"], "resistance", 150],
@@ -164,7 +164,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 40],
       [[], "maximum-mana", 10],
-      [[], "power", 15],
+      [[], "damage-effect", 15],
       [["physical"], "resistance", 30],
       [["elemental"], "resistance", 30]
     ]
@@ -183,7 +183,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 40],
       [[], "maximum-mana", 12],
-      [[], "power", 12],
+      [[], "damage-effect", 12],
       [["physical"], "resistance", 20],
       [["elemental"], "resistance", 20],
       [["fire"], "resistance", 40]
@@ -204,7 +204,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 75],
       [[], "maximum-mana", 15],
-      [[], "power", 15],
+      [[], "damage-effect", 15],
       [[], "use-speed", 2],
       [[], "cooldown-speed", 2],
       [["physical"], "resistance", 20],
@@ -226,7 +226,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 40],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 20],
       [["elemental"], "resistance", 30]
     ]
@@ -245,7 +245,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 30],
       [[], "maximum-mana", 10],
-      [["spell"], "power", 10],
+      [["spell"], "damage-effect", 10],
       [["physical"], "resistance", 20],
       [["elemental"], "resistance", 30]
     ]
@@ -265,7 +265,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 40],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 30],
       [["elemental"], "resistance", 20]
     ]
@@ -285,7 +285,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 40],
       [[], "maximum-mana", 10],
-      [[], "power", 15],
+      [[], "damage-effect", 15],
       [["physical"], "resistance", 5],
       [["elemental"], "resistance", 30]
     ]
@@ -304,7 +304,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 30],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 5],
       [["elemental"], "resistance", 5]
     ]
@@ -322,7 +322,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 40],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 10],
       [["elemental"], "resistance", 10]
     ]
@@ -340,7 +340,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 35],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 10],
       [["elemental"], "resistance", 10]
     ]
@@ -358,7 +358,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 35],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 10],
       [["elemental"], "resistance", 10]
     ]
@@ -376,7 +376,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 35],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 10],
       [["elemental"], "resistance", 10]
     ]
@@ -395,7 +395,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 50],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 20],
       [["elemental"], "resistance", 10]
     ]
@@ -414,7 +414,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 30],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 5],
       [["elemental"], "resistance", 5]
     ]
@@ -426,14 +426,14 @@
     "baseAttributes": [
       [[], "maximum-health", 500],
       [[], "maximum-mana", 150],
-      [[], "power", 50],
+      [[], "damage-effect", 50],
       [["physical"], "resistance", 150],
       [["elemental"], "resistance", 100]
     ],
     "attributesPerLevel": [
       [[], "maximum-health", 50],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [["physical"], "resistance", 15],
       [["elemental"], "resistance", 10]
     ]
@@ -453,7 +453,7 @@
     "attributesPerLevel": [
       [[], "maximum-health", 50],
       [[], "maximum-mana", 10],
-      [[], "power", 10],
+      [[], "damage-effect", 10],
       [[], "use-speed", 2],
       [[], "cooldown-speed", 2],
       [["physical"], "resistance", 10],

@@ -7,13 +7,13 @@
     "baseAttributes": [
       [[], "maximum-health", 1000],
       [[], "maximum-mana", 600],
-      [["attack"], "power", 25]
+      [["attack"], "damage-effect", 25]
     ],
     "attributesPerLevel": [
       [[], "maximum-health", 100],
       [[], "maximum-mana", 60],
-      [["attack"], "power", 12],
-      [["spell"], "power", 10]
+      [["attack"], "damage-effect", 12],
+      [["spell"], "damage-effect", 10]
     ],
     "startingWeaponType": "axe"
   },
@@ -25,13 +25,13 @@
     "baseAttributes": [
       [[], "maximum-health", 800],
       [[], "maximum-mana", 800],
-      [["spell"], "power", 25]
+      [["spell"], "damage-effect", 25]
     ],
     "attributesPerLevel": [
       [[], "maximum-health", 80],
       [[], "maximum-mana", 80],
-      [["attack"], "power", 10],
-      [["spell"], "power", 12]
+      [["attack"], "damage-effect", 10],
+      [["spell"], "damage-effect", 12]
     ],
     "startingWeaponType": "spear"
   },
@@ -43,14 +43,14 @@
     "baseAttributes": [
       [[], "maximum-health", 800],
       [[], "maximum-mana", 800],
-      [["attack"], "power", 15],
-      [["spell"], "power", 15]
+      [["attack"], "damage-effect", 15],
+      [["spell"], "damage-effect", 15]
     ],
     "attributesPerLevel": [
       [[], "maximum-health", 80],
       [[], "maximum-mana", 80],
-      [["attack"], "power", 12],
-      [["spell"], "power", 12]
+      [["attack"], "damage-effect", 12],
+      [["spell"], "damage-effect", 12]
     ],
     "startingWeaponType": "skinning-knife"
   },
@@ -62,14 +62,14 @@
     "baseAttributes": [
       [[], "maximum-health", 1000],
       [[], "maximum-mana", 600],
-      [["attack"], "power", 15],
-      [["spell"], "power", 15]
+      [["attack"], "damage-effect", 15],
+      [["spell"], "damage-effect", 15]
     ],
     "attributesPerLevel": [
       [[], "maximum-health", 100],
       [[], "maximum-mana", 60],
-      [["attack"], "power", 12],
-      [["spell"], "power", 12]
+      [["attack"], "damage-effect", 12],
+      [["spell"], "damage-effect", 12]
     ],
     "startingWeaponType": "longsword"
   }

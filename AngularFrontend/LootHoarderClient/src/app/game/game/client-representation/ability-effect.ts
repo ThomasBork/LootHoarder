@@ -4,15 +4,15 @@ import { AbilityTypeEffect } from "./ability-type-effect";
 export class AbilityEffect {
   public abilityType: AbilityType;
   public abilityTypeEffect: AbilityTypeEffect;
-  public power: number;
+  public damageEffect: number;
 
   public constructor(
     abilityType: AbilityType,
     abilityTypeEffect: AbilityTypeEffect,
-    power: number,
+    damageEffect: number,
   ) {
     this.abilityType = abilityType;
     this.abilityTypeEffect = abilityTypeEffect;
-    this.power = power;
+    this.damageEffect = damageEffect;
   }
 }

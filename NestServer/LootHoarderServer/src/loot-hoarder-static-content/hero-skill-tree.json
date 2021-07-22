@@ -2453,7 +2453,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical",
               "attack"
@@ -2472,7 +2472,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical",
               "attack"
@@ -2491,7 +2491,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical",
               "attack"
@@ -2510,7 +2510,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical",
               "attack"
@@ -2529,7 +2529,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical",
               "attack"
@@ -2633,7 +2633,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical",
               "attack"
@@ -2652,7 +2652,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "attack"
             ],
@@ -2670,7 +2670,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical",
               "attack"
@@ -2689,7 +2689,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical",
               "attack"
@@ -2708,7 +2708,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "attack"
             ],
@@ -2726,7 +2726,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -2744,7 +2744,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -2762,7 +2762,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [],
             "amount": 5
           }
@@ -2778,7 +2778,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [],
             "amount": 5
           }
@@ -2794,7 +2794,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [],
             "amount": 5
           }
@@ -2810,7 +2810,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [],
             "amount": 5
           }
@@ -2826,7 +2826,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [],
             "amount": 5
           }
@@ -3121,7 +3121,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "attack"
             ],
@@ -3139,7 +3139,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "attack"
             ],
@@ -3702,7 +3702,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "attack"
             ],
@@ -3720,7 +3720,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "attack"
             ],
@@ -3738,7 +3738,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "attack"
             ],
@@ -3756,7 +3756,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "attack"
             ],
@@ -3813,7 +3813,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -3847,7 +3847,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "spell"
@@ -3866,7 +3866,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -4172,7 +4172,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "attack"
@@ -4713,7 +4713,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -4742,7 +4742,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -4856,7 +4856,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": false,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -4885,7 +4885,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -4914,7 +4914,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "attack"
@@ -4933,7 +4933,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "attack"
@@ -4952,7 +4952,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "attack"
@@ -4984,7 +4984,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5002,7 +5002,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "attack"
@@ -5021,7 +5021,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "attack"
@@ -5040,7 +5040,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "attack"
@@ -5059,7 +5059,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "attack"
@@ -5078,7 +5078,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5096,7 +5096,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5114,7 +5114,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5150,7 +5150,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5181,7 +5181,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5199,7 +5199,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": false,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5217,7 +5217,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5235,7 +5235,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5253,7 +5253,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire"
             ],
@@ -5477,7 +5477,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -5495,7 +5495,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -5513,7 +5513,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -5531,7 +5531,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -5549,7 +5549,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": false,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -5567,7 +5567,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -5585,7 +5585,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -5603,7 +5603,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -5621,7 +5621,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -6155,7 +6155,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "spell"
@@ -6174,7 +6174,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "spell"
@@ -6193,7 +6193,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "spell"
@@ -6212,7 +6212,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "fire",
               "spell"
@@ -6231,7 +6231,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental"
             ],
@@ -6249,7 +6249,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental"
             ],
@@ -6267,7 +6267,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental"
             ],
@@ -6285,7 +6285,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": false,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental"
             ],
@@ -6303,7 +6303,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental"
             ],
@@ -6334,7 +6334,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental"
             ],
@@ -6370,7 +6370,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental"
             ],
@@ -6388,7 +6388,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental"
             ],
@@ -6406,7 +6406,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental"
             ],
@@ -6424,7 +6424,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -6442,7 +6442,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -6460,7 +6460,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -6478,7 +6478,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "spell"
             ],
@@ -6774,7 +6774,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "cold"
             ],
@@ -6792,7 +6792,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "cold"
             ],
@@ -6810,7 +6810,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "cold"
             ],
@@ -6828,7 +6828,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "cold"
             ],
@@ -6846,7 +6846,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "cold"
             ],
@@ -6998,7 +6998,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "cold"
             ],
@@ -7252,7 +7252,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "attack"
             ],
@@ -7270,7 +7270,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7288,7 +7288,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7306,7 +7306,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7324,7 +7324,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7342,7 +7342,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7360,7 +7360,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7378,7 +7378,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7396,7 +7396,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": false,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7414,7 +7414,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7445,7 +7445,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7463,7 +7463,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": false,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7481,7 +7481,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7499,7 +7499,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7517,7 +7517,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "physical"
             ],
@@ -7583,7 +7583,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7602,7 +7602,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7621,7 +7621,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7640,7 +7640,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7659,7 +7659,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7691,7 +7691,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7710,7 +7710,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": false,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7729,7 +7729,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7748,7 +7748,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7767,7 +7767,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7786,7 +7786,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"
@@ -7818,7 +7818,7 @@
           "typeKey": "attribute",
           "data": {
             "isAdditive": true,
-            "attributeType": "power",
+            "attributeType": "damage-effect",
             "abilityTags": [
               "elemental",
               "attack"

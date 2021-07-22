@@ -1,7 +1,7 @@
 export enum ContractAttributeType {
   maximumHealth = 'maximum-health',
   maximumMana= 'maximum-mana',
-  power= 'power',
+  damageEffect = 'damage-effect',
   useSpeed= 'use-speed',
   cooldownSpeed= 'cooldown-speed',
   resistance= 'resistance',
@@ -10,6 +10,6 @@ export enum ContractAttributeType {
   criticalStrikeChance = 'critical-strike-chance',
   criticalStrikeMultiplier = 'critical-strike-multiplier',
   damageTaken = 'damage-taken',
-  manaRecoveryPerSecond = 'mana-recovery-per-second',
-  healthRecoveryPerSecond = 'health-recovery-per-second'
+  manaRecoveryEffect = 'mana-recovery-effect',
+  healthRecoveryEffect = 'health-recovery-effect'
 }

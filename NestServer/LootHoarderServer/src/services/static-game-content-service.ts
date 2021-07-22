@@ -316,7 +316,9 @@ export class StaticGameContentService {
       new AttributeValueContainer(ContractAttributeType.damageTaken, [], 100),
       new AttributeValueContainer(ContractAttributeType.experienceGain, [], 100),
       new AttributeValueContainer(ContractAttributeType.itemDropChance, [], 100),
-      new AttributeValueContainer(ContractAttributeType.power, [], 100),
+      new AttributeValueContainer(ContractAttributeType.damageEffect, [], 100),
+      new AttributeValueContainer(ContractAttributeType.healthRecoveryEffect, [], 100),
+      new AttributeValueContainer(ContractAttributeType.manaRecoveryEffect, [], 100),
       new AttributeValueContainer(ContractAttributeType.useSpeed, [], 100)
     ];
   }
