@@ -21,7 +21,17 @@ export class PassiveAbilityAttribute extends PassiveAbility {
     const abilityTagText = abilityTags.length > 0 
       ? this.getAbilityTagList(abilityTags) + ' ' 
       : '';
-    const amountText = isAdditive ? amount : 'x' + amount;
+    const amountText = isAdditive ? amount : this.getMultiplicativeText(amount);
     return abilityTagText + attributeTypeText + ' ' + amountText;
+  }
+
+  private getMultiplicativeText(amount: number): string {
+    const changeInPercent = (amount - 1) * 100;
+    const prettyChangeInPercent = Math.round(changeInPercent);
+    if (changeInPercent > 0) {
+      return `+${prettyChangeInPercent}%`;
+    } else {
+      return `-${prettyChangeInPercent}%`;
+    }
   }
 }
